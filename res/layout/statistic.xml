@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:id="@+id/StatRow"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp"
+    android:paddingTop="14dp"
+    android:paddingBottom="14dp"
+    android:background="@drawable/list_view" >
+    
+	<TableRow >
+	    <TextView
+	        android:id="@+id/statisticDate"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:layout_weight="1"
+	        android:textColor="@color/text_color" />
+	
+	    <TextView
+	        android:id="@+id/statisticRate"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:gravity="center"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:textColor="@color/text_color" />
+		
+	    <ImageView 
+	        android:layout_gravity="center_vertical|center_horizontal"
+	        android:layout_marginRight="5dp"
+	        android:id="@+id/imgState"
+	        android:contentDescription="@string/netural"
+	        />
+	    
+	    <View
+	        android:layout_width="fill_parent"
+	        android:layout_height="1dp"
+	        android:background="@color/text_color" />
+	</TableRow>
+</TableLayout>

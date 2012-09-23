@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/repeat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+	<include 
+	    android:layout_alignParentTop="true"
+	    layout="@layout/actionbar_layout" /> 
+    	
+	<View
+        android:id="@+id/shaddowBookAdd"
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:layout_below="@id/layoutHeader"
+        android:background="@drawable/drop_shaddow2" />
+	
+	
+	    <TextView
+	        android:id="@+id/boxLabel"
+	        android:layout_below="@id/shaddowBookAdd"
+	        android:text="@string/book_add_head"
+	        style="@style/boxLabel"
+	 		/>
+	
+	    <EditText
+	        android:id="@+id/addBookName"
+	        style="@style/editText"
+	        android:background="@drawable/input"
+	        android:layout_below="@id/boxLabel"
+	        android:hint="@string/title"
+	        android:lines="1" />
+	    
+	      
+	    <Button
+	        android:id="@+id/submitAdd"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_below="@id/addBookName"
+	        android:text="@string/submit" />
+	    
+	     <Button
+	        android:id="@+id/cancelAdd"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/addBookName"
+	        android:layout_toLeftOf="@id/submitAdd"
+	        android:text="@string/cancel" />
+</RelativeLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/repeat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+	<include 
+	    android:layout_alignParentTop="true"
+	    layout="@layout/actionbar_layout" /> 
+    
+	
+	<View
+        android:id="@+id/shaddowLectureEdit"
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:layout_below="@id/layoutHeader"
+        android:background="@drawable/drop_shaddow" />
+		
+    <RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_below="@id/shaddowLectureEdit"  >
+	
+	    <TextView
+	        android:id="@+id/boxLabel"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        style="@style/boxLabel"
+	        android:text="@string/lecture_edit_head"
+	 		/>
+		
+	    <EditText
+	        android:id="@+id/editLectureName"
+	        style="@style/editText"
+	        android:layout_below="@id/boxLabel"
+	        android:background="@drawable/input"
+	        android:hint="@string/title"
+	        android:lines="1" />
+	    
+	    
+	      <Button
+	        android:id="@+id/submitLectureEdit"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_below="@id/editLectureName"
+	        android:text="@string/submit" />
+	      
+	    <Button
+	        android:id="@+id/cancelLectureEdit"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/editLectureName"
+	        android:layout_toLeftOf="@id/submitLectureEdit"
+	        android:text="@string/cancel" />
+  
+	</RelativeLayout> 
+</RelativeLayout>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Dril</string>
+    <string name="app_name_long">Dril - english effectively</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="btn_start">Start dril</string>
+    <string name="btn_book">Textbooks</string>
+    <string name="btn_stats">Statistics</string>
+    <string name="btn_info">Helper</string>
+    <string name="question">Question:</string>
+    <string name="answer">Answer:</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="showAnswerBtn">Get an answer</string>
+    <string name="zero_cards_alert">There are no cards activated</string>
+    <string name="book_add">Add textbook</string>
+    <string name="book_add_head">Add your own textbook</string>
+    <string name="view">View</string>
+    <string name="edit">Rename</string>
+    <string name="editWord">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="active">Activate</string>
+    <string name="deactive">Deactivate</string>
+    <string name="deleted">Successfully deleted</string>
+    <string name="book_not_deleted">The textbook could not be deleted</string>
+    <string name="no_book_available">There are not textbooks</string>
+    
+    <string name="title">Name</string>
+    <string name="book_not_added">Some error occured, textbook was not added</string>
+    <string name="lecture_added">Lesson successfully added</string>
+    <string name="lecture_not_added">Lekciu sa nepodarilo pridať</string>
+    <string name="book_added">The lesson was not added</string>
+    
+    <string name="lecture_count">Počet lekcií: %1$d / kartičiek: %2$d / aktivované: %3$d</string>
+    <string name="word_count">Počet kartičiek v lekcii: %1$d, z toho aktivovaných: %2$d</string>
+    <string name="book_edit_head">Edit textbook</string>
+    
+    <string name="submit">Save</string>
+	<string name="cancel">Cancel</string>
+	<string name="saved_ok">Successfully saved</string>
+	<string name="saved_no">Changes could not be saved</string>
+	
+	<string name="no_lecture_available">Textbook not contain any lessons</string>
+	<string name="lecture">Lessons</string>
+	<string name="options">Options</string>
+	<string name="random_active_ten">Activate 10 cards randomly</string>
+	<string name="lecture_deactive_all">Deactivate all cards</string>
+	<string name="home">Go to dashboard</string>
+	
+    <string name="lecture_add_head">Add lesson</string>
+    <string name="lecture_edit_head">Rename lesson</string>
+	<string name="lecture_not_deleted">Deleting of lesson failed</string>
+	
+	<string name="word_add_label">Add card to:</string>
+	<string name="word_added">Card was successfully added</string>
+	<string name="word_not_added">Adding of card failed</string>
+	<string name="word_not_deleted">Deleting of card failed</string>
+	<string name="no_word_available">Lecture not contain any cards</string>
+	<string name="word_edit_label">Edit card</string>
+	
+	<string name="word_active">Card activated</string>
+	<string name="word_not_active">Activating of card failed</string>
+	<string name="word_deactive">Card is deactivated</string>
+	<string name="words_deactived">Cards are deactivated</string>
+	<string name="word_not_deactive">Deactivating of cards failed</string>
+	
+	<string name="error">Some error occured, try it again</string>
+	<string name="selected">Selected:</string>
+	<string name="wordAction">Card:</string>
+	<string name="activated_words">Drilling: %2$d/%1$d  |  viewed: %3$dx |  last rating: %4$s</string>
+	<string name="dril_finished">Drill was completed! You can activate new cards.</string>
+	<string name="pronauce_question">speech question</string>
+	<string name="pronauce_answer">speech answer</string>
+	<string name="speach_failed">Could not be pronounced given expression!</string>
+	<string name="word_not_selected">No card selected</string>
+	
+    <string name="menu_about">About app</string>
+    <string name="copy">Copyright &#169; 2012 Peter Jurkovič</string>
+    <string name="version">Version </string>
+    <string name="pageLink">www.peterjurkovic.sk</string>
+    <string name="fb">Facebook page</string>
+    <string name="email">email</string>
+    <string name="send_email">Send email to author</string>
+    <string name="activated">Activated</string>
+    
+    <string name="no_data_available">There are no data available</string>
+    
+    <string name="table_book_count">Count of textbooks:</string>
+    <string name="table_lecture_count">Count of lessons:</string>
+    <string name="table_word_count">Count of cards:</string>
+    <string name="table_book_active_count">Count of activated cards:</string>
+    <string name="table_avg_rate">Your average rate:</string>
+    <string name="table_finished">Number of learned cards:</string>
+    <string name="stats_fully">General statisticsy</string>
+    <string name="stats_session">Individual statistics</string>
+    
+    <string name="netural">no progress</string>
+    <string name="good">Improvement</string>
+    <string name="bad">Worsening</string>
+    <string name="dril_date">Date of drilling</string>
+    <string name="dril_avg">Average rating</string>
+    <string name="error_no_data">Can not load data</string>
+	
+    <!-- INFO  -->
+    
+    <string name="about_app">About app</string>
+    <string name="app_descr">Dril application is created for learning English words and phrases. Dril is based on the method of repetition, it is an effective way of memorizing e.g. words, or other information for the lern.</string>
+    <string name="info_btn_head">What does the buttons means?</string>
+    <string name="ibtn1">1. - I knew it immediately, the card is no longer displayed in the drill.</string>
+    <string name="ibtn2">2. - I knew it, but I had to think a moment, the card will in the dril again.</string>
+    <string name="ibtn3">3. - I knew it with some little error. The card will be displayed again.</string>
+    <string name="ibtn4">4. - I did not know it, but somewhere I saw / heard! The card will be displayed again.</string>
+    <string name="ibtn5">5. - I\'v never seen before, I sow it first time, the card will be displayed again.</string>
+	<string name="how_its_work">How its work?</string>
+	<string name="how_its_work_descr">At the first you must choose in the section \"Textbooks\" cards that you want to learn. This can be done in two ways. Long click on the lesson, then in the pop-up menu, select \"Activate 10 cards randomly\", or individually select and activate some cards. </string>
+</resources>

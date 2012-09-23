@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat" >
+
+    <include
+        android:layout_alignParentTop="true"
+        layout="@layout/actionbar_layout" />
+
+  <LinearLayout
+      android:id="@+id/sessionStatsNav"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:layout_below="@id/layoutHeader"
+      android:background="@drawable/word_view_menubox"
+      android:paddingTop="1dp"
+      tools:ignore="UnknownIdInLayout" >
+       
+         <Button 
+          	android:text="@string/stats_session"
+          	android:background="@drawable/stats_lines"
+          	style="@style/wordViewBtn"
+          	android:alpha=".4"
+          	android:clickable="false"
+            />
+        
+          <Button 
+            android:id="@+id/statsCommon"
+          	android:text="@string/stats_fully"
+          	android:background="@drawable/stats_btn"
+          	android:layout_marginLeft="1dp"
+          	style="@style/wordViewBtn"
+          
+            />
+    </LinearLayout>
+    
+  <FrameLayout
+	    android:id="@+id/statSessionHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/sessionStatsNav"
+        android:background="#DEDEDE" >
+
+        <TextView
+            style="@style/drilLabel"
+        	android:layout_gravity="left"
+        	android:layout_marginTop="2dp"
+        	android:text="@string/dril_date"/>
+        
+        <TextView
+            style="@style/drilLabel"
+        	android:layout_marginTop="2dp"
+        	android:layout_gravity="right"
+        	android:paddingRight="10dp"
+        	android:text="@string/dril_avg"/>
+		       
+	</FrameLayout>
+
+    <View
+        android:id="@+id/shaddowSessionStat"
+        android:layout_width="match_parent"
+        android:layout_height="3sp"
+        android:layout_below="@+id/statSessionHeader"
+        android:background="@drawable/drop_shaddow" />
+    
+
+	
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shaddowSessionStat"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/shaddowSessionStat"
+        android:gravity="center"
+        android:text="@string/no_data_available"
+        android:textColor="#f00"
+        android:background="#fff"
+        android:visibility="visible" />
+
+</RelativeLayout>

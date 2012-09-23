@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Dril</string>
+    <string name="app_name_long">Dril - angličtina efektívne</string>
+    <string name="dashboard">Ovladací panel</string>
+    <string name="btn_start">Spustiť dril</string>
+    <string name="btn_book">Učebnice</string>
+    <string name="btn_stats">Štatistiky</string>
+    <string name="btn_info">Pomocník</string>
+    <string name="question">Otázka:</string>
+    <string name="answer">Odpoveď:</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="showAnswerBtn">Ukázať odpoveď</string>
+    <string name="zero_cards_alert">Nie su aktivované žiadne kartičky</string>
+    <string name="book_add">Pridať učebnicu</string>
+    <string name="book_add_head">Pridanie vlastnej učebnice</string>
+    <string name="view">Zobraziť</string>
+    <string name="edit">Premenovať</string>
+    <string name="editWord">Upraviť</string>
+    <string name="delete">Zmazať</string>
+    <string name="active">Aktivovať</string>
+    <string name="deactive">Deaktivovať</string>
+    <string name="deleted">Úspešne zmazané</string>
+    <string name="book_not_deleted">Knihu sa nepodarilo zmazať.</string>
+    <string name="no_book_available">Nie su evidované žiadne knihy</string>
+    
+    <string name="title">Názov</string>
+    <string name="book_not_added">Knihu sa nepodarilo pridať</string>
+    <string name="lecture_added">Lekcia úspešne pridaná</string>
+    <string name="lecture_not_added">Lekciu sa nepodarilo pridať</string>
+    <string name="book_added">Kniha úspešne pridaná</string>
+    
+    <string name="lecture_count">Počet lekcií: %1$d / kartičiek: %2$d / aktivované: %3$d</string>
+    <string name="word_count">Počet kartičiek v lekcii: %1$d, z toho aktivovaných: %2$d</string>
+    <string name="book_edit_head">Upravenie učebnice</string>
+    
+    <string name="submit">Uložiť</string>
+	<string name="cancel">Zrušiť</string>
+	<string name="saved_ok">Úspešne uložené</string>
+	<string name="saved_no">Zmeny sa nepodarilo uložiť</string>
+	
+	<string name="no_lecture_available">Učebnica neobsahuje žiadne lekcie</string>
+	<string name="lecture">Lekcie</string>
+	<string name="options">Možnosti</string>
+	<string name="random_active_ten">Náhodne aktivovať 10 kartičiek</string>
+	<string name="lecture_deactive_all">Deaktivovať všetky kartičky</string>
+	<string name="home">Zobraziť ovládací panel</string>
+	
+    <string name="lecture_add_head">Pridanie lekcie</string>
+    <string name="lecture_edit_head">Zmena názvu lekcie</string>
+	<string name="lecture_not_deleted">Lekciu sa nepodarilo zmazať</string>
+	
+	<string name="word_add_label">Pridanie kartičky do:</string>
+	<string name="word_added">Kartička úspešne vytvorená</string>
+	<string name="word_not_added">Kartičku sa nepodarilo vytvoriť</string>
+	<string name="word_not_deleted">Kartičku sa nepodarilo zmazať</string>
+	<string name="no_word_available">Lekcia neobsahuje žiadne kartičky</string>
+	<string name="word_edit_label">Editacia kartičky</string>
+	
+	<string name="word_active">Kartička je aktivovaná</string>
+	<string name="word_not_active">Kartičku sa nepodarilo aktivovať</string>
+	<string name="word_deactive">Kartička je deaktivovaná</string>
+	<string name="words_deactived">Kartičky sú deaktivované</string>
+	<string name="word_not_deactive">Kartičku sa nepodarilo deaktivovať</string>
+	
+	<string name="error">Operáciu sa nepodarilo vykonať</string>
+	<string name="selected">Označené:</string>
+	<string name="wordAction">Kartičku:</string>
+	<string name="activated_words">Drilovanie: %2$d/%1$d  |  zobazená: %3$dx |  posledné hodnotenie: %4$s</string>
+	<string name="dril_finished">Dril bol dokončený! Aktivujte si nové kartičky</string>
+	<string name="pronauce_question">Vysloviť otázku</string>
+	<string name="pronauce_answer">Vysloviť odpoveď</string>
+	<string name="speach_failed">Nie je možne vysloviť uvedený výraz!</string>
+	<string name="word_not_selected">Nie sú označené žiadne kartičky</string>
+	
+    <string name="menu_about">O aplikácii</string>
+    <string name="copy">Copyright &#169; 2012 Peter Jurkovič</string>
+    <string name="version">Version </string>
+    <string name="pageLink">www.peterjurkovic.sk</string>
+    <string name="fb">Facebook page</string>
+    <string name="email">email</string>
+    <string name="send_email">Odoslať email autorovi</string>
+    <string name="activated">Aktivované</string>
+    
+    <string name="no_data_available">Nie sú dostupné žiadne dáta</string>
+    
+    <string name="table_book_count">Počet učebnic:</string>
+    <string name="table_lecture_count">Počet lekcií:</string>
+    <string name="table_word_count">Počet kartičiek:</string>
+    <string name="table_book_active_count">Počet aktivovaných katičiek:</string>
+    <string name="table_avg_rate">Vaše priemerné hodnotenie:</string>
+    <string name="table_finished">Počet zvládnutých kartičiek:</string>
+    <string name="stats_fully">Všeobecné štatistiky</string>
+    <string name="stats_session">Jednotlivé štatistiky</string>
+    
+    <string name="netural">žiadny pokrok</string>
+    <string name="good">Zlepšenie</string>
+    <string name="bad">Zhoršenie</string>
+    <string name="dril_date">Dátum drilovania</string>
+    <string name="dril_avg">Priemerná známka</string>
+	<string name="error_no_data">Nepodarilo sa načítať dáta</string>
+    <!-- INFO  -->
+    
+    <string name="about_app">O aplikácii</string>
+    <string name="app_descr">Aplikácia Dril je určená na učenie anglických slovíčok a fráz. Dril je založený na metóde opakovania, je to efektívny spôsob memorovania napr. slovíčok či iných jednotlivých informácií určených na naučenie sa naspamäť.</string>
+    <string name="info_btn_head">Čo znamenajú jednotlivé tlačítka?</string>
+    <string name="ibtn1">1. - Vedel som to okamžite, kartička sa už v drile nezobrazí.</string>
+    <string name="ibtn2">2. - Vedel som to, ale musel som chvíľku rozmýšlať, kartička sa v drile znova zobrazí.</string>
+    <string name="ibtn3">3. - Vedel som to len približne a s chybou. Kartička bude znova zobrazená.</string>
+    <string name="ibtn4">4. - Nevedel som to, ale už som to niekde videl/počul! Kartička bude znova zobrazená.</string>
+    <string name="ibtn5">5. - Nevedel som to, vidim to prvý krát. Kartička bude znova zobrazená.</string>
+	<string name="how_its_work">Ako to funguje?</string>
+	<string name="how_its_work_descr">Ako prvé si musíte vybrať v sekcii \"Učebnice\" kartičky, ktoré chcete drilovať, resp. učiť sa. To je možné spraviť dvomi spôsobmi. Dlhým kliknutím na lekciu, následne v kontextovom menu zvoliť \"Náhodne aktivovať 10 kartičiek\", alebo si jednotlivo vybrať kartičky a aktivovať ich. </string>
+</resources>

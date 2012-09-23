@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/repeat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+	<include 
+	    android:layout_alignParentTop="true"
+	    layout="@layout/actionbar_layout" /> 
+    
+	<View
+        android:id="@+id/shaddowBookEdit"
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:layout_below="@id/layoutHeader"
+        android:background="@drawable/drop_shaddow2" />
+	
+    <RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_below="@id/shaddowBookEdit"  >
+	
+	    <TextView
+	        android:id="@+id/boxLabel"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        style="@style/boxLabel"
+	        android:text="@string/book_edit_head"
+	 		/>
+		
+	    <EditText
+	        android:id="@+id/editBookName"
+	        style="@style/editText"
+	        android:layout_below="@id/boxLabel"
+	        android:background="@drawable/input"
+	        android:hint="@string/title"
+	        android:lines="1" />
+	    
+	    <TextView
+	        android:id="@+id/editBookId"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+			android:visibility="gone"
+	 		/>
+	    
+	      <Button
+	        android:id="@+id/submitEdit"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_below="@id/editBookName"
+	        android:text="@string/submit" />
+	      
+	    <Button
+	        android:id="@+id/cancelEdit"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/editBookName"
+	        android:layout_toLeftOf="@id/submitEdit"
+	        android:text="@string/cancel" />
+  
+	</RelativeLayout> 
+</RelativeLayout>

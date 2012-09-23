@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dril"
+    android:background="@drawable/repeat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+	    
+    <LinearLayout
+        android:id="@+id/wordViewNav"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/layoutHeader"
+        android:background="@drawable/word_view_menubox">
+        
+        <TextView 
+            android:text="@string/wordAction"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+			android:gravity="center_vertical"
+			android:textSize="10dp"
+			android:textColor="#eee"      
+			android:paddingRight="5dp"
+			android:paddingLeft="5dp"       
+             />
+        
+        <Button 
+            android:id="@+id/viewDelete"
+          	android:text="@string/delete"
+          	android:background="@drawable/word_view_btn_del"
+          	style="@style/wordViewBtn"
+            />
+        
+         <Button 
+            android:id="@+id/viewEdit"
+          	android:text="@string/editWord"
+          	android:background="@drawable/word_view_btn_edit"
+          	style="@style/wordViewBtn"
+          	android:layout_marginLeft="1dp"
+          	android:layout_marginRight="1dp"
+            />
+         
+         <Button 
+            android:id="@+id/viewActive"
+          	android:text="@string/active"
+          	android:background="@drawable/word_view_btn_start"
+          	style="@style/wordViewBtn"
+            />
+         
+         <Button 
+            android:id="@+id/viewDeactive"
+          	android:text="@string/deactive"
+          	android:background="@drawable/word_view_btn_stop"
+          	style="@style/wordViewBtn"
+            />
+        
+    </LinearLayout>
+
+    <View
+        android:id="@+id/shaddowWordView"
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:layout_below="@+id/wordViewNav"
+        android:background="@drawable/drop_shaddow" />
+
+    <TextView
+        android:id="@+id/viewQuestionLabel"
+        style="@style/boxLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shaddowWordView"
+        android:text="@string/question" />
+
+    <TextView
+        android:id="@+id/viewQuestion"
+        style="@style/drilBox"
+        android:layout_below="@id/viewQuestionLabel"
+        android:background="@drawable/question" />
+
+    <TextView
+        android:id="@+id/viewAnswerLabel"
+        style="@style/boxLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewQuestion"
+        android:text="@string/answer" />
+
+    <TextView
+        android:id="@+id/viewAnswer"
+        style="@style/drilBox"
+        android:layout_below="@id/viewAnswerLabel"
+        android:background="@drawable/question"
+        android:visibility="visible" />
+
+</RelativeLayout>

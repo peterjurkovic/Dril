@@ -1,0 +1,43 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="sk.peterjurkovic.dril"
+    android:versionCode="2"
+    android:versionName="1.0 BETA" >
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="16" />
+
+    <application 
+        android:theme="@android:style/Theme.Light.NoTitleBar" 
+        android:icon="@drawable/laucher_icon" 
+        android:label="@string/app_name">
+        
+        <activity 
+            android:name=".DashboardActivity"
+            android:launchMode="singleTask"
+             >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".DrilActivity" android:launchMode="singleTask" />
+        <activity android:name=".AddBookActivity" />
+        <activity android:name=".AddLectureActivity" />
+        <activity android:name=".EditBookActivity" />
+        <activity android:name=".LectureListActivity" />
+        <activity android:name=".EditLectureActivity" />
+        <activity android:name=".BookListActivity" />
+        <activity android:name=".WordActivity" />
+        <activity android:name=".AddWordActivity" />
+        <activity android:name=".EditWordActivity" />
+        <activity android:name=".ViewWordActivity" />
+        <activity android:name=".StatisticActivity" />
+        <activity android:name=".SessionStatisticActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".InfoActivity" />
+    </application>
+
+</manifest>

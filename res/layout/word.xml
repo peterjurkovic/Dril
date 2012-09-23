@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/word_normal"
+    	android:orientation="vertical"
+    >     
+	
+    <CheckBox
+        android:id="@+id/myCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="13dp"
+        android:background="@drawable/checkbox"
+        android:checked="false"
+        android:focusable="false"
+        android:gravity="center|center_horizontal"
+        android:minWidth="38dp"
+        android:paddingRight="5dip" />
+   
+    <TextView
+        android:id="@+id/adapter_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dp"
+        android:layout_toRightOf="@id/myCheckBox"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="55dp"
+        android:paddingBottom="3dp"
+        android:paddingLeft="10dp"
+        android:textColor="#333333"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="13dp" />
+	
+	    
+    <TextView
+        android:id="@+id/adapter_answer"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/adapter_question"
+        android:layout_toRightOf="@id/myCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="3dp"
+        android:layout_marginRight="55dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="10dp"
+        android:textColor="#333333"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="13dp" />
+	
+     
+    
+    <View 
+        android:layout_below="@id/adapter_answer"
+	    android:layout_width="fill_parent"
+		android:layout_height="1dp"
+		android:background="@android:color/white" />
+    
+</RelativeLayout>

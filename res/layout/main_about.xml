@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FAFAFA"
+    android:orientation="vertical"
+    tools:ignore="UnknownIdInLayout" >
+
+    <include
+        android:layout_alignParentTop="true"
+        layout="@layout/actionbar_layout" />
+
+    <View
+        android:id="@+id/aboutShaddow"
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:layout_below="@id/layoutHeader"
+        android:background="@drawable/drop_shaddow2"
+      
+         />
+
+    <TextView
+        android:id="@+id/abaoutHead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/aboutShaddow"
+        android:gravity="center"
+        android:paddingTop="40dp"
+        android:text="@string/app_name_long"
+        android:textColor="#084166"
+        android:textSize="15dp" />
+	
+
+
+       <Button
+           android:id="@+id/homeWebPage"
+           android:layout_below="@id/abaoutHead"
+           android:layout_marginTop="40dp"    
+           style="@style/pageLink"
+           android:autoLink="web"
+           android:onClick="goWebPage"
+           android:text="@string/pageLink" />
+       
+       <Button
+           android:id="@+id/fbWebPage"
+           style="@style/pageLink"
+           android:layout_below="@id/homeWebPage"
+           android:layout_marginTop="15dp"
+           android:autoLink="web"
+           android:onClick="goToFbPage"
+           android:text="@string/fb"
+           android:textColor="@color/text_color" />
+       
+       <Button
+           style="@style/pageLink"
+           android:layout_below="@id/fbWebPage"
+           android:layout_marginTop="15dp"
+           android:autoLink="email"
+           android:onClick="sendEmail"
+           android:text="@string/email" 
+           android:textColor="@color/text_color" />
+     	
+      
+    <TextView 
+        android:id="@+id/copy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/copy"
+        android:gravity="center"
+        android:textColor="#333333"
+        android:textSize="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="12dp"
+        />
+    
+    <TextView 
+        android:id="@+id/version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_above="@id/copy"
+        android:gravity="center"
+        android:textColor="#333333"
+        android:textSize="10dp"
+        />
+</RelativeLayout>
