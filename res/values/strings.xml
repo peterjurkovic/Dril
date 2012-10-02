@@ -117,4 +117,5 @@
     <string name="ibtn5">5. - I\'v never seen before, I sow it first time, the card will be displayed again.</string>
 	<string name="how_its_work">How its work?</string>
 	<string name="how_its_work_descr">At the first you must choose in the section \"Textbooks\" cards that you want to learn. This can be done in two ways. Long click on the lesson, then in the pop-up menu, select \"Activate 10 cards randomly\", or individually select and activate some cards. </string>
+	<string name="update">Update textbooks</string>
 </resources>

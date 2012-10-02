@@ -14,7 +14,12 @@ public class Word {
 	private int rate;
 
 	private boolean active;
-
+	
+	public Word(String question, String answare){
+		this.question = question;
+		this.answare = answare;
+	}
+	
 	public Word(long id, String question, String answare, int hit, int rate,boolean active) {
 		super();
 		this.id = id;

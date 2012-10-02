@@ -6,7 +6,9 @@
     <uses-sdk
         android:minSdkVersion="7"
         android:targetSdkVersion="16" />
-
+    
+	<uses-permission android:name="android.permission.INTERNET" /> 
+	
     <application 
         android:theme="@android:style/Theme.Light.NoTitleBar" 
         android:icon="@drawable/laucher_icon" 
@@ -38,6 +40,7 @@
         <activity android:name=".SessionStatisticActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".InfoActivity" />
+        <activity android:name=".UpdateActivity" />
     </application>
 
 </manifest>

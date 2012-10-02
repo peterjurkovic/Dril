@@ -37,6 +37,10 @@ public class MainActivity extends  Activity{
 	        i = new Intent(this, AboutActivity.class);
 	        startActivityForResult(i, MENU_ACTION_ABOUT);
 	        return true;
+	    case R.id.menu_update:
+	        i = new Intent(this, UpdateActivity.class);
+	        startActivityForResult(i, MENU_ACTION_ABOUT);
+	        return true;
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }
