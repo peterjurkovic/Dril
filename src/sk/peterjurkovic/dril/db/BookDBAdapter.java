@@ -35,7 +35,7 @@ public class BookDBAdapter extends DBAdapter {
 								"CREATE TABLE "+ TABLE_BOOK + " (" + 
 										BOOK_ID +" INTEGER PRIMARY KEY ," + 
 										BOOK_NAME + " TEXT " +
-										VERSION +" INTEGER," + 
+										VERSION +" INTEGER NOT NULL DEFAULT (0)," + 
 								");";
 	
 	public static final String  TAG = "BookDBAdapter";

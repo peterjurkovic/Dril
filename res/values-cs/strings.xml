@@ -117,4 +117,17 @@
     <string name="ibtn5">5. - Nevěděl jsem to, vidim to poprvé. Kartička bude znovu zobrazena.</string>
 	<string name="how_its_work">Jak to funguje?</string>
 	<string name="how_its_work_descr">Jako první si musíte vybrat v sekci \ "Učebnice \" kartičky, které chcete drilovat, resp. učit se. To je možné udělat dvěma způsoby. Dlouhým kliknutím na lekci, následně v kontextovém menu zvolit \ "Náhodně aktivovat 10 kartiček \", nebo si jednotlivě vybrat kartičky a aktivovat je.</string>
+	<!-- UPDATE -->
+	<string name="check_for_update">Zkontrolovat aktualizace</string>
+	<string name="update_textbooks">Aktualizovat učebnice</string>
+	<string name="update_status">Aktualizace</string>
+	<string name="up_to_date">Nejsou dostupné žádné nové učebnice</string>
+	<string name="update_failed">Aktualizace se nezdařila, zkontrolujte připojení k internetu.</string>
+	<string name="update_available">Nové učebnice jsou k dispozici! \nChcete si je stáhnout?</string>
+	<string name="loading_check">Zistuji, čekejte prosím &#8230;</string>
+	<string name="loading_down">Stahuji, čekejte prosím &#8230;</string>
+	<string name="successfully_updated">Úspěšně aktualizováno! \nPočet nových učebnic: %1$d</string>
+	<string name="yes">Ano</string>
+	<string name="no">Ne</string>
+	<string name="ok">OK</string>
 </resources>

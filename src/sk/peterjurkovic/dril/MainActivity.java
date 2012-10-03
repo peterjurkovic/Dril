@@ -8,18 +8,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 
-public class MainActivity extends  Activity{
+public class MainActivity extends  Activity {
 	
 	
-	protected static final int MENU_ACTION_ABOUT = 0;
+	protected static final int MENU_ACTION_ABOUT = 0;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		
 	}
-	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -37,21 +34,16 @@ public class MainActivity extends  Activity{
 	        i = new Intent(this, AboutActivity.class);
 	        startActivityForResult(i, MENU_ACTION_ABOUT);
 	        return true;
-	    case R.id.menu_update:
-	        i = new Intent(this, UpdateActivity.class);
-	        startActivityForResult(i, MENU_ACTION_ABOUT);
-	        return true;
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }
 	}
 	
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	if (requestCode == MENU_ACTION_ABOUT && resultCode == RESULT_OK){}
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
+      
+    
+	
+    
+   
 	
 }
 

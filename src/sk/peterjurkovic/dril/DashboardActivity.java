@@ -1,6 +1,12 @@
 package sk.peterjurkovic.dril;
 
 import sk.peterjurkovic.dril.db.WordDBAdapter;
+import sk.peterjurkovic.dril.listener.AsyncLIstener;
+import sk.peterjurkovic.dril.updater.CheckForUpdate;
+import sk.peterjurkovic.dril.updater.UpdateSaver;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,7 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class DashboardActivity extends MainActivity {
+public final class DashboardActivity extends MainActivity implements AsyncLIstener{
 	
 	
 	Button btnStart = null;
@@ -18,6 +24,8 @@ public class DashboardActivity extends MainActivity {
 	WordDBAdapter wordAdapter = null;
 	
 	long countOfActiveWords = 0;
+	
+	private Context context;
 	
 	int pos = 0;
 	
@@ -27,12 +35,16 @@ public class DashboardActivity extends MainActivity {
         setContentView(R.layout.main_dashboard);
         wordAdapter = new WordDBAdapter(this);
         btnStart = (Button) findViewById(R.id.btn_start);
- 
+        
+        context = this;
+        
         Button btnBook = (Button) findViewById(R.id.btn_book);
 
         Button btn_stats = (Button) findViewById(R.id.btn_stats);
         
         Button btn_info = (Button) findViewById(R.id.btn_info);
+        
+        Button btn_update = (Button) findViewById(R.id.btn_update);
  
         btnStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -68,6 +80,14 @@ public class DashboardActivity extends MainActivity {
 	        }
 	    });
         
+        btn_update.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+            	
+            	CheckForUpdate chfu = new CheckForUpdate( context );
+    	    	chfu.execute(); 
+	        }
+	    });
+        
         clearPreferencies();
         ImageButton goHome = (ImageButton) findViewById(R.id.home);
         goHome.setVisibility(View.INVISIBLE);
@@ -88,7 +108,86 @@ public class DashboardActivity extends MainActivity {
             wordAdapter.close();
         }
     }
+    
+    
+    /* UPDATE --------------------------------- */
+    
+    @Override
+	public void onCheckResponse(Integer response) {
+		if(response > 0){
+			showDownloadDialog(response);
+		}else{
+			showUpToDateDialog(
+				(response == 0 ? 
+						getResources().getString( R.string.up_to_date) : 
+						getResources().getString( R.string.update_failed)
+				));
+		}
+	}
+    
+	
+	/**
+	 * Dialog, if updates are available
+	 * 
+	 * @param response
+	 */
+	public void showDownloadDialog(Integer response){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder
+			.setTitle(R.string.update_status)
+			.setMessage(R.string.update_available)
+			.setCancelable(false)
+			.setNegativeButton(R.string.no,new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							dialog.cancel();
+						}
+			})
+			.setPositiveButton(R.string.yes ,new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog,int id) {
+					dialog.cancel();
+					UpdateSaver chfu = new UpdateSaver( context );
+			    	chfu.execute();
+			        
+				}
+			  })
+			;
 
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
+	
+	
+	/**
+	 * If update is not available show dialog with close button only.
+	 * 
+	 */
+	public void showUpToDateDialog(String responseMsg){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder
+			.setTitle(R.string.update_status)
+			.setMessage(responseMsg)
+			.setCancelable(false)
+			.setNegativeButton(R.string.ok,new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int id) {
+							dialog.cancel();
+						}
+			});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
+
+
+	@Override
+	public void onUpdatedResponse(Integer response) {
+		showUpToDateDialog(
+				(response > 0 ? 
+						getResources().getString( R.string.successfully_updated, response) : 
+						getResources().getString( R.string.update_failed))
+				);
+	}
+    
+    
     /* OPTION MENU ---------------------------- */
     
     @Override

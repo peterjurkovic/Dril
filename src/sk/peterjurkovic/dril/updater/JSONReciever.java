@@ -1,4 +1,4 @@
-package sk.peterjurkovic.dril.db;
+package sk.peterjurkovic.dril.updater;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,23 +18,42 @@ import android.util.Log;
 
 public class JSONReciever {
 	
-		private  String updateServiceURL = "http://dril.peterjurkovic.sk/";
-
+		public static int FOR_CHECK_ACTION = 1;
+		public static int FOR_UPDATE_ACTION = 2;
+		public static final int LANG_EN_INDEX = 1;
+		
+		private  String checkServiceURL = "http://dril.peterjurkovic.sk?lang="+
+					LANG_EN_INDEX+"&act="+ FOR_CHECK_ACTION+"&ver=";
+		private  String updateServiceURL = "http://dril.peterjurkovic.sk?lang="+
+					LANG_EN_INDEX+"&act="+FOR_UPDATE_ACTION+"&ver=";
+		
 	 	static InputStream is = null;
 	    static JSONObject jObj = null;
 	    static String json = "";
 	    
-	    public JSONReciever() {
-	    	 
+	    
+	    public JSONReciever(long version) {
+	    	checkServiceURL = checkServiceURL + version;
+	    	updateServiceURL = updateServiceURL + version;
 	    }
 	    
-	    public JSONObject getJSONData() {
+	    public JSONObject getJSONData(int act) throws IllegalArgumentException {
 	    	 
 	        // Making HTTP request
 	        try {
 	            // defaultHttpClient
 	            DefaultHttpClient httpClient = new DefaultHttpClient();
-	            HttpPost httpPost = new HttpPost(updateServiceURL);
+	            
+	            String url = "";
+	            if(FOR_CHECK_ACTION == act){
+	            	url = checkServiceURL;
+	            }else if(FOR_UPDATE_ACTION == act){
+	            	url = updateServiceURL;
+	            }else{
+					throw new IllegalArgumentException("JSONReciever action is not defined");
+				}
+	             
+	            HttpPost httpPost = new HttpPost(url);
 	 
 	            HttpResponse httpResponse = httpClient.execute(httpPost);
 	            HttpEntity httpEntity = httpResponse.getEntity();

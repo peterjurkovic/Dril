@@ -5,9 +5,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
+import sk.peterjurkovic.dril.model.Book;
+import sk.peterjurkovic.dril.model.Lecture;
+import sk.peterjurkovic.dril.model.Word;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -216,7 +222,69 @@ public class DBAdapter{
 	
 	
 	
-	 
+	public void updateBooks(List<Book> books) throws Exception{
+		SQLiteDatabase db = openWriteableDatabase();
+		ContentValues cv;
+
+		Log.d(TAG, "STARTING INSERTING, count: " + books.size());
+		db.beginTransaction();
+		for(Book book : books){
+			List<Lecture> lectures = book.getLectures();
+			
+			Log.d(TAG, "BOOK: " + book.getName() + ",  " +  book.getVersion());
+			
+			/* INSERT CURRENT BOOK */
+			cv = new ContentValues();
+			cv.put(BookDBAdapter.BOOK_NAME, book.getName());
+	        cv.put(BookDBAdapter.VERSION, book.getVersion());
+	        long newBookId = db.insert( BookDBAdapter.TABLE_BOOK , null, cv);
+	        cv = null;
+	        if(newBookId == -1) 
+	        	throw new Exception("Can not insert book: "+ book.getName());
+	        
+			for(Lecture lecture : lectures){
+				Log.d(TAG, "LECTURE: " + lecture.getLectureName());
+				List<Word> words = lecture.getWords();
+				
+				/* INSERT CURRENT LECTURE */
+				cv = new ContentValues();
+				cv.put(LectureDBAdapter.LECTURE_NAME, lecture.getLectureName() );
+				cv.put(LectureDBAdapter.FK_BOOK_ID, newBookId);
+		        long newLectureId = db.insert( LectureDBAdapter.TABLE_LECTURE , null, cv);
+		        cv = null;
+		        if(newLectureId == -1) 
+		        	throw new Exception("Can not insert lecture: "+ lecture.getLectureName());
+		        
+					for(Word word : words){
+						
+						cv = new ContentValues();
+						cv.put(WordDBAdapter.QUESTION, word.getQuestion() );
+						cv.put(WordDBAdapter.ANSWER, word.getAnsware() );
+						cv.put(WordDBAdapter.FK_LECTURE_ID, newLectureId );
+						
+				        if( db.insert(WordDBAdapter.TABLE_WORD , null, cv) == -1)
+				        						throw new Exception("Can not insert word. ");
+				        cv = null;
+						
+					}
+				
+				
+			}
+		}
+		db.setTransactionSuccessful();
+		db.endTransaction();
+		db.close();			
+	}
+	
+	
+	public long getLastVersionOfTextbooks(){
+		SQLiteDatabase db = openReadableDatabase();
+    	long version = (long) DatabaseUtils.longForQuery(db, 
+    					"SELECT IFNULL(max("+BookDBAdapter.VERSION+"),0) FROM " + 
+    					BookDBAdapter.TABLE_BOOK, null);
+    	db.close();
+    	return version;
+	}
 	
 	
 }

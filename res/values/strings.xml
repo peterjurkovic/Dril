@@ -117,5 +117,17 @@
     <string name="ibtn5">5. - I\'v never seen before, I sow it first time, the card will be displayed again.</string>
 	<string name="how_its_work">How its work?</string>
 	<string name="how_its_work_descr">At the first you must choose in the section \"Textbooks\" cards that you want to learn. This can be done in two ways. Long click on the lesson, then in the pop-up menu, select \"Activate 10 cards randomly\", or individually select and activate some cards. </string>
-	<string name="update">Update textbooks</string>
+	<!-- UPDATE -->
+	<string name="check_for_update">Check for new textbooks</string>
+	<string name="update_textbooks">Update textbooks</string>
+	<string name="update_status">Update status</string>
+	<string name="up_to_date">Your textbooks are up to date!</string>
+	<string name="update_failed">Updating failed, check your internet connection.</string>
+	<string name="update_available">New textbooks available! \nDo you want download it?</string>
+	<string name="loading_check">Checking, please wait &#8230;</string>
+	<string name="loading_down">Downloading, please wait &#8230;</string>
+	<string name="successfully_updated">Successfully updated! \nCount of new textbooks: %1$d</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	<string name="ok">OK</string>
 </resources>

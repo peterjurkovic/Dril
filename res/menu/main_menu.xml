@@ -4,10 +4,4 @@
         android:title="@string/menu_about"
         android:orderInCategory="100"
         android:showAsAction="never" />
-    
-    <item android:id="@+id/menu_update"
-        android:icon="@android:drawable/ic_popup_sync"
-        android:title="@string/update"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
 </menu>

@@ -21,6 +21,20 @@ public class StatisticDbAdapter extends DBAdapter{
 	public static final String HIT = "hit";
 	
 	
+	/*
+	 * CREATE TABLE "statistic" ("_id" INTEGER PRIMARY KEY  NOT NULL ,
+	 * "dril_date" DATETIME NOT NULL  DEFAULT (CURRENT_TIMESTAMP) ,
+	 * "rate" INTEGER NOT NULL  DEFAULT (0) ,"hit" INTEGER NOT NULL  DEFAULT (0) )
+	 */
+	
+	public static final String TABLE_STATISTIC_CREATE = 
+		"CREATE TABLE "+ TABLE_STATISTIC + " (" + 
+				STATISTIC_ID + " INTEGER PRIMARY KEY NOT NULL," + 
+				DATE + " DATETIME NOT NULL  DEFAULT (CURRENT_TIMESTAMP)," + 
+				RATE + " INTEGER NOT NULL  DEFAULT (0),"+
+				HIT + " INTEGER NOT NULL  DEFAULT (0),"+
+		");";
+	
 	public static final String[] columns = { STATISTIC_ID, DATE_LOCALTIME, RATE, HIT};
 	
 	
