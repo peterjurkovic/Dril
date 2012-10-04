@@ -10,6 +10,8 @@ import sk.peterjurkovic.dril.listener.AsyncLIstener;
 import sk.peterjurkovic.dril.model.Book;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -19,6 +21,9 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer> {
 	private Context context;
 	private ProgressDialog dialog;
 	
+	public static final int STATE_NO_UPDATE = 0;
+	public static final int STATE_PARSING_ERROR = -1;
+	public static final int STATE_NO_INTERNET_CONN = -2;
 	
 	public UpdateSaver(Context c){
 		context = c;
@@ -46,6 +51,10 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer> {
 	
 	@Override
 	protected Integer doInBackground(String... arg0) {
+		
+		if(!isOnline())
+			return STATE_NO_INTERNET_CONN;
+	
 		try {
 			DBAdapter db = new DBAdapter(context);
 			long lastVer = db.getLastVersionOfTextbooks();
@@ -56,7 +65,17 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer> {
 			db.updateBooks(books);
 			return books.size();
 		} catch (Exception e) {
-			return -1;
+			return STATE_PARSING_ERROR;
 		}
 	}
+	
+	public boolean isOnline() {
+        ConnectivityManager cm =
+            (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
 }

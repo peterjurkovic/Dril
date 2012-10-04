@@ -111,21 +111,36 @@ public final class DashboardActivity extends MainActivity implements AsyncLIsten
     
     
     /* UPDATE --------------------------------- */
-    
     @Override
 	public void onCheckResponse(Integer response) {
-		if(response > 0){
-			showDownloadDialog(response);
-		}else{
-			showUpToDateDialog(
-				(response == 0 ? 
-						getResources().getString( R.string.up_to_date) : 
-						getResources().getString( R.string.update_failed)
-				));
-		}
+    	switch(response){
+    		case CheckForUpdate.STATE_NO_INTERNET_CONN :
+    			showNoActionDialog(getResources().getString( R.string.update_no_conn));
+    			break;
+    		case CheckForUpdate.STATE_PARSING_ERROR :
+    			showNoActionDialog(getResources().getString( R.string.update_failed));
+    			break;
+    		case CheckForUpdate.STATE_NO_UPDATE:
+    			showNoActionDialog(getResources().getString( R.string.up_to_date));
+    			break;
+    		default:
+    			showDownloadDialog(response);
+    	}
+    	
 	}
     
-	
+    
+    @Override
+	public void onUpdatedResponse(Integer response) {
+		if(response > 0){
+			showNoActionDialog(getResources().getString( R.string.successfully_updated, response));
+		}else{
+			onCheckResponse(response);
+		}
+    	
+	}
+    
+    
 	/**
 	 * Dialog, if updates are available
 	 * 
@@ -161,7 +176,7 @@ public final class DashboardActivity extends MainActivity implements AsyncLIsten
 	 * If update is not available show dialog with close button only.
 	 * 
 	 */
-	public void showUpToDateDialog(String responseMsg){
+	public void showNoActionDialog(String responseMsg){
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 		alertDialogBuilder
 			.setTitle(R.string.update_status)
@@ -177,16 +192,6 @@ public final class DashboardActivity extends MainActivity implements AsyncLIsten
 		alertDialog.show();
 	}
 
-
-	@Override
-	public void onUpdatedResponse(Integer response) {
-		showUpToDateDialog(
-				(response > 0 ? 
-						getResources().getString( R.string.successfully_updated, response) : 
-						getResources().getString( R.string.update_failed))
-				);
-	}
-    
     
     /* OPTION MENU ---------------------------- */
     
