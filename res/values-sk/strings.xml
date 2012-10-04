@@ -120,6 +120,7 @@
 	<string name="check_for_update">Skontrolovať aktualizáce</string>
 	<string name="update_textbooks">Aktualizovať učebnice</string>
 	<string name="update_status">Aktulizia</string>
+	<string name="update_no_conn">Nie je dostupné internetové pripojenie</string>
 	<string name="up_to_date">Nie sú dostupné žiadne nové učebnice</string>
 	<string name="update_failed">Aktualizácia zlyhala, skontrolujte pripojenie k internetu.</string>
 	<string name="update_available">Sú dostupné nové učebnice! \nChcete si ich stiahnuť?</string>

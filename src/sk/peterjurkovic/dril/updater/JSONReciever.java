@@ -50,7 +50,7 @@ public class JSONReciever {
 	            }else if(FOR_UPDATE_ACTION == act){
 	            	url = updateServiceURL;
 	            }else{
-					throw new IllegalArgumentException("JSONReciever action is not defined");
+					throw new IllegalArgumentException("JSONRecievers action is not defined");
 				}
 	             
 	            HttpPost httpPost = new HttpPost(url);

@@ -13,7 +13,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class UpdateSaver extends AsyncTask<String, Integer, Integer> {
 	
@@ -44,7 +43,6 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer> {
 	@Override
 	protected void onPostExecute(Integer result) {
 		dialog.hide();
-		Log.d("UD", "onPostExecute: " + result);
 		listener.onUpdatedResponse(result);
 	}
 	

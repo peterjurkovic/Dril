@@ -121,6 +121,7 @@
 	<string name="check_for_update">Zkontrolovat aktualizace</string>
 	<string name="update_textbooks">Aktualizovat učebnice</string>
 	<string name="update_status">Aktualizace</string>
+	<string name="update_no_conn">Neni dostupné internetové připojení</string>
 	<string name="up_to_date">Nejsou dostupné žádné nové učebnice</string>
 	<string name="update_failed">Aktualizace se nezdařila, zkontrolujte připojení k internetu.</string>
 	<string name="update_available">Nové učebnice jsou k dispozici! \nChcete si je stáhnout?</string>

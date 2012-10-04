@@ -226,12 +226,12 @@ public class DBAdapter{
 		SQLiteDatabase db = openWriteableDatabase();
 		ContentValues cv;
 
-		Log.d(TAG, "STARTING INSERTING, count: " + books.size());
+		//Log.d(TAG, "STARTING INSERTING, count: " + books.size());
 		db.beginTransaction();
 		for(Book book : books){
 			List<Lecture> lectures = book.getLectures();
 			
-			Log.d(TAG, "BOOK: " + book.getName() + ",  " +  book.getVersion());
+			//Log.d(TAG, "BOOK: " + book.getName() + ",  " +  book.getVersion());
 			
 			/* INSERT CURRENT BOOK */
 			cv = new ContentValues();
@@ -243,7 +243,7 @@ public class DBAdapter{
 	        	throw new Exception("Can not insert book: "+ book.getName());
 	        
 			for(Lecture lecture : lectures){
-				Log.d(TAG, "LECTURE: " + lecture.getLectureName());
+				//Log.d(TAG, "LECTURE: " + lecture.getLectureName());
 				List<Word> words = lecture.getWords();
 				
 				/* INSERT CURRENT LECTURE */
