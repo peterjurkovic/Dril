@@ -104,14 +104,14 @@ public class WordActivity extends FragmentActivity
 	 		case REQUEST_ADD_WORD :
 		 		saveNewWord(	
 		 				data.getStringExtra(AddWordActivity.EXTRA_QUESTION),
-		 				data.getStringExtra(AddWordActivity.EXTRA_QUESTION)
+		 				data.getStringExtra(AddWordActivity.EXTRA_ANSWER)
 		 				);
 	 		break;
 		 	case REQUEST_EDIT_WORD :
 		 		saveEditedWord(
 		 				data.getLongExtra(EditWordActivity.EXTRA_WORD_ID, -1),
 		 				data.getStringExtra(EditWordActivity.EXTRA_QUESTION),
-		 				data.getStringExtra(EditWordActivity.EXTRA_QUESTION)
+		 				data.getStringExtra(EditWordActivity.EXTRA_ANSWER)
 	 				);
 	 		break;
 		 	case REQUEST_VIEW :
