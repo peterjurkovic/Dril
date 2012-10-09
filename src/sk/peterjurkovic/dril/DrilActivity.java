@@ -332,8 +332,13 @@ public class DrilActivity extends MainActivity implements OnInitListener{
     }
     
     
-    private void speakWords(String speech) {
-    	 textToSpeachService.speak(clearWord( speech ), TextToSpeech.QUEUE_FLUSH, null);
+    private void speakWords(String word) {
+    	if(word == null || word.length() == 0){
+    		Toast.makeText(this, R.string.nothing_to_speeach, Toast.LENGTH_LONG).show();
+    	}else{
+    		if(textToSpeachService != null)
+    			textToSpeachService.speak(clearWord( word ), TextToSpeech.QUEUE_FLUSH, null);
+    	}
     }
     
     @Override

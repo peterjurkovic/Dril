@@ -28,6 +28,7 @@
     <string name="deleted">Úspešne zmazané</string>
     <string name="book_not_deleted">Knihu sa nepodarilo zmazať.</string>
     <string name="no_book_available">Nie su evidované žiadne knihy</string>
+    <string name="deactive_all">Deaktivovať všetko</string>
     
     <string name="title">Názov</string>
     <string name="book_not_added">Knihu sa nepodarilo pridať</string>
@@ -76,6 +77,7 @@
 	<string name="pronauce_question">Vysloviť otázku</string>
 	<string name="pronauce_answer">Vysloviť odpoveď</string>
 	<string name="speach_failed">Nie je možne vysloviť uvedený výraz!</string>
+	<string name="nothing_to_speeach">Nie je čo vysloviť</string>
 	<string name="word_not_selected">Nie sú označené žiadne kartičky</string>
 	
     <string name="menu_about">O aplikácii</string>

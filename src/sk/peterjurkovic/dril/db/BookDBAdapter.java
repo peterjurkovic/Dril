@@ -33,9 +33,9 @@ public class BookDBAdapter extends DBAdapter {
 	
 	public static final String TABLE_BOOK_CEREATE = 
 								"CREATE TABLE "+ TABLE_BOOK + " (" + 
-										BOOK_ID +" INTEGER PRIMARY KEY ," + 
-										BOOK_NAME + " TEXT " +
-										VERSION +" INTEGER NOT NULL DEFAULT (0)," + 
+										BOOK_ID +" INTEGER PRIMARY KEY," + 
+										BOOK_NAME + " TEXT," +
+										VERSION +" INTEGER NOT NULL DEFAULT (0)" + 
 								");";
 	
 	public static final String  TAG = "BookDBAdapter";
@@ -54,7 +54,7 @@ public class BookDBAdapter extends DBAdapter {
     public long getBooksCount(){
     	SQLiteDatabase db = openReadableDatabase();
     	
-    	long result = (long) DatabaseUtils.longForQuery(db, 
+    	long result = DatabaseUtils.longForQuery(db, 
     					"SELECT count(*) FROM " + TABLE_BOOK, null);
     	db.close();
     	return result;
@@ -139,6 +139,7 @@ public class BookDBAdapter extends DBAdapter {
         db.close();
         return id;
     }
+    
     
     
     

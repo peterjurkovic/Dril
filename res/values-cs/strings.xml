@@ -28,6 +28,7 @@
     <string name="deleted">Úspěšně smazané</string>
     <string name="book_not_deleted">Učebnici se nepodařilo smazat</string>
     <string name="no_book_available">Nejsou evidovány žádné učebnice.</string>
+    <string name="deactive_all">Deaktivovat vše</string>
     
     <string name="title">Název</string>
     <string name="book_not_added">Učebnici se nepodařilo přidat</string>
@@ -76,6 +77,7 @@
 	<string name="pronauce_question">Vyslovit otázku</string>
 	<string name="pronauce_answer">Vyslovit odpověď</string>
 	<string name="speach_failed">Není možne vyslovit uvedený výraz!</string>
+	<string name="nothing_to_speeach">Není co vyslovit</string>
 	<string name="word_not_selected">Nejsou označeny žádné kartičky</string>
 	
     <string name="menu_about">O aplikaci</string>

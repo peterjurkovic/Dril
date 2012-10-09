@@ -28,7 +28,7 @@
     <string name="deleted">Successfully deleted</string>
     <string name="book_not_deleted">The textbook could not be deleted</string>
     <string name="no_book_available">There are not textbooks</string>
-    
+    <string name="deactive_all">Deactive all</string>
     <string name="title">Name</string>
     <string name="book_not_added">Some error occured, textbook was not added</string>
     <string name="lecture_added">Lesson successfully added</string>
@@ -76,6 +76,7 @@
 	<string name="pronauce_question">speech question</string>
 	<string name="pronauce_answer">speech answer</string>
 	<string name="speach_failed">Could not be pronounced given expression!</string>
+	<string name="nothing_to_speeach">Nothing to pronounce</string>
 	<string name="word_not_selected">No card selected</string>
 	
     <string name="menu_about">About app</string>

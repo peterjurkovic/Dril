@@ -10,6 +10,7 @@ import java.util.List;
 import sk.peterjurkovic.dril.model.Book;
 import sk.peterjurkovic.dril.model.Lecture;
 import sk.peterjurkovic.dril.model.Word;
+import sk.peterjurkovic.dril.updater.UpdateSaver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -39,7 +40,7 @@ public class DBAdapter{
      */
     public DBAdapter(Context context){
         openHelper = new DatabaseHelper(context);
-        openHelper.initializeDataBase();
+        //openHelper.initializeDataBase();
     }
     
    
@@ -162,14 +163,18 @@ public class DBAdapter{
 	        
 	        @Override
 	        public void onCreate(SQLiteDatabase db) {
-	        	//Log.d(TAG, "onCreate creating db...");
+	        	Log.d(TAG, "onCreate creating db...");
 	        	 createDatabase = true;
+	        	 createTables(db);
+	        	 UpdateSaver chfu = new UpdateSaver( myContext );
+			     chfu.execute();
 	        }
 
 	        @Override
 	        public void onUpgrade(SQLiteDatabase db, int oldVersion, 
 	        int newVersion) {               
 	        	 upgradeDatabase = true;
+	        	 createTables(db);
 	        	
 	        }
 	          
@@ -185,7 +190,15 @@ public class DBAdapter{
 			    }
 	        }
 	        
-
+	        private void createTables(SQLiteDatabase db){
+	        		db.beginTransaction();
+	        	 db.execSQL(BookDBAdapter.TABLE_BOOK_CEREATE);
+	        	 db.execSQL(LectureDBAdapter.TABLE_LECTURE_CREATE);
+	        	 db.execSQL(WordDBAdapter.TABLE_WORD_CREATE);
+	        	 db.execSQL(StatisticDbAdapter.TABLE_STATISTIC_CREATE);
+	        	 db.setTransactionSuccessful();
+	        	 db.endTransaction();
+	        }
 	 } 
 	 
 	public SQLiteDatabase openReadableDatabase(){
@@ -279,7 +292,7 @@ public class DBAdapter{
 	
 	public long getLastVersionOfTextbooks(){
 		SQLiteDatabase db = openReadableDatabase();
-    	long version = (long) DatabaseUtils.longForQuery(db, 
+    	long version = DatabaseUtils.longForQuery(db, 
     					"SELECT IFNULL(max("+BookDBAdapter.VERSION+"),0) FROM " + 
     					BookDBAdapter.TABLE_BOOK, null);
     	db.close();

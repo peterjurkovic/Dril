@@ -22,7 +22,6 @@ public class WordDBAdapter extends DBAdapter {
 	
 	public static final String ANSWER = "answer";
 	
-	
 	public static final String ACTIVE = "active";
 	
 	public static final String FK_LECTURE_ID = "lecture_id";
@@ -35,10 +34,10 @@ public class WordDBAdapter extends DBAdapter {
 														WORD_ID + " INTEGER PRIMARY KEY, "+ 
 														QUESTION +" TEXT, "+ 
 														ANSWER +" TEXT, " + 
-														ACTIVE + " INTEGER, "+ 
-														FK_LECTURE_ID  + " INTEGER " +
-														RATE  + " INTEGER " +
-														HIT  + " INTEGER " +
+														ACTIVE + " INTEGER NOT NULL  DEFAULT (0), "+ 
+														FK_LECTURE_ID  + " INTEGER," +
+														RATE  + " INTEGER NOT NULL  DEFAULT (0)," +
+														HIT  + " INTEGER NOT NULL  DEFAULT (0) " +
 													");";
 	
 	public static final String[] columns = 
@@ -63,7 +62,7 @@ public class WordDBAdapter extends DBAdapter {
      */
     public long getCountOfActiveWords(){
     	SQLiteDatabase db = openReadableDatabase();
-    	return (long) DatabaseUtils.longForQuery(db, 
+    	return DatabaseUtils.longForQuery(db, 
     					"SELECT count(*) FROM " + TABLE_WORD + " WHERE active=1", null);
     }
 
@@ -101,6 +100,13 @@ public class WordDBAdapter extends DBAdapter {
     }
  
     
+    public void deactiveAll(){
+    	  SQLiteDatabase db = openWriteableDatabase();
+          ContentValues values = new ContentValues();
+          values.put(ACTIVE, 0);
+          db.update(TABLE_WORD, values, null , null);
+          db.close();
+    }
     
     public Cursor getWord(long wordId) {
     	SQLiteDatabase db = openReadableDatabase();

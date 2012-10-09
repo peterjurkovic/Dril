@@ -32,7 +32,7 @@ public class StatisticDbAdapter extends DBAdapter{
 				STATISTIC_ID + " INTEGER PRIMARY KEY NOT NULL," + 
 				DATE + " DATETIME NOT NULL  DEFAULT (CURRENT_TIMESTAMP)," + 
 				RATE + " INTEGER NOT NULL  DEFAULT (0),"+
-				HIT + " INTEGER NOT NULL  DEFAULT (0),"+
+				HIT + " INTEGER NOT NULL  DEFAULT (0)"+
 		");";
 	
 	public static final String[] columns = { STATISTIC_ID, DATE_LOCALTIME, RATE, HIT};
