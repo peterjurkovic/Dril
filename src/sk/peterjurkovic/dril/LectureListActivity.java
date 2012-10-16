@@ -35,7 +35,10 @@ public class LectureListActivity extends ListActivity{
 	public static final int MENU_EDIT_ID = Menu.FIRST+2;
 	public static final int MENU_DELETE_ID = Menu.FIRST+3;
 	public static final int MENU_ACTIVE_RANDOM = Menu.FIRST+4;
-	public static final int MENU_DEACTIVE_ALL = Menu.FIRST+5;
+	public static final int MENU_ACTIVE_LECTURE = Menu.FIRST+5;
+	public static final int MENU_DEACTIVE_LECTURE = Menu.FIRST+6;
+	
+
 	
 	private long bookId;
 	private String bookName;
@@ -108,7 +111,10 @@ public class LectureListActivity extends ListActivity{
         case MENU_ACTIVE_RANDOM :
         	activeRandomWords(info.id,  10 ); // 10 - count of words
         return true;
-        case MENU_DEACTIVE_ALL :
+        case MENU_ACTIVE_LECTURE :
+        	activeAllWordInLecture(info.id); 
+        return true;
+        case MENU_DEACTIVE_LECTURE :
         	deactiveAllWordInLecture(info.id); 
         return true;    
         default:
@@ -124,8 +130,9 @@ public class LectureListActivity extends ListActivity{
 	    menu.add(Menu.NONE, MENU_VIEW_ID, Menu.NONE, R.string.view);
 	    menu.add(Menu.NONE, MENU_EDIT_ID, Menu.NONE, R.string.edit);
 	    menu.add(Menu.NONE, MENU_DELETE_ID, Menu.NONE, R.string.delete);
-	    menu.add(Menu.NONE, MENU_ACTIVE_RANDOM, Menu.NONE, R.string.random_active_ten);
-	    menu.add(Menu.NONE, MENU_DEACTIVE_ALL, Menu.NONE, R.string.lecture_deactive_all);
+	    menu.add(Menu.NONE, MENU_ACTIVE_RANDOM, Menu.NONE, R.string.active_ten);
+	    menu.add(Menu.NONE, MENU_ACTIVE_LECTURE, Menu.NONE, R.string.active_lecture);
+	    menu.add(Menu.NONE, MENU_DEACTIVE_LECTURE, Menu.NONE, R.string.deactive_lecture);
 	}
 	
 	
@@ -138,7 +145,6 @@ public class LectureListActivity extends ListActivity{
 	 	if(resultCode != RESULT_OK) return;
 	 	
 	 	switch(requestCode){
-	 		
 	 		case REQUEST_ADD_LECTURE :
 	 			lectureName = data.getStringExtra(EditLectureActivity.EXTRA_LECTURE_NAME);
 	 			onSaveNewLecture(lectureName);
@@ -154,6 +160,7 @@ public class LectureListActivity extends ListActivity{
 	 	} 
         super.onActivityResult(requestCode, resultCode, data);
     }
+	
 	
 	
 	public void onSaveEditedLecture(long lectureId, String lectureName) {		
@@ -178,14 +185,23 @@ public class LectureListActivity extends ListActivity{
 	}
 		
 	 
-	 
+	/**
+	 * Start new activity for result.
+	 * 
+	 * EXTRA DATA long lectureId, key: EXTRA_LECTURE_ID
+	 *  
+	 * @param lectureId
+	 */
 	public void onEditLectureClicked(long lectureId) {
 		Intent i = new Intent(this,  EditLectureActivity.class);
 		i.putExtra(EditLectureActivity.EXTRA_LECTURE_ID, lectureId);
 		startActivityForResult(i, REQUEST_EDIT_LECTURE);
 	}
 	
-	
+	/**
+	 * Update list of items
+	 * 
+	 */
 	public void updateList() {
 		closeAdapterCursor();
 		Cursor cursor = null;
@@ -202,7 +218,12 @@ public class LectureListActivity extends ListActivity{
 	}
 	
 	
-	
+	/**
+	 * 
+	 * Remove lecture from database by given id of lecture and show result message.
+	 * 
+	 * @param long id of lecture
+	 */
 	public void deleteLecture(long id){
         Boolean deleted = false;
         LectureDBAdapter lectureDBAdapter = new LectureDBAdapter(this);
@@ -223,7 +244,12 @@ public class LectureListActivity extends ListActivity{
     }
 	
 	
-	
+	/**
+	 * Create new lecture and show result message. 
+	 * After response show Toast message.
+	 * 
+	 * @param String name of new lecture.
+	 */
 	public void onSaveNewLecture(String lectureName) {
 		LectureDBAdapter lectureBbAdapter = new LectureDBAdapter(this);
 		long id = -1;
@@ -286,17 +312,32 @@ public class LectureListActivity extends ListActivity{
  		} finally {
  			wordDbAdapter.close();
  		}
-         
     	Toast.makeText(this, R.string.activated, Toast.LENGTH_SHORT).show();
     	updateList();
 	}
+	
+	
+	public void activeAllWordInLecture(long lectureId){
+		WordDBAdapter wordDbAdapter = new WordDBAdapter(this);
+		boolean deactivated = false;
+ 	    try{
+ 	    	deactivated = wordDbAdapter.changeWordActivity(lectureId, WordDBAdapter.STATUS_ACTIVE);
+ 	    } catch (Exception e) {
+ 			Log.d(TAG, "ERROR: " + e.getMessage());
+ 		} finally {
+ 			wordDbAdapter.close();
+ 		}
+ 	    if(deactivated)	updateList();
+ 	    Toast.makeText(this, R.string.activated, Toast.LENGTH_SHORT).show();
+	}
+	
 	
 	
 	public void deactiveAllWordInLecture(long lectureId){
 		WordDBAdapter wordDbAdapter = new WordDBAdapter(this);
 		boolean deactivated = false;
  	    try{
- 	    	deactivated = wordDbAdapter.deactiveAllWordInLecture(lectureId);
+ 	    	deactivated = wordDbAdapter.changeWordActivity(lectureId, WordDBAdapter.STATUS_DEACTIVE);
  	    } catch (Exception e) {
  			Log.d(TAG, "ERROR: " + e.getMessage());
  		} finally {

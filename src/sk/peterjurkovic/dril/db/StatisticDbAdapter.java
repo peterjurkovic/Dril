@@ -59,6 +59,13 @@ public class StatisticDbAdapter extends DBAdapter{
         return id;
     }
 
+    public boolean deleteAll(){
+    	SQLiteDatabase db = openWriteableDatabase();
+    	long id = db.delete(TABLE_STATISTIC, null, null);
+        db.close();
+        return id > 0;
+    }
+    
     
     public Cursor getStatistics(){
     	SQLiteDatabase db = openReadableDatabase();    	

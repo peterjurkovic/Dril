@@ -23,12 +23,9 @@
     <string name="edit">Rename</string>
     <string name="editWord">Edit</string>
     <string name="delete">Delete</string>
-    <string name="active">Activate</string>
-    <string name="deactive">Deactivate</string>
     <string name="deleted">Successfully deleted</string>
     <string name="book_not_deleted">The textbook could not be deleted</string>
     <string name="no_book_available">There are not textbooks</string>
-    <string name="deactive_all">Deactive all</string>
     <string name="title">Name</string>
     <string name="book_not_added">Some error occured, textbook was not added</string>
     <string name="lecture_added">Lesson successfully added</string>
@@ -47,9 +44,14 @@
 	<string name="no_lecture_available">Textbook not contain any lessons</string>
 	<string name="lecture">Lessons</string>
 	<string name="options">Options</string>
-	<string name="random_active_ten">Activate 10 cards randomly</string>
-	<string name="lecture_deactive_all">Deactivate all cards</string>
 	<string name="home">Go to dashboard</string>
+	
+	<string name="deactive_lecture">Deactivate lecture</string>
+	<string name="deactive_all">Deactive all</string>
+	<string name="deactive">Deactivate</string>
+	<string name="active">Activate</string>
+	<string name="active_lecture">Activate lecture</string>
+	<string name="active_ten">Activate 10 cards randomly</string>
 	
     <string name="lecture_add_head">Add lesson</string>
     <string name="lecture_edit_head">Rename lesson</string>
@@ -98,6 +100,7 @@
     <string name="table_finished">Number of learned cards:</string>
     <string name="stats_fully">General statistics</string>
     <string name="stats_session">Individual statistics</string>
+    <string name="stats_reset">Delete stats</string>
     
     <string name="netural">no progress</string>
     <string name="good">Improvement</string>

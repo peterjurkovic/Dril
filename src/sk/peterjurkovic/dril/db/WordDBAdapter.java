@@ -13,6 +13,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class WordDBAdapter extends DBAdapter {
 	
+	public static final int STATUS_ACTIVE = 1;
+	
+	public static final int STATUS_DEACTIVE = 0;
 	
 	public static final String TABLE_WORD = "word";
 	
@@ -240,10 +243,10 @@ public class WordDBAdapter extends DBAdapter {
     	db.close();
     }
     
-    public boolean deactiveAllWordInLecture(long lectureId){
+    public boolean changeWordActivity(long lectureId, int activity){
     	SQLiteDatabase db = openWriteableDatabase();
         ContentValues values = new ContentValues();
-        values.put(ACTIVE, 0);
+        values.put(ACTIVE, activity);
         int rowsUpdated = db.update(TABLE_WORD, values, FK_LECTURE_ID + "=" + lectureId, null);
         db.close();
         return rowsUpdated > 0;

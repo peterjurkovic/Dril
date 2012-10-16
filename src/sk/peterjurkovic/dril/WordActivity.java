@@ -351,21 +351,63 @@ public class WordActivity extends FragmentActivity
 		Toast.makeText(ctx, resourceId, Toast.LENGTH_LONG).show();
 	}
 	
+	
+	
+	/**
+	 * Active all words in lecture and update list
+	 * 
+	 */
+	public void activeAllWordInLecture(){
+		WordDBAdapter wordDbAdapter = new WordDBAdapter(this);
+		boolean deactivated = false;
+ 	    try{
+ 	    	deactivated = wordDbAdapter.changeWordActivity(lectureId, WordDBAdapter.STATUS_ACTIVE);
+ 	    } catch (Exception e) {
+ 			Log.d(TAG, "ERROR: " + e.getMessage());
+ 		} finally {
+ 			wordDbAdapter.close();
+ 		}
+ 	    if(deactivated)	getWordListFragment().updateList();
+ 	    Toast.makeText(this, R.string.activated, Toast.LENGTH_SHORT).show();
+	}
+	
+	
+	/**
+	 * Deactive all words in lecture and update list
+	 * 
+	 */
+	public void deactiveAllWordInLecture(){
+		WordDBAdapter wordDbAdapter = new WordDBAdapter(this);
+		boolean deactivated = false;
+ 	    try{
+ 	    	deactivated = wordDbAdapter.changeWordActivity(lectureId, WordDBAdapter.STATUS_DEACTIVE);
+ 	    } catch (Exception e) {
+ 			Log.d(TAG, "ERROR: " + e.getMessage());
+ 		} finally {
+ 			wordDbAdapter.close();
+ 		}
+ 	    if(deactivated)	getWordListFragment().updateList();
+ 	    Toast.makeText(this, R.string.words_deactived, Toast.LENGTH_SHORT).show();
+	}
+	
+	
 	/* OPTION MENU ---------------------------------------- */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	MenuInflater inflater = getMenuInflater();
-	inflater.inflate(R.menu.main_menu, menu);
+	inflater.inflate(R.menu.word_list, menu);
 	return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
-	    case R.id.menu_about:
-	        startActivity(new Intent(this, AboutActivity.class));
-	    	Log.d("MAINACTIVITY", "starting abotu...");
-	        return true;
+	    case R.id.deactive_all_lecture:
+	    	deactiveAllWordInLecture();
+	        return true; 
+	    case R.id.active_all_lecture:
+	    	activeAllWordInLecture();
+	        return true;     
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }

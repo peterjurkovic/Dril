@@ -23,13 +23,9 @@
     <string name="edit">Premenovať</string>
     <string name="editWord">Upraviť</string>
     <string name="delete">Zmazať</string>
-    <string name="active">Aktivovať</string>
-    <string name="deactive">Deaktivovať</string>
     <string name="deleted">Úspešne zmazané</string>
     <string name="book_not_deleted">Knihu sa nepodarilo zmazať.</string>
     <string name="no_book_available">Nie su evidované žiadne knihy</string>
-    <string name="deactive_all">Deaktivovať všetko</string>
-    
     <string name="title">Názov</string>
     <string name="book_not_added">Knihu sa nepodarilo pridať</string>
     <string name="lecture_added">Lekcia úspešne pridaná</string>
@@ -48,9 +44,14 @@
 	<string name="no_lecture_available">Učebnica neobsahuje žiadne lekcie</string>
 	<string name="lecture">Lekcie</string>
 	<string name="options">Možnosti</string>
-	<string name="random_active_ten">Náhodne aktivovať 10 kartičiek</string>
-	<string name="lecture_deactive_all">Deaktivovať všetky kartičky</string>
 	<string name="home">Zobraziť ovládací panel</string>
+	
+	<string name="deactive_lecture">Deaktivovať lekciu</string>
+	<string name="deactive_all">Deaktivovať všetko</string>
+    <string name="deactive">Deaktivovať</string>
+	<string name="active">Aktivovať</string>
+	<string name="active_lecture">Aktivovat lekciu</string>	
+	<string name="active_ten">Aktivovať 10 náhodne</string>
 	
     <string name="lecture_add_head">Pridanie lekcie</string>
     <string name="lecture_edit_head">Zmena názvu lekcie</string>
@@ -99,6 +100,7 @@
     <string name="table_finished">Počet zvládnutých kartičiek:</string>
     <string name="stats_fully">Všeobecné štatistiky</string>
     <string name="stats_session">Jednotlivé štatistiky</string>
+    <string name="stats_reset">Zmazať štatistiky</string>
     
     <string name="netural">žiadny pokrok</string>
     <string name="good">Zlepšenie</string>

@@ -280,7 +280,9 @@ public class DrilActivity extends MainActivity implements OnInitListener{
     		drilFinished( R.string.dril_finished );
     		return false;
     	}
-    	if(position == activatedWords.size()) position = 0;
+    	if(position == activatedWords.size()){ 
+    		position = 0;
+    	}
     	currentWord = activatedWords.get(position);
 		currentWord.increaseHit();
     	position++;

@@ -23,13 +23,9 @@
     <string name="edit">Přejmenovat</string>
     <string name="editWord">Upravit</string>
     <string name="delete">Zmazat</string>
-    <string name="active">Aktivovat</string>
-    <string name="deactive">Deaktivovat</string>
     <string name="deleted">Úspěšně smazané</string>
     <string name="book_not_deleted">Učebnici se nepodařilo smazat</string>
     <string name="no_book_available">Nejsou evidovány žádné učebnice.</string>
-    <string name="deactive_all">Deaktivovat vše</string>
-    
     <string name="title">Název</string>
     <string name="book_not_added">Učebnici se nepodařilo přidat</string>
     <string name="lecture_added">Lekce úspěšně přidána</string>
@@ -48,10 +44,16 @@
 	<string name="no_lecture_available">Učebnice neobsahuje žádné lekce</string>
 	<string name="lecture">Lekce</string>
 	<string name="options">Možnosti</string>
-	<string name="random_active_ten">Náhodně aktivovat 10 kartiček</string>
-	<string name="lecture_deactive_all">Deaktivovat všechny kartičky</string>
 	<string name="home">Zobrazit ovládací panel</string>
 	
+	<string name="deactive_lecture">Deaktivovat celou lekci</string>
+	<string name="deactive_all">Deaktivovat vše</string>
+    <string name="deactive">Deaktivovat</string>
+    <string name="active">Aktivovat</string>
+    <string name="active_all">Aktivovat vše</string>
+    <string name="active_lecture">Aktivovat celou lekci</string>
+    <string name="active_ten">Náhodně aktivovat 10 k.</string>
+    
     <string name="lecture_add_head">Přidání lekce</string>
     <string name="lecture_edit_head">Přejmenovat lekci</string>
 	<string name="lecture_not_deleted">Lekci se nepodařilo smazat</string>
@@ -99,6 +101,7 @@
     <string name="table_finished">Počet zvládnutých kartiček:</string>
     <string name="stats_fully">Obecné statistiky</string>
     <string name="stats_session">Jednotlivé statistiky</string>
+    <string name="stats_reset">Smazat statistiky</string>
     
     <string name="netural">žádný pokrok</string>
     <string name="good">zlepšení</string>
