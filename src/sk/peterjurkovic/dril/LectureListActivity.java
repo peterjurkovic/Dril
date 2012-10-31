@@ -1,12 +1,13 @@
 package sk.peterjurkovic.dril;
 
 import sk.peterjurkovic.dril.adapter.LectureAdapter;
-import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -19,6 +20,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,27 +39,25 @@ public class LectureListActivity extends ListActivity{
 	public static final int MENU_ACTIVE_RANDOM = Menu.FIRST+4;
 	public static final int MENU_ACTIVE_LECTURE = Menu.FIRST+5;
 	public static final int MENU_DEACTIVE_LECTURE = Menu.FIRST+6;
+	public static final int MENU_IMPORT = Menu.FIRST+7;
 	
 
 	
-	private long bookId;
-	private String bookName;
-	
+	private long bookId;	
 	LectureAdapter lectureAdapter;
+	LectureDBAdapter lectureDbAdapter;
+	
+	protected ProgressBar lectureProgressBar;
+	protected ListView listView;
+	protected TextView lectureProgressBarLabel;
+	protected TextView emptyList;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    
-	    setContentView(R.layout.book_list_activity);
-	    registerForContextMenu( getListView() );
-	
-	    
-	    bookId = (long) getIntent().getLongExtra( EXTRA_BOOK_ID, 0);
-	    
 	    setContentView(R.layout.lecture_list_activity);
-	    
-	    
+
 	    /* add new lecture listener */
 	    Button addNewLecture = (Button)findViewById(R.id.addNewLecture);
 	    addNewLecture.setOnClickListener(new OnClickListener() {
@@ -66,12 +66,6 @@ public class LectureListActivity extends ListActivity{
 				onAddLectureClicked();
 			}
 	    });
-	    
-	    bookName = getBookName(bookId);
-	    
-	    ((TextView)findViewById(R.id.lectureListLabel)).setText(bookName);
-	    
-	    updateList();
 	    registerForContextMenu( getListView() );
 	    
 	    ImageButton goHome = (ImageButton) findViewById(R.id.home);
@@ -80,14 +74,32 @@ public class LectureListActivity extends ListActivity{
                 startActivity( new Intent(LectureListActivity.this, DashboardActivity.class) );
             }
         });
+        bookId = (long) getIntent().getLongExtra( EXTRA_BOOK_ID, 0);
+        if(bookId != 0){
+	        lectureProgressBar = (ProgressBar)findViewById(R.id.lectureProgress);
+	        lectureProgressBarLabel = (TextView)findViewById(R.id.lectureProgressLabel);
+	        emptyList = (TextView)findViewById(android.R.id.empty);
+	        listView = (ListView)findViewById(android.R.id.list);
+	        lectureDbAdapter = new LectureDBAdapter(this);
+		    ((TextView)findViewById(R.id.lectureListLabel)).setText( getBookName(bookId) );
+		    updateList();
+        }else {
+			Log.d(TAG, "ERR BookId is not set.");
+		}    
 	}
 	
-	@Override
-	protected void onStart() {
-		super.onStart();
-	    updateList();
+	protected void showList(){
+		listView.setVisibility(View.VISIBLE);
+		emptyList.setVisibility(View.VISIBLE);
+		lectureProgressBar.setVisibility(View.GONE);
+		lectureProgressBarLabel.setVisibility(View.GONE);
 	}
-	
+	protected void showLoader(){
+		listView.setVisibility(View.GONE);
+		emptyList.setVisibility(View.GONE);
+		lectureProgressBar.setVisibility(View.VISIBLE);
+		lectureProgressBarLabel.setVisibility(View.VISIBLE);
+	}
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
@@ -116,13 +128,23 @@ public class LectureListActivity extends ListActivity{
         return true;
         case MENU_DEACTIVE_LECTURE :
         	deactiveAllWordInLecture(info.id); 
-        return true;    
+        return true; 
+        case MENU_IMPORT :
+        	importWords(info.id); 
+        return true; 
         default:
                 return super.onContextItemSelected(item);
         }
 	}
 	
 	
+	private void importWords(long lectureId) {
+		Intent i = new Intent(this,  ImportActivity.class);
+		i.putExtra(EditLectureActivity.EXTRA_LECTURE_ID, lectureId);
+		i.putExtra(EditLectureActivity.EXTRA_LECTURE_NAME, lectureId);
+		startActivity(i);
+	}
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
 	    super.onCreateContextMenu(menu, v, menuInfo);
@@ -133,6 +155,7 @@ public class LectureListActivity extends ListActivity{
 	    menu.add(Menu.NONE, MENU_ACTIVE_RANDOM, Menu.NONE, R.string.active_ten);
 	    menu.add(Menu.NONE, MENU_ACTIVE_LECTURE, Menu.NONE, R.string.active_lecture);
 	    menu.add(Menu.NONE, MENU_DEACTIVE_LECTURE, Menu.NONE, R.string.deactive_lecture);
+	    menu.add(Menu.NONE, MENU_IMPORT, Menu.NONE, R.string.import_words);
 	}
 	
 	
@@ -165,17 +188,12 @@ public class LectureListActivity extends ListActivity{
 	
 	public void onSaveEditedLecture(long lectureId, String lectureName) {		
 		if(lectureId == -1) throw new Error("Unable save edited lecture.");
-		
-		LectureDBAdapter lectureDbAdapter = new LectureDBAdapter(this);
 		boolean result = false;
 		try {
 			result = lectureDbAdapter.editLecture(lectureId , lectureName);
 		} catch (Exception e) {
 			Log.d(TAG, "ERROR: " + e.getMessage());
-		} finally {
-			lectureDbAdapter.close();
-		}
-		
+		} 
 		if(result){
 		    updateList();
 		    Toast.makeText(this, R.string.saved_ok, Toast.LENGTH_LONG).show();
@@ -203,18 +221,7 @@ public class LectureListActivity extends ListActivity{
 	 * 
 	 */
 	public void updateList() {
-		closeAdapterCursor();
-		Cursor cursor = null;
-	    LectureDBAdapter lectureDbAdapter = new LectureDBAdapter(this);
-	    try{
-	    	cursor = lectureDbAdapter.getLecturesByBookId( bookId );
-	    	lectureAdapter = new LectureAdapter(this, cursor, 0);
-	 	    setListAdapter(lectureAdapter);
-	    } catch (Exception e) {
-			Log.d(TAG, "ERROR: " + e.getMessage());
-		} finally {
-			lectureDbAdapter.close();
-		}
+		new LoadData(this, bookId).execute();
 	}
 	
 	
@@ -226,15 +233,11 @@ public class LectureListActivity extends ListActivity{
 	 */
 	public void deleteLecture(long id){
         Boolean deleted = false;
-        LectureDBAdapter lectureDBAdapter = new LectureDBAdapter(this);
 	    try{
-	    	deleted = lectureDBAdapter.deleteLecture(id);
+	    	deleted = lectureDbAdapter.deleteLecture(id);
 	    } catch (Exception e) {
 			Log.d(TAG, "ERROR: " + e.getMessage());
-		} finally {
-			lectureDBAdapter.close();
-		}
-        
+		} 
         if(deleted){
             Toast.makeText(this, R.string.deleted, Toast.LENGTH_SHORT).show();
             updateList();
@@ -251,15 +254,12 @@ public class LectureListActivity extends ListActivity{
 	 * @param String name of new lecture.
 	 */
 	public void onSaveNewLecture(String lectureName) {
-		LectureDBAdapter lectureBbAdapter = new LectureDBAdapter(this);
 		long id = -1;
 		try {
-			id = lectureBbAdapter.insertLecture(bookId, lectureName);
+			id = lectureDbAdapter.insertLecture(bookId, lectureName);
 		} catch (Exception e) {
 			Log.d(TAG, "ERROR: " + e.getMessage());
-		} finally {
-			lectureBbAdapter.close();
-		}
+		} 
 		if(id > -1){
 		    updateList();
 		    Toast.makeText(this, R.string.lecture_added, Toast.LENGTH_LONG).show();		   
@@ -267,8 +267,6 @@ public class LectureListActivity extends ListActivity{
             Toast.makeText(this, R.string.lecture_not_added, Toast.LENGTH_LONG).show();
         }
 	}
-	
-	
 	
 	public void onAddLectureClicked() { 
 	    Intent i = new Intent(this, AddLectureActivity.class);
@@ -278,21 +276,13 @@ public class LectureListActivity extends ListActivity{
 	
 	
 	public String getBookName( long bookId ){
-		BookDBAdapter bookDBAdapter = new BookDBAdapter( this );
-		Cursor cursor = null;
-		String bookName = null;
+		String bookName = "";
 		try{
-			cursor = bookDBAdapter.getBook(bookId);
-			if(cursor == null || cursor.getCount() == 0) return null;
-				cursor.moveToFirst();
-				int bookNameIndex = cursor.getColumnIndex(BookDBAdapter.BOOK_NAME);
-				bookName = cursor.getString(bookNameIndex);
-	    } catch (Exception e) {
-			Log.d("EditBookFragment", "ERROR: " + e.getMessage());
-		} finally {
-			cursor.close();
-			bookDBAdapter.close();
+			bookName = lectureDbAdapter.getBookNameByLecture(bookId);
+		}catch(Exception e){
+			Log.d(TAG, "ERROR: "+e.getMessage());
 		}
+		Log.d(TAG, "Book name: " + bookName);
 		return bookName;
 	}
 	
@@ -360,9 +350,54 @@ public class LectureListActivity extends ListActivity{
 				if(!lectureAdapter.getCursor().isClosed())
 					lectureAdapter.getCursor().close();
 			}
+			if(lectureDbAdapter != null){
+				lectureDbAdapter.close();
+			}
 		} catch (Exception e) {
 			Log.d(TAG, e.getMessage());
 		}
+	}
+	
+	/* LOADING CURSOR DATA IN BACKGROUND -------------- */
+	private class LoadData extends AsyncTask<Void, Void, Cursor>{
+		
+		Context context;
+		long bookId;
+		
+		public LoadData(Context context, long bookId){
+			this.context = context;
+			this.bookId = bookId;
+		}
+		
+		@Override
+		protected void onPreExecute(){  
+			Log.d(TAG, "Loading data..");
+			showLoader();
+		}
+		
+		@Override
+		protected Cursor doInBackground(Void... params) {
+			Cursor cursor = null;
+			try {
+				cursor = lectureDbAdapter.getLecturesByBookId( this.bookId );
+			} catch (Exception e) {
+				Log.d(TAG, e.getMessage());
+			}
+			return cursor;
+		}
+		
+		@Override
+        protected void onPostExecute(Cursor cursor){
+			showList();
+			lectureAdapter = new LectureAdapter(context, cursor, 0);
+			setListAdapter(lectureAdapter);
+			lectureAdapter.notifyDataSetChanged();
+			if(cursor != null)
+				Log.d(TAG, "Loaded ! count: " + cursor.getCount());
+			else
+				Log.d(TAG, "can not load data");
+		}
+		
 	}
 	
 	/* OPTION MENU ---------------------------------------- */

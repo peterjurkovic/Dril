@@ -13,7 +13,7 @@
 	    android:id="@+id/lectureListnav"
         android:layout_width="fill_parent"
         android:layout_below="@id/layoutHeader"
-        android:layout_height="28dp"
+        android:layout_height="35dp"
         android:background="#DEDEDE" >
 
         <TextView
@@ -32,6 +32,24 @@
 	        android:layout_below="@id/lectureListnav"
 	        android:background="@drawable/drop_shaddow" />
 	
+		<ProgressBar 
+        	android:id="@+id/lectureProgress"
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content" 
+        	android:layout_centerHorizontal="true"
+        	android:layout_centerVertical="true" 
+        	/>
+			
+		<TextView
+	        android:id="@+id/lectureProgressLabel"
+	        android:gravity="center"
+	        android:layout_below="@id/lectureListnav"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:text="@string/loading"
+	        android:textColor="@color/text_color"
+	        android:visibility="visible" />
+		
 	    <ListView
 	        android:id="@android:id/list"
 	        android:layout_below="@id/shaddowLectureList"
@@ -47,7 +65,7 @@
 	        android:text="@string/no_lecture_available"
 	        android:gravity="center"
 	        android:textColor="#f00"
-	        android:visibility="visible" />
+	        android:visibility="gone" />
 
 	
 </RelativeLayout>

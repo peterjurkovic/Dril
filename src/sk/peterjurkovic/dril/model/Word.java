@@ -15,9 +15,17 @@ public class Word {
 
 	private boolean active;
 	
+	private long lectureId;
+	
 	public Word(String question, String answare){
 		this.question = question;
 		this.answare = answare;
+	}
+	
+	public Word(String question, String answare, long lectureId){
+		this.question = question;
+		this.answare = answare;
+		this.lectureId = lectureId;
 	}
 	
 	public Word(long id, String question, String answare, int hit, int rate,boolean active) {
@@ -28,6 +36,16 @@ public class Word {
 		this.hit = hit;
 		this.rate = rate;
 		this.active = active;
+	}
+
+	
+	
+	public long getLectureId() {
+		return lectureId;
+	}
+
+	public void setLectureId(long lectureId) {
+		this.lectureId = lectureId;
 	}
 
 	public boolean isActive() {

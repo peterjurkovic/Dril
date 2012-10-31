@@ -4,8 +4,10 @@ import sk.peterjurkovic.dril.adapter.BookAdapter;
 import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -16,6 +18,8 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class BookListActivity extends ListActivity {
@@ -30,6 +34,12 @@ public class BookListActivity extends ListActivity {
 	public static final int MENU_DELETE_ID = Menu.FIRST+3;
 	
 	BookAdapter bookAdapter;
+	BookDBAdapter bookDBAdapter;
+	
+	protected ProgressBar booKProgressBar;
+	protected ListView listView;
+	protected TextView bookProgressBarLabel;
+	protected TextView emptyList;
 	
 	
 	@Override
@@ -43,7 +53,25 @@ public class BookListActivity extends ListActivity {
                 startActivity( new Intent(BookListActivity.this, DashboardActivity.class) );
             }
         });
+        booKProgressBar = (ProgressBar)findViewById(R.id.booKProgress);
+        bookProgressBarLabel = (TextView)findViewById(R.id.booKProgressLabel);
+        emptyList = (TextView)findViewById(android.R.id.empty);
+        listView = (ListView)findViewById(android.R.id.list);
+        bookDBAdapter = new BookDBAdapter(this);
         updateList();
+	}
+	
+	protected void showList(){
+		listView.setVisibility(View.VISIBLE);
+		emptyList.setVisibility(View.VISIBLE);
+		booKProgressBar.setVisibility(View.GONE);
+		bookProgressBarLabel.setVisibility(View.GONE);
+	}
+	protected void showLoader(){
+		listView.setVisibility(View.GONE);
+		emptyList.setVisibility(View.GONE);
+		booKProgressBar.setVisibility(View.VISIBLE);
+		bookProgressBarLabel.setVisibility(View.VISIBLE);
 	}
 	
 	@Override
@@ -51,7 +79,6 @@ public class BookListActivity extends ListActivity {
 		showLectureList(id);
 	}
 
-	
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
@@ -82,34 +109,18 @@ public class BookListActivity extends ListActivity {
 	    
 	
 	public void updateList() {
-		closeAdapterCursor();
-		Cursor cursor = null;
-	    BookDBAdapter bookDBAdapter = new BookDBAdapter(this);
-	    try{
-	    	cursor = bookDBAdapter.getBooks();
-	    	bookAdapter = new BookAdapter(this, cursor, 0);
-		    setListAdapter(bookAdapter);
-	    } catch (Exception e) {
-			Log.d(TAG, "ERROR: " + e.getMessage());
-		} finally {
-			bookDBAdapter.close();
-		}
-	  
+		new LoadData(this).execute();
 	}
 	  
 	  
-	
 	public void deleteBook(long id){
         Boolean deleted = false;
-        BookDBAdapter bookDBAdapter = new BookDBAdapter(this);
-	    try{
-	    	deleted = bookDBAdapter.deleteBook(id);
-	    } catch (Exception e) {
-			Log.d(TAG, "ERROR: " + e.getMessage());
-		} finally {
-			bookDBAdapter.close();
+        try {
+        	deleted = bookDBAdapter.deleteBook(id);
+		} catch (Exception e) {
+			Log.e(TAG, "Can not delete book", e);
 		}
-	
+	    
 	    if(deleted){
 	        Toast.makeText(this, R.string.deleted, Toast.LENGTH_SHORT).show();
 	        updateList();
@@ -159,15 +170,11 @@ public class BookListActivity extends ListActivity {
 			
 	public void onSaveEditedBook(long bookId, String bookName) {
 		if(bookId == -1) throw new Error("Unable save edited book.");
-		
-		BookDBAdapter bookDbAdapter = new BookDBAdapter(this);
 		boolean result = false;
 		try {
-			result = bookDbAdapter.editBook(bookId , bookName);
+			result = bookDBAdapter.editBook(bookId , bookName);
 		} catch (Exception e) {
-			Log.d(TAG, "ERROR: " + e.getMessage());
-		} finally {
-			bookDbAdapter.close();
+			Log.e(TAG, "Can not edit book", e);
 		}
 		
 		if(result){
@@ -181,14 +188,11 @@ public class BookListActivity extends ListActivity {
 	
 	
 	public void onSaveNewBook(String bookName) {
-		BookDBAdapter bookDbAdapter = new BookDBAdapter(this);
 		long id = -1;
 		try {
-			id = bookDbAdapter.insertBook(bookName);
+			id = bookDBAdapter.insertBook(bookName);
 		} catch (Exception e) {
-			Log.d(TAG, "ERROR: " + e.getMessage());
-		} finally {
-			bookDbAdapter.close();
+			Log.e(TAG, "Can not save book", e);
 		}
 		
 		if(id > -1){
@@ -231,15 +235,54 @@ public class BookListActivity extends ListActivity {
 		closeAdapterCursor();
 	}
 	
+
 	private void closeAdapterCursor(){
 		try {
 			if(bookAdapter != null){
 				if(!bookAdapter.getCursor().isClosed())
 					bookAdapter.getCursor().close();
 			}
+			if(bookDBAdapter != null)
+					bookDBAdapter.close();
 		} catch (Exception e) {
 			Log.d(TAG, e.getMessage());
 		}
+	}
+	
+	
+	
+	/* LOADING CURSOR DATA IN BACKGROUND -------------- */
+	private class LoadData extends AsyncTask<Void, Void, Cursor>{
+		
+		Context context;
+		
+		public LoadData(Context context){
+			this.context = context;
+		}
+		@Override
+		protected void onPreExecute(){     
+			showLoader();
+		}
+		
+		@Override
+		protected Cursor doInBackground(Void... params) {
+			Cursor cursor = null;
+			try {
+				cursor = bookDBAdapter.getBooks();
+			} catch (Exception e) {
+				Log.e(TAG, "Can not retrive books", e);
+			}
+			return cursor;
+		}
+		
+		@Override
+        protected void onPostExecute(Cursor cursor){
+			showList();
+			bookAdapter = new BookAdapter(context, cursor, 0);
+			setListAdapter(bookAdapter);
+			bookAdapter.notifyDataSetChanged();
+		}
+		
 	}
 	
 	/* OPTION MENU ---------------------------------------- */

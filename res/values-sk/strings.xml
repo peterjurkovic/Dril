@@ -50,6 +50,7 @@
 	<string name="deactive_all">Deaktivovať všetko</string>
     <string name="deactive">Deaktivovať</string>
 	<string name="active">Aktivovať</string>
+	<string name="active_all">Aktivovať všetko</string>
 	<string name="active_lecture">Aktivovat lekciu</string>	
 	<string name="active_ten">Aktivovať 10 náhodne</string>
 	
@@ -108,10 +109,26 @@
     <string name="dril_date">Dátum drilovania</string>
     <string name="dril_avg">Priemerná známka</string>
 	<string name="error_no_data">Nepodarilo sa načítať dáta</string>
-    <!-- INFO  -->
-    
+	
+	<string name="loading">Čakajte prosím, načítavam &#8230;</string>
+
+	
+	<!-- IMPORT v 1.4 -->
+	<string name="import_words">Importovat slovíčka</string>
+	<string name="what_is_csv">Čo to je CSV?</string>
+	<string name="csv_label">CSV je jednoduchý súborový formát určený pre výmenu tabuľkových dát. Súbor vo formátu CSV sa skladá z riadkov, v ktorých sú jednotlivé položky oddelené znakom čiarka (,). Hodnoty položiek môžu býť uzatvorené do úvodzoviek (\"), čo umožňuje, aby text položky obsahoval čiarku.</string>
+    <string name="how_it_create">Ako si ho môžem vytvoriť?</string>
+	<string name="csv_create">Každá kancelárska aplikácia má možnosť exportu do formátu CSV, napr. MS EXcel, Open Office Calc, Libre Office atd. \n\nTakže jednoducho si môžete napísať svoje slovíčka napríklad do Excelu, exportovať ich do formátu CSV a následne exportovaný súbor prekopírovať do Vašho mobilného zariadenia.</string>
+    <string name="csv_format">CSV formát pro túto aplikáciu</string>
+    <string name="csv_format_label">Tato aplikácia podporuje základný csv formát:\n\n\"slovíčko\",\"preklad\"\n\"slovíčko 2\",\"preklad\"\n\nPOZNÁMKA: nepoužíva žiadnou csv hlavičku.</string>
+    <string name="csv_choose">Vybrať csv soubor k importu</string>
+    <string name="import_status">Import status</string>
+    <string name="import_failed">Import sa nepodaril, skontrolujte formát CSV súboru.</string>
+    <string name="import_success">Úspešne importované!\nPočet nových kartiček: %1$d</string>
+	
+	<!-- INFO  -->
     <string name="about_app">O aplikácii</string>
-    <string name="app_descr">Aplikácia Dril je určená na učenie anglických slovíčok a fráz. Dril je založený na metóde opakovania, je to efektívny spôsob memorovania napr. slovíčok či iných jednotlivých informácií určených na naučenie sa naspamäť.</string>
+    <string name="app_descr">Aplikácia Dril je určená na učenie anglických slovíčok a fráz. Dril je založený na metóde opakovania, je to efektívny spôsob memorovania napr. slovíčok či iných jednotlivých informácií určených na naučenie sa naspamäť. Nie je vhodné mať aktivovaných viac ako 30 kartičiek.</string>
     <string name="info_btn_head">Čo znamenajú jednotlivé tlačítka?</string>
     <string name="ibtn1">1. - Vedel som to okamžite, kartička sa už v drile nezobrazí.</string>
     <string name="ibtn2">2. - Vedel som to, ale musel som chvíľku rozmýšlať, kartička sa v drile znova zobrazí.</string>
@@ -120,6 +137,8 @@
     <string name="ibtn5">5. - Nevedel som to, vidim to prvý krát. Kartička bude znova zobrazená.</string>
 	<string name="how_its_work">Ako to funguje?</string>
 	<string name="how_its_work_descr">Ako prvé si musíte vybrať v sekcii \"Učebnice\" kartičky, ktoré chcete drilovať, resp. učiť sa. To je možné spraviť dvomi spôsobmi. Dlhým kliknutím na lekciu, následne v kontextovom menu zvoliť \"Náhodne aktivovať 10 kartičiek\", alebo si jednotlivo vybrať kartičky a aktivovať ich. </string>
+	
+	
 	<!-- UPDATE -->
 	<string name="check_for_update">Skontrolovať aktualizáce</string>
 	<string name="update_textbooks">Aktualizovať učebnice</string>

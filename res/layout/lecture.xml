@@ -20,7 +20,7 @@
         style="@style/bookAdapter"
         android:paddingBottom="7dp"
         android:textColor="#777777"
-        android:textSize="10dp"/>
+        android:textSize="10sp"/>
     
     <View 
 	    android:layout_width="fill_parent"

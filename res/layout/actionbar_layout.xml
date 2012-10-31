@@ -1,7 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/ActionBarCompat" 
     android:id="@+id/layoutHeader"
-
     >
  
     <ImageView
@@ -12,15 +11,16 @@
         android:contentDescription="@string/app_name_long"
         android:src="@drawable/dril_logo" />
  	
+    <!--  android:background="@drawable/home_btn"  -->
+
     <ImageButton
         android:id="@+id/home"
-        android:background="@drawable/home_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true" 
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:contentDescription="@string/home"
-        android:layout_marginRight="8dp"  
-     />
+        android:layout_marginRight="10dp"
+        android:background="@drawable/home_btn"
+        android:contentDescription="@string/home" />
     
 </RelativeLayout>

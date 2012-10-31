@@ -32,14 +32,13 @@
 			    android:id="@+id/drilNav"
 		        android:layout_width="fill_parent"
 		        android:layout_alignParentTop="true"
-		        android:layout_height="20dp"
+		        android:layout_height="25dp"
 		        android:background="#DEDEDE" >
 		
 		        <TextView
 		            style="@style/drilLabel"
 		        	android:id="@+id/drilLabel1" 
-		        	android:layout_gravity="left"
-		        	android:layout_marginTop="2dp"
+		        	android:layout_gravity="center_vertical|center_horizontal"
 		        	android:text="@string/activated_words"/>
 		       
 		    </FrameLayout>
@@ -151,7 +150,7 @@
 		 	     android:height="100dp"
 		 	     android:text="@string/showAnswerBtn"
 		 	     android:textColor="#EfEFEF"
-		 	     android:textSize="18dp" />
+		 	     android:textSize="18sp" />
 		  
 		</RelativeLayout> 
 		

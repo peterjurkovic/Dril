@@ -134,6 +134,27 @@ public class WordDBAdapter extends DBAdapter {
     }
     
     
+    public String getLectureNameById(long id) {
+    	SQLiteDatabase db = openReadableDatabase();
+    	Cursor cursor = db.query(
+    				LectureDBAdapter.TABLE_LECTURE, 
+    				new String[] { LectureDBAdapter.LECTURE_NAME  }, 
+    				LectureDBAdapter.LECTURE_ID + "= ?", 
+    				new String[] { String.valueOf(id) }, 
+    				null, 
+    				null, 
+    				null, 
+    				"1");
+    	String name = "";
+    	if (cursor != null){
+            cursor.moveToFirst();
+            int index = cursor.getColumnIndex(LectureDBAdapter.LECTURE_NAME);
+            name = cursor.getString(index);
+            cursor.close();
+    	}
+    	return name;
+    }
+    
     
     /**
      * Update word activity. 
@@ -215,6 +236,22 @@ public class WordDBAdapter extends DBAdapter {
     }
     
     
+    public void saveWordList(List<Word> words) throws Exception{
+		SQLiteDatabase db = openWriteableDatabase();
+		db.beginTransaction();
+		for(Word word : words){
+			ContentValues cv = new ContentValues();
+			cv.put(WordDBAdapter.QUESTION, word.getQuestion() );
+			cv.put(WordDBAdapter.ANSWER, word.getAnsware() );
+			cv.put(WordDBAdapter.FK_LECTURE_ID, word.getLectureId() );
+	        if( db.insert(WordDBAdapter.TABLE_WORD , null, cv) == -1)
+	        						throw new Exception("Can not insert word. ");
+	        cv = null;
+		}
+		db.setTransactionSuccessful();
+		db.endTransaction();
+		db.close();
+	}
     
     public void updateReatedWord(Word word, long statisticId){
     	SQLiteDatabase db = openWriteableDatabase();

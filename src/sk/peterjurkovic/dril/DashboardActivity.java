@@ -50,10 +50,10 @@ public final class DashboardActivity extends MainActivity implements AsyncLIsten
             public void onClick(View view) {
             	
             	if(countOfActiveWords == 0){
-            		Toast.makeText(getApplicationContext(), R.string.zero_cards_alert, Toast.LENGTH_SHORT).show();
+            		Toast.makeText(context, R.string.zero_cards_alert, Toast.LENGTH_SHORT).show();
             	
             	}else{
-            		Intent i = new Intent(getApplicationContext(), DrilActivity.class);
+            		Intent i = new Intent(context, DrilActivity.class);
             		startActivity(i);
             	}
             }
@@ -61,21 +61,21 @@ public final class DashboardActivity extends MainActivity implements AsyncLIsten
         
         btnBook.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-            		Intent i = new Intent(getApplicationContext(), BookListActivity.class);
+            		Intent i = new Intent(context, BookListActivity.class);
             		startActivity(i);
             }
         });
         
         btn_stats.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-            		Intent i = new Intent(getApplicationContext(), SessionStatisticActivity.class);
+            		Intent i = new Intent(context, SessionStatisticActivity.class);
             		startActivity(i);
             }
         });
         
         btn_info.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-        		Intent i = new Intent(getApplicationContext(), InfoActivity.class);
+        		Intent i = new Intent(context, InfoActivity.class);
         		startActivity(i);
 	        }
 	    });
@@ -147,7 +147,7 @@ public final class DashboardActivity extends MainActivity implements AsyncLIsten
 	 * @param response
 	 */
 	public void showDownloadDialog(Integer response){
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 		alertDialogBuilder
 			.setTitle(R.string.update_status)
 			.setMessage(R.string.update_available)

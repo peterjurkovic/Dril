@@ -22,7 +22,7 @@ import android.util.Log;
 public class DBAdapter{
 	
 	
-	public static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 2;
 	
 	public static final String DATABASE_NAME = "dril";
 	
@@ -173,8 +173,9 @@ public class DBAdapter{
 	        @Override
 	        public void onUpgrade(SQLiteDatabase db, int oldVersion, 
 	        int newVersion) {               
+	        	Log.d("DB", "Upgrading.. ");
 	        	 upgradeDatabase = true;
-	        	 createTables(db);
+	        	 db.execSQL(BookDBAdapter.TABLE_BOOK_VIEW_CREATE);
 	        	
 	        }
 	          
@@ -196,6 +197,7 @@ public class DBAdapter{
 	        	 db.execSQL(LectureDBAdapter.TABLE_LECTURE_CREATE);
 	        	 db.execSQL(WordDBAdapter.TABLE_WORD_CREATE);
 	        	 db.execSQL(StatisticDbAdapter.TABLE_STATISTIC_CREATE);
+	        	 db.execSQL(BookDBAdapter.TABLE_BOOK_VIEW_CREATE);
 	        	 db.setTransactionSuccessful();
 	        	 db.endTransaction();
 	        }
@@ -288,6 +290,7 @@ public class DBAdapter{
 		db.endTransaction();
 		db.close();			
 	}
+	
 	
 	
 	public long getLastVersionOfTextbooks(){

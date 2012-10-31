@@ -104,6 +104,28 @@ public class LectureDBAdapter extends DBAdapter {
 	    
 	    
 	    
+	    public String getBookNameByLecture(long id) {
+	    	SQLiteDatabase db = openReadableDatabase();
+	    	Cursor cursor = db.query(
+	    				BookDBAdapter.TABLE_BOOK, 
+	    				new String[] { BookDBAdapter.BOOK_NAME  }, 
+	    				BookDBAdapter.BOOK_ID + "= ?", 
+	    				new String[] { String.valueOf(id) }, 
+	    				null, 
+	    				null, 
+	    				null, 
+	    				"1");
+	    	String name = "";
+	    	if (cursor != null){
+	            cursor.moveToFirst();
+	            int bookNameIndex = cursor.getColumnIndex(BookDBAdapter.BOOK_NAME);
+	            name = cursor.getString(bookNameIndex);
+	            cursor.close();
+	    	}
+	    	return name;
+	    }
+	    
+	    
 	    public boolean editLecture(long lectureId, String lectureName) {
 	        SQLiteDatabase db = openWriteableDatabase();
 	        ContentValues values = new ContentValues();

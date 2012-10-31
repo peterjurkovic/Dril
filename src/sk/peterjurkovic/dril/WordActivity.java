@@ -1,6 +1,5 @@
 package sk.peterjurkovic.dril;
 
-import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.fragments.AddWordFragment;
 import sk.peterjurkovic.dril.fragments.EditWordFragment;
@@ -14,7 +13,6 @@ import sk.peterjurkovic.dril.listener.OnEditWordListener;
 import sk.peterjurkovic.dril.listener.OnShowWordListener;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -66,7 +64,7 @@ public class WordActivity extends FragmentActivity
         
         dualPane = findViewById(R.id.right_column) != null;
         
-        lectureName = getLectureName(lectureId);
+        lectureName = getLectureName(this, lectureId);
         
 	    ((TextView)findViewById(R.id.wordListLabel)).setText( lectureName );
         
@@ -176,20 +174,15 @@ public class WordActivity extends FragmentActivity
 	 * @param long ID of given lecture
 	 * @return name of current lecture
 	 */
-	public String getLectureName( long lectureId ){
-		LectureDBAdapter lectureDbAdapter = new LectureDBAdapter( this );
-		Cursor c;
+	public static String getLectureName(Context context, long lectureId ){
+		WordDBAdapter wordDBAdapter = new WordDBAdapter( context );
 		String lectureName = null;
 		try{
-			c = lectureDbAdapter.getLecture(lectureId);
-			c.moveToFirst();
-			int bookNameIndex = c.getColumnIndex( LectureDBAdapter.LECTURE_NAME );
-			lectureName = c.getString(bookNameIndex);
-			c.close();
+			lectureName = wordDBAdapter.getLectureNameById(lectureId);
 	    } catch (Exception e) {
 			Log.d("getLectureName", "ERROR: " + e.getMessage());
 		} finally {
-			lectureDbAdapter.close();
+			wordDBAdapter.close();
 		}
 		return lectureName;
 	}

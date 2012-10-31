@@ -13,7 +13,7 @@
 	    android:id="@+id/bookListnav"
         android:layout_width="fill_parent"
         android:layout_below="@id/layoutHeader"
-        android:layout_height="28dp"
+        android:layout_height="35dp"
         android:background="#DEDEDE" >
 
         <TextView
@@ -23,7 +23,9 @@
         <Button
             android:id="@+id/addNewBook"
             style="@style/addBtn"
+            android:layout_marginRight="12dp"
             android:onClick="onAddBookClicked" />
+
     </FrameLayout>
     	
 		<View
@@ -33,6 +35,25 @@
 	        android:layout_below="@id/bookListnav"
 	        android:background="@drawable/drop_shaddow" />
 	    
+		
+		<ProgressBar 
+        	android:id="@+id/booKProgress"
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content" 
+        	android:layout_centerHorizontal="true"
+        	android:layout_centerVertical="true" 
+        	/>
+			
+		<TextView
+	        android:id="@+id/booKProgressLabel"
+	        android:layout_below="@id/bookListnav"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:text="@string/loading"
+	        android:gravity="center"
+	        android:textColor="@color/text_color"
+	        android:visibility="visible" />
+		
 	    <ListView
 	        android:id="@android:id/list"
 	        android:layout_below="@id/shaddowBookList"
@@ -40,6 +61,8 @@
 	        android:layout_height="wrap_content"
 	        android:visibility="gone" />
 	
+	    
+	    
 	    <TextView
 	        android:id="@android:id/empty"
 	        android:layout_below="@id/bookListnav"
@@ -48,7 +71,7 @@
 	        android:text="@string/no_book_available"
 	        android:gravity="center"
 	        android:textColor="#f00"
-	        android:visibility="visible" />
+	        android:visibility="gone" />
 
 	
 </RelativeLayout>

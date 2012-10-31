@@ -35,7 +35,7 @@
         android:textColor="#333333"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textSize="13dp" />
+        android:textSize="13sp" />
 	
 	    
     <TextView
@@ -52,7 +52,7 @@
         android:textColor="#333333"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textSize="13dp" />
+        android:textSize="13sp" />
 	
      
     

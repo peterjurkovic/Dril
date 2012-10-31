@@ -9,6 +9,8 @@ import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.model.Word;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
@@ -350,9 +352,16 @@ public class DrilActivity extends MainActivity implements OnInitListener{
                textToSpeachService = new TextToSpeech(this, this);
             }
             else {
+            	PackageManager pm = getPackageManager();
                 Intent installTTSIntent = new Intent();
                 installTTSIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                startActivity(installTTSIntent);
+                ResolveInfo resolveInfo = pm.resolveActivity( installTTSIntent, PackageManager.MATCH_DEFAULT_ONLY );
+                if( resolveInfo == null ) {
+                		Toast.makeText(this, R.string.speach_failed, Toast.LENGTH_LONG).show();
+                	} else {
+                		startActivity(installTTSIntent);
+                	}
+               
             }
             }
     	super.onActivityResult(requestCode, resultCode, data);

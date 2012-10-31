@@ -12,7 +12,7 @@
 	    android:id="@+id/wordEditnav"
         android:layout_width="fill_parent"
         android:layout_below="@id/layoutHeader"
-        android:layout_height="28dp"
+        android:layout_height="35dp"
         android:background="#DEDEDE" >
 
         <TextView

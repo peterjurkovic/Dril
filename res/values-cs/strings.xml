@@ -110,10 +110,26 @@
     <string name="dril_avg">Průměrná známka</string>
     <string name="error_no_data">Nepodařilo se načíst data</string>
 	
-    <!-- INFO  -->
+    <string name="loading">Načítávám, prosím čekejte &#8230;</string>
+	
+	<!-- IMPORT v 1.4 -->
+	<string name="import_words">Importovat slovíčka</string>
+	<string name="what_is_csv">Co to je CSV?</string>
+	<string name="csv_label">CSV je jednoduchý souborový formát určený pro výměnu tabulkových dat. Soubor ve formátu CSV sestává z řádků, ve kterých jsou jednotlivé položky odděleny znakem čárka (,). Hodnoty položek mohou být uzavřeny do uvozovek (\"), což umožňuje, aby text položky obsahoval čárku.</string>
+    <string name="how_it_create">Jak si ho mohu vytvořiť?</string>
+	<string name="csv_create">Kazdá kancelářská aplikace má možnost exportu do formátu CSV, např. MS EXcel, Open Office Calc, Libre Office atd. \n\nTakže jednoduše můžete napsat svoje slovíčka například v Excelu, exportovat je do formátu CSV a následne exportovaný soubor skopírovat do Vašeho mobilního zařízení.</string>
+    <string name="csv_format">CSV formát pro tuto aplikaci</string>
+    <string name="csv_format_label">Tato aplikace podporuje základní csv formát:\n\n\"slovíčko\",\"překlad\"\n\"slovíčko 2\",\"překlad\"\n\nPOZNÁMKA: nepoužíva žádnou csv hlavičku.</string>
+    <string name="csv_choose">Vybrat csv soubor k importu</string>
+    <string name="import_status">Import status</string>
+    <string name="import_failed">Import zlyhal, skontrolujte formát CSV souboru.</string>
+    <string name="import_success">Úspěšně nahráno!\nPočet nových slovíček: %1$d</string>
     
+    
+    
+    <!-- INFO  -->
     <string name="about_app">O aplikaci</string>
-    <string name="app_descr">Aplikace dril je určena na učení anglických slovíček a fráz. Dril je založen na metodě opakování, je to efektivní způsob memorování např. slovíček či jiných jednotlivých informací určených k naučení se nazpaměť.</string>
+    <string name="app_descr">Aplikace dril je určena na učení anglických slovíček a fráz. Dril je založen na metodě opakování, je to efektivní způsob memorování např. slovíček či jiných jednotlivých informací určených k naučení se nazpaměť. Neni vhodné mít aktivovaných více než 30 kartiček.</string>
     <string name="info_btn_head">Co znamenají jednotlivé tlačítka?</string>
     <string name="ibtn1">1. - Věděl jsem to okamžitě, kartička se už v drilu nezobrazí.</string>
     <string name="ibtn2">2. - Věděl jsem to, ale musel jsem chvilku přemýšlet, kartička se v drilu znovu objeví.</string>
@@ -122,6 +138,8 @@
     <string name="ibtn5">5. - Nevěděl jsem to, vidim to poprvé. Kartička bude znovu zobrazena.</string>
 	<string name="how_its_work">Jak to funguje?</string>
 	<string name="how_its_work_descr">Jako první si musíte vybrat v sekci \ "Učebnice \" kartičky, které chcete drilovat, resp. učit se. To je možné udělat dvěma způsoby. Dlouhým kliknutím na lekci, následně v kontextovém menu zvolit \ "Náhodně aktivovat 10 kartiček \", nebo si jednotlivě vybrat kartičky a aktivovat je.</string>
+	
+	
 	<!-- UPDATE -->
 	<string name="check_for_update">Zkontrolovat aktualizace</string>
 	<string name="update_textbooks">Aktualizovat učebnice</string>

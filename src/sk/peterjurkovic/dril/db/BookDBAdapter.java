@@ -38,6 +38,31 @@ public class BookDBAdapter extends DBAdapter {
 										VERSION +" INTEGER NOT NULL DEFAULT (0)" + 
 								");";
 	
+	public static final String TABLE_BOOK_VIEW = "view_book";
+	
+	public static final String TABLE_BOOK_VIEW_CREATE = "CREATE VIEW "+TABLE_BOOK_VIEW+" AS SELECT " +
+    					"(SELECT " +
+    					
+    						"SUM(( SELECT COUNT(*) " +
+    								"FROM "+WordDBAdapter.TABLE_WORD+" w " +
+    								"WHERE  w."+WordDBAdapter.FK_LECTURE_ID+"=l._id AND "+WordDBAdapter.ACTIVE+"=1 ))" +
+    						"FROM "+LectureDBAdapter.TABLE_LECTURE+" l " +
+    						"WHERE l."+LectureDBAdapter.FK_BOOK_ID+"=b."+BOOK_ID+") as "+ACTIVE_WORD_COUNT+"," +
+    					
+    						"(SELECT " +
+									"SUM(( SELECT COUNT(*) FROM "+WordDBAdapter.TABLE_WORD+" w " +
+											"WHERE  w."+WordDBAdapter.FK_LECTURE_ID+"=l._id  ))" +
+									"FROM "+LectureDBAdapter.TABLE_LECTURE+" l " +
+									"WHERE "+LectureDBAdapter.FK_BOOK_ID+"=b."+BOOK_ID+") as "+WORD_COUNT+"," +
+    					
+    					
+    					"(SELECT COUNT(*) FROM "+ LectureDBAdapter.TABLE_LECTURE +" l " +
+    					"WHERE  l." + LectureDBAdapter.FK_BOOK_ID  + "=b."+ BOOK_ID +" ) AS "+ LECTURES_COUNT+", b." + 
+    					BOOK_ID + ",b." + BOOK_NAME +",b."+  VERSION + " " +
+    				"FROM "+ TABLE_BOOK +" b " +
+    				"ORDER BY b." + BOOK_NAME;
+	
+	
 	public static final String  TAG = "BookDBAdapter";
 	
     /**
@@ -73,27 +98,7 @@ public class BookDBAdapter extends DBAdapter {
     
     public Cursor getBooks() {
     	SQLiteDatabase db = openReadableDatabase();
-    	Cursor result =  db.rawQuery("SELECT " +
-    					"(SELECT " +
-    					
-    						"SUM(( SELECT COUNT(*) " +
-    								"FROM "+WordDBAdapter.TABLE_WORD+" w " +
-    								"WHERE  w."+WordDBAdapter.FK_LECTURE_ID+"=l._id AND "+WordDBAdapter.ACTIVE+"=1 ))" +
-    						"FROM "+LectureDBAdapter.TABLE_LECTURE+" l " +
-    						"WHERE l."+LectureDBAdapter.FK_BOOK_ID+"=b."+BOOK_ID+") as "+ACTIVE_WORD_COUNT+"," +
-    					
-    						"(SELECT " +
-									"SUM(( SELECT COUNT(*) FROM "+WordDBAdapter.TABLE_WORD+" w " +
-											"WHERE  w."+WordDBAdapter.FK_LECTURE_ID+"=l._id  ))" +
-									"FROM "+LectureDBAdapter.TABLE_LECTURE+" l " +
-									"WHERE "+LectureDBAdapter.FK_BOOK_ID+"=b."+BOOK_ID+") as "+WORD_COUNT+"," +
-    					
-    					
-    					"(SELECT COUNT(*) FROM "+ LectureDBAdapter.TABLE_LECTURE +" l " +
-    					"WHERE  l." + LectureDBAdapter.FK_BOOK_ID  + "=b."+ BOOK_ID +" ) AS "+ LECTURES_COUNT+", b." + 
-    					BOOK_ID + ",b." + BOOK_NAME +",b."+  VERSION + " " +
-    				"FROM "+ TABLE_BOOK +" b " +
-    				"ORDER BY b." + BOOK_NAME, null );
+    	Cursor result = db.query(TABLE_BOOK_VIEW,  null , null, null, null, null, null);
     	return result;
     }
     	 

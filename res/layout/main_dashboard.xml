@@ -19,7 +19,7 @@
 	     <FrameLayout
 		    android:id="@+id/dashHeader"
 	        android:layout_width="fill_parent"
-	        android:layout_height="20dp"
+	        android:layout_height="25dp"
 	        android:background="#DEDEDE" >
 	
 	        <TextView
@@ -42,12 +42,12 @@
 	    
 	    <Button
 			    android:id="@+id/btn_update"
-				android:textColor="#888"
+				android:textColor="#777"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
 			    android:background="@drawable/update_btn"
 			    android:gravity="center_horizontal|center_vertical"
-			    android:textSize="11dp"
+			    android:textSize="12sp"
 			    android:maxHeight="45dp"
 			    android:text="@string/check_for_update" />
 	
