@@ -59,12 +59,11 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/question" />
 		
-			<ImageButton 
+			<ImageButton
 			    android:id="@+id/speakQuestion"
 			    style="@style/spiker"
-			 	android:contentDescription="@string/pronauce_question" 
-			 	android:layout_below="@id/shaddowDril"
-			   />
+			    android:layout_below="@id/shaddowDril"
+			    android:contentDescription="@string/pronauce_question" />
 			
 		    <TextView
 		        android:id="@+id/question"

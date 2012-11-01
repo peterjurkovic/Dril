@@ -148,6 +148,8 @@ public class ImportActivity extends Activity {
 
 			} catch (IOException e) {
 				Log.e("FILERIEDER", "PARSER ERROR", e);
+			}catch (Exception e) {
+				Log.e("FILERIEDER", "Parsing error: ", e);
 			}finally{
 				try {
 					reader.close();

@@ -19,8 +19,8 @@
         android:id="@+id/adapter_lecture_descr"
         style="@style/bookAdapter"
         android:paddingBottom="7dp"
-        android:textColor="#777777"
-        android:textSize="10sp"/>
+        android:textColor="#555555"
+        android:textSize="11sp"/>
     
     <View 
 	    android:layout_width="fill_parent"
