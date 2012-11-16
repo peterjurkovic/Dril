@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat"
+    android:fillViewport="true" >
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/actionbar_layout" />
+	
+    <FrameLayout
+	    android:id="@+id/lectureListnav"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/layoutHeader"
+        android:layout_height="35dp"
+        android:background="#DEDEDE" >
+
+        <TextView
+            android:id="@+id/importLectureName"
+            style="@style/ListLabel" />
+    </FrameLayout>
+    
+    <TextView 
+        style="@style/boxLabel"
+        android:text="@string/import_id_put"
+        />
+    
+     <EditText
+	        android:id="@+id/importIdInput"
+	        style="@style/editText"
+	        android:background="@drawable/input"
+	        android:inputType="number"
+	        android:hint="@string/import_id"
+	        android:lines="1" />
+    
+	<Button 
+	    android:id="@+id/importBtn"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="5dp"
+	    android:layout_marginBottom="15dp"
+	    android:gravity="center"
+	    android:text="@string/import_submit"
+	    />
+	
+	
+	<LinearLayout 
+		style="@style/infoWrapper" >
+		    <TextView 
+		        style="@style/infoH1"
+		        android:text="@string/id_head"/>
+		    
+		     <TextView 
+		        style="@style/infoTextDescr"
+		        android:text="@string/id_descr"/>
+    </LinearLayout>
+    
+	
+</LinearLayout>
+</ScrollView>

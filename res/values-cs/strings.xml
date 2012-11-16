@@ -74,7 +74,7 @@
 	<string name="error">Operaci se nepodařilo provést</string>
 	<string name="selected">Označené:</string>
 	<string name="wordAction">Kartičku:</string>
-	<string name="activated_words">Drilování: %2$d/%1$d  |  zobazená: %3$dx |  poslední hodnocení: %4$s</string>
+	<string name="activated_words">kartičky: %1$d  |  zobazená: %2$dx |  poslední hodnocení: %3$s</string>
 	<string name="dril_finished">Dril byl dokončen! Pro pokračování si aktivujte nové kartičky</string>
 	<string name="pronauce_question">Vyslovit otázku</string>
 	<string name="pronauce_answer">Vyslovit odpověď</string>
@@ -124,6 +124,20 @@
     <string name="import_status">Import status</string>
     <string name="import_failed">Import zlyhal, skontrolujte formát CSV souboru.</string>
     <string name="import_success">Úspěšně nahráno!\nPočet nových slovíček: %1$d</string>
+    <string name="import_via_csv">Improt nahráním CSV souboru</string>
+    <string name="import_via_csv_descr">Vyberete CSV soubor z paměti zařízení</string>
+    <string name="import_via_id">Improt přes drilapp.com</string>
+    <string name="import_via_id_descr">Vložíte vygenerovaný identifikátor (import ID) z drilapp.com stránky.</string>
+    <string name="import_id">Import ID</string>
+    <string name="import_id_put">Vložte Vaš import ID:</string>
+    <string name="import_submit">Stáhnout a uložit</string>
+    <string name="id_head">Co je import ID?</string>
+    <string name="id_descr">Můžete pohodně napsat vlastní slovíčka na stránce www.drilapp.com. Po uložení získáte identifikátor (import ID), který vložíte do aplikace dril, následne se slovíčka stáhnou a uloží.\n\nVíce na: www.drilapp.com</string>
+    <string name="import_id_failed">Import se nezdařil, zkuste to znovu později.</string>
+    <string name="import_id_not_found">Nenašli se žádné slovíčka. Je vaše import ID správané?</string>
+    <string name="import_id_invalid">Chybné import ID.</string>
+    <string name="import_info_head">Importovat vlastní slovíčka</string>
+    <string name="import_info_desc">Věděli jste, že si můžete nahrát své vlastní slovíčka? To je možné dvěma způsoby: \n\n-přes CSV soubor, uložený ve Vašem mobilním zařízení \n-vzdálene, prostřednictvím www.drilapp.com \n\n Jak? Dlouhím kliknutím na danou lekci, následne kliknout na položku kontextového menu \"Importovat slovíčka\"</string>
     
     
     
@@ -154,4 +168,8 @@
 	<string name="yes">Ano</string>
 	<string name="no">Ne</string>
 	<string name="ok">OK</string>
+	
+	<!-- DRIL APP v 1.5 -->
+	<string name="drilapp">www.drilapp.com</string>
+	<string name="drilapp_ow">www.drilapp.com\n vlastní slovíčka</string>
 </resources>

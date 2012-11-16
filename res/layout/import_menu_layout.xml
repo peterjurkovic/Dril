@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat"
+    android:fillViewport="true" >
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/actionbar_layout" />
+	
+    
+     <FrameLayout
+	    android:id="@+id/lectureListnav"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/layoutHeader"
+        android:layout_height="35dp"
+        android:background="#DEDEDE" >
+
+        <TextView
+            android:id="@+id/importLectureName"
+            style="@style/ListLabel" />
+    </FrameLayout>
+    
+   <LinearLayout
+       android:id="@+id/importViaCsv"
+       style="@style/importMenu"
+       android:background="@drawable/imprt_dwbl_scv" >
+		    
+		     <TextView
+		        style="@style/importHead"
+		        android:text="@string/import_via_csv" />
+		     
+		     <TextView
+		         style="@style/importDscr"
+		         android:text="@string/import_via_csv_descr" />
+
+    </LinearLayout>
+    
+   
+   
+   <LinearLayout
+       android:id="@+id/importViaId"
+       style="@style/importMenu"
+       android:background="@drawable/imprt_dwbl_id" >
+		    
+		    <TextView
+		        style="@style/importHead"
+		        android:text="@string/import_via_id" />
+		     
+		     <TextView
+		         style="@style/importDscr"
+		         android:text="@string/import_via_id_descr" />
+
+    </LinearLayout>
+    
+</LinearLayout>
+</ScrollView>

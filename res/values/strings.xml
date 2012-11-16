@@ -32,8 +32,8 @@
     <string name="lecture_not_added">Lekciu sa nepodarilo pridať</string>
     <string name="book_added">The lesson was not added</string>
     
-    <string name="lecture_count">Počet lekcií: %1$d / kartičiek: %2$d / aktivované: %3$d</string>
-    <string name="word_count">Počet kartičiek v lekcii: %1$d, z toho aktivovaných: %2$d</string>
+    <string name="lecture_count">lectures: %1$d / cards: %2$d / activated: %3$d</string>
+    <string name="word_count">Count of card: %1$d activated: %2$d</string>
     <string name="book_edit_head">Edit textbook</string>
     
     <string name="submit">Save</string>
@@ -74,7 +74,7 @@
 	<string name="error">Some error occured, try it again</string>
 	<string name="selected">Selected:</string>
 	<string name="wordAction">Card:</string>
-	<string name="activated_words">Drilling: %2$d/%1$d  |  viewed: %3$dx |  last rating: %4$s</string>
+	<string name="activated_words">Cards: %1$d  |  viewed: %2$dx |  last rating: %3$s</string>
 	<string name="dril_finished">Drill was completed! You can activate new cards.</string>
 	<string name="pronauce_question">speech question</string>
 	<string name="pronauce_answer">speech answer</string>
@@ -125,7 +125,20 @@
     <string name="import_status">Import status</string>
     <string name="import_failed">import failed, check your csv format.</string>
     <string name="import_success">Successfully imported!\nCount of new words: %1$d</string>
-    
+    <string name="import_via_csv">Import via CSV file</string>
+    <string name="import_via_csv_descr">Choose your csv file from devices storage</string>
+    <string name="import_via_id">Import via drilapp.com</string>
+    <string name="import_via_id_descr">Insert your generated import ID from drilapp.com page.</string>
+    <string name="import_id">Import ID</string>
+    <string name="import_id_put">Put your import ID here:</string>
+    <string name="import_submit">Download and save</string>
+    <string name="id_head">What is import ID?</string>
+    <string name="id_descr">You can comfotable write your own words via www.drilapp.com page. After save your words in this page, you get identifier (import ID), witch you may put here and download your word into you mobile device.\n\nMore info at www.drilapp.com</string>
+    <string name="import_id_failed">Import failed, try it again later.</string>
+    <string name="import_id_not_found">Did not find any words. Is your import ID correct?</string>
+    <string name="import_id_invalid">Invalid import ID.</string>
+    <string name="import_info_head">Import your own words</string>
+    <string name="import_info_desc">Did you know that you can import your own words ? It is possible two ways:\n\n- via csv file, stored in your mobile device\n- remotely, via www.drilapp.com \n\nHow? long click on given lecture, click on \"Import words\"</string>
     
     <!-- INFO  -->
     <string name="about_app">About app</string>
@@ -154,4 +167,8 @@
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
 	<string name="ok">OK</string>
+	
+	<!-- DRIL APP v 1.5 -->
+	<string name="drilapp">www.drilapp.com</string>
+	<string name="drilapp_ow">www.drilapp.com\n your own words</string>
 </resources>

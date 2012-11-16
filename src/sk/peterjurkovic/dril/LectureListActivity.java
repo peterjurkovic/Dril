@@ -139,9 +139,8 @@ public class LectureListActivity extends ListActivity{
 	
 	
 	private void importWords(long lectureId) {
-		Intent i = new Intent(this,  ImportActivity.class);
+		Intent i = new Intent(this,  ImportMenuActivity.class);
 		i.putExtra(EditLectureActivity.EXTRA_LECTURE_ID, lectureId);
-		i.putExtra(EditLectureActivity.EXTRA_LECTURE_NAME, lectureId);
 		startActivity(i);
 	}
 
@@ -282,7 +281,6 @@ public class LectureListActivity extends ListActivity{
 		}catch(Exception e){
 			Log.d(TAG, "ERROR: "+e.getMessage());
 		}
-		Log.d(TAG, "Book name: " + bookName);
 		return bookName;
 	}
 	
@@ -371,7 +369,6 @@ public class LectureListActivity extends ListActivity{
 		
 		@Override
 		protected void onPreExecute(){  
-			Log.d(TAG, "Loading data..");
 			showLoader();
 		}
 		
@@ -392,10 +389,6 @@ public class LectureListActivity extends ListActivity{
 			lectureAdapter = new LectureAdapter(context, cursor, 0);
 			setListAdapter(lectureAdapter);
 			lectureAdapter.notifyDataSetChanged();
-			if(cursor != null)
-				Log.d(TAG, "Loaded ! count: " + cursor.getCount());
-			else
-				Log.d(TAG, "can not load data");
 		}
 		
 	}
@@ -413,7 +406,6 @@ public class LectureListActivity extends ListActivity{
 	    switch (item.getItemId()) {
 	    case R.id.menu_about:
 	        startActivity(new Intent(this, AboutActivity.class));
-	    	Log.d("MAINACTIVITY", "starting abotu...");
 	        return true;
 	    default:
 	        return super.onOptionsItemSelected(item);

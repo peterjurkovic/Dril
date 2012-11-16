@@ -14,15 +14,15 @@ import sk.peterjurkovic.dril.model.Word;
 public class JSONParser {
 	
 	
-	private static final String TAG_BOOKS = "books";
-	private static final String TAG_NAME = "name";
-	private static final String TAG_VERSION = "version";
-	private static final String TAG_LECTURES = "lectures";
-	private static final String TAG_LECTURE_NAME = "lecture_name";
-	private static final String TAG_WORDS = "words";
-	private static final String TAG_QUESTION = "question";
-	private static final String TAG_ANSWER = "answer";
-	private static final String TAG_COUNT = "count";
+	public static final String TAG_BOOKS = "books";
+	public static final String TAG_NAME = "name";
+	public static final String TAG_VERSION = "version";
+	public static final String TAG_LECTURES = "lectures";
+	public static final String TAG_LECTURE_NAME = "lecture_name";
+	public static final String TAG_WORDS = "words";
+	public static final String TAG_QUESTION = "question";
+	public static final String TAG_ANSWER = "answer";
+	public static final String TAG_COUNT = "count";
 	
 	
 	public int getCountOfNewBooks(JSONObject json){
@@ -42,7 +42,7 @@ public class JSONParser {
          bookList = parseBooksFromJSONArray( json.getJSONArray(TAG_BOOKS) );
        }catch(JSONException e){
        	e.printStackTrace();
-       }
+       }		
        return bookList;
 	}
 	
@@ -54,7 +54,7 @@ public class JSONParser {
 	 * @return List<Book> parsed books
 	 * @throws JSONException if some error occurred
 	 */
-	private List<Book> parseBooksFromJSONArray(JSONArray bookArray) throws JSONException{
+	public List<Book> parseBooksFromJSONArray(JSONArray bookArray) throws JSONException{
 		//Log.d("JSON", "books: "+ bookArray.length() );
 		List<Book> bookList = new ArrayList<Book>();
 		for(int i = 0; i < bookArray.length(); i++){
@@ -76,11 +76,11 @@ public class JSONParser {
 	 * @return List<Lecture> parsed lecture of current book
 	 * @throws JSONException if some error occurred
 	 */
-	private List<Lecture> parseLecturesFromJSONArray(JSONArray lectureArray) throws JSONException{
+	public List<Lecture> parseLecturesFromJSONArray(JSONArray lectureArray) throws JSONException{
 		//Log.d("JSON", "lectures: "+ lectureArray.length() );
 		List<Lecture> lectureList = new ArrayList<Lecture>();
 		for(int i = 0; i < lectureArray.length(); i++){
-   			JSONObject l = lectureArray.getJSONObject(i);
+   			JSONObject l = lectureArray.getJSONObject(i);	
    			Lecture lecture = new Lecture();
    			lecture.setLectureName(l.getString(TAG_LECTURE_NAME));
    			lecture.setWords(parseWordsFromJSONArray( l.getJSONArray(TAG_WORDS) ));
@@ -97,8 +97,7 @@ public class JSONParser {
 	 * @return List<Word> parse Words 
 	 * @throws JSONException if some error occurred
 	 */
-	private List<Word> parseWordsFromJSONArray(JSONArray wordArray) throws JSONException{
-		//Log.d("JSON", "words: "+ wordArray.length() );
+	public List<Word> parseWordsFromJSONArray(JSONArray wordArray) throws JSONException{
 		List<Word> wordList = new ArrayList<Word>();
 		for(int i = 0; i < wordArray.length(); i++){
 				JSONObject w = wordArray.getJSONObject(i);
@@ -110,4 +109,27 @@ public class JSONParser {
 			}
 		return wordList;
 	}
+	
+	/**
+	 * Extract question and answer from given lecture node in JSON data.
+	 * 
+	 * @param JSONArray current lecture node
+	 * @param long id of lecture
+	 * @return List<Word> parse Words 
+	 * @throws JSONException if some error occurred
+	 */
+	public List<Word> parseWordsFromJSONArray(JSONArray wordArray, long lectureId) throws JSONException{
+		List<Word> wordList = new ArrayList<Word>();
+		for(int i = 0; i < wordArray.length(); i++){
+				JSONObject w = wordArray.getJSONObject(i);
+				wordList.add(
+						new Word(
+								w.getString(TAG_QUESTION),
+								w.getString(TAG_ANSWER),
+								lectureId)
+					);
+			}
+		return wordList;
+	}
+	
 }

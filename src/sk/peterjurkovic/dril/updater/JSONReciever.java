@@ -18,26 +18,34 @@ import android.util.Log;
 
 public class JSONReciever {
 	
-		public static int FOR_CHECK_ACTION = 1;
-		public static int FOR_UPDATE_ACTION = 2;
+		public static final int FOR_CHECK_ACTION = 1;
+		public static final int FOR_UPDATE_ACTION = 2;
+		public static final int FOR_OWN_WORD_ACTION = 3;
+		
 		public static final int LANG_EN_INDEX = 1;
 		
-		private  String checkServiceURL = "http://dril.peterjurkovic.sk?lang="+
+		private  String checkServiceURL = "http://drilapp.com/export.php?lang="+
 					LANG_EN_INDEX+"&act="+ FOR_CHECK_ACTION+"&ver=";
-		private  String updateServiceURL = "http://dril.peterjurkovic.sk?lang="+
+		private  String updateServiceURL = "http://drilapp.com/export.php?lang="+
 					LANG_EN_INDEX+"&act="+FOR_UPDATE_ACTION+"&ver=";
+		private  String ownWordsServiceUrl = "http://drilapp.com/export.php?importId=";
+		
+		private String importId = null;
 		
 	 	static InputStream is = null;
 	    static JSONObject jObj = null;
 	    static String json = "";
 	    
+	    public JSONReciever(String importId) {
+	    	this.importId = importId;
+	    }
 	    
 	    public JSONReciever(long version) {
 	    	checkServiceURL = checkServiceURL + version;
 	    	updateServiceURL = updateServiceURL + version;
 	    }
 	    
-	    public JSONObject getJSONData(int act) throws IllegalArgumentException {
+	    public JSONObject getJSONData(int action) throws IllegalArgumentException {
 	    	 
 	        // Making HTTP request
 	        try {
@@ -45,13 +53,22 @@ public class JSONReciever {
 	            DefaultHttpClient httpClient = new DefaultHttpClient();
 	            
 	            String url = "";
-	            if(FOR_CHECK_ACTION == act){
-	            	url = checkServiceURL;
-	            }else if(FOR_UPDATE_ACTION == act){
-	            	url = updateServiceURL;
-	            }else{
-					throw new IllegalArgumentException("JSONRecievers action is not defined");
-				}
+	            switch( action ){
+	            	case FOR_CHECK_ACTION :
+	            		url = checkServiceURL;
+	            	break;
+	            	case FOR_UPDATE_ACTION :
+	            		url = updateServiceURL;
+	            	break;
+	            	case FOR_OWN_WORD_ACTION :
+	            		if(importId == null)
+	            			throw new IllegalArgumentException("Invalid import ID");
+	            		url = ownWordsServiceUrl  + importId;
+	            	break;
+	            	default:
+	            		throw new IllegalArgumentException("JSONRecievers action is not defined");
+	            }
+	            
 	             
 	            HttpPost httpPost = new HttpPost(url);
 	 
@@ -73,7 +90,7 @@ public class JSONReciever {
 	            StringBuilder sb = new StringBuilder();
 	            String line = null;
 	            while ((line = reader.readLine()) != null) {
-	                sb.append(line + "n");
+	            	sb.append(line + "n");
 	            }
 	            is.close();
 	            json = sb.toString();

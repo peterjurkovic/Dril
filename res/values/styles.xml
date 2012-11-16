@@ -190,12 +190,38 @@
 	    <item name="android:textColor">@color/text_color</item> 
     </style>
     <style name="infoWrapper">
-         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
 	    <item name="android:layout_height">wrap_content</item>
 	    <item name="android:orientation">vertical</item>
 	    <item name="android:padding">10dp</item>
 	    <item name="android:layout_margin">5dp</item>
 	    <item name="android:background">@drawable/table</item>
+    </style>
+    <style name="importMenu">
+        <item name="android:layout_width">match_parent</item>
+	    <item name="android:layout_height">wrap_content</item>
+	    <item name="android:orientation">vertical</item>
+	    <item name="android:padding">10dp</item>
+	    <item name="android:layout_marginBottom">5dp</item>
+	    <item name="android:layout_marginLeft">5dp</item>
+	    <item name="android:layout_marginRight">5dp</item>
+	    <item name="android:layout_marginTop">15dp</item>
+    </style>
+    <style name="importHead">
+        <item name="android:layout_width">match_parent</item>
+	    <item name="android:layout_height">wrap_content</item>
+	    <item name="android:layout_marginLeft">80dp</item>
+	    <item name="android:layout_marginTop">4dp</item>
+	    <item name="android:textColor">@color/import_head</item>
+	    <item name="android:textSize">18sp</item>
+    </style>
+    <style name="importDscr">
+        <item name="android:layout_width">match_parent</item>
+	    <item name="android:layout_height">wrap_content</item>
+	    <item name="android:layout_marginLeft">80dp</item>
+	    <item name="android:layout_marginTop">4dp</item>
+	    <item name="android:textColor">@color/text_color</item>
+	    <item name="android:textSize">12sp</item>
     </style>
     <style name="infoH1">
         <item name="android:layout_width">match_parent</item>

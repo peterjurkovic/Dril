@@ -40,28 +40,6 @@ public class BookDBAdapter extends DBAdapter {
 	
 	public static final String TABLE_BOOK_VIEW = "view_book";
 	
-	public static final String TABLE_BOOK_VIEW_CREATE = "CREATE VIEW "+TABLE_BOOK_VIEW+" AS SELECT " +
-    					"(SELECT " +
-    					
-    						"SUM(( SELECT COUNT(*) " +
-    								"FROM "+WordDBAdapter.TABLE_WORD+" w " +
-    								"WHERE  w."+WordDBAdapter.FK_LECTURE_ID+"=l._id AND "+WordDBAdapter.ACTIVE+"=1 ))" +
-    						"FROM "+LectureDBAdapter.TABLE_LECTURE+" l " +
-    						"WHERE l."+LectureDBAdapter.FK_BOOK_ID+"=b."+BOOK_ID+") as "+ACTIVE_WORD_COUNT+"," +
-    					
-    						"(SELECT " +
-									"SUM(( SELECT COUNT(*) FROM "+WordDBAdapter.TABLE_WORD+" w " +
-											"WHERE  w."+WordDBAdapter.FK_LECTURE_ID+"=l._id  ))" +
-									"FROM "+LectureDBAdapter.TABLE_LECTURE+" l " +
-									"WHERE "+LectureDBAdapter.FK_BOOK_ID+"=b."+BOOK_ID+") as "+WORD_COUNT+"," +
-    					
-    					
-    					"(SELECT COUNT(*) FROM "+ LectureDBAdapter.TABLE_LECTURE +" l " +
-    					"WHERE  l." + LectureDBAdapter.FK_BOOK_ID  + "=b."+ BOOK_ID +" ) AS "+ LECTURES_COUNT+", b." + 
-    					BOOK_ID + ",b." + BOOK_NAME +",b."+  VERSION + " " +
-    				"FROM "+ TABLE_BOOK +" b " +
-    				"ORDER BY b." + BOOK_NAME;
-	
 	
 	public static final String  TAG = "BookDBAdapter";
 	
@@ -97,10 +75,24 @@ public class BookDBAdapter extends DBAdapter {
     
     
     public Cursor getBooks() {
-    	SQLiteDatabase db = openReadableDatabase();
-    	Cursor result = db.query(TABLE_BOOK_VIEW,  null , null, null, null, null, null);
-    	return result;
-    }
+        SQLiteDatabase db = openReadableDatabase();
+        Cursor result = db.rawQuery("SELECT "+
+				"b._id, b.book_name, b.version, " +
+				    "(SELECT COUNT(*) " +
+				        "FROM word w " +
+				        "JOIN lecture l ON l._id = w.lecture_id " +
+				        "WHERE l.book_id = b._id " +
+				        "AND w.active = 1) AS active_word_count, " +
+				    "(SELECT COUNT(*) " +
+				        "FROM word w " +
+				        "JOIN lecture l ON  w.lecture_id = l._id " +
+				        "WHERE l.book_id = b._id) AS word_count, " +
+				    "(SELECT COUNT(*) " +
+				        "FROM lecture l " +
+				        "WHERE l.book_id = b._id) AS lecture_count " +
+				"FROM book b", null );
+		return result;
+}
     	 
     
     

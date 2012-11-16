@@ -37,6 +37,9 @@ public class AboutActivity extends Activity {
 	}
 	
 	
+	public void goToDrilAppPage(View view){
+		goToUrl ( "http://www.drilapp.com");
+	}
 	
 	
 	public void goWebPage(View view){

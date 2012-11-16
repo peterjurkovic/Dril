@@ -45,6 +45,7 @@
     
     <TableLayout 
         android:layout_below="@id/info2"
+        android:id="@+id/infoTable"
         style="@style/infoWrapper" >
        
        <TextView 
@@ -107,5 +108,17 @@
         		android:text="@string/ibtn5" />
 	    </TableRow>
     </TableLayout>
+    
+    <LinearLayout 
+        	android:layout_below="@id/infoTable"
+			style="@style/infoWrapper" >
+		    <TextView 
+		        style="@style/infoH1"
+		        android:text="@string/import_info_head"/>
+		    
+		     <TextView 
+		        style="@style/infoTextDescr"
+		        android:text="@string/import_info_desc"/>
+    	</LinearLayout>
 </RelativeLayout>
 </ScrollView>

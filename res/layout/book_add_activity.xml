@@ -47,4 +47,16 @@
 	        android:layout_below="@id/addBookName"
 	        android:layout_toLeftOf="@id/submitAdd"
 	        android:text="@string/cancel" />
+	     
+	     <LinearLayout 
+	       	android:layout_below="@id/cancelAdd"
+			style="@style/infoWrapper" >
+		    <TextView 
+		        style="@style/infoH1"
+		        android:text="@string/import_info_head"/>
+		    
+		     <TextView 
+		        style="@style/infoTextDescr"
+		        android:text="@string/import_info_desc"/>
+    	</LinearLayout>
 </RelativeLayout>

@@ -25,7 +25,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class ImportActivity extends Activity {
+public class ImportCsvActivity extends Activity {
 
 	  final int ACTIVITY_CHOOSE_FILE = 1;
 	  
@@ -34,7 +34,7 @@ public class ImportActivity extends Activity {
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.import_activity);
+	    setContentView(R.layout.import_csv_activity);
 
 	    Intent i = getIntent();
 	    
@@ -46,7 +46,7 @@ public class ImportActivity extends Activity {
 	    ImageButton goHome = (ImageButton) findViewById(R.id.home);
         goHome.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity( new Intent(ImportActivity.this, DashboardActivity.class) );
+                startActivity( new Intent(ImportCsvActivity.this, DashboardActivity.class) );
             }
         });
 	    
@@ -122,7 +122,7 @@ public class ImportActivity extends Activity {
 						}else{
 							resultMessage = getResources().getString( R.string.import_success, result);
 						}
-						dialog.hide();
+						dialog.dismiss();
 						showResultDialog(resultMessage);
 					}
 			}

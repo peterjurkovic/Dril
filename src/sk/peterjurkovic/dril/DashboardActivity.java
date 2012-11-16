@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -191,7 +192,12 @@ public final class DashboardActivity extends MainActivity implements AsyncLIsten
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
 	}
-
+	
+	public void goToHomePage(View view){
+		Uri uriUrl = Uri.parse("http://www.drilapp.com");
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
+	}
     
     /* OPTION MENU ---------------------------- */
     

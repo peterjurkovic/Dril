@@ -51,7 +51,22 @@
 			        android:layout_gravity="bottom|right"
 			        />
 		</LinearLayout>
-
 		
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@id/secondRow"
+		    android:layout_centerHorizontal="true"
+		    android:layout_marginTop="15dp"
+		    android:autoLink="web"
+		    android:gravity="center"
+		    android:onClick="goToHomePage"
+		    android:paddingBottom="10dp"
+		    android:paddingTop="10dp"
+		    android:text="@string/drilapp_ow"
+		    android:textColor="#a9a9a9"
+		    android:textColorHint="#00c6ff"
+		    android:textColorLink="#2e3d5e"
+		    android:textSize="10sp" />
 
 </RelativeLayout>

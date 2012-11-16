@@ -47,5 +47,17 @@
 	        android:layout_below="@id/addLectureName"
 	        android:layout_toLeftOf="@id/submitAddLecture"
 	        android:text="@string/cancel" />
+	     
+	     <LinearLayout 
+	       	android:layout_below="@id/cancelAddLecture"
+			style="@style/infoWrapper" >
+		    <TextView 
+		        style="@style/infoH1"
+		        android:text="@string/import_info_head"/>
+		    
+		     <TextView 
+		        style="@style/infoTextDescr"
+		        android:text="@string/import_info_desc"/>
+    	</LinearLayout>
 		
 </RelativeLayout>

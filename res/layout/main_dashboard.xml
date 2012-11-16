@@ -40,6 +40,8 @@
 	        android:layout_weight="1"
 	        layout="@layout/dashboard_layout" />
 	    
+	    
+	    
 	    <Button
 			    android:id="@+id/btn_update"
 				android:textColor="#777"

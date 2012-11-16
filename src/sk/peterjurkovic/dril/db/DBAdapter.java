@@ -174,9 +174,7 @@ public class DBAdapter{
 	        public void onUpgrade(SQLiteDatabase db, int oldVersion, 
 	        int newVersion) {               
 	        	Log.d("DB", "Upgrading.. ");
-	        	 upgradeDatabase = true;
-	        	 db.execSQL(BookDBAdapter.TABLE_BOOK_VIEW_CREATE);
-	        	
+	        	 upgradeDatabase = true;	
 	        }
 	          
 	        public void importData(SQLiteDatabase db, String fileName){
@@ -192,12 +190,11 @@ public class DBAdapter{
 	        }
 	        
 	        private void createTables(SQLiteDatabase db){
-	        		db.beginTransaction();
+	        	 db.beginTransaction();
 	        	 db.execSQL(BookDBAdapter.TABLE_BOOK_CEREATE);
 	        	 db.execSQL(LectureDBAdapter.TABLE_LECTURE_CREATE);
 	        	 db.execSQL(WordDBAdapter.TABLE_WORD_CREATE);
 	        	 db.execSQL(StatisticDbAdapter.TABLE_STATISTIC_CREATE);
-	        	 db.execSQL(BookDBAdapter.TABLE_BOOK_VIEW_CREATE);
 	        	 db.setTransactionSuccessful();
 	        	 db.endTransaction();
 	        }

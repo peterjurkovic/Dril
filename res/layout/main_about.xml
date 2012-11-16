@@ -32,11 +32,19 @@
         android:textSize="15dp" />
 	
 
-
-       <Button
-           android:id="@+id/homeWebPage"
+		<Button
+           android:id="@+id/drilapp"
            android:layout_below="@id/abaoutHead"
            android:layout_marginTop="40dp"    
+           style="@style/pageLink"
+           android:autoLink="web"
+           android:onClick="goToDrilAppPage"
+           android:text="@string/drilapp" />
+    
+       <Button
+           android:id="@+id/homeWebPage"
+           android:layout_below="@id/drilapp"
+           android:layout_marginTop="15dp"    
            style="@style/pageLink"
            android:autoLink="web"
            android:onClick="goWebPage"

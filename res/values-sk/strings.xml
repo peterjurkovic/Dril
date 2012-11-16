@@ -74,7 +74,7 @@
 	<string name="error">Operáciu sa nepodarilo vykonať</string>
 	<string name="selected">Označené:</string>
 	<string name="wordAction">Kartičku:</string>
-	<string name="activated_words">Drilovanie: %2$d/%1$d  |  zobazená: %3$dx |  posledné hodnotenie: %4$s</string>
+	<string name="activated_words">kartičky: %1$d  |  zobazená: %2$dx |  posledné hodnotenie: %3$s</string>
 	<string name="dril_finished">Dril bol dokončený! Aktivujte si nové kartičky</string>
 	<string name="pronauce_question">Vysloviť otázku</string>
 	<string name="pronauce_answer">Vysloviť odpoveď</string>
@@ -125,7 +125,22 @@
     <string name="import_status">Import status</string>
     <string name="import_failed">Import sa nepodaril, skontrolujte formát CSV súboru.</string>
     <string name="import_success">Úspešne importované!\nPočet nových kartiček: %1$d</string>
-	
+	<string name="import_via_csv">Improt nahratím CSV súboru</string>
+    <string name="import_via_csv_descr">Vyberiete CSV soúbor z pamäti zariadenia</string>
+    <string name="import_via_id">Improt prostredníctvom drilapp.com</string>
+    <string name="import_via_id_descr">Vložíte vygenerovaný identifikátor (import ID) z drilapp.com stránky.</string>
+    <string name="import_id">Import ID</string>
+    <string name="import_id_put">Vložte vaš import ID:</string>
+    <string name="import_submit">Stiahnuť a uložiť</string>
+    <string name="id_head">Čo je to import ID?</string>
+    <string name="id_descr">Môžete si pohodlne napísať vlastné slovíčka na stránke www.drilapp.com, následne sa vygeneruje identifikátor (import ID), ktorý sa vloží do aplikácie dril a slovíčka sa Vám stiahnu do Vášho zariadenia.\n\nViac na: www.drilapp.com</string>
+    <string name="import_id_failed">Import sa nepodaril, skúste to znova neskôr.</string>
+    <string name="import_id_not_found">Nenašli sa žiadne slovíčka. Je Vaše import ID správane?</string>
+    <string name="import_id_invalid">Chybné import ID.</string>
+    <string name="import_info_head">Importovat vlastné slovíčka</string>
+    <string name="import_info_desc">Vedeli ste, že si môžete nahrať Vaše vlastne slovíčka? To je možné dvoma spôsobmi: \n\n-prostredníctvom CSV súbora, uloženého vo Vašom zariadení\n\n-vzdialene, prostredníctvom www.drilapp.com\n\nAko? Dlhím kliknutím na danú lekciu, následne kliknúť na položku kontextového menu \"Importovať slovíčka\"</string>
+    
+    
 	<!-- INFO  -->
     <string name="about_app">O aplikácii</string>
     <string name="app_descr">Aplikácia Dril je určená na učenie anglických slovíčok a fráz. Dril je založený na metóde opakovania, je to efektívny spôsob memorovania napr. slovíčok či iných jednotlivých informácií určených na naučenie sa naspamäť. Nie je vhodné mať aktivovaných viac ako 30 kartičiek.</string>
@@ -153,4 +168,8 @@
 	<string name="yes">Áno</string>
 	<string name="no">Nie</string>
 	<string name="ok">OK</string>
+	
+	<!-- DRIL APP v 1.5 -->
+	<string name="drilapp">www.drilapp.com</string>
+	<string name="drilapp_ow">www.drilapp.com\n vlastné slovíčka</string>
 </resources>

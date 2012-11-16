@@ -1,7 +1,9 @@
 package sk.peterjurkovic.dril;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import sk.peterjurkovic.dril.db.StatisticDbAdapter;
@@ -63,6 +65,12 @@ public class DrilActivity extends MainActivity implements OnInitListener{
 	Word currentWord = null;
 	
 	LinearLayout answerLayout;
+	
+	// ak je pocet aktivovanych karticiek nad nastavenu hodntu, vyberaju sa nahodne
+	int graduallyAlgorithmLimit = 5; 
+	
+	// je vymenena otazka / odpoved
+	boolean isCardSwitched = false;
 	
 	int position = 0;
 	
@@ -132,9 +140,10 @@ public class DrilActivity extends MainActivity implements OnInitListener{
 				currentWord.setActive(false);
 				updateRatedWord();
 				activatedWords.remove(currentWord);
-				position--;
-				nextWord();
-				
+				if( graduallyAlgorithmLimit >= activatedWords.size()){
+						position--;
+				}
+			    nextWord();
 			}
 		});
         
@@ -183,13 +192,13 @@ public class DrilActivity extends MainActivity implements OnInitListener{
         speachQuestionBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				speakWords( currentWord.getQuestion() );
+				speakWords( getWordToSpeak( true ) );
 			}
 		});
         speachAnswerBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				speakWords( currentWord.getAnsware() );
+				speakWords( getWordToSpeak( false ) );
 			}
 		});
         
@@ -262,13 +271,20 @@ public class DrilActivity extends MainActivity implements OnInitListener{
     
     public void nextWord(){
     	if( goToNextWord() ){ 					
-			hideAnswer();	 									
-	    	question.setText( currentWord.getQuestion() );
-	        answer.setText( currentWord.getAnsware() );
+			hideAnswer();	 
+			
+			isCardSwitched = ( generateRandomNumber( 2 )  == 1);
+			
+			if( isCardSwitched ){
+		    	question.setText( currentWord.getQuestion() );
+		        answer.setText( currentWord.getAnsware() );
+			}else{
+				question.setText( currentWord.getAnsware()  );
+		        answer.setText(  currentWord.getQuestion());
+			}
 	        drilheaderInfo.setText( 
 	        		getString(R.string.activated_words, 
 								activatedWords.size(), 
-								position, 
 								(currentWord.getHit()),
 								getLastRate()
 	        				));
@@ -282,14 +298,63 @@ public class DrilActivity extends MainActivity implements OnInitListener{
     		drilFinished( R.string.dril_finished );
     		return false;
     	}
-    	if(position == activatedWords.size()){ 
-    		position = 0;
-    	}
+    	selectPosition();
     	currentWord = activatedWords.get(position);
 		currentWord.increaseHit();
-    	position++;
     	return true;
     }
+    
+    
+    
+    
+    public void selectPosition(){
+    	try{
+    	if(activatedWords.size() < graduallyAlgorithmLimit){
+    		getNextPosition();
+    	}else{
+    		position = getRandomPosition();
+    	}
+    	}catch (Exception e){
+    		getNextPosition();
+    	}
+    }
+    
+    public void getNextPosition(){
+    	if((position + 1) == activatedWords.size()){ 
+    		position = 0;
+    	}else{
+    		position++;
+    	}
+    }
+    
+    public int getRandomPosition(){	
+    	List<Integer> randWords = new ArrayList<Integer>();	
+    		while(randWords.size() < 2 ){
+    			int pos = generateRandomNumber( activatedWords.size()  );
+    			if(pos > (position +1) || pos < (position - 1))
+    				randWords.add(pos);
+    		}
+    		
+    		Word word0 = activatedWords.get(randWords.get(0));
+    		if(word0.getRate() == 0){
+    			return randWords.get(0);
+    		}else{
+    			Word word1 = activatedWords.get(randWords.get(1));
+    			if(word1.getRate() == 0){
+    				return randWords.get(1);
+    			}else{
+    				return( word0.getRate() > word1.getRate() ? randWords.get(0) : randWords.get(1));
+    			}
+    		}
+    }
+    
+    
+    public int generateRandomNumber(int end){
+    	Random r = new Random();
+    	return r.nextInt( end);
+    } 
+    
+    
     
     public void drilFinished(int resourceId){
     	layout.setVisibility(View.INVISIBLE);
@@ -417,4 +482,12 @@ public class DrilActivity extends MainActivity implements OnInitListener{
         SharedPreferences sharedPreferences = getSharedPreferences(STATISTIC_ID_KEY, MODE_PRIVATE);
         return sharedPreferences.getLong(STATISTIC_ID_KEY, 0);
     }
+    
+    
+    public String getWordToSpeak(boolean isQuestion){
+    	if(isQuestion)
+    		return (isCardSwitched ?  currentWord.getQuestion() :  currentWord.getAnsware());
+    	return (!isCardSwitched ?  currentWord.getQuestion() :  currentWord.getAnsware());
+    }
+    
 }

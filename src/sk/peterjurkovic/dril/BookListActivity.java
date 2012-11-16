@@ -231,8 +231,8 @@ public class BookListActivity extends ListActivity {
 	
 	@Override
 	protected void onDestroy() {
-		super.onStop();
 		closeAdapterCursor();
+		super.onStop();
 	}
 	
 
@@ -245,7 +245,7 @@ public class BookListActivity extends ListActivity {
 			if(bookDBAdapter != null)
 					bookDBAdapter.close();
 		} catch (Exception e) {
-			Log.d(TAG, e.getMessage());
+			Log.d(TAG, "closeAdapterCursor()");
 		}
 	}
 	
