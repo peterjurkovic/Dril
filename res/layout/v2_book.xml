@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/v2_book_list_view_item"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/adapter_book_name"
+        style="@style/v2BookAdapter"
+        android:paddingTop="10dp"
+        android:paddingBottom="3dp"
+        android:textColor="#333333"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/adapter_book_descr"
+        style="@style/v2BookAdapter"
+        android:paddingBottom="7dp"
+        android:textColor="#555555"
+        android:textSize="11sp"/>
+	
+    <View 
+	    android:layout_width="fill_parent"
+		android:layout_height="1dp"
+		android:background="@drawable/list_item_separator" />
+    
+</LinearLayout>

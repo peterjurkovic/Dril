@@ -5,4 +5,9 @@
     <color name="text_color_label">#555555</color>
     <color name="h1">#d54b00</color>
     <color name="import_head">#5e940b</color>
+    
+    <color name="action_bar_color">#202829</color>
+    <color name="action_border">#50AC55</color>
+    <color name="background_color">#e3e7e9</color>
+    <color name="sub_header_text_color">#ffffff</color>
 </resources>

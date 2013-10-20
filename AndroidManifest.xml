@@ -5,21 +5,22 @@
     android:installLocation="auto" >
 
     <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="16" />
+        android:minSdkVersion="11"
+        android:targetSdkVersion="18" />
     
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.INSTALL_LOCATION_PROVIDER" />
+
 	
 	
     <application 
-        android:theme="@android:style/Theme.Light.NoTitleBar" 
+        android:theme="@style/DrilActionBarTheme" 
         android:icon="@drawable/laucher_icon" 
+        android:allowBackup="true"
         android:label="@string/app_name">
         
         <activity 
-            android:name=".DashboardActivity"
+            android:name=".v2.activities.DashboardActivity"
             android:launchMode="singleTask"
              >
             <intent-filter>
@@ -47,6 +48,9 @@
         <activity android:name=".ImportMenuActivity" />
         <activity android:name=".ImportCsvActivity" />
         <activity android:name=".ImportIdActivity" />
+        
+        <activity android:name=".v2.activities.BookListActivity"
+            	android:parentActivityName=".v2.activities.DashboardActivity" />
     </application>
 
 </manifest>
