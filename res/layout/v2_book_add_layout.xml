@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <TextView style="@style/separator" />
+    
+    <TextView
+        android:id="@+id/boxLabel"
+        android:layout_below="@id/shaddowBookAdd"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/book_add_head"
+        style="@style/boxLabel"
+ 		/>
+	
+    <EditText
+        android:id="@+id/addBookName"
+        style="@style/editText"
+        android:background="@drawable/input"
+        android:layout_below="@id/boxLabel"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/title"
+        android:lines="1" />
+	    
+	
+    <LinearLayout
+        
+        android:layout_below="@+id/addBookName"
+	 	android:layout_height="wrap_content"
+	 	android:layout_width="fill_parent"
+	 	android:orientation="horizontal"
+	 	android:weightSum="1.0" >
+	   
+	    
+	     <Button
+	        android:id="@+id/cancelAdd"
+	        style="@style/v2Cancelbutton"
+	        android:text="@string/cancel" />
+	     
+	      <Button
+	        android:id="@+id/submitAdd"
+	        style="@style/v2Submitbutton"     
+            android:text="@string/submit"  />
+	      
+	</LinearLayout>
+	
+    <include  layout="@layout/v2_include_dril_promo"/>
+    
+	    
+</RelativeLayout>

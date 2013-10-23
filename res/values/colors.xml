@@ -10,4 +10,8 @@
     <color name="action_border">#50AC55</color>
     <color name="background_color">#e3e7e9</color>
     <color name="sub_header_text_color">#ffffff</color>
+    <color name="buttonBgStartColor">#64CC6A</color>
+    <color name="buttonBgEndColor">#50AC55</color>
+    <color name="buttonBgPressedColor">#4F9C53</color>
+    <color name="buttonTextColor">#fff</color>
 </resources>

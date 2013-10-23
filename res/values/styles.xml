@@ -197,6 +197,7 @@
 	    <item name="android:layout_margin">5dp</item>
 	    <item name="android:background">@drawable/table</item>
     </style>
+    
     <style name="importMenu">
         <item name="android:layout_width">match_parent</item>
 	    <item name="android:layout_height">wrap_content</item>
@@ -293,6 +294,23 @@
 	   <item name="android:layout_height">wrap_content</item>  
 	   <item name="android:paddingLeft">40dp</item>
 	   <item name="android:paddingRight">5dp</item>  
+   </style>
+   
+   <style name="v2button">
+       <item name="android:layout_height">wrap_content</item>
+       <item name="android:layout_weight">.5</item>
+       <item name="android:layout_width">0dip</item>
+       <item name="android:layout_margin">5dp</item>
+   </style>
+   
+   <style name="v2Cancelbutton" parent="@style/v2button">
+      <item name="android:background">@drawable/button_cancel</item>
+   </style>
+   
+   <style name="v2Submitbutton" parent="@style/v2button">
+      <item name="android:background">@drawable/button_submit</item>
+	  <item name="android:textColor">@color/buttonTextColor</item>
+      
    </style>
    
 </resources>

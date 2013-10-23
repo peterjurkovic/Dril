@@ -277,10 +277,10 @@ public class BookListActivity extends ListActivity {
 		
 		@Override
         protected void onPostExecute(Cursor cursor){
-			showList();
 			bookAdapter = new BookAdapter(context, cursor, 0);
 			setListAdapter(bookAdapter);
 			bookAdapter.notifyDataSetChanged();
+			showList();
 		}
 		
 	}

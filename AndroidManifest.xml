@@ -50,7 +50,12 @@
         <activity android:name=".ImportIdActivity" />
         
         <activity android:name=".v2.activities.BookListActivity"
-            	android:parentActivityName=".v2.activities.DashboardActivity" />
+            	  android:parentActivityName=".v2.activities.DashboardActivity" />
+        <activity android:name=".v2.activities.AddBookActivity"
+            	  android:parentActivityName=".v2.activities.BookListActivity" />
+        <activity android:name=".v2.activities.EditBookActivity"
+            	  android:parentActivityName=".v2.activities.BookListActivity" />
+        
     </application>
 
 </manifest>
