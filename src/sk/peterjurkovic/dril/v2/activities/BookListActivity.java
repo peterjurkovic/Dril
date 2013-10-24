@@ -2,7 +2,7 @@ package sk.peterjurkovic.dril.v2.activities;
 
 
 
-import sk.peterjurkovic.dril.LectureListActivity;
+
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
@@ -23,6 +23,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * 
+ * @author Peter Jurkovič (email@peterjurkovic.sk)
+ * @date Oct 24, 2013
+ * @version 2.0
+ */
 public class BookListActivity extends ActionBarListActivity {
 	
 	public static final String TAG = "BookListActivity";
@@ -45,7 +51,7 @@ public class BookListActivity extends ActionBarListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.v2_book_list_activity);
+	    setContentView(R.layout.v2_book_list_layout);
 	    registerForContextMenu( getListView() );
 	   
         booKProgressBar = (ProgressBar)findViewById(R.id.booKProgress);
@@ -94,17 +100,17 @@ public class BookListActivity extends ActionBarListActivity {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
         case MENU_DELETE_ID:
-        		deleteBook(info.id);
+        	deleteBook(info.id);
             return true;
         case MENU_EDIT_ID:
-        		onEditBookClicked(info.id);
+        	onEditBookClicked(info.id);
             return true;
         case MENU_VIEW_ID:
-        		showLectureList(info.id);
+        	showLectureList(info.id);
         return true;
             
         default:
-                return super.onContextItemSelected(item);
+           return super.onContextItemSelected(item);
         }
 	}
 	
@@ -150,6 +156,11 @@ public class BookListActivity extends ActionBarListActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+	public void onAddBookClicked(View v){ 
+		Intent i = new Intent(this, AddBookActivity.class);
+		startActivityForResult(i, REQUEST_ADD_BOOK);
+	}
+	 
 	
 	public void onSaveEditedBook(long bookId, String bookName) {	
 		if(bookId == -1) throw new Error("Unable save edited book.");

@@ -14,7 +14,12 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
-
+/**
+ * 
+ * @author Peter Jurkovič (email@peterjurkovic.sk)
+ * @date Oct 24, 2013
+ * @version 2.0
+ */
 public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	
 	Button btnStart = null;

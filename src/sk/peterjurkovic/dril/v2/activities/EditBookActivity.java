@@ -28,7 +28,7 @@ public class EditBookActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         
         bookId = getIntent().getLongExtra(EXTRA_BOOK_ID, -1);
-        setContentView(R.layout.book_edit_activity);
+        setContentView(R.layout.v2_book_edit_layout);
         
         loadBookData();
 
@@ -55,6 +55,7 @@ public class EditBookActivity extends BaseActivity {
 		finish();
 	}
     
+   
     
     public void onSubmitEditBookClicked(){
         String bookName = ((EditText)findViewById(R.id.editBookName))

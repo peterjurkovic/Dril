@@ -11,6 +11,12 @@ import android.widget.HeaderViewListAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+/**
+ *  
+ * @author Peter Jurkovič (email@peterjurkovic.sk)
+ * @date Oct 24, 2013
+ * @version 2.0
+ */
 public class ActionBarListActivity extends ActionBarActivity {
 
 	

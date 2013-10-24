@@ -5,9 +5,17 @@ import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 
+/**
+ * 
+ * @author Peter Jurkovič (email@peterjurkovic.sk)
+ * @date Oct 24, 2013
+ *
+ */
 public class BaseActivity extends ActionBarActivity {
 
 	
@@ -30,4 +38,17 @@ public class BaseActivity extends ActionBarActivity {
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);
 	}
+	
+	
+	protected void gotBack(){
+    	Intent upIntent =  NavUtils.getParentActivityIntent(this);
+         if(NavUtils.shouldUpRecreateTask(this, upIntent)){
+        	 TaskStackBuilder.create(this)
+             .addNextIntentWithParentStack(upIntent)
+             .startActivities();
+         }else {
+             upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+             NavUtils.navigateUpTo(this, upIntent);
+         }
+    }
 }

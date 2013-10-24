@@ -289,6 +289,10 @@
 	   <item name="android:layout_gravity">left|center_vertical</item>   
    </style>
    
+     <style name="v2LectureListLable" parent="@style/v2ListLabel">
+         <item name="android:background">@drawable/v2_lecture_list_label</item>
+     </style>
+   
    <style name="v2BookAdapter">
        <item name="android:layout_width">match_parent</item>
 	   <item name="android:layout_height">wrap_content</item>  

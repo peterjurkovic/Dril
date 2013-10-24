@@ -24,7 +24,7 @@
 		<View
 	        android:id="@+id/shaddowBookList"
 	        android:layout_width="match_parent"
-	        android:layout_height="5sp"
+	        android:layout_height="5dp"
 	        android:layout_below="@id/bookListnav"
 	        android:background="@drawable/drop_shaddow" />
 	    
@@ -43,6 +43,7 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 	        android:text="@string/loading"
+	        android:paddingTop="40dp"
 	        android:gravity="center"
 	        android:textColor="@color/text_color"
 	        android:visibility="visible" />
@@ -54,37 +55,7 @@
 	        android:layout_height="wrap_content"
 	        android:visibility="gone" >
         </ListView>
-	    <!-- 
-	    <LinearLayout
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-		    android:background="@drawable/v2_book_list_view_item"
-		    android:orientation="vertical" >
-		
-		    <TextView
-		        android:id="@+id/adapter_book_name"
-		        style="@style/bookAdapter"
-		        android:paddingTop="10dp"
-		        android:paddingBottom="3dp"
-		        android:textColor="#333333"
-		        android:text="Name of textbook"
-		        android:textAppearance="?android:attr/textAppearanceMedium" />
-		
-		    <TextView
-		        android:id="@+id/adapter_book_descr"
-		        style="@style/bookAdapter"
-		        android:paddingBottom="7dp"
-		        android:textColor="#555555"
-		        android:text="some descr"
-		        android:textSize="11sp"/>
-			
-		    <View 
-			    android:layout_width="fill_parent"
-				android:layout_height="1dp"
-				android:background="@drawable/list_item_separator" />
-		</LinearLayout>
-	     -->
-	
+	  	
 	    
 	    
 	    <TextView
