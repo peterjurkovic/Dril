@@ -3,16 +3,18 @@ package sk.peterjurkovic.dril.fragments;
 import java.util.Set;
 
 import sk.peterjurkovic.dril.R;
-import sk.peterjurkovic.dril.WordActivity;
 import sk.peterjurkovic.dril.adapter.WordAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnShowWordListener;
+import sk.peterjurkovic.dril.listener.OnWordClickListener;
+import sk.peterjurkovic.dril.v2.activities.WordActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -22,11 +24,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class WordListFragment extends ListFragment{
+public class WordListFragment extends ListFragment implements OnClickListener{
 	
 	
 	public static final String TAG = "WordListFragment";
@@ -36,57 +37,38 @@ public class WordListFragment extends ListFragment{
 	public static final int MENU_DELETE_ID = Menu.FIRST+3;
 	
 	
-	OnEditWordClickedListener onEditWordClickedListener; 
+	private OnEditWordClickedListener onEditWordClickedListener; 
 	
-	OnShowWordListener onShowWordListener; 
+	private OnShowWordListener onShowWordListener; 
+	
+	private OnWordClickListener onWordClickListener;
 
-	WordAdapter wordAdapter;
+	private WordAdapter wordAdapter;
+	
+	private ActionMode actionMode;
 	
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.word_list, container, false);
-        
-        Button listDelete = (Button)view.findViewById(R.id.ListDelete);
-        Button listActive = (Button)view.findViewById(R.id.ListActive);
-        Button listDeactive = (Button)view.findViewById(R.id.ListDeactive);
-        
-        listDelete.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				 deleteSelectedItems();
-			}			
-		});
-        
-        listActive.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				updateSelectedItemStatus( ViewWordFragment.STATUS_ACTIVE );
-			}
-        });
-        
-        listDeactive.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				updateSelectedItemStatus( ViewWordFragment.STATUS_DEACTIVE );
-			}
-        });
-        
-        return view;
+        View listView  = inflater.inflate(R.layout.v2_word_list, container, false);
+       
+        return listView;
     }
 	
 	
 	
 	@Override
     public void onAttach(Activity activity) {
+		Log.d(TAG, "onAttaching wordList fagment");
         super.onAttach(activity);
         try {
         	onEditWordClickedListener = (OnEditWordClickedListener) activity;
         	onShowWordListener = (OnShowWordListener) activity;
+        	onWordClickListener = (OnWordClickListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnEditWordListener and onShowWordListener");
+                    + " must implement OnEditWordListener, OnWordClickListener and onShowWordListener");
         }
         
     }
@@ -99,10 +81,7 @@ public class WordListFragment extends ListFragment{
 		 updateList();
 	}
 	
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		onShowWordListener.showWord(id);
-	}
+
 	
 	
 	
@@ -139,7 +118,7 @@ public class WordListFragment extends ListFragment{
     
     
     private void onEditBookClicked(long wordId) {
-    	onEditWordClickedListener.onEditWordClicked(wordId);
+    	// 
 	}
 
     
@@ -151,6 +130,7 @@ public class WordListFragment extends ListFragment{
 	    try{
 	    	cursor = wordDbAdapter.getWordByLctureId(((WordActivity)ctx).getLectureId()); 
 	    	wordAdapter = new WordAdapter(ctx, cursor, 0);
+	    	wordAdapter.setOnClickListener(this);
 	 	    setListAdapter(wordAdapter);
 	    } catch (Exception e) {
 			Log.d(TAG, "ERROR: " + e.getMessage());
@@ -259,6 +239,54 @@ public class WordListFragment extends ListFragment{
     	}
     	return true;
     }
+    
+    
+    public class ActionModeCallback implements ActionMode.Callback {
+    	 
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mode.getMenuInflater().inflate(R.menu.v2_context_menu, menu);
+            return true;
+        }
+ 
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+ 
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+ 
+            switch (item.getItemId()) {
+            case R.id.menu_delete:
+            	deleteSelectedItems();
+                mode.finish(); 
+                return true;
+            default:
+                return false;
+            }
+ 
+        }
+        
+ 
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+        	actionMode = null;
+        }
+    }
+    
+    public ActionModeCallback getActionModeCallback(){
+    	return new ActionModeCallback();
+    }
+
+
+
+	@Override
+	public void onClick(View view) {
+		long wordId = wordAdapter.updateItemState(view);
+		onWordClickListener.onListItemClick(view, wordId);
+	}
+    
     
     
 }

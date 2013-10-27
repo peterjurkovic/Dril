@@ -14,4 +14,8 @@
     <color name="buttonBgEndColor">#50AC55</color>
     <color name="buttonBgPressedColor">#4F9C53</color>
     <color name="buttonTextColor">#fff</color>
+    <color name="buttonDarkTextColor">#333333</color>
+    
+    <color name="selectedItem">#9EF9FF</color>
+    <color name="selectedPressed">#1AD8E4</color>
 </resources>

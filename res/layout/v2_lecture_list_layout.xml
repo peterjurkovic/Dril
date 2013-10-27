@@ -12,14 +12,13 @@
 
         <TextView
             style="@style/v2LectureListLable" 
-            android:paddingLeft="30dp"
-            android:layout_marginLeft="5dp"
             android:id="@+id/lectureListLabel"
            />
 
         <Button
             android:id="@+id/addNewLecture"
             style="@style/v2addBtn" />
+        
     </FrameLayout>
 	
 		<View

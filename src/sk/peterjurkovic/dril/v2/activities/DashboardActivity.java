@@ -56,8 +56,7 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	        btn_stats.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View view) {
 	            	
-	            	CheckForUpdate chfu = new CheckForUpdate( context );
-	    	    	chfu.execute(); 
+	            	showDownloadDialog(1);
 		        }
 		    });
 	}

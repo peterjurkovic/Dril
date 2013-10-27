@@ -17,10 +17,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class WordAdapter extends CursorAdapter implements OnClickListener{
+public class WordAdapter extends CursorAdapter{
 	
 	private List<Boolean> mCheckedState;
 	private Set<Long> selectedItems = new HashSet<Long>();
+	
+	private OnClickListener onClickListener;
 	
 	public WordAdapter(Context context, Cursor cursor, int flags){
 		super(context, cursor, flags);
@@ -73,7 +75,7 @@ public class WordAdapter extends CursorAdapter implements OnClickListener{
 	@Override
 	public View newView(Context ctx, Cursor c, ViewGroup root) {
 		LayoutInflater inflater = LayoutInflater.from(ctx);
-		View view = inflater.inflate(R.layout.word, root, false);
+		View view = inflater.inflate(R.layout.v2_word, root, false);
 		ViewHolder holder  =   new ViewHolder();
 		holder.questonView = (TextView) view.findViewById(R.id.adapter_question);
 		holder.answerView = (TextView) view.findViewById(R.id.adapter_answer);
@@ -81,7 +83,7 @@ public class WordAdapter extends CursorAdapter implements OnClickListener{
 		holder.wordQuestionIndex = c.getColumnIndex( WordDBAdapter.QUESTION );
 		holder.wordAnswerIndex = c.getColumnIndex( WordDBAdapter.ANSWER );
 		holder.isActiveIndex = c.getColumnIndex(WordDBAdapter.ACTIVE);
-		holder.checkBoxView.setOnClickListener(this);
+		view.setOnClickListener(onClickListener);
 		view.setTag(holder);
 		bindView(view, ctx, c);
 		return view;
@@ -89,19 +91,23 @@ public class WordAdapter extends CursorAdapter implements OnClickListener{
 
 	 
 	
-
-	@Override
-	public void onClick(View view) {
-	  	boolean isChecked = ((CheckBox) view).isChecked();
-        RowData data = (RowData) view.getTag();
+	public long updateItemState(View view){
+		CheckBox  checkbox =  (CheckBox)view.findViewById(R.id.myCheckBox);
+		boolean isChecked = view.isSelected();
+        RowData data = (RowData) checkbox.getTag();
         mCheckedState.set(data.position, isChecked);
-        if(isChecked){
+        if(!isChecked){
         	selectedItems.add(Long.valueOf( data.id )); 
         }else{
         	selectedItems.remove(Long.valueOf( data.id )); 
         }		
+        checkbox.setChecked(!isChecked);
+        view.setSelected(!isChecked);
+        return data.id;
 	}
+
 	
+
 	
 	
 	private   static  class   ViewHolder  {
@@ -126,5 +132,7 @@ public class WordAdapter extends CursorAdapter implements OnClickListener{
 		 return selectedItems;
 	 }
 	
-	 
+	 public void setOnClickListener(OnClickListener onClickListener){
+		 this.onClickListener = onClickListener;
+	 }
 }

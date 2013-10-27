@@ -1,9 +1,9 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 
+import sk.peterjurkovic.dril.AddLectureActivity;
 import sk.peterjurkovic.dril.ImportMenuActivity;
 import sk.peterjurkovic.dril.R;
-import sk.peterjurkovic.dril.WordActivity;
 import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.v2.adapters.LectureAdapter;
@@ -90,7 +90,7 @@ public static final String EXTRA_BOOK_ID = "bookId";
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		//startWordActivity(id);
+		startWordActivity(id);
 	}
 	
 	
@@ -250,6 +250,9 @@ public static final String EXTRA_BOOK_ID = "bookId";
 		}
 	}
 	
+	
+	
+
 	
 	
 	@Override

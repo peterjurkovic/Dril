@@ -31,6 +31,7 @@ public class CheckForUpdate extends AsyncTask<String, Integer, Integer> {
 		context = c;
 		dialog = ProgressDialog.show( context , "" , 
 				context.getResources().getString(R.string.loading_check), true);
+		dialog.show();
 		try {
 			listener = (AsyncLIstener) context;
         } catch (ClassCastException e) {
@@ -40,7 +41,7 @@ public class CheckForUpdate extends AsyncTask<String, Integer, Integer> {
 	
 	@Override
 	protected void onPreExecute() {
-		dialog.show();
+		
 	}
 	
 	@Override

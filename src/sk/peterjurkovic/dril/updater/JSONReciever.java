@@ -24,11 +24,11 @@ public class JSONReciever {
 		
 		public static final int LANG_EN_INDEX = 1;
 		
-		private  String checkServiceURL = "http://drilapp.com/export.php?lang="+
+		private  String checkServiceURL = "http://www.drilapp.com/export.php?lang="+
 					LANG_EN_INDEX+"&act="+ FOR_CHECK_ACTION+"&ver=";
-		private  String updateServiceURL = "http://drilapp.com/export.php?lang="+
+		private  String updateServiceURL = "http://www.drilapp.com/export.php?lang="+
 					LANG_EN_INDEX+"&act="+FOR_UPDATE_ACTION+"&ver=";
-		private  String ownWordsServiceUrl = "http://drilapp.com/export.php?importId=";
+		private  String ownWordsServiceUrl = "http:www.//drilapp.dev/export.php?importId=";
 		
 		private String importId = null;
 		

@@ -291,6 +291,8 @@
    
      <style name="v2LectureListLable" parent="@style/v2ListLabel">
          <item name="android:background">@drawable/v2_lecture_list_label</item>
+         <item name="android:paddingLeft">30dp</item>
+         <item name="android:layout_marginLeft">5dp</item>
      </style>
    
    <style name="v2BookAdapter">
@@ -314,7 +316,39 @@
    <style name="v2Submitbutton" parent="@style/v2button">
       <item name="android:background">@drawable/button_submit</item>
 	  <item name="android:textColor">@color/buttonTextColor</item>
-      
    </style>
    
+   <!-- WORD LIST STYLE -->
+   <style name="v2WordListWrapper">
+       <item name="android:layout_width">match_parent</item>
+       <item name="android:layout_height">wrap_content</item>
+       <item name="android:background">@drawable/v2_word_list_item</item>
+       <item name="android:orientation">vertical</item>
+   </style>
+   
+   <style name="v2WordCheckbox">
+      <item name="android:layout_width">wrap_content</item>
+      <item name="android:layout_height">wrap_content</item>
+      <item name="android:layout_marginRight">4dp</item>
+      <item name="android:layout_marginLeft">4dp</item>
+      <item name="android:checked">false</item>
+      <item name="android:focusable">false</item>
+      <item name="android:gravity">center|center_horizontal</item>
+      <item name="android:minWidth">30dp</item>
+      <item name="android:layout_centerVertical">true</item>
+      <item name="android:layout_alignParentLeft">true</item>
+   </style>
+   
+   <style name="v2WordListText">
+      <item name="android:layout_width">wrap_content</item>
+      <item name="android:layout_height">wrap_content</item>
+      <item name="android:paddingTop">6dp</item>
+      <item name="android:layout_alignParentTop">true</item>
+      <item name="android:paddingBottom">3dp</item>
+      <item name="android:textColor">@color/buttonDarkTextColor</item>
+      <item name="android:ellipsize">end</item>
+      <item name="android:singleLine">true</item>
+      <item name="android:textSize">14sp</item>
+      <item name="android:layout_toRightOf">@id/myCheckBox</item>
+   </style>
 </resources>

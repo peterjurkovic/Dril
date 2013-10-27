@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:state_pressed="true" android:drawable="@color/selected" >
+   
+    <item android:state_selected="true" android:drawable="@color/selectedItem" >
        <shape>
-         <solid android:color="#929292" />
+         <solid android:color="#FFF" />
        </shape>
     </item>
     
-    <item android:state_selected="true" android:drawable="@color/selected" >
-       <shape>
-         <solid android:color="#929292" />
-       </shape>
-    </item>
-    
-     <item android:state_checked="true" android:drawable="@color/selected" >
-       <shape>
-         <solid android:color="#929292" />
-       </shape>
-    </item>
-    
-
+  
     <!-- NORMAL  -->   
     <item>
         <layer-list>

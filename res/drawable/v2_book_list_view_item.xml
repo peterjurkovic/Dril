@@ -14,7 +14,6 @@
 				</shape> 
 			</item>
 			<item android:left="8dp">
-			    
 			    <bitmap android:src="@drawable/list_book" android:gravity="left|center_vertical" />
 			</item>
 		</layer-list>
