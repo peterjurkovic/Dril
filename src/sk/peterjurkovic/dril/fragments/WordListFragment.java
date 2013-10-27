@@ -241,7 +241,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
     }
     
     
-    public class ActionModeCallback implements ActionMode.Callback {
+    private class ActionModeCallback implements ActionMode.Callback {
     	 
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -256,16 +256,27 @@ public class WordListFragment extends ListFragment implements OnClickListener{
  
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
- 
+
             switch (item.getItemId()) {
-            case R.id.menu_delete:
-            	deleteSelectedItems();
-                mode.finish(); 
-                return true;
-            default:
-                return false;
-            }
- 
+	            case R.id.menu_delete:
+	            	Log.d("onOptionsItemSelected", "R.id.menu_delete");
+	            	deleteSelectedItems();
+	                mode.finish(); 
+	                return true;
+	    		case R.id.menu_active:
+	    			Log.d("onOptionsItemSelected", "R.id.menu_active");
+	    			updateSelectedItemStatus(ViewWordFragment.STATUS_ACTIVE);
+	    			mode.finish(); 
+	    			return true;
+	    		case R.id.menu_deactive:
+	    			Log.d("onOptionsItemSelected", "R.id.menu_deactive");
+	    			updateSelectedItemStatus(ViewWordFragment.STATUS_DEACTIVE);
+	    			mode.finish(); 
+	    			return true;
+	    		default:
+	    			// return super.o(item);
+	    		}
+            return false;
         }
         
  
@@ -286,7 +297,52 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 		long wordId = wordAdapter.updateItemState(view);
 		onWordClickListener.onListItemClick(view, wordId);
 	}
-    
-    
+
+
+
+	public ActionMode getActionMode() {
+		return actionMode;
+	}
+
+
+
+	public void setActionMode(ActionMode actionMode) {
+		this.actionMode = actionMode;
+	}
+
+
+
+	public WordAdapter getWordAdapter() {
+		return wordAdapter;
+	}
+
+
+
+	public void setWordAdapter(WordAdapter wordAdapter) {
+		this.wordAdapter = wordAdapter;
+	}
+	
+	
+	public boolean hasSelectedItems(){
+		if(wordAdapter != null && wordAdapter.hasSelectedItems()){
+			return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Log.d("onOptionsItemSelected", "WLF");
+		switch (item.getItemId()) {
+		
+		case R.id.menu_deactive:
+			Log.d("onOptionsItemSelected", "R.id.menu_deactive");
+			updateSelectedItemStatus(ViewWordFragment.STATUS_DEACTIVE);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
     
 }

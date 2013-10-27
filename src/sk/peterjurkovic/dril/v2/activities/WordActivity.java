@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +29,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -368,17 +368,22 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.deactive_all_lecture:
-			deactiveAllWordInLecture();
+		case android.R.id.home:
+			 gotBack();
 			return true;
-		case R.id.active_all_lecture:
-			activeAllWordInLecture();
+		case R.id.menu_active:
+			Log.d("onOptionsItemSelected", "R.id.menu_active");
+			return true;
+		case R.id.menu_deactive:
+			Log.d("onOptionsItemSelected", "R.id.menu_deactive");
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 	/* ENDOPTION MENU ---------------------------------------- */
+	
+	
 
 	
 	
@@ -388,7 +393,16 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 								.findFragmentById(R.id.WordListFragment);
 		Log.d(TAG, "on list item clicked...");
 		if(wordListFratment != null){
-			startSupportActionMode(wordListFratment.getActionModeCallback());
+			if(wordListFratment.hasSelectedItems() && wordListFratment.getActionMode() == null){
+				ActionMode actionMode = startSupportActionMode(wordListFratment.getActionModeCallback());
+				actionMode.setTitle(wordListFratment.getWordAdapter().getCountOfSelected() + " selected");
+				wordListFratment.setActionMode(actionMode);
+			}else if(!wordListFratment.hasSelectedItems() && wordListFratment.getActionMode() != null){
+				wordListFratment.getActionMode().finish();
+			}else{
+			wordListFratment.getActionMode()
+					.setTitle(wordListFratment.getWordAdapter().getCountOfSelected() + " selected");
+			}
 		}
 		
 	}
