@@ -268,11 +268,15 @@ public class BookListActivity extends ActionBarListActivity {
 		
 		@Override
         protected void onPostExecute(Cursor cursor){
-			int countOfBooks = cursor.getCount();
-			bookAdapter = new BookAdapter(context, cursor, 0);
-			setListAdapter(bookAdapter);
-			bookAdapter.notifyDataSetChanged();
-			showList(countOfBooks);
+			if(cursor != null){
+				int countOfBooks = cursor.getCount();
+				bookAdapter = new BookAdapter(context, cursor, 0);
+				setListAdapter(bookAdapter);
+				bookAdapter.notifyDataSetChanged();
+				showList(countOfBooks);
+			}else{
+				showList(0);
+			}
 		}
 		
 	}

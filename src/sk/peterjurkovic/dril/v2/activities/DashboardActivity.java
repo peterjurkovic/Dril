@@ -33,7 +33,8 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.v2_dashboard);
-		 wordAdapter = new WordDBAdapter(this);
+		 	wordAdapter = new WordDBAdapter(this);
+		 	//wordAdapter.getCountOfActiveWords();
 	        btnStart = (Button) findViewById(R.id.btn_start);
 	        
 	        context = this;
@@ -81,8 +82,8 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 			.setPositiveButton(R.string.yes ,new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,int id) {
 					dialog.cancel();
-					UpdateSaver chfu = new UpdateSaver( context );
-			    	chfu.execute();
+					UpdateSaver updater = new UpdateSaver( context );
+					updater.sendRequest();
 			        
 				}
 			  })
@@ -148,4 +149,11 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 			onCheckResponse(response);
 		}
 	}
+
+
+	public Context getContext() {
+		return context;
+	}
+	
+	
 }

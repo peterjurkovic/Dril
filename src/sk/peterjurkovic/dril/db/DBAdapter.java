@@ -52,7 +52,7 @@ public class DBAdapter{
 		     * directory.
 		     */
 		    private static String DB_DIR = "/data/data/sk.peterjurkovic.dril/databases/";
-		    private static String DB_NAME = "dril";
+		    private static String DB_NAME = "dril.db";
 		    private static String DB_PATH = DB_DIR + DB_NAME;
 		    private static String OLD_DB_PATH = DB_DIR + "old_" + DB_NAME;
 
@@ -166,8 +166,6 @@ public class DBAdapter{
 	        	Log.d(TAG, "onCreate creating db...");
 	        	 createDatabase = true;
 	        	 createTables(db);
-	        	 UpdateSaver chfu = new UpdateSaver( myContext );
-			     chfu.execute();
 	        }
 
 	        @Override
@@ -208,10 +206,7 @@ public class DBAdapter{
 		return openHelper.getWritableDatabase();
 	}
 	
-	/**
-	 * close the db 
-	 * return type: void
-	 */
+	
 	public void close(){
 		if(cdb != null){
 			cdb.close();

@@ -24,10 +24,11 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer> {
 	public static final int STATE_PARSING_ERROR = -1;
 	public static final int STATE_NO_INTERNET_CONN = -2;
 	
-	public UpdateSaver(Context c){
-		context = c;
+	public  UpdateSaver(Context context){
+		this.context = context;
 		dialog = ProgressDialog.show( context , "" , 
 				context.getResources().getString(R.string.loading_down), true);
+		
 		try {
 			listener = (AsyncLIstener) context;
         } catch (ClassCastException e) {
@@ -35,15 +36,19 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer> {
         }
 	}
 	
+	public synchronized void sendRequest(){
+		execute();
+	}
+	
 	@Override
 	protected void onPreExecute() {
-		dialog.show();
+		//dialog.show();
 	}
 	
 	@Override
 	protected void onPostExecute(Integer result) {
-		dialog.hide();
-		listener.onUpdatedResponse(result);
+	dialog.hide();
+	listener.onUpdatedResponse(result);
 	}
 	
 	

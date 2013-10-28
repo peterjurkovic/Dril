@@ -386,11 +386,15 @@ public static final String EXTRA_BOOK_ID = "bookId";
 		
 		@Override
         protected void onPostExecute(Cursor cursor){
-			int countOfLectures = cursor.getCount();
-			lectureAdapter = new LectureAdapter(context, cursor, 0);
-			setListAdapter(lectureAdapter);
-			lectureAdapter.notifyDataSetChanged();
-			showList(countOfLectures);
+			if(cursor != null){
+				int countOfLectures = cursor.getCount();
+				lectureAdapter = new LectureAdapter(context, cursor, 0);
+				setListAdapter(lectureAdapter);
+				lectureAdapter.notifyDataSetChanged();
+				showList(countOfLectures);
+			}else{
+				showList(0);
+			}
 		}
 		
 	}

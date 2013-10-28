@@ -24,6 +24,7 @@ public class WordAdapter extends CursorAdapter{
 	private Set<Long> selectedItems = new HashSet<Long>();
 	private OnClickListener onClickListener;
 	private OnLongClickListener onLongClickListener; 
+	private LayoutInflater inflater = null;
 	
 	public WordAdapter(Context context, Cursor cursor, int flags){
 		super(context, cursor, flags);
@@ -31,6 +32,7 @@ public class WordAdapter extends CursorAdapter{
             mCheckedState.add( false );
         }
 		initLongClickListener();
+		inflater = LayoutInflater.from(context);
 	}
 	
 	public boolean hasSelectedItems(){
@@ -72,21 +74,18 @@ public class WordAdapter extends CursorAdapter{
 	    if (!mCursor.moveToPosition(position)) {
 	        throw new IllegalStateException("couldn't move cursor to position " + position);
 	    }
-	    View v;
 	    if (convertView == null) {
-	        v = newView(mContext, mCursor, parent);
-	    } else {
-	        v = convertView;
-	    }
-	    bindView(v, mContext, mCursor);
-	    return v;
+	    	convertView = newView(mContext, mCursor, parent);
+	    } 
+	    
+	    bindView(convertView, mContext, mCursor);
+	    return convertView;
 	}
 
 	
 	
 	@Override
 	public View newView(Context ctx, Cursor c, ViewGroup root) {
-		LayoutInflater inflater = LayoutInflater.from(ctx);
 		View view = inflater.inflate(R.layout.v2_word, root, false);
 		ViewHolder holder  =   new ViewHolder();
 		holder.questonView = (TextView) view.findViewById(R.id.adapter_question);
