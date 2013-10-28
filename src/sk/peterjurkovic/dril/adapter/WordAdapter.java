@@ -25,6 +25,8 @@ public class WordAdapter extends CursorAdapter{
 	private OnClickListener onClickListener;
 	private OnLongClickListener onLongClickListener; 
 	private LayoutInflater inflater = null;
+	private int selectedColor = 0;
+	
 	
 	public WordAdapter(Context context, Cursor cursor, int flags){
 		super(context, cursor, flags);
@@ -33,6 +35,7 @@ public class WordAdapter extends CursorAdapter{
         }
 		initLongClickListener();
 		inflater = LayoutInflater.from(context);
+		selectedColor = context.getResources().getColor(R.color.selectedItem);
 	}
 	
 	public boolean hasSelectedItems(){
@@ -48,16 +51,12 @@ public class WordAdapter extends CursorAdapter{
 		ViewHolder holder = (ViewHolder) oldView.getTag();
 		RowData data = new RowData();
 		data.id = c.getLong(c.getColumnIndex(WordDBAdapter.WORD_ID));
-		data.question = c.getString(holder.wordQuestionIndex);
-		data.answer = c.getString(holder.wordAnswerIndex);
 		data.isActive = c.getInt(holder.isActiveIndex);
 		data.position = c.getPosition();
-		holder.questonView.setText(data.question);
-		holder.answerView.setText(data.answer);
 		holder.checkBoxView.setChecked(mCheckedState.get(data.position));
 		holder.checkBoxView.setTag(data);
 		if(holder.checkBoxView.isChecked()){
-			oldView.setBackgroundResource(R.drawable.v2_word_list_item_selected);
+			oldView.setBackgroundColor( selectedColor );
 		}else if(data.isActive == 1){
 			oldView.setBackgroundResource(R.drawable.word_active);
 		}else{
@@ -91,9 +90,11 @@ public class WordAdapter extends CursorAdapter{
 		holder.questonView = (TextView) view.findViewById(R.id.adapter_question);
 		holder.answerView = (TextView) view.findViewById(R.id.adapter_answer);
 		holder.checkBoxView = (CheckBox) view.findViewById(R.id.myCheckBox);
-		holder.wordQuestionIndex = c.getColumnIndex( WordDBAdapter.QUESTION );
-		holder.wordAnswerIndex = c.getColumnIndex( WordDBAdapter.ANSWER );
+		final int aIndex = c.getColumnIndex( WordDBAdapter.QUESTION );
+		final int qIndex = c.getColumnIndex( WordDBAdapter.ANSWER );
 		holder.isActiveIndex = c.getColumnIndex(WordDBAdapter.ACTIVE);
+		holder.questonView.setText( c.getString(qIndex) );
+		holder.answerView.setText( c.getString(aIndex) );;
 		view.setOnClickListener(onClickListener);
 		view.setOnLongClickListener(onLongClickListener);
 		view.setTag(holder);
@@ -120,8 +121,6 @@ public class WordAdapter extends CursorAdapter{
 	}
 
 	private   static  class   ViewHolder  {
-        int wordQuestionIndex;
-        int wordAnswerIndex;
         int	isActiveIndex;
         TextView questonView;
         TextView answerView;
@@ -131,8 +130,6 @@ public class WordAdapter extends CursorAdapter{
 	 
 	 private static class RowData {
 	        long id;
-	        String question;
-	        String answer;
 	        int isActive;
 	        int position;
 	    } 
