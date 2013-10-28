@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
 
 /**
@@ -51,4 +52,14 @@ public class BaseActivity extends ActionBarActivity {
              NavUtils.navigateUpTo(this, upIntent);
          }
     }
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    case android.R.id.home:
+	       gotBack();
+	        return true;
+	    }
+	    return super.onOptionsItemSelected(item);
+	}
 }

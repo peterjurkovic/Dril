@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+		
+	    <TextView style="@style/separator" />
+	    	
+	    <TextView
+	        style="@style/boxLabel"
+	        android:text="@string/question"
+	        android:id="@+id/labelQuestion"
+	        android:layout_below="@id/layoutHeader" />
+	
+	    <EditText
+	        android:id="@+id/editQestion"
+	        style="@style/editTextMulti"
+	        android:layout_below="@id/labelQuestion" />
+	    
+	    
+	    
+	      <TextView
+	        style="@style/boxLabel"
+	        android:text="@string/answer"
+	        android:id="@+id/labelAnswer"
+	        android:layout_below="@id/editQestion"
+	 		/>
+	      
+	
+	    <EditText
+	        android:id="@+id/editAnswer"
+	        style="@style/editTextMulti"
+	        android:layout_below="@id/labelAnswer" />
+	    
+	     <LinearLayout
+		     android:layout_below="@+id/editAnswer"
+			 android:layout_height="wrap_content"
+			 android:layout_width="fill_parent"
+			 android:orientation="horizontal"
+			 android:weightSum="1.0">
+			      
+					     
+			    <Button
+			      android:id="@+id/cancelEditQuestion"
+			      style="@style/v2Cancelbutton"
+			      android:text="@string/cancel" 
+			    />
+			    
+			     <Button
+		          android:id="@+id/submitEditQuestion"
+				  style="@style/v2Submitbutton"     
+		          android:text="@string/submit" 
+		         />
+	     
+		</LinearLayout>
+	      
+	   
+		
+	</RelativeLayout>
+</ScrollView>

@@ -1,7 +1,6 @@
 package sk.peterjurkovic.dril.adapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,10 +10,10 @@ import sk.peterjurkovic.dril.db.WordDBAdapter;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -23,15 +22,15 @@ public class WordAdapter extends CursorAdapter{
 	
 	private List<Boolean> mCheckedState;
 	private Set<Long> selectedItems = new HashSet<Long>();
-	
 	private OnClickListener onClickListener;
+	private OnLongClickListener onLongClickListener; 
 	
 	public WordAdapter(Context context, Cursor cursor, int flags){
 		super(context, cursor, flags);
 		for(mCheckedState = new ArrayList<Boolean>(); !cursor.isAfterLast(); cursor.moveToNext()) {
             mCheckedState.add( false );
         }
-		
+		initLongClickListener();
 	}
 	
 	public boolean hasSelectedItems(){
@@ -55,8 +54,6 @@ public class WordAdapter extends CursorAdapter{
 		holder.answerView.setText(data.answer);
 		holder.checkBoxView.setChecked(mCheckedState.get(data.position));
 		holder.checkBoxView.setTag(data);
-		Log.d("w", "bindView " + mCheckedState.get(data.position));
-		
 		if(holder.checkBoxView.isChecked()){
 			oldView.setBackgroundResource(R.drawable.v2_word_list_item_selected);
 		}else if(data.isActive == 1){
@@ -68,8 +65,7 @@ public class WordAdapter extends CursorAdapter{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-	    Log.d("w", "getView");
-	    
+    
 		if (!mDataValid) {
 	        throw new IllegalStateException("this should only be called when the cursor is valid");
 	    }
@@ -100,6 +96,7 @@ public class WordAdapter extends CursorAdapter{
 		holder.wordAnswerIndex = c.getColumnIndex( WordDBAdapter.ANSWER );
 		holder.isActiveIndex = c.getColumnIndex(WordDBAdapter.ACTIVE);
 		view.setOnClickListener(onClickListener);
+		view.setOnLongClickListener(onLongClickListener);
 		view.setTag(holder);
 		bindView(view, ctx, c);
 		return view;
@@ -110,7 +107,6 @@ public class WordAdapter extends CursorAdapter{
 	public long updateItemState(View view){
 		CheckBox  checkbox =  (CheckBox)view.findViewById(R.id.myCheckBox);
 		boolean isChecked = !checkbox.isChecked();
-        Log.d("wordItem", isChecked+"");
 		RowData data = (RowData) checkbox.getTag();
         mCheckedState.set(data.position, isChecked);
         if(isChecked){
@@ -124,10 +120,6 @@ public class WordAdapter extends CursorAdapter{
         return data.id;
 	}
 
-	
-
-	
-	
 	private   static  class   ViewHolder  {
         int wordQuestionIndex;
         int wordAnswerIndex;
@@ -152,5 +144,15 @@ public class WordAdapter extends CursorAdapter{
 	
 	 public void setOnClickListener(OnClickListener onClickListener){
 		 this.onClickListener = onClickListener;
+	 }
+	 
+	 private void initLongClickListener(){
+		 this.onLongClickListener = new OnLongClickListener() {
+				@Override
+				public boolean onLongClick(View v) {
+					v.getParent().showContextMenuForChild(v);
+					return false;
+				}
+			};
 	 }
 }

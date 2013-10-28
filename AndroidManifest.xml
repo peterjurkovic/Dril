@@ -64,6 +64,10 @@
             	  android:parentActivityName=".v2.activities.LectureListActivity" />  
         <activity android:name=".v2.activities.WordActivity" 
             	  android:parentActivityName=".v2.activities.LectureListActivity" />
+        <activity android:name=".v2.activities.EditWordActivity" 
+            	  android:parentActivityName=".v2.activities.WordActivity" />
+        <activity android:name=".v2.activities.AddWordActivity" 
+            	  android:parentActivityName=".v2.activities.WordActivity" />
         
     </application>
 

@@ -6,7 +6,6 @@ import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.adapter.WordAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
-import sk.peterjurkovic.dril.listener.OnShowWordListener;
 import sk.peterjurkovic.dril.listener.OnWordClickListener;
 import sk.peterjurkovic.dril.v2.activities.WordActivity;
 import android.app.Activity;
@@ -24,7 +23,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ListView;
 import android.widget.Toast;
 
 public class WordListFragment extends ListFragment implements OnClickListener{
@@ -32,14 +30,13 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	
 	public static final String TAG = "WordListFragment";
 	
-	public static final int MENU_VIEW_ID = Menu.FIRST+1;
-	public static final int MENU_EDIT_ID = Menu.FIRST+2;
-	public static final int MENU_DELETE_ID = Menu.FIRST+3;
+	public static final int MENU_EDIT_ID = Menu.FIRST+1;
+	public static final int MENU_DELETE_ID = Menu.FIRST+2;
 	
 	
 	private OnEditWordClickedListener onEditWordClickedListener; 
 	
-	private OnShowWordListener onShowWordListener; 
+	//private OnShowWordListener onShowWordListener; 
 	
 	private OnWordClickListener onWordClickListener;
 
@@ -52,7 +49,6 @@ public class WordListFragment extends ListFragment implements OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View listView  = inflater.inflate(R.layout.v2_word_list, container, false);
-       
         return listView;
     }
 	
@@ -64,7 +60,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
         super.onAttach(activity);
         try {
         	onEditWordClickedListener = (OnEditWordClickedListener) activity;
-        	onShowWordListener = (OnShowWordListener) activity;
+        	//onShowWordListener = (OnShowWordListener) activity;
         	onWordClickListener = (OnWordClickListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
@@ -76,9 +72,10 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
+		Log.d(TAG, "Activity created");
 		super.onActivityCreated(savedInstanceState);
 		registerForContextMenu( getListView() );
-		 updateList();
+		updateList();
 	}
 	
 
@@ -87,9 +84,9 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	
 	@Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-        super.onCreateContextMenu(menu, v, menuInfo);
+        Log.d(TAG, "onCreateContextMenu");
+		super.onCreateContextMenu(menu, v, menuInfo);
         menu.setHeaderTitle(R.string.wordAction);
-        menu.add(Menu.NONE, MENU_VIEW_ID, Menu.NONE, R.string.view);
         menu.add(Menu.NONE, MENU_EDIT_ID, Menu.NONE, R.string.editWord);
         menu.add(Menu.NONE, MENU_DELETE_ID, Menu.NONE, R.string.delete);
     }
@@ -99,10 +96,8 @@ public class WordListFragment extends ListFragment implements OnClickListener{
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+        Log.d(TAG, "" + info.id);
         switch (item.getItemId()) {
-	        case MENU_VIEW_ID:
-	    		showWord(info.id);
-	        	return true;
 	        case MENU_EDIT_ID:
 	        	onEditBookClicked(info.id);
 	            return true;
@@ -110,7 +105,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	        	deleteWord(info.id);
 	            return true;
 	        default:
-	                return super.onContextItemSelected(item);
+	            return super.onContextItemSelected(item);
         }
     }
     
@@ -118,7 +113,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
     
     
     private void onEditBookClicked(long wordId) {
-    	// 
+    	onEditWordClickedListener.onEditWordClicked(wordId);
 	}
 
     
@@ -178,10 +173,11 @@ public class WordListFragment extends ListFragment implements OnClickListener{
          }
     }
 
-    
+    /*
     public void showWord(long wordId){
     	onShowWordListener.showWord(wordId);
     }
+    */
 	
     
     
@@ -242,7 +238,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
     
     
     private class ActionModeCallback implements ActionMode.Callback {
-    	 
+      	
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mode.getMenuInflater().inflate(R.menu.v2_context_menu, menu);
@@ -256,7 +252,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
  
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-
+        	Log.d("test", "id" + item.getTitle());
             switch (item.getItemId()) {
 	            case R.id.menu_delete:
 	            	Log.d("onOptionsItemSelected", "R.id.menu_delete");
@@ -279,7 +275,6 @@ public class WordListFragment extends ListFragment implements OnClickListener{
             return false;
         }
         
- 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
         	actionMode = null;

@@ -1,8 +1,9 @@
 package sk.peterjurkovic.dril.fragments;
 
-import sk.peterjurkovic.dril.AddWordActivity;
+
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.listener.OnAddWordListener;
+import sk.peterjurkovic.dril.v2.activities.AddWordActivity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -36,7 +37,7 @@ public class AddWordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.word_add_layout, null);
+        View view = inflater.inflate(R.layout.v2_word_add_layout, null);
 
         Bundle data = getArguments();
         
@@ -57,8 +58,7 @@ public class AddWordFragment extends Fragment {
         });
         
         ((TextView) view.findViewById(R.id.wordAddLabel)).setText(wordLabel);
-
-        
+    
         return view;
     }
     

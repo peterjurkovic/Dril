@@ -3,51 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    <!-- 
-     <LinearLayout
-        android:id="@+id/wordListNav2"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@id/layoutHeader"
-        android:background="@drawable/word_view_menubox">
-        
-         <TextView 
-            android:text="@string/selected"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-			android:gravity="center_vertical"
-			android:textSize="10dp"
-			android:textColor="#eee"      
-			android:paddingRight="5dp"
-			android:paddingLeft="5dp"       
-             />
-         
-        <Button 
-            android:id="@+id/ListDelete"
-          	android:text="@string/delete"
-          	android:background="@drawable/word_view_btn_del"
-          	style="@style/wordViewBtn"
-            />
-        
-        
-         <Button 
-            android:id="@+id/ListActive"
-          	android:text="@string/active"
-          	android:layout_marginRight="1dp"
-          	android:layout_marginLeft="1dp"
-          	android:background="@drawable/word_view_btn_start"
-          	style="@style/wordViewBtn"
-            />
-         
-         <Button 
-            android:id="@+id/ListDeactive"
-          	android:text="@string/deactive"
-          	android:background="@drawable/word_view_btn_stop"
-          	style="@style/wordViewBtn"
-            />
-        
-    </LinearLayout>	
-    -->
+    
 	<FrameLayout
 	    android:id="@+id/wordListnav"
         android:layout_width="fill_parent"
@@ -75,7 +31,8 @@
         android:layout_width="match_parent"
         android:layout_below="@id/shaddowWordList"
         android:layout_height="wrap_content"  
-        android:choiceMode="multipleChoice"   
+        android:choiceMode="multipleChoice"  
+        android:longClickable="true" 
         android:divider="#000000"
         android:dividerHeight="1dp"   
         android:visibility="gone" />

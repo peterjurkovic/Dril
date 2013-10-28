@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+		
+	    
+	    <FrameLayout
+		    android:id="@+id/wordAddNav"
+		    android:layout_width="fill_parent"
+	        style="@style/v2ListLabel"
+	        android:layout_height="35dp"
+	        android:background="@color/action_border"
+	         >
+	        <TextView
+	            style="@style/v2ListLabel"
+	        	android:id="@+id/wordAddLabel"/>
+	    </FrameLayout>
+	    
+		<View
+	        android:id="@+id/shaddowWordAdd"
+	        android:layout_width="match_parent"
+	        android:layout_height="5sp"
+	        android:layout_below="@id/wordAddNav"
+	        android:background="@drawable/drop_shaddow" />
+		
+	    
+	    <TextView
+	        style="@style/boxLabel"
+	        android:text="@string/question"
+	        android:id="@+id/labelQuestion"
+	        android:layout_below="@id/shaddowWordAdd" />
+	
+	    <EditText
+	        android:id="@+id/addQestion"
+	        style="@style/editTextMulti"
+	        android:hint="@string/question"
+	        android:layout_below="@id/labelQuestion" />
+	    
+	    
+	    
+	      <TextView
+	        style="@style/boxLabel"
+	        android:text="@string/answer"
+	        android:id="@+id/labelAnswer"
+	        android:layout_below="@id/addQestion"
+	 		/>
+	      
+	
+	    <EditText
+	        android:id="@+id/addAnswer"
+	        android:hint="@string/answer"
+	        style="@style/editTextMulti"
+	        android:layout_below="@id/labelAnswer" />
+	    
+	     
+	    <LinearLayout
+		     android:layout_below="@+id/addAnswer"
+			 android:layout_height="wrap_content"
+			 android:layout_width="fill_parent"
+			 android:orientation="horizontal"
+			 android:weightSum="1.0">
+			          
+			    <Button
+			      android:id="@+id/cancelAddQuestion"
+			      style="@style/v2Cancelbutton"
+			      android:text="@string/cancel" 
+			    />
+			    
+			     <Button
+		          android:id="@+id/submitAddQuestion"
+				  style="@style/v2Submitbutton"     
+		          android:text="@string/submit" 
+		         />
+	     
+		</LinearLayout>
+		
+
+		
+	</RelativeLayout>
+</ScrollView>

@@ -1,9 +1,7 @@
 package sk.peterjurkovic.dril.v2.activities;
 
-import sk.peterjurkovic.dril.AddWordActivity;
-import sk.peterjurkovic.dril.EditWordActivity;
+
 import sk.peterjurkovic.dril.R;
-import sk.peterjurkovic.dril.ViewWordActivity;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.fragments.AddWordFragment;
 import sk.peterjurkovic.dril.fragments.EditWordFragment;
@@ -14,7 +12,6 @@ import sk.peterjurkovic.dril.listener.OnChangeWordStatusListener;
 import sk.peterjurkovic.dril.listener.OnDeleteWordListener;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnEditWordListener;
-import sk.peterjurkovic.dril.listener.OnShowWordListener;
 import sk.peterjurkovic.dril.listener.OnWordClickListener;
 import android.content.Context;
 import android.content.Intent;
@@ -33,12 +30,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class WordActivity extends BaseActivity implements OnAddWordListener,
-		OnEditWordClickedListener, OnEditWordListener, OnShowWordListener,
-		OnDeleteWordListener, OnChangeWordStatusListener, OnWordClickListener {
+		OnEditWordClickedListener, OnEditWordListener, OnDeleteWordListener,
+		OnChangeWordStatusListener, OnWordClickListener {
 
 	private static final int REQUEST_ADD_WORD = 0;
 	private static final int REQUEST_EDIT_WORD = 1;
-	private static final int REQUEST_VIEW = 2;
+
 	public static final String LECTURE_ID_EXTRA = "fk_lecture_id";
 	private boolean dualPane;
 	public static final String TAG = "WordActivity";
@@ -65,7 +62,6 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 
 		((Button) findViewById(R.id.addNewWord))
 				.setOnClickListener(new OnClickListener() {
-
 					@Override
 					public void onClick(View v) {
 						onAddNewWordClicked();
@@ -101,21 +97,6 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 					data.getStringExtra(EditWordActivity.EXTRA_QUESTION),
 					data.getStringExtra(EditWordActivity.EXTRA_ANSWER));
 			break;
-		case REQUEST_VIEW:
-			int action = data.getIntExtra(ViewWordActivity.ACTION, -1);
-			long wordId = data.getLongExtra(EditWordActivity.EXTRA_WORD_ID, -1);
-
-			switch (action) {
-			case ViewWordActivity.EVENT_EDIT:
-				onEditWordClicked(wordId);
-				break;
-			case ViewWordActivity.EVENT_DELETE:
-				onDeleteClicked(wordId);
-				break;
-
-			}
-
-			break;
 		default:
 			throw new Error("Unknown activity requestCode: " + requestCode);
 
@@ -149,7 +130,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 			getWordListFragment().updateList();
 			showToastMessage(this, R.string.word_added);
 			if (dualPane) {
-				showWord(id);
+				//edi (id);
 			}
 		} else {
 			showToastMessage(this, R.string.word_not_added);
@@ -232,7 +213,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 			getWordListFragment().updateList();
 			showToastMessage(this, R.string.saved_ok);
 			if (dualPane) {
-				showWord(wordId);
+				//showWord(wordId);
 			}
 		} else {
 			showToastMessage(this, R.string.saved_no);
@@ -242,26 +223,6 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 
 	public long getLectureId() {
 		return lectureId;
-	}
-
-	@Override
-	public void showWord(long wordId) {
-		if (dualPane) {
-			Bundle data = new Bundle();
-			data.putLong(ViewWordActivity.EXTRA_WORD_ID, wordId);
-			Fragment f = new ViewWordFragment();
-			f.setArguments(data);
-			FragmentTransaction ft = getSupportFragmentManager()
-					.beginTransaction();
-			ft.replace(R.id.right_column, f, "rcTag");
-			ft.addToBackStack(null);
-			ft.commit();
-		} else {
-			Intent i = new Intent(this, ViewWordActivity.class);
-			i.putExtra(ViewWordActivity.EXTRA_WORD_ID, wordId);
-			startActivityForResult(i, REQUEST_VIEW);
-		}
-
 	}
 
 	@Override
@@ -283,7 +244,6 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 
 	@Override
 	public void activeWord(long wordId) {
-
 		changeWordStatus(wordId, ViewWordFragment.STATUS_ACTIVE);
 
 	}
@@ -331,14 +291,14 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		} finally {
 			wordDbAdapter.close();
 		}
-		if (deactivated)
+		if (deactivated) {
 			getWordListFragment().updateList();
-		Toast.makeText(this, R.string.activated, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.activated, Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	/**
 	 * Deactive all words in lecture and update list
-	 * 
 	 */
 	public void deactiveAllWordInLecture() {
 		WordDBAdapter wordDbAdapter = new WordDBAdapter(this);
@@ -351,10 +311,11 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		} finally {
 			wordDbAdapter.close();
 		}
-		if (deactivated)
+		if (deactivated) {
 			getWordListFragment().updateList();
-		Toast.makeText(this, R.string.words_deactived, Toast.LENGTH_SHORT)
-				.show();
+			Toast.makeText(this, R.string.words_deactived, Toast.LENGTH_SHORT)
+					.show();
+		}
 	}
 
 	/* OPTION MENU ---------------------------------------- */
@@ -362,48 +323,44 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.word_list, menu);
-		return true;
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			 gotBack();
-			return true;
-		case R.id.menu_active:
-			Log.d("onOptionsItemSelected", "R.id.menu_active");
-			return true;
-		case R.id.menu_deactive:
-			Log.d("onOptionsItemSelected", "R.id.menu_deactive");
+			gotBack();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	/* ENDOPTION MENU ---------------------------------------- */
-	
-	
 
-	
-	
+	/* ENDOPTION MENU ---------------------------------------- */
+
 	@Override
 	public void onListItemClick(View v, long id) {
-		WordListFragment wordListFratment = (WordListFragment)getSupportFragmentManager()
-								.findFragmentById(R.id.WordListFragment);
+		WordListFragment wordListFratment = (WordListFragment) getSupportFragmentManager()
+				.findFragmentById(R.id.WordListFragment);
 		Log.d(TAG, "on list item clicked...");
-		if(wordListFratment != null){
-			if(wordListFratment.hasSelectedItems() && wordListFratment.getActionMode() == null){
-				ActionMode actionMode = startSupportActionMode(wordListFratment.getActionModeCallback());
-				actionMode.setTitle(wordListFratment.getWordAdapter().getCountOfSelected() + " selected");
+		if (wordListFratment != null) {
+			if (wordListFratment.hasSelectedItems()
+					&& wordListFratment.getActionMode() == null) {
+				ActionMode actionMode = startSupportActionMode(wordListFratment
+						.getActionModeCallback());
+				actionMode.setTitle(wordListFratment.getWordAdapter()
+						.getCountOfSelected() + "");
 				wordListFratment.setActionMode(actionMode);
-			}else if(!wordListFratment.hasSelectedItems() && wordListFratment.getActionMode() != null){
+			} else if (!wordListFratment.hasSelectedItems()
+					&& wordListFratment.getActionMode() != null) {
 				wordListFratment.getActionMode().finish();
-			}else{
-			wordListFratment.getActionMode()
-					.setTitle(wordListFratment.getWordAdapter().getCountOfSelected() + " selected");
+			} else if (wordListFratment.getActionMode() != null) {
+				wordListFratment.getActionMode().setTitle(
+						wordListFratment.getWordAdapter().getCountOfSelected()
+								+ "");
 			}
 		}
-		
+
 	}
 }

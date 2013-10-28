@@ -1,10 +1,11 @@
 package sk.peterjurkovic.dril.fragments;
 
-import sk.peterjurkovic.dril.EditWordActivity;
+
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnEditWordListener;
+import sk.peterjurkovic.dril.v2.activities.EditWordActivity;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -44,7 +45,7 @@ public class EditWordFragment extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.word_edit_layout, null);        
+        View view = inflater.inflate(R.layout.v2_word_edit_layout, null);        
         
         Button submit = (Button)view.findViewById(R.id.submitEditQuestion);
         
@@ -113,5 +114,7 @@ public class EditWordFragment extends Fragment {
 		answerElement.setText(cursor.getString(answer));	
 	}
 
+	
+	
 
 }
