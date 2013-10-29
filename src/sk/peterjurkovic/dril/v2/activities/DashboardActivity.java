@@ -60,6 +60,13 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	            	showDownloadDialog(1);
 		        }
 		    });
+	        
+	        btn_info.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View view) {
+	            	Intent i = new Intent(context, PreferencesActivity.class);
+            		startActivity(i);
+		        }
+		    });
 	}
 	
 	

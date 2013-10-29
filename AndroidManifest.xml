@@ -69,6 +69,8 @@
             	  android:parentActivityName=".v2.activities.WordActivity" />
         <activity android:name=".v2.activities.AddWordActivity" 
             	  android:parentActivityName=".v2.activities.WordActivity" />
+        <activity android:name=".v2.activities.PreferencesActivity"
+            	  android:parentActivityName=".v2.activities.DashboardActivity" />
         
     </application>
 

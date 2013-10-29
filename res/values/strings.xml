@@ -173,6 +173,10 @@
 	<string name="drilapp_ow">www.drilapp.com\n your own words</string>
 	
 	<!-- DRIL APP v 2 -->
+	<string name="back_button_label">Back</string>
+    <string name="next_button_label">Next</string>
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="skip_button_label">Skip</string>
 	
 
 </resources>

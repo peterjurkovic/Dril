@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+   
+    <PreferenceCategory android:title="TEST" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_otificationskey"
+            android:title="TEST" >
+        </CheckBoxPreference>
+
+        <ListPreference
+            android:key="pref_SyncFrequencykey"
+            android:summary="test"
+            android:entries="@array/entries_list_preference"
+            android:entryValues="@array/entryvalues_list_preference"
+            android:title="TEST" ></ListPreference>
+    </PreferenceCategory>
+   
+</PreferenceScreen>
