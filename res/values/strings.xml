@@ -178,5 +178,13 @@
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="skip_button_label">Skip</string>
 	
+	<string name="label_lang_sk">Slovak</string>
+	<string name="label_lang_de">German</string>
+	<string name="label_lang_fr">French</string>
+	<string name="label_lang_de">German</string>
+	<string name="label_lang_es">Spanich</string>
+	<string name="label_lang_en">English</string>
+	<string name="label_lang_cs">Czech</string>
+	<string name="label_lang_sv">Swedish</string>
 
 </resources>

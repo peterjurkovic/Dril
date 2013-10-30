@@ -29,7 +29,9 @@ public class WordDBAdapter extends DBAdapter {
 	
 	public static final String FK_LECTURE_ID = "lecture_id";
 	
-	public static final String RATE = "rate";
+	public static final String LAST_RATE = "rate";
+	
+	public static final String AVG_RATE = "avg_rate";
 	
 	public static final String HIT = "hit";
 	
@@ -39,12 +41,25 @@ public class WordDBAdapter extends DBAdapter {
 														ANSWER +" TEXT, " + 
 														ACTIVE + " INTEGER NOT NULL  DEFAULT (0), "+ 
 														FK_LECTURE_ID  + " INTEGER," +
-														RATE  + " INTEGER NOT NULL  DEFAULT (0)," +
-														HIT  + " INTEGER NOT NULL  DEFAULT (0) " +
+														LAST_RATE  + " INTEGER NOT NULL  DEFAULT (0)," +
+														HIT  + " INTEGER NOT NULL  DEFAULT (0), " +
+														CHANGED_COLL +" INTEGER DEFAULT (0), " + 
+														CREATED_COLL +" INTEGER DEFAULT (0), " +
+														AVG_RATE  + " REAL NOT NULL  DEFAULT (0) " +
 													");";
 	
-	public static final String[] columns = 
-				{ WORD_ID, QUESTION, ANSWER, ACTIVE, FK_LECTURE_ID, RATE, HIT };
+	public static final String[] columns = { 
+				WORD_ID, 
+				QUESTION, 
+				ANSWER, 
+				ACTIVE, 
+				FK_LECTURE_ID, 
+				LAST_RATE, 
+				HIT, 
+				CHANGED_COLL,
+				CREATED_COLL,
+				AVG_RATE
+			};
 	
 	
     /**
@@ -226,7 +241,7 @@ public class WordDBAdapter extends DBAdapter {
     				 cursor.getString(cursor.getColumnIndex( QUESTION )), 
     				 cursor.getString(cursor.getColumnIndex( ANSWER )), 
     				 cursor.getInt(cursor.getColumnIndex( HIT )), 
-    				 cursor.getInt(cursor.getColumnIndex( RATE )),
+    				 cursor.getInt(cursor.getColumnIndex( LAST_RATE )),
     				 intToBoolean(cursor.getInt(cursor.getColumnIndex( ACTIVE )))
     			)); 
     	     cursor.moveToNext();
@@ -256,7 +271,7 @@ public class WordDBAdapter extends DBAdapter {
     public void updateReatedWord(Word word, long statisticId){
     	SQLiteDatabase db = openWriteableDatabase();
     	String q = "UPDATE " + TABLE_WORD + " " +
-    			"SET "+ HIT +"="+ HIT +"+1,"+RATE+"="+word.getRate()+"," +
+    			"SET "+ HIT +"="+ HIT +"+1,"+LAST_RATE+"="+word.getRate()+"," +
 				ACTIVE + "=" + booelanToInt(word.isActive()) + " "+
 		"WHERE " + WORD_ID + "=" + word.getId() + "; ";
     	db.execSQL(q);

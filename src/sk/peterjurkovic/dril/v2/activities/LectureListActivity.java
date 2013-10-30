@@ -1,7 +1,7 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 
-import sk.peterjurkovic.dril.AddLectureActivity;
+
 import sk.peterjurkovic.dril.ImportMenuActivity;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.LectureDBAdapter;

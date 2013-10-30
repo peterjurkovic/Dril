@@ -82,7 +82,7 @@ public class JSONParser {
 		for(int i = 0; i < lectureArray.length(); i++){
    			JSONObject l = lectureArray.getJSONObject(i);	
    			Lecture lecture = new Lecture();
-   			lecture.setLectureName(l.getString(TAG_LECTURE_NAME));
+   			lecture.setName(l.getString(TAG_LECTURE_NAME));
    			lecture.setWords(parseWordsFromJSONArray( l.getJSONArray(TAG_WORDS) ));
    			lectureList.add(lecture);
    		}

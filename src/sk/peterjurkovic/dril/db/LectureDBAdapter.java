@@ -20,15 +20,22 @@ public class LectureDBAdapter extends DBAdapter {
 		
 		public static final String ACTIVE_WORDS_IN_LECTURE = "actuve_word_count";
 		
-		public static final String[] columns = 
-							{ LECTURE_ID, LECTURE_NAME, FK_BOOK_ID	};
+		public static final String[] columns = { 
+				LECTURE_ID, 
+				LECTURE_NAME, 
+				FK_BOOK_ID, 
+				CHANGED_COLL, 
+				CREATED_COLL	
+			};
 
 		
 		public static final String TABLE_LECTURE_CREATE = 
 										"CREATE TABLE "+ TABLE_LECTURE + " (" + 
 											LECTURE_ID + " INTEGER PRIMARY KEY ," + 
 											LECTURE_NAME + " TEXT," + 
-											FK_BOOK_ID +" INTEGER " +
+											FK_BOOK_ID +" INTEGER, " +
+											CHANGED_COLL +" INTEGER DEFAULT (0), " + 
+											CREATED_COLL +" INTEGER DEFAULT (0) " + 
 										");";
 		
 

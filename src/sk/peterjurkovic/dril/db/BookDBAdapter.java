@@ -1,5 +1,6 @@
 package sk.peterjurkovic.dril.db;
 
+import sk.peterjurkovic.dril.model.Book;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -12,30 +13,42 @@ public class BookDBAdapter extends DBAdapter {
 	public static final String TABLE_BOOK = "book";
 	
 	public static final String BOOK_ID = "_id";
-	
 	public static final String BOOK_NAME = "book_name";
-	
 	public static final String LECTURES_COUNT = "lecture_count";
-	
 	public static final String VERSION = "version";
-	
 	public static final String WORD_COUNT = "word_count";
-	
 	public static final String ACTIVE_WORD_COUNT = "active_word_count";
-	
 	public static final String BOOK_COUNT = "book_count";
-	
 	public static final String AVG_RATE = "avg_rate";
-	
 	public static final String FINISHED = "rate_1";
+	public static final String AUTHOR_COLL = "author";
+	public static final String ANSWER_LANG_COLL = "answer_lang_fk";
+	public static final String QUESTION_LANG_COLL = "question_lang_fk";
+	public static final String SYNC_COLL = "sync";
 	
-	public static final String[] columns = { BOOK_ID, BOOK_NAME, VERSION	};
+	public static final String[] columns = { 	
+												BOOK_ID, 
+												BOOK_NAME, 
+												VERSION, 
+												ANSWER_LANG_COLL, 
+												QUESTION_LANG_COLL,
+												AUTHOR_COLL,
+												CREATED_COLL, 
+												CHANGED_COLL,
+												SYNC_COLL
+											};
 	
 	public static final String TABLE_BOOK_CEREATE = 
 								"CREATE TABLE "+ TABLE_BOOK + " (" + 
 										BOOK_ID +" INTEGER PRIMARY KEY," + 
 										BOOK_NAME + " TEXT," +
-										VERSION +" INTEGER NOT NULL DEFAULT (0)" + 
+										VERSION +" INTEGER NOT NULL DEFAULT (0), " +
+										AUTHOR_COLL + " TEXT, " + 
+										ANSWER_LANG_COLL +" INTEGER NOT NULL DEFAULT (0), " + 
+										QUESTION_LANG_COLL +" INTEGER NOT NULL DEFAULT (0), " + 
+										CHANGED_COLL +" INTEGER DEFAULT (0), " + 
+										CREATED_COLL +" INTEGER DEFAULT (0), " +
+										SYNC_COLL +" INTEGER NOT NULL DEFAULT (0) " +
 								");";
 	
 	public static final String TABLE_BOOK_VIEW = "view_book";
@@ -137,15 +150,52 @@ public class BookDBAdapter extends DBAdapter {
         return id;
     }
     
+    public long createBook(final Book book) {
+        if(book == null){
+        	return 0;
+        }
+    	SQLiteDatabase db = openWriteableDatabase();
+        ContentValues values = bindBookParams(book);
+        values.put(CREATED_COLL, System.currentTimeMillis());
+        long id = db.insert( TABLE_BOOK , null, values);
+        db.close();
+        return id;
+    }
+
     
     
-    
-    public boolean editBook(long bookId, String bookName) {
+    public boolean updateBook(long bookId, String bookName) {
         cdb = openWriteableDatabase();
         ContentValues values = new ContentValues();
         values.put(BOOK_NAME, bookName);
         int rowsUpdated = cdb.update(TABLE_BOOK, values,  BOOK_ID + "=" + bookId, null);
         return rowsUpdated > 0;
+    }
+    
+    
+    public boolean updateBook(final Book book) {
+        if(book == null){
+        	return false;
+        }
+    	cdb = openWriteableDatabase();
+        ContentValues values = bindBookParams(book);
+        int rowsUpdated = cdb.update(TABLE_BOOK, values,  BOOK_ID + "=" + book.getId(), null);
+        return rowsUpdated > 0;
+    }
+    
+    
+    private ContentValues bindBookParams(final Book book){
+    	 ContentValues values = new ContentValues();
+    	 values.put(BOOK_NAME, book.getName());
+    	 values.put(AUTHOR_COLL, book.getAuthor());
+         if(book.getQuestionLang() != null){
+         	values.put(QUESTION_LANG_COLL, book.getQuestionLang().getId());
+         }
+         if(book.getAnswerLang() != null){
+         	values.put(ANSWER_LANG_COLL, book.getAnswerLang().getId());
+         }
+         values.put(CHANGED_COLL, System.currentTimeMillis());
+    	 return values;
     }
  
 }

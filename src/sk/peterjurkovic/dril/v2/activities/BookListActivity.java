@@ -165,7 +165,7 @@ public class BookListActivity extends ActionBarListActivity {
 		if(bookId == -1) throw new Error("Unable save edited book.");
 		boolean result = false;
 		try {
-			result = bookDBAdapter.editBook(bookId , bookName);
+			result = bookDBAdapter.updateBook(bookId , bookName);
 		} catch (Exception e) {
 			Log.e(TAG, "Can not edit book", e);
 		}
