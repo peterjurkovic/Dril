@@ -45,7 +45,7 @@ public class WordDBAdapter extends DBAdapter {
 														HIT  + " INTEGER NOT NULL  DEFAULT (0), " +
 														CHANGED_COLL +" INTEGER DEFAULT (0), " + 
 														CREATED_COLL +" INTEGER DEFAULT (0), " +
-														AVG_RATE  + " REAL NOT NULL  DEFAULT (0) " +
+														AVG_RATE  + " REAL NOT NULL DEFAULT (0) " +
 													");";
 	
 	public static final String[] columns = { 

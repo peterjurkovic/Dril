@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-   
-    <PreferenceCategory android:title="TEST" >
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_otificationskey"
-            android:title="TEST" >
-        </CheckBoxPreference>
-
-        <ListPreference
-            android:key="pref_SyncFrequencykey"
-            android:summary="test"
-            android:entries="@array/entries_list_preference"
-            android:entryValues="@array/entryvalues_list_preference"
-            android:title="TEST" ></ListPreference>
+   <PreferenceCategory android:title="@string/label_pref_head" >
+	    <ListPreference
+	            android:key="pref_target_lang"
+	            android:summary="@string/pref_target_lang_descr"
+	            android:entries="@array/list_languages_label"
+	            android:entryValues="@array/list_languages_ids"
+	            android:defaultValue="1"
+	            android:title="@string/pref_target_lang"
+	     />
     </PreferenceCategory>
+    
+    
+        
+    <CheckBoxPreference
+        android:key="pref_dril_autoplay"
+        android:defaultValue="false"
+        android:title="@string/pref_label_autoplayT2S" 
+        android:summary="@string/pref_label_autoplay_descr" 
+     />
+    
+
+    
+    <ListPreference
+        android:key="pref_dril_autoplay_lang"
+        android:entries="@array/list_dril_test_labels"
+        android:entryValues="@array/list_dril_test_values"
+        android:title="@string/pref_label_test" 
+        android:defaultValue="question"
+        android:summary="@string/pref_label_test_descr"
+     />
+
    
 </PreferenceScreen>

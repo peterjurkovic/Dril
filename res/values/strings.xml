@@ -178,6 +178,14 @@
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="skip_button_label">Skip</string>
 	
+    <string name="label_pref_head">Dril settings</string>
+    <string name="pref_target_lang">Target language</string>
+    <string name="pref_target_lang_descr">Select the language you want to learn</string>
+    
+    <string name="pref_label_autoplay_head">Words pronunciation</string>
+    <string name="pref_label_autoplayT2S">Autoplay pronunciation</string>
+    <string name="pref_label_autoplay_descr">Automatically plays pronunciation of the word when is shown</string>
+    
 	<string name="label_lang_sk">Slovak</string>
 	<string name="label_lang_de">German</string>
 	<string name="label_lang_fr">French</string>
@@ -186,5 +194,11 @@
 	<string name="label_lang_en">English</string>
 	<string name="label_lang_cs">Czech</string>
 	<string name="label_lang_sv">Swedish</string>
+	
+	<string name="pref_label_test">What should be shown</string>
+	<string name="pref_label_test_descr">Question, answer or random</string>
+	<string name="pref_label_test_question">Question</string>
+	<string name="pref_label_test_answer">Answer</string>
+	<string name="pref_label_test_rand">Random</string>
 
 </resources>

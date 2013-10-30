@@ -22,11 +22,10 @@ import android.widget.Button;
  */
 public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	
-	Button btnStart = null;
-	WordDBAdapter wordAdapter = null;
-	long countOfActiveWords = 0;
+	private WordDBAdapter wordAdapter = null;
+	private  long countOfActiveWords = 0;
 	private Context context;
-	int pos = 0;
+	private int pos = 0;
 	
 	
 	@Override
@@ -35,7 +34,7 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 		setContentView(R.layout.v2_dashboard);
 		 	wordAdapter = new WordDBAdapter(this);
 		 	//wordAdapter.getCountOfActiveWords();
-	        btnStart = (Button) findViewById(R.id.btn_start);
+		 	Button startDrilButton = (Button) findViewById(R.id.btn_start);
 	        
 	        context = this;
 	        
@@ -46,6 +45,14 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	        Button btn_info = (Button) findViewById(R.id.btn_info);
 	        
 	        Button btn_update = (Button) findViewById(R.id.btn_update);
+	        
+	        
+	        startDrilButton.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View view) {
+	            		Intent i = new Intent(context, DrilActivity.class);
+	            		startActivity(i);
+	            }
+	        });
 	        
 	        btnBook.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View view) {
