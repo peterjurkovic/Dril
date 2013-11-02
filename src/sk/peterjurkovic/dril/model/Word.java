@@ -1,7 +1,9 @@
 package sk.peterjurkovic.dril.model;
 
+import java.util.Comparator;
 
-public class Word {
+
+public class Word implements Comparable<Word>{
 	
 	private long id;
 	
@@ -12,10 +14,14 @@ public class Word {
 	private int hit;
 	
 	private int rate;
+	
+	private int avgRate;
 
 	private boolean active;
 	
 	private long lectureId;
+	
+	private long changed;
 	
 	public Word(String question, String answare){
 		this.question = question;
@@ -100,7 +106,30 @@ public class Word {
 		hit++;
 	}
 	
+	public int getAvgRate() {
+		return avgRate;
+	}
+
+	public void setAvgRate(int avgRate) {
+		this.avgRate = avgRate;
+	}
 	
+	public long getChanged() {
+		return changed;
+	}
+
+	public void setChanged(long changed) {
+		this.changed = changed;
+	}
+	
+	public void updateAvgRate(int rate){
+		if(hit == 0 || avgRate == 0){
+			avgRate = rate;
+		}else{
+			avgRate = (hit * avgRate + rate) / (hit + 1); 
+		}
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -123,12 +152,53 @@ public class Word {
 		return true;
 	}
 
+	
+
 	@Override
 	public String toString() {
 		return "Word [id=" + id + ", question=" + question + ", answare="
-				+ answare + ", hit=" + hit + ", rate=" + rate + ", active=" + active + "]";
+				+ answare + ", hit=" + hit + ", rate=" + rate + ", avgRate="
+				+ avgRate + ", active=" + active + ", lectureId=" + lectureId
+				+ ", changed=" + changed + "]";
+	}
+
+	@Override
+	public int compareTo(Word another) {
+		return 0;
 	}
 	
+	
+	public static class Comparators {
+
+        public static Comparator<Word> HITS = new Comparator<Word>() {
+            @Override
+            public int compare(Word o1, Word o2) {
+                return o1.hit - o2.hit;
+            }
+        };
+        
+        public static Comparator<Word> LAST_RATE = new Comparator<Word>() {
+            @Override
+            public int compare(Word o1, Word o2) {
+                return o1.rate - o2.rate;
+            }
+        };
+        
+        public static Comparator<Word> AVG_RATE = new Comparator<Word>() {
+            @Override
+            public int compare(Word o1, Word o2) {
+                return o1.avgRate - o2.avgRate;
+            }
+        };
+        
+        public static Comparator<Word> HARDEST = new Comparator<Word>() {
+            @Override
+            public int compare(Word o1, Word o2) {
+                return (o1.hit * o1.avgRate) - (o2.hit * o2.avgRate);
+            }
+        };
+       
+    }
 	
 	
 }

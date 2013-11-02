@@ -7,6 +7,8 @@
     <color name="import_head">#5e940b</color>
     
     <color name="action_bar_color">#202829</color>
+    <color name="action_bar_color_end">#0A0C0C</color>
+    <color name="action_bar_color_pressed">#000000</color>
     <color name="action_border">#50AC55</color>
     <color name="background_color">#e3e7e9</color>
     <color name="sub_header_text_color">#ffffff</color>
@@ -18,4 +20,5 @@
     
     <color name="selectedItem">#9EF9FF</color>
     <color name="selectedPressed">#1AD8E4</color>
+    <color name="rate_button_text_color">#EFEFEF</color>
 </resources>

@@ -89,37 +89,38 @@
 		            android:id="@+id/btn_1"
 		            style="@style/rateBtn"
 		            android:background="@drawable/btn_1"
+		            android:tag="1"
 		            android:text="@string/btn_1"
-		            android:textColor="#EFEFEF" />
+		             />
 		
 		        <Button
 		            android:id="@+id/btn_2"
 		            style="@style/rateBtn"
+		            android:tag="2"
 		            android:background="@drawable/btn_2"
 		            android:text="@string/btn_2"
-		            android:textColor="#EFEFEF" />
+		            />
 		
 		        <Button
 		            android:id="@+id/btn_3"
 		            style="@style/rateBtn"
 		            android:background="@drawable/btn_3"
-		            android:text="@string/btn_3"
-		            android:textColor="#EFEFEF" />
+		            android:tag="3"
+		            android:text="@string/btn_3" />
 		
 		        <Button
 		            android:id="@+id/btn_4"
 		            style="@style/rateBtn"
+		            android:tag="4"
 		            android:background="@drawable/btn_4"
-		            android:text="@string/btn_4"
-		            android:textColor="#EFEFEF" />
+		            android:text="@string/btn_4"/>
 		
 		        <Button
 		            android:id="@+id/btn_5"
 		            style="@style/rateBtn"
+		            android:tag="5"
 		            android:background="@drawable/btn_5"
-		            android:text="@string/btn_5"
-		            android:textColor="#EFEFEF" />
-
+		            android:text="@string/btn_5" />
 		    </LinearLayout>
 		  
 		 
@@ -142,7 +143,7 @@
 		 	     android:layout_height="wrap_content"
 		 	     android:layout_alignParentBottom="true"
 		 	     android:layout_margin="5dp"
-		 	     android:background="@drawable/show_answer"
+		 	     android:background="@drawable/v2_show_answer_button"
 		 	     android:height="100dp"
 		 	     android:text="@string/showAnswerBtn"
 		 	     android:textColor="#EfEFEF"

@@ -14,27 +14,16 @@ import android.database.sqlite.SQLiteDatabase;
 public class WordDBAdapter extends DBAdapter {
 	
 	public static final int STATUS_ACTIVE = 1;
-	
 	public static final int STATUS_DEACTIVE = 0;
-	
 	public static final String TABLE_WORD = "word";
-	
 	public static final String WORD_ID = "_id";
-	
 	public static final String QUESTION = "question";
-	
 	public static final String ANSWER = "answer";
-	
 	public static final String ACTIVE = "active";
-	
 	public static final String FK_LECTURE_ID = "lecture_id";
-	
 	public static final String LAST_RATE = "rate";
-	
 	public static final String AVG_RATE = "avg_rate";
-	
 	public static final String HIT = "hit";
-	
 	public static final String TABLE_WORD_CREATE = "CREATE TABLE "+ TABLE_WORD + " ( "+ 
 														WORD_ID + " INTEGER PRIMARY KEY, "+ 
 														QUESTION +" TEXT, "+ 
@@ -268,18 +257,24 @@ public class WordDBAdapter extends DBAdapter {
 		db.close();
 	}
     
-    public void updateReatedWord(Word word, long statisticId){
+    public void updateReatedWord(Word word){
     	SQLiteDatabase db = openWriteableDatabase();
     	String q = "UPDATE " + TABLE_WORD + " " +
-    			"SET "+ HIT +"="+ HIT +"+1,"+LAST_RATE+"="+word.getRate()+"," +
+    			"SET "+ 
+    			HIT +"="+ HIT +"+1, "+ 
+    			LAST_RATE+"="+word.getRate()+", " +
+    			AVG_RATE+"="+word.getAvgRate()+", " +
 				ACTIVE + "=" + booelanToInt(word.isActive()) + " "+
-		"WHERE " + WORD_ID + "=" + word.getId() + "; ";
+		"WHERE " + WORD_ID + "=" + word.getId() + ";";
     	db.execSQL(q);
+		/*
 		q = "UPDATE `"+ StatisticDbAdapter.TABLE_STATISTIC + "` " +
 		"SET `"+ StatisticDbAdapter.HIT +"`=`"+ StatisticDbAdapter.HIT +"`+1, `"+
 			StatisticDbAdapter.RATE +"`=`"+ StatisticDbAdapter.RATE +"`+" +word.getRate()+" "+ 
 		"WHERE "+StatisticDbAdapter.STATISTIC_ID +"=" + statisticId + ";";
-		db.execSQL(q);    	
+		db.execSQL(q);    
+		*/
+			
     	db.close();
     }
     

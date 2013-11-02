@@ -24,7 +24,7 @@
 
     
     <ListPreference
-        android:key="pref_dril_autoplay_lang"
+        android:key="list_dril_test_values"
         android:entries="@array/list_dril_test_labels"
         android:entryValues="@array/list_dril_test_values"
         android:title="@string/pref_label_test" 
