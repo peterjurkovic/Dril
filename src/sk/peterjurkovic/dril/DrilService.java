@@ -3,11 +3,13 @@ package sk.peterjurkovic.dril;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.regex.Pattern;
 
+import sk.peterjurkovic.dril.dao.WordDao;
+import sk.peterjurkovic.dril.dao.WordDaoImpl;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.model.Word;
+import sk.peterjurkovic.dril.utils.NumberUtils;
 import android.util.Log;
 
 public class DrilService {
@@ -18,7 +20,7 @@ public class DrilService {
 	
 	private int position = 0;
 	private int hits = 0;
-	private WordDBAdapter wordDbAdapter;
+	private WordDao wordDao;
 	private List<Word> activatedWords = new ArrayList<Word>();
 	
 	
@@ -26,20 +28,16 @@ public class DrilService {
 		if(wordDbAdapter == null){
 			throw new Error("Word db adapter can not be null");
 		}
-		this.wordDbAdapter = wordDbAdapter;
+		this.wordDao = new WordDaoImpl(wordDbAdapter);
 		loadActivatedWords();
 	}
 	
 	private void loadActivatedWords(){ 
-		if(wordDbAdapter != null){
-	  	    try{
-	  	    	activatedWords = wordDbAdapter.getActivatedWords();
-	  	    } catch (Exception e) {
-	  			Log.e( getClass().getName() , "ERROR: " + e.getMessage());
-	  		} finally {
-	  			wordDbAdapter.close();
-	  		}
-		}
+  	    try{
+  	    	activatedWords = wordDao.getActivatedWords();
+  	    } catch (Exception e) {
+  			Log.e( getClass().getName() , "ERROR: " + e.getMessage());
+  		}
 	}
 	
 	public void precessRating(int rate){
@@ -51,6 +49,9 @@ public class DrilService {
 			if(rate == 1){
 				word.setActive(Boolean.FALSE);
 				activatedWords.remove(position);
+				if( WORD_THRESHOLD >= activatedWords.size() && position != 0){
+					position--;
+				}
 			}
 			Log.d("RATE", word.toString());
 			updateRatedWord(word);
@@ -58,13 +59,7 @@ public class DrilService {
 	}
 	
 	private void updateRatedWord(Word word){
-  	    try{
-  	    	wordDbAdapter.updateReatedWord(word);
-  	    } catch (Exception e) {
-  			Log.d( getClass().getName() , "ERROR: " + e.getMessage());
-  		} finally {
-  			wordDbAdapter.close();
-  		}
+		wordDao.updateReatedWord(word);
     }
 	
 	
@@ -102,27 +97,27 @@ public class DrilService {
 	  }
 	  
 	  List<Word> clonedList = new ArrayList<Word>(activatedWords);
-	  if(hits % 6 == 0){
+	  if(hits % 5 == 0){
 		  Collections.sort(clonedList, Word.Comparators.AVG_RATE);
 		  position =  getRandomPosition(clonedList);
-	  }else if(hits % 7 == 0){
+	  }else if(hits % 6 == 0){
 		  Collections.sort(clonedList, Word.Comparators.HARDEST);
 		  position =  getRandomPosition(clonedList);
 	  }else{
 		  position = getRandomPosition();
 	  }
-		  
-	  
+		 	  
 	}
 
+	
 	private int getRandomPosition(List<Word> collection){
 		if(!collection.isEmpty()){
-			int size = collection.size();
-			if(size > 5){
-				size = 5;
+			int max = collection.size() - 1;
+			int min = max - 5;
+			if(min > 0){
+				min = 0;
 			}
-			int randIndex = getRandomPostion(size);
-			Word word = collection.get(randIndex);
+			Word word = collection.get( NumberUtils.randInt(min, max) );
 			return findPositionByWordId(word.getId());
 			
 		}
@@ -152,13 +147,10 @@ public class DrilService {
 	
 	
 	private int getRandomPostion(){
-    	return getRandomPostion(activatedWords.size());
+    	return  NumberUtils.getRandomPostion(activatedWords.size());
     }
 	
-	private int getRandomPostion(int limit){
-    	Random r = new Random();
-    	return r.nextInt( limit );
-    }
+	
 	
 	
 	private int findPositionByWordId(long id){
@@ -183,6 +175,10 @@ public class DrilService {
 			return activatedWords.get(position);
 		}
 		return null;
+	}
+	
+	public int getCountOfWords(){
+		return activatedWords.size();
 	}
 }
 ;

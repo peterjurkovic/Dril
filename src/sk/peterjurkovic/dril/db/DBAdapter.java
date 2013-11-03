@@ -43,7 +43,6 @@ public class DBAdapter{
    
 	 private static class DatabaseHelper extends SQLiteOpenHelper {
 		   
-		    private final static String DB_NAME = "dril.db";
 		    private final Context myContext;
 		    
 	        DatabaseHelper(Context context) {

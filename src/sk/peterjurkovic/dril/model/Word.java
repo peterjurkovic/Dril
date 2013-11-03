@@ -23,6 +23,10 @@ public class Word implements Comparable<Word>{
 	
 	private long changed;
 	
+	private int questionLangId;
+	
+	private int answerLangId;
+	
 	public Word(String question, String answare){
 		this.question = question;
 		this.answare = answare;
@@ -34,7 +38,7 @@ public class Word implements Comparable<Word>{
 		this.lectureId = lectureId;
 	}
 	
-	public Word(long id, String question, String answare, int hit, int rate,boolean active) {
+	public Word(long id, String question, String answare, int hit, int rate,boolean active, int qLang, int aLang) {
 		super();
 		this.id = id;
 		this.question = question;
@@ -42,6 +46,8 @@ public class Word implements Comparable<Word>{
 		this.hit = hit;
 		this.rate = rate;
 		this.active = active;
+		this.questionLangId = qLang;
+		this.answerLangId = aLang;
 	}
 
 	
@@ -128,6 +134,41 @@ public class Word implements Comparable<Word>{
 		}else{
 			avgRate = (hit * avgRate + rate) / (hit + 1); 
 		}
+	}
+	
+		
+	public int getQuestionLangId() {
+		return questionLangId;
+	}
+
+	public void setQuestionLangId(int questionLangId) {
+		this.questionLangId = questionLangId;
+	}
+
+	public int getAnswerLangId() {
+		return answerLangId;
+	}
+
+	public void setAnswerLangId(int answerLangId) {
+		this.answerLangId = answerLangId;
+	}
+
+	public Language getQuestionLanguage(){
+		if(questionLangId == 0){
+			return null;
+		}
+		return Language.getById(questionLangId);
+	}
+	
+	public Language getAnserLanguage(){
+		if(answerLangId == 0){
+			return null;
+		}
+		return Language.getById(answerLangId);
+	}
+	
+	public String getLastRate(){
+		return (getRate() == 0 ? " -" : getRate()+"");
 	}
 
 	@Override

@@ -20,7 +20,7 @@
     <string name="book_add">Add textbook</string>
     <string name="book_add_head">Add your own textbook</string>
     <string name="view">View</string>
-    <string name="edit">Rename</string>
+    <string name="edit">Edit</string>
     <string name="editWord">Edit</string>
     <string name="delete">Delete</string>
     <string name="deleted">Successfully deleted</string>
@@ -200,5 +200,9 @@
 	<string name="pref_label_test_question">Question</string>
 	<string name="pref_label_test_answer">Answer</string>
 	<string name="pref_label_test_rand">Random</string>
+	
+	<string name="lang_question">Language of question</string>
+	<string name="lang_answer">Language of answer</string>
+	<string name="error_same_languages">Selected languages are same!</string>
 
 </resources>

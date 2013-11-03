@@ -22,11 +22,45 @@
         android:layout_marginBottom="10dp"
         android:hint="@string/title"
         android:lines="1" />
-	    
+	
+     <!-- LANG QUESTION -->
+     <TextView
+        android:id="@+id/addQuestionLangLabel" 
+        android:layout_below="@id/addBookName"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/boxLabel"
+        android:text="@string/lang_question"
+ 		/>
+     
+    <Spinner
+        android:id="@+id/addLangQuestion"
+        android:layout_below="@id/addQuestionLangLabel"
+        style="@style/v2Spinner" />		
+    
+     <!-- LANG ANSWER -->
+     <TextView
+        android:id="@+id/addAnswerLangLabel" 
+        android:layout_below="@id/addLangQuestion"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/boxLabel"
+        android:text="@string/lang_answer"
+ 		/>
+     
+    <Spinner
+        android:id="@+id/addLangAnswer"
+        android:layout_below="@id/addAnswerLangLabel"
+        style="@style/v2Spinner"
+         />		
 	
     <LinearLayout
         
-        android:layout_below="@+id/addBookName"
+        android:layout_below="@+id/addLangAnswer"
 	 	android:layout_height="wrap_content"
 	 	android:layout_width="fill_parent"
 	 	android:orientation="horizontal"
@@ -45,7 +79,7 @@
 	      
 	</LinearLayout>
 	
-    <include  layout="@layout/v2_include_dril_promo"/>
+   
     
 	    
 </RelativeLayout>

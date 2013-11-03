@@ -34,7 +34,7 @@
 		
 		        <TextView
 		            style="@style/v2DrilLabel"
-		        	android:id="@+id/drilLabel1" 
+		        	android:id="@+id/drilHeaderInfo" 
 		        	android:layout_gravity="center_vertical|center_horizontal"
 		        	android:text="@string/activated_words"/>
 		       

@@ -9,8 +9,8 @@
     	
     <TextView
         android:id="@+id/boxLabel"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/boxLabel"
@@ -21,11 +21,11 @@
         android:id="@+id/editBookName"
         style="@style/editText"
         android:layout_below="@id/boxLabel"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="2dp"
         android:background="@drawable/input"
         android:hint="@string/title"
         android:lines="1" />
-    
+          
     <TextView
         android:id="@+id/editBookId"
         android:layout_width="wrap_content"
@@ -33,10 +33,47 @@
 		android:visibility="gone"
  		/>
     
+    <!-- LANG QUESTION -->
+     <TextView
+        android:id="@+id/questionLangLabel" 
+        android:layout_below="@id/editBookName"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/boxLabel"
+        android:text="@string/lang_question"
+ 		/>
+     
+    <Spinner
+        android:id="@+id/langQuestion"
+        android:layout_below="@id/questionLangLabel"
+        style="@style/v2Spinner" />		
+    
+     <!-- LANG ANSWER -->
+     <TextView
+        android:id="@+id/answerLangLabel" 
+        android:layout_below="@id/langQuestion"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/boxLabel"
+        android:text="@string/lang_answer"
+ 		/>
+     
+    <Spinner
+        android:id="@+id/langAnswer"
+        android:layout_below="@id/answerLangLabel"
+        style="@style/v2Spinner"
+         />		
+  
+    
     <LinearLayout
-     android:layout_below="@+id/editBookName"
+     android:layout_below="@+id/langAnswer"
 	 android:layout_height="wrap_content"
 	 android:layout_width="fill_parent"
+	 android:layout_marginTop="15dp"
 	 android:orientation="horizontal"
 	 android:weightSum="1.0">
 	      
@@ -55,6 +92,6 @@
 	     
 	</LinearLayout>
 	
-    <include  layout="@layout/v2_include_dril_promo"/>
+   
     
 </RelativeLayout>

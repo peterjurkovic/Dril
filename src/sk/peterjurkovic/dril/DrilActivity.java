@@ -257,7 +257,7 @@ public class DrilActivity extends MainActivity implements OnInitListener{
     	WordDBAdapter wordDbAdapter = new WordDBAdapter(this);
     	List<Word> activatedWords = null;
   	    try{
-  	    	activatedWords = wordDbAdapter.getActivatedWords();
+  	    //	activatedWords = wordDbAdapter.getActivatedWords();
   	    } catch (Exception e) {
   			Log.d( TAG , "ERROR: " + e.getMessage());
   		} finally {

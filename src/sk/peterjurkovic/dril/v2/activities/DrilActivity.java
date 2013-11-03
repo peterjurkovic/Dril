@@ -8,6 +8,7 @@ import sk.peterjurkovic.dril.DrilService;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.model.Word;
+import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -50,7 +51,6 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
 	private TextView answerLabel;
 	private Animation slideLeftIn;
 	private View  layout;
-	private Word currentWord = null;
 	private LinearLayout answerLayout;
 	SharedPreferences preferences;
 	
@@ -63,10 +63,9 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
 	    
        
         //slideLeftIn = AnimationUtils.loadAnimation(this, R.anim.left_ight);
-        TranslateAnimation anim = new TranslateAnimation(1000, 0, 0, 0);
-        anim.setDuration(500);
-       // anim.setFillAfter(true);
-    	slideLeftIn = anim;
+        slideLeftIn = new TranslateAnimation(1000, 0, 0, 0);
+        slideLeftIn.setDuration(500);
+        slideLeftIn.setFillAfter(true);
     	layout = (RelativeLayout) findViewById(R.id.dril);
     	layout.startAnimation(slideLeftIn);
 	 
@@ -76,7 +75,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
         question = (TextView) findViewById(R.id.question);
         answer = (TextView) findViewById(R.id.answer);
         answerLabel = (TextView) findViewById(R.id.answerLabel);
-        drilheaderInfo = (TextView) findViewById(R.id.drilLabel1);
+        drilheaderInfo = (TextView) findViewById(R.id.drilHeaderInfo);
         answerLayout = (LinearLayout)findViewById(R.id.answerLayout);
         Intent checkTTSIntent = new Intent();
         checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
@@ -124,7 +123,11 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     }
     
     private void setWordIntoViews(Word word){
-    	String shouldBeShown = preferences.getString("list_dril_test_values", "question");
+    	if(word == null){
+    		Log.e(TAG, "Word is NULL");
+    		return;
+    	}
+    	String shouldBeShown = preferences.getString(Constants.PREF_TEST_VALUE, "question");
     	if(shouldBeShown.equals("question")){
     		setVisibleQuestion(word);
     	}else if(shouldBeShown.equals("answer")){
@@ -137,6 +140,14 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     			setVisibleAnswer(word);
     		}
     	}
+    	
+    	 drilheaderInfo.setText( 
+	        		getString(R.string.activated_words, 
+						drilService.getCountOfWords(), 
+						word.getHit(),
+						word.getLastRate()
+    				));
+    	 layout.startAnimation(slideLeftIn);
     }
     
     private void setVisibleQuestion(Word word){
@@ -164,7 +175,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	if(drilService.hasNext()){
     		tryNextWord();
     	}else{
-    		// TODO finis msg + sharing resulrs
+    		showNoCardsAlert();
     	}
     	
     }
@@ -181,20 +192,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	//saveStatisticId();
     }
    
-       
-    
-    
-  
 
-
-    
-    
-    
-    
-    
-    
-    
- 
     
     
     public void drilFinished(int resourceId){
@@ -225,9 +223,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     }
     
     
-    public String getLastRate(){
-    	return (currentWord.getRate() == 0 ? " -" : currentWord.getRate()+"");
-    }
+   
     
     
     private void speakWords(String word) {

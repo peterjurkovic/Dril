@@ -92,6 +92,8 @@ public class WordDBAdapter extends DBAdapter {
         values.put(ANSWER, answer);
         values.put(FK_LECTURE_ID, lectureId);
         values.put(ACTIVE, 0);
+        values.put(CHANGED_COLL, System.currentTimeMillis());
+        values.put(CREATED_COLL, System.currentTimeMillis());
         long id = db.insert( TABLE_WORD , null, values);
         db.close();
         return id;
@@ -210,36 +212,15 @@ public class WordDBAdapter extends DBAdapter {
     }
     
     
-    public List<Word> getActivatedWords() {
+    public Cursor getActivatedWords() {
     	SQLiteDatabase db = openReadableDatabase();
-    	Cursor result = db.query(TABLE_WORD, 
-    							columns, 
-    							ACTIVE + "=1" , 
-    							null, null, null, WORD_ID);		
-    	return cursorToList(result);
+    	return db.rawQuery("select w.*, b.answer_lang_fk,  b.question_lang_fk  from word w "+
+										"left join lecture l on l._id=w.lecture_id "+
+										"left join book b on b._id=l.book_id "+
+									"where w.active=1", null);
 	}
     
-    
-    public List<Word> cursorToList(Cursor cursor){
-    	ArrayList<Word> mArrayList = new ArrayList<Word>();
-    	cursor.moveToFirst();
-    	while(!cursor.isAfterLast()) {
-    	     mArrayList.add(
-    	    	new Word( 
-    				 cursor.getLong(cursor.getColumnIndex( WORD_ID )), 
-    				 cursor.getString(cursor.getColumnIndex( QUESTION )), 
-    				 cursor.getString(cursor.getColumnIndex( ANSWER )), 
-    				 cursor.getInt(cursor.getColumnIndex( HIT )), 
-    				 cursor.getInt(cursor.getColumnIndex( LAST_RATE )),
-    				 intToBoolean(cursor.getInt(cursor.getColumnIndex( ACTIVE )))
-    			)); 
-    	     cursor.moveToNext();
-    	}
-    	cursor.close();
-    	return mArrayList;
-    }
-    
-    
+       
     public void saveWordList(List<Word> words) throws Exception{
 		SQLiteDatabase db = openWriteableDatabase();
 		db.beginTransaction();

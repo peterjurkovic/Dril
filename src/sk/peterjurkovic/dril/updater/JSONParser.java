@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import sk.peterjurkovic.dril.model.Book;
 import sk.peterjurkovic.dril.model.Lecture;
 import sk.peterjurkovic.dril.model.Word;
@@ -20,8 +21,8 @@ public class JSONParser {
 	public static final String TAG_LECTURES = "lectures";
 	public static final String TAG_LECTURE_NAME = "lecture_name";
 	public static final String TAG_WORDS = "words";
-	public static final String TAG_QUESTION = "question";
-	public static final String TAG_ANSWER = "answer";
+	public static final String TAG_QUESTION = "q";
+	public static final String TAG_ANSWER = "a";
 	public static final String TAG_COUNT = "count";
 	
 	
@@ -62,6 +63,7 @@ public class JSONParser {
        		Book book = new Book();
        		book.setName( b.getString( TAG_NAME ));
        		book.setVersion( b.getInt( TAG_VERSION ));
+       		Log.i("BOOK", book.getName());
        		book.setLectures( parseLecturesFromJSONArray( b.getJSONArray(TAG_LECTURES) ));
        		bookList.add(book);
        	}

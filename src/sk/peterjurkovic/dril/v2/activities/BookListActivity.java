@@ -35,12 +35,11 @@ public class BookListActivity extends ActionBarListActivity {
 	private static final int REQUEST_ADD_BOOK = 0;
 	private static final int REQUEST_EDIT_BOOK = 1;
 	
-	public static final int MENU_VIEW_ID = Menu.FIRST +1;
-	public static final int MENU_EDIT_ID = Menu.FIRST+2;
-	public static final int MENU_DELETE_ID = Menu.FIRST+3;
+	public static final int MENU_EDIT_ID = Menu.FIRST+1;
+	public static final int MENU_DELETE_ID = Menu.FIRST+2;
 	
-	BookAdapter bookAdapter;
-	BookDBAdapter bookDBAdapter;
+	private BookAdapter bookAdapter;
+	private BookDBAdapter bookDBAdapter;
 	
 	protected ProgressBar booKProgressBar;
 	protected ListView listView;
@@ -84,7 +83,6 @@ public class BookListActivity extends ActionBarListActivity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
 	    super.onCreateContextMenu(menu, v, menuInfo);
-	    menu.add(Menu.NONE, MENU_VIEW_ID, Menu.NONE, R.string.view);
 	    menu.add(Menu.NONE, MENU_EDIT_ID, Menu.NONE, R.string.edit);
 	    menu.add(Menu.NONE, MENU_DELETE_ID, Menu.NONE, R.string.delete);
 	}
@@ -103,11 +101,7 @@ public class BookListActivity extends ActionBarListActivity {
             return true;
         case MENU_EDIT_ID:
         	onEditBookClicked(info.id);
-            return true;
-        case MENU_VIEW_ID:
-        	showLectureList(info.id);
-        return true;
-            
+            return true;            
         default:
            return super.onContextItemSelected(item);
         }
@@ -132,21 +126,15 @@ public class BookListActivity extends ActionBarListActivity {
 	
 	@Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data){
-	 	String bookName = null;
-	 	
 	 	if(resultCode != RESULT_OK){
 	 		return;
 	 	} 
-	 	
 	 	switch(requestCode){
 	 		case REQUEST_ADD_BOOK :
-	 			bookName = data.getStringExtra(AddBookActivity.EXTRA_BOOK_NAME);
-	 			onSaveNewBook(bookName);
+	 			onSaveNewBook();
 	 		break;
 	 		case REQUEST_EDIT_BOOK :
-	 			bookName = data.getStringExtra(EditBookActivity.EXTRA_BOOK_NAME);
-	 			long bookId =  data.getLongExtra( EditBookActivity.EXTRA_BOOK_ID, -1 ); 
-	 			onSaveEditedBook( bookId , bookName);
+	 			onSaveEditedBook();
 	 		break;
 	 		default:
 	 			throw new Error("requestCode: " + requestCode + 
@@ -161,22 +149,9 @@ public class BookListActivity extends ActionBarListActivity {
 	}
 	 
 	
-	public void onSaveEditedBook(long bookId, String bookName) {	
-		if(bookId == -1) throw new Error("Unable save edited book.");
-		boolean result = false;
-		try {
-			result = bookDBAdapter.updateBook(bookId , bookName);
-		} catch (Exception e) {
-			Log.e(TAG, "Can not edit book", e);
-		}
-		
-		if(result){
-		    updateList();
-		    Toast.makeText(this, R.string.saved_ok, Toast.LENGTH_LONG).show();
-	
-		}else{
-	        Toast.makeText(this, R.string.saved_no, Toast.LENGTH_LONG).show();
-	    }
+	public void onSaveEditedBook() {	
+		updateList();
+		Toast.makeText(this, R.string.saved_ok, Toast.LENGTH_LONG).show();
 	}
 	
 	public void onEditBookClicked(long bookId) {
@@ -205,20 +180,8 @@ public class BookListActivity extends ActionBarListActivity {
 		
 	}
 	
-	public void onSaveNewBook(String bookName) {
-		long id = -1;
-		try {
-			id = bookDBAdapter.insertBook(bookName);
-		} catch (Exception e) {
-			Log.e(TAG, "Can not save book: "+ bookName, e);
-		}
-		
-		if(id > -1){
+	public void onSaveNewBook() {
 		    updateList();
-		    Toast.makeText(this, R.string.book_added, Toast.LENGTH_LONG).show();		   
-		}else{
-	        Toast.makeText(this, R.string.book_not_added, Toast.LENGTH_LONG).show();
-	    }
 	}
 	
 
