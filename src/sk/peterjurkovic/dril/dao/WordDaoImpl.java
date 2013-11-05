@@ -3,6 +3,7 @@ package sk.peterjurkovic.dril.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.ConversionUtils;
@@ -37,8 +38,8 @@ public class WordDaoImpl implements WordDao {
 	    				 cursor.getInt(cursor.getColumnIndex( WordDBAdapter.HIT )), 
 	    				 cursor.getInt(cursor.getColumnIndex( WordDBAdapter.LAST_RATE )),
 	    				 ConversionUtils.intToBoolean(cursor.getInt(cursor.getColumnIndex( WordDBAdapter.ACTIVE ))),
-	    				 cursor.getInt(cursor.getColumnIndex( WordDBAdapter.HIT )), 
-	    				 cursor.getInt(cursor.getColumnIndex( WordDBAdapter.LAST_RATE ))
+	    				 cursor.getInt(cursor.getColumnIndex( BookDBAdapter.QUESTION_LANG_COLL )), 
+	    				 cursor.getInt(cursor.getColumnIndex(BookDBAdapter.ANSWER_LANG_COLL ))
 	    			)); 
 	    	     cursor.moveToNext();
 	    	}

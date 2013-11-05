@@ -16,7 +16,7 @@ public class DrilService {
 
 	private final static int WORD_THRESHOLD = 5;
 	private final static int WORDS_HITS_THRESHOLD = 8;
-	private final static Pattern clean = Pattern.compile("(\\s(n|v|adj|adv|st|conj)(\\s)?)|(\\s(\\(n\\)|\\(v\\)|\\(adj\\)|\\(adv\\)|\\(conj\\))(\\s)?)|(\\[.*\\])");
+	
 	
 	private int position = 0;
 	private int hits = 0;
@@ -112,7 +112,7 @@ public class DrilService {
 	
 	private int getRandomPosition(List<Word> collection){
 		if(!collection.isEmpty()){
-			int max = collection.size() - 1;
+			final int max = collection.size() - 1;
 			int min = max - 5;
 			if(min > 0){
 				min = 0;

@@ -8,7 +8,7 @@ import sk.peterjurkovic.dril.R;
 
 public enum Language {
 	
-	ENGLISH(1, R.string.label_lang_en, Locale.ENGLISH),
+	ENGLISH(1, R.string.label_lang_en, Locale.US),
 	GERMAN(2, R.string.label_lang_de, Locale.GERMAN),
 	FRENCH(3, R.string.label_lang_fr , Locale.FRENCH),
 	SPANISH(4, R.string.label_lang_es, new Locale("es")),

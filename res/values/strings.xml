@@ -27,7 +27,7 @@
     <string name="book_not_deleted">The textbook could not be deleted</string>
     <string name="no_book_available">There are not textbooks</string>
     <string name="title">Name</string>
-    <string name="book_not_added">Some error occured, textbook was not added</string>
+    <string name="book_not_added">Some error occurred, textbook was not added</string>
     <string name="lecture_added">Lesson successfully added</string>
     <string name="lecture_not_added">Lekciu sa nepodarilo pridať</string>
     <string name="book_added">The lesson was not added</string>
@@ -71,7 +71,7 @@
 	<string name="words_deactived">Cards are deactivated</string>
 	<string name="word_not_deactive">Deactivating of cards failed</string>
 	
-	<string name="error">Some error occured, try it again</string>
+	<string name="error">Some error occurred, try it again</string>
 	<string name="selected">Selected:</string>
 	<string name="wordAction">Card:</string>
 	<string name="activated_words">Cards: %1$d  |  viewed: %2$dx |  last rating: %3$s</string>
@@ -204,5 +204,7 @@
 	<string name="lang_question">Language of question</string>
 	<string name="lang_answer">Language of answer</string>
 	<string name="error_same_languages">Selected languages are same!</string>
+	<string name="error_tts_locale">Pronaucement is not avaiable for %1$s locale</string>
+	
 
 </resources>

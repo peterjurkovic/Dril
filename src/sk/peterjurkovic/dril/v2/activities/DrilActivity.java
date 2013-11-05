@@ -7,7 +7,9 @@ import java.util.regex.Pattern;
 import sk.peterjurkovic.dril.DrilService;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
+import sk.peterjurkovic.dril.dto.WordToPronauceDto;
 import sk.peterjurkovic.dril.model.Word;
+import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,14 +34,14 @@ import android.widget.Toast;
 
 public class DrilActivity extends BaseActivity implements OnInitListener{
 	
-	public static final String TAG = "DRIL";
-
-
-	public static final int DATA_CHECK_CODE = 0;
+	private static final String QUESTION_TAG = "question";
+	private static final String ANSWER_TAG = "answer";
 	
+	public static final String TAG = "DRIL";
+	public static final int DATA_CHECK_CODE = 0;
 	public static final String STATISTIC_ID_KEY = "statisticId";
 	
-	private TextToSpeech textToSpeachService;
+	private TextToSpeech tts;
 	private DrilService drilService;
 
 	private Button showAnswerBtn;
@@ -77,9 +79,8 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
         answerLabel = (TextView) findViewById(R.id.answerLabel);
         drilheaderInfo = (TextView) findViewById(R.id.drilHeaderInfo);
         answerLayout = (LinearLayout)findViewById(R.id.answerLayout);
-        Intent checkTTSIntent = new Intent();
-        checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-        startActivityForResult(checkTTSIntent, DATA_CHECK_CODE);
+        
+        checkTTSDataForLocale();
         
         showAnswerBtn.setOnClickListener(new  OnClickListener() {
 			@Override
@@ -92,13 +93,13 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
         speachQuestionBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				speakWords( getWordToSpeak( true ) );
+				speakWords( getQuestionToPronauce() );
 			}
 		});
         speachAnswerBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				speakWords( getWordToSpeak( false ) );
+				speakWords( getAnserToPronauce() );
 			}
 		});
         
@@ -152,12 +153,16 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     
     private void setVisibleQuestion(Word word){
     	question.setText( word.getQuestion() );
+    	question.setTag(QUESTION_TAG);
         answer.setText( word.getAnsware() );
+        answer.setTag(ANSWER_TAG);
     }
     
     private void setVisibleAnswer(Word word){
     	question.setText( word.getAnsware()  );
+    	question.setTag(ANSWER_TAG);
         answer.setText(  word.getQuestion());
+        answer.setTag(QUESTION_TAG);
     }
     
     public void showNoCardsAlert(){
@@ -226,34 +231,40 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
    
     
     
-    private void speakWords(String word) {
-    	if(word == null || word.length() == 0){
+    private void speakWords(WordToPronauceDto wordDto) {
+    	if(StringUtils.isBlank(wordDto.getValue())){
     		Toast.makeText(this, R.string.nothing_to_speeach, Toast.LENGTH_LONG).show();
-    	}else{
-    		if(textToSpeachService != null)
-    			textToSpeachService.speak(clearWord( word ), TextToSpeech.QUEUE_FLUSH, null);
     	}
+    	Log.i(TAG, tts.getLanguage().toString());
+    	if(wordDto.getLanguage() == null){
+    		setEnglishTTSLocale();
+    	}else{
+    		Locale locale = wordDto.getLanguage().getLocale();
+    		if(isLanguageAvailable(locale)){
+    			tts.setLanguage(locale);
+    		}else{
+    			Toast.makeText(this, 
+    					getString(R.string.error_tts_locale, getString( wordDto.getLanguage().getResource())) , 
+    					Toast.LENGTH_LONG).show();
+    		}
+    	}
+    	tts.speak(StringUtils.removeSpecialCharacters(wordDto.getValue()), TextToSpeech.QUEUE_FLUSH, null);
+    	
     }
     
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(final int requestCode,final int resultCode, Intent data) {
     	if (requestCode == DATA_CHECK_CODE) {
             if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {      
-               textToSpeachService = new TextToSpeech(this, this);
+               tts = new TextToSpeech(this, this);
             }
             else {
-            	PackageManager pm = getPackageManager();
-                Intent installTTSIntent = new Intent();
-                installTTSIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                ResolveInfo resolveInfo = pm.resolveActivity( installTTSIntent, PackageManager.MATCH_DEFAULT_ONLY );
-                if( resolveInfo == null ) {
-                		Toast.makeText(this, R.string.speach_failed, Toast.LENGTH_LONG).show();
-                	} else {
-                		startActivity(installTTSIntent);
-                	}
-               
+            	// missing data, install it
+                Intent installIntent = new Intent();
+                installIntent.setAction( TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                startActivity(installIntent);
             }
-            }
+        }
     	super.onActivityResult(requestCode, resultCode, data);
     }
     
@@ -262,7 +273,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     @Override
     public void onInit(int initStatus) {
     	if (initStatus == TextToSpeech.SUCCESS) {
-            textToSpeachService.setLanguage(Locale.ENGLISH);
+    		
         }else if (initStatus == TextToSpeech.ERROR) {
             Toast.makeText(this, R.string.speach_failed, Toast.LENGTH_LONG).show();
         }
@@ -271,35 +282,53 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     
     @Override
     protected void onDestroy() {
-    	if (textToSpeachService != null) {
-        	textToSpeachService.stop();
-        	textToSpeachService.shutdown();
+    	if (tts != null) {
+        	tts.stop();
+        	tts.shutdown();
 	    }
     	super.onDestroy();
     }
     
     
-    /**
-     * Clean word witch will by pronaucmend
-     * 
-     * escapten caractes:
-     * s n v abj adv conj (s) (n) (v) (abj) (adv) (conj)
-     * and [.*]
-     * 
-     * @param String word to escape
-     * @return String escaped string
-     */
-    public String clearWord(String word){
-    	Pattern pat = Pattern.compile("(\\s(n|v|adj|adv|st|conj)(\\s)?)|(\\s(\\(n\\)|"+
-    									"\\(v\\)|\\(adj\\)|\\(adv\\)|\\(conj\\))(\\s)?)|(\\[.*\\])");   
-    	return pat.matcher(word).replaceAll("");  
+    
+    
+    public WordToPronauceDto getQuestionToPronauce(){
+    	String tagValue = (String) question.getTag();
+    	return determineWord(tagValue);
     }
     
-   
+    public WordToPronauceDto getAnserToPronauce(){
+    	String tagValue = (String) answer.getTag();
+    	return determineWord(tagValue);
+    }
     
+    public WordToPronauceDto determineWord(final String tagValue){
+    	Log.i(TAG, tagValue);
+    	WordToPronauceDto wordDto = new WordToPronauceDto();
+    	if(tagValue.equals(QUESTION_TAG)){
+    		wordDto.setValue(drilService.getCurrentWord().getQuestion());
+    		wordDto.setLanguage( drilService.getCurrentWord().getQuestionLanguage() );
+    	}else{
+    		wordDto.setValue(drilService.getCurrentWord().getAnsware());
+    		wordDto.setLanguage( drilService.getCurrentWord().getAnserLanguage() );
+    	}
+    	return wordDto;
+    }
     
-    public String getWordToSpeak(boolean isQuestion){
-    	return null;
+    public boolean isLanguageAvailable(Locale speechLocale) {
+        return tts.isLanguageAvailable(speechLocale) != TextToSpeech.LANG_MISSING_DATA
+                && tts.isLanguageAvailable(speechLocale) != TextToSpeech.LANG_NOT_SUPPORTED;
+    }
+
+    
+    private void setEnglishTTSLocale(){
+		tts.setLanguage(Locale.ENGLISH);
+    }
+    
+    private void checkTTSDataForLocale(){
+    	 Intent checkTTSIntent = new Intent();
+         checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+         startActivityForResult(checkTTSIntent, DATA_CHECK_CODE);
     }
     
 }
