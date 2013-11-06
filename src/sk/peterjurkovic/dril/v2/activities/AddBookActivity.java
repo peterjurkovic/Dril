@@ -79,7 +79,6 @@ public class AddBookActivity extends BaseActivity {
     	Language langAnswer = (Language)answerSpinner.getSelectedItem();
     	if(langQuestion.equals(langAnswer)){
     		Toast.makeText(this, R.string.error_same_languages, Toast.LENGTH_LONG).show();
-    		return;
     	}
     	Book book = new Book();
 	    book.setName(bookName);
@@ -87,6 +86,7 @@ public class AddBookActivity extends BaseActivity {
     	book.setAnswerLang(langAnswer);
     	bookDao.create(book);
     	onAddBook();
+    	
 	}
 	
 	

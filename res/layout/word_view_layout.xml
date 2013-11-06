@@ -73,7 +73,7 @@
         android:id="@+id/viewQuestion"
         style="@style/drilBox"
         android:layout_below="@id/viewQuestionLabel"
-        android:background="@drawable/question" />
+        android:background="@drawable/v2_question_text" />
 
     <TextView
         android:id="@+id/viewAnswerLabel"
@@ -87,7 +87,7 @@
         android:id="@+id/viewAnswer"
         style="@style/drilBox"
         android:layout_below="@id/viewAnswerLabel"
-        android:background="@drawable/question"
+        android:background="@drawable/v2_question_text"
         android:visibility="visible" />
 
 </RelativeLayout>

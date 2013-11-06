@@ -55,7 +55,9 @@
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
 		        android:text="@string/question" />
-		
+			
+			
+			
 			<ImageButton
 			    android:id="@+id/speakQuestion"
 			    style="@style/spiker"
@@ -66,7 +68,7 @@
 		        android:id="@+id/question"
 				android:layout_below="@id/questionLabel"
 		        style="@style/drilBox"
-		        android:background="@drawable/question"/>
+		        android:background="@drawable/v2_question_text"/>
 		
 		    <TextView
 		        style="@style/boxLabel"
@@ -76,7 +78,14 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/answer" />
 		
-		   
+		   	<EditText 
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:hint="@string/write_your_answer"
+			    android:layout_below="@id/question"
+			    style="@style/editText"
+			    android:background="@drawable/input"
+			    />
 		 
 		 <LinearLayout
 		        android:layout_width="match_parent"
@@ -134,8 +143,8 @@
 		        android:id="@+id/answer"
 		        style="@style/drilBox"
 		        android:layout_below="@id/answerLabel"
-		        android:layout_above="@id/answerLayout"
-		        android:background="@drawable/answer"  />
+		        android:layout_above="@id/answerLayout" 
+		        android:background="@drawable/v2_answer_text"  />
 		 
 		 	 <Button
 		 	     android:id="@+id/showAnswer"

@@ -2,7 +2,6 @@ package sk.peterjurkovic.dril.v2.activities;
 
 
 import java.util.Locale;
-import java.util.regex.Pattern;
 
 import sk.peterjurkovic.dril.DrilService;
 import sk.peterjurkovic.dril.R;
@@ -13,8 +12,6 @@ import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
@@ -89,19 +86,23 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
 			}
 		});
 
-        
-        speachQuestionBtn.setOnClickListener(new OnClickListener() {
+        OnClickListener onQuestionClick = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				speakWords( getQuestionToPronauce() );
 			}
-		});
-        speachAnswerBtn.setOnClickListener(new OnClickListener() {
+		};
+		
+		OnClickListener onAnswerClick = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				speakWords( getAnserToPronauce() );
 			}
-		});
+		};
+        speachQuestionBtn.setOnClickListener(onQuestionClick);
+        speachAnswerBtn.setOnClickListener(onAnswerClick);
+        question.setOnClickListener(onQuestionClick);
+        answer.setOnClickListener(onAnswerClick);
         
         init();
     }
@@ -121,6 +122,10 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	hideAnswer();
     	Word currentWord = drilService.getNext();
     	setWordIntoViews(currentWord);
+    	boolean autoplayPronunciation =  preferences.getBoolean(Constants.PREF_AUTOPLAY_PRONAUCE_KEY, false);
+    	if(autoplayPronunciation){
+    		playPronunciationInNewThread(Constants.DELAY_BEFORE_PRONUNCIATION);
+    	}
     }
     
     private void setWordIntoViews(Word word){
@@ -128,7 +133,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     		Log.e(TAG, "Word is NULL");
     		return;
     	}
-    	String shouldBeShown = preferences.getString(Constants.PREF_TEST_VALUE, "question");
+    	String shouldBeShown = preferences.getString(Constants.PREF_TEST_VALUE_KEY, "question");
     	if(shouldBeShown.equals("question")){
     		setVisibleQuestion(word);
     	}else if(shouldBeShown.equals("answer")){
@@ -238,18 +243,26 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	Log.i(TAG, tts.getLanguage().toString());
     	if(wordDto.getLanguage() == null){
     		setEnglishTTSLocale();
+    		speek(wordDto.getValue());
     	}else{
     		Locale locale = wordDto.getLanguage().getLocale();
     		if(isLanguageAvailable(locale)){
     			tts.setLanguage(locale);
+    			speek(wordDto.getValue());
     		}else{
+    			if(wordDto.isShowFailureToast()){
     			Toast.makeText(this, 
     					getString(R.string.error_tts_locale, getString( wordDto.getLanguage().getResource())) , 
     					Toast.LENGTH_LONG).show();
+    			}
     		}
     	}
-    	tts.speak(StringUtils.removeSpecialCharacters(wordDto.getValue()), TextToSpeech.QUEUE_FLUSH, null);
     	
+    	
+    }
+    
+    private void speek(String word){
+    	tts.speak(StringUtils.removeSpecialCharacters(word), TextToSpeech.QUEUE_FLUSH, null);
     }
     
     @Override
@@ -273,7 +286,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     @Override
     public void onInit(int initStatus) {
     	if (initStatus == TextToSpeech.SUCCESS) {
-    		
+    		setEnglishTTSLocale();
         }else if (initStatus == TextToSpeech.ERROR) {
             Toast.makeText(this, R.string.speach_failed, Toast.LENGTH_LONG).show();
         }
@@ -297,10 +310,12 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	return determineWord(tagValue);
     }
     
+    
     public WordToPronauceDto getAnserToPronauce(){
     	String tagValue = (String) answer.getTag();
     	return determineWord(tagValue);
     }
+    
     
     public WordToPronauceDto determineWord(final String tagValue){
     	Log.i(TAG, tagValue);
@@ -329,6 +344,31 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	 Intent checkTTSIntent = new Intent();
          checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
          startActivityForResult(checkTTSIntent, DATA_CHECK_CODE);
+    }
+    
+    private void playPronunciationInNewThread(final int delay){
+    	Thread thread = new Thread()
+    	{
+    	    @Override
+    	    public void run() {
+    	        try {
+	                WordToPronauceDto wordDto = getQuestionToPronauce();
+	            	if(wordDto.getLanguage() != null){
+	            		 sleep(delay);
+	            		int targetLang = Integer.valueOf(preferences.getString(Constants.PREF_TARGET_LANG_KEY, "1"));
+	            		if(targetLang == wordDto.getLanguage().getId()){
+	            			wordDto.setShowFailureToast(false);
+	            			speakWords(wordDto);
+	            		}
+	            	}
+    	            
+    	        } catch (InterruptedException e) {
+    	            e.printStackTrace();
+    	        }
+    	    }
+    	};
+
+    	thread.start();    	
     }
     
 }

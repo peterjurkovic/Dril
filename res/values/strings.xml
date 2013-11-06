@@ -184,7 +184,7 @@
     
     <string name="pref_label_autoplay_head">Words pronunciation</string>
     <string name="pref_label_autoplayT2S">Autoplay pronunciation</string>
-    <string name="pref_label_autoplay_descr">Automatically plays pronunciation of the word when is shown</string>
+    <string name="pref_label_autoplay_descr">Automatically plays pronunciation of the word when is shown and is in target language</string>
     
 	<string name="label_lang_sk">Slovak</string>
 	<string name="label_lang_de">German</string>
@@ -201,10 +201,15 @@
 	<string name="pref_label_test_answer">Answer</string>
 	<string name="pref_label_test_rand">Random</string>
 	
+	<string name="pref_input_answer">Inscribe answer</string>
+	<string name="pref_input_answer_descr">Will determine the question similarity</string>
+
+	
 	<string name="lang_question">Language of question</string>
 	<string name="lang_answer">Language of answer</string>
 	<string name="error_same_languages">Selected languages are same!</string>
-	<string name="error_tts_locale">Pronaucement is not avaiable for %1$s locale</string>
+	<string name="error_tts_locale">Pronaucement is not avaiable for %1$s language</string>
 	
+	<string name="write_your_answer">Write your answer</string>
 
 </resources>

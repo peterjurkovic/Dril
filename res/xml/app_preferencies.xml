@@ -31,6 +31,14 @@
         android:defaultValue="question"
         android:summary="@string/pref_label_test_descr"
      />
+    
+    
+    <CheckBoxPreference
+        android:key="pref_input_answer"
+        android:defaultValue="false"
+        android:title="@string/pref_input_answer"
+        android:summary="@string/pref_input_answer_descr" 
+     />
 
    
 </PreferenceScreen>
