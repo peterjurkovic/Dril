@@ -71,6 +71,7 @@
         <activity android:name=".v2.activities.PreferencesActivity"
             	  android:parentActivityName=".v2.activities.DashboardActivity" />
         <activity android:name=".v2.activities.DrilActivity"
+            	  android:windowSoftInputMode="adjustPan"
             	  android:parentActivityName=".v2.activities.DashboardActivity" />
         
     </application>

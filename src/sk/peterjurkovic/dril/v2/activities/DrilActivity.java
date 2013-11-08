@@ -19,9 +19,11 @@ import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -51,6 +53,11 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
 	private Animation slideLeftIn;
 	private View  layout;
 	private LinearLayout answerLayout;
+	private EditText input;
+	private TextView userAnserBox;
+	private TextView userAnserBoxResult;
+	
+	private boolean writeAnswer = false;
 	SharedPreferences preferences;
 	
 
@@ -76,6 +83,10 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
         answerLabel = (TextView) findViewById(R.id.answerLabel);
         drilheaderInfo = (TextView) findViewById(R.id.drilHeaderInfo);
         answerLayout = (LinearLayout)findViewById(R.id.answerLayout);
+        input = (EditText) findViewById(R.id.inputAnswer);
+        
+        userAnserBox = (TextView) findViewById(R.id.userAnserBox);
+        userAnserBoxResult = (TextView) findViewById(R.id.userAnserBoxResult);
         
         checkTTSDataForLocale();
         
@@ -110,6 +121,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     private void init(){
     	preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     	drilService = new DrilService(new WordDBAdapter(this));
+    	writeAnswer = preferences.getBoolean(Constants.PREF_WRITE_ANSWER_KEY, false);
         if(!drilService.hasNext()){
         	showNoCardsAlert();
         }else{
@@ -222,6 +234,19 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	answer.setVisibility(View.VISIBLE);
     	speachAnswerBtn.setVisibility(View.VISIBLE);
     	showAnswerBtn.setVisibility(View.GONE);
+
+    	if(writeAnswer){
+    		input.setVisibility(View.GONE);
+    		String text = input.getText().toString();
+    		int rating = StringUtils.determineSimularity(getAnserToPronauce().getValue(), text);
+    		userAnserBoxResult.setText( "" + rating);
+    		userAnserBoxResult.setVisibility(View.VISIBLE);
+    		userAnserBox.setVisibility(View.VISIBLE);
+    		userAnserBox.setText(text);   		
+    	}else{
+    		
+    	}
+		
     }
     
     public void hideAnswer(){
@@ -230,9 +255,16 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	answer.setVisibility(View.GONE);
     	speachAnswerBtn.setVisibility(View.GONE);
     	showAnswerBtn.setVisibility(View.VISIBLE);
+    	if(writeAnswer){
+    		userAnserBoxResult.setVisibility(View.GONE);
+    		userAnserBox.setVisibility(View.GONE);
+    		input.setVisibility(View.VISIBLE);
+    		input.setText("");
+    	}
     }
     
-    
+
+
    
     
     

@@ -18,7 +18,13 @@
     <color name="buttonTextColor">#fff</color>
     <color name="buttonDarkTextColor">#333333</color>
     
+    
     <color name="selectedItem">#9EF9FF</color>
     <color name="selectedPressed">#1AD8E4</color>
     <color name="rate_button_text_color">#EFEFEF</color>
+    
+    
+    <color name="youAnserStartColor">#f0f9ff</color>
+    <color name="youAnserEndColor">#cbebff</color>
+    <color name="youAnserBorder">#a1dbff</color>
 </resources>

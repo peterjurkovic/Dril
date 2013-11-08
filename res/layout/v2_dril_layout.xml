@@ -17,76 +17,68 @@
 	        android:visibility="gone"
 	        android:text="@string/dril_finished"
 	    />
-	    
-		 <RelativeLayout 
+	    	
+	 	<FrameLayout
+		    android:id="@+id/drilNav"
+	        android:layout_width="fill_parent"
+	        android:layout_height="25dp"
+	        android:background="@color/action_border"
+	        >
+	
+	        <TextView
+	            style="@style/v2DrilLabel"
+	        	android:id="@+id/drilHeaderInfo" 
+	        	android:layout_gravity="center_vertical|center_horizontal"
+	        	android:text="@string/activated_words"/>
+	       
+	    </FrameLayout>
+		
+		<RelativeLayout 
 		     android:layout_width="match_parent"
 		     android:layout_height="match_parent"
 		     android:visibility="visible"
+		     android:orientation="vertical"
 		     android:id="@+id/dril" >
-		     	
-		 	<FrameLayout
-			    android:id="@+id/drilNav"
-		        android:layout_width="fill_parent"
-		        android:layout_alignParentTop="true"
-		        android:layout_height="25dp"
-		        android:background="@color/action_border"
-		        >
-		
-		        <TextView
-		            style="@style/v2DrilLabel"
-		        	android:id="@+id/drilHeaderInfo" 
-		        	android:layout_gravity="center_vertical|center_horizontal"
-		        	android:text="@string/activated_words"/>
-		       
-		    </FrameLayout>
-		
+			
 			<View
 		      android:id="@+id/shaddowDril"
 		      android:layout_width="match_parent"
 		      android:layout_height="5sp"
-		      android:layout_below="@id/drilNav"
 		      android:background="@drawable/drop_shaddow" />
-		 	
 			
 			<TextView
 		        style="@style/boxLabel"
-		        android:layout_below="@id/shaddowDril"
 		        android:id="@+id/questionLabel"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
 		        android:text="@string/question" />
 			
 			
-			
+		<!-- QUESTION  -->	
 			<ImageButton
 			    android:id="@+id/speakQuestion"
 			    style="@style/spiker"
-			    android:layout_below="@id/shaddowDril"
 			    android:contentDescription="@string/pronauce_question" />
 			
 		    <TextView
 		        android:id="@+id/question"
-				android:layout_below="@id/questionLabel"
+		        android:layout_below="@id/questionLabel"
 		        style="@style/drilBox"
 		        android:background="@drawable/v2_question_text"/>
 		
-		    <TextView
-		        style="@style/boxLabel"
-		        android:id="@+id/answerLabel"
-		        android:layout_below="@id/question"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:text="@string/answer" />
+		  
 		
 		   	<EditText 
+		   	    android:id="@+id/inputAnswer"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
 			    android:hint="@string/write_your_answer"
 			    android:layout_below="@id/question"
 			    style="@style/editText"
+			    android:visibility="invisible"
 			    android:background="@drawable/input"
 			    />
-		 
+		   	
+		 <!-- END QUESTION  -->	
+		   	
 		 <LinearLayout
 		        android:layout_width="match_parent"
 		        android:id="@+id/answerLayout"
@@ -131,13 +123,49 @@
 		            android:background="@drawable/btn_5"
 		            android:text="@string/btn_5" />
 		    </LinearLayout>
-		  
+	  
+	  
+	  <!-- YOUR ANSER  -->	
+		 <TextView 
+		     android:id="@+id/userAnserBox"
+		     android:layout_below="@id/question"
+		     android:layout_width="match_parent"
+		     android:layout_height="wrap_content"
+		     android:background="@drawable/v2_input_answer_text"
+		     style="@style/drilBox"
+		  	 android:visibility="gone"
+		     android:paddingRight="20dp"
+		 />
 		 
+		  <TextView 
+		     android:id="@+id/userAnserBoxResult"
+		     android:layout_below="@id/question"
+		     android:gravity="right"
+		     android:layout_alignParentEnd="true"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:visibility="gone"
+		     android:background="@drawable/v2_input_answer_result"
+		    style="@style/drilBox"
+		     
+		 />
+		 
+		 
+		 
+	  <!-- ANSER  -->
+	   <TextView
+	        style="@style/boxLabel"
+	        android:id="@+id/answerLabel"
+	        android:layout_below="@id/userAnserBox"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/answer" />
+		   
 		  <ImageButton 
 			    android:id="@+id/speakAnswer"
 			    style="@style/spiker"
 			 	android:contentDescription="@string/pronauce_answer" 
-			 	android:layout_below="@id/question"  />
+			 	android:layout_below="@id/userAnserBox"  />
 		 
 		 <TextView
 		        android:id="@+id/answer"
@@ -156,6 +184,7 @@
 		 	     android:height="100dp"
 		 	     android:text="@string/showAnswerBtn"
 		 	     android:textColor="#EfEFEF"
+		 	     android:visibility="invisible"
 		 	     android:textSize="18sp" />
 		  
 		</RelativeLayout> 

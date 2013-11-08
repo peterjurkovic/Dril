@@ -4,6 +4,8 @@ import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.regex.Pattern;
 
+import android.util.Log;
+
 /**
  * 
  * @author Peter Jurkovič (email@peterjurkovic.sk)
@@ -12,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class StringUtils {
 	
-	private final static Pattern pattern = Pattern.compile("(\\s(n|v|adj|adv|st|conj)(\\s)?)|(\\s(\\(n\\)|\\(v\\)|\\(adj\\)|\\(adv\\)|\\(conj\\))(\\s)?)|(\\[.*\\])");
+	private final static Pattern pattern = Pattern.compile("(\\(n\\)|\\(v\\)|\\(adj\\)|\\(s\\)|\\(conj\\)|\\|-|\\*|\\/)");
 	
 	public static String toSeoUrl(String string) {
 		if(StringUtils.isBlank(string)){
@@ -20,7 +22,7 @@ public class StringUtils {
 		}
 	    return Normalizer.normalize(string.toLowerCase(), Form.NFD)
 	        .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
-	        .replaceAll("[^\\p{Alnum}]+", "");
+	        .replaceAll("[^\\p{Alnum}]+", " ");
 	}
 	
 	
@@ -46,23 +48,56 @@ public class StringUtils {
 			return "";
 		}
 		
-		return pattern.matcher(value).replaceAll("");
+		return pattern.matcher(value).replaceAll(" ");
 		
 	}
 	
 	
-	public int determineSimularity(String word, String inputText){
+	
+	public static int determineSimularity(String word, String inputText){
 		if(StringUtils.isBlank(inputText) || StringUtils.isBlank(word)){
-			return 0;
+			return 5;
 		}
-		word = StringUtils.removeSpecialCharacters(word.trim());
-		word = StringUtils.toSeoUrl(word.trim());
-		inputText = StringUtils.toSeoUrl(inputText);
 		
+		word = StringUtils.removeSpecialCharacters( StringUtils.toSeoUrl(word) );
+		inputText = StringUtils.removeSpecialCharacters( StringUtils.toSeoUrl( inputText ) );
+		
+		if(StringUtils.isBlank(inputText) || StringUtils.isBlank(word)){
+			return 5;
+		}
+		
+		if(word.equals(inputText)){
+			return 1;
+		}
+		
+		
+		int max = 5;
+		String[] words = word.split(",");
+		String[] inputWords = StringUtils.removeSpecialCharacters(inputText).split(",");
+	
+		for(String w : words){
+			for(String iw : inputWords){
+				int result = determineSimularityForWord(w, iw);
+				if(result < max){
+					result = max;
+				}
+			}
+		}
+		
+		return max;
+	}
+	
+	public static int determineSimularityForWord(String word, String inputText){
+		if(StringUtils.isBlank(inputText) || StringUtils.isBlank(word)){
+			return 5;
+		}
+		Log.d("test", "CLEANED word: " + word + " / " +inputText );
 		if(word.endsWith(inputText)){
 			return 1;
 		}
 		int levenshtein = StringUtils.getLevenshteinDistance(word, inputText);
+		
+		Log.i("SIM", "levenshtein " + levenshtein);
 		
 		switch(levenshtein){
 			case 1 :
