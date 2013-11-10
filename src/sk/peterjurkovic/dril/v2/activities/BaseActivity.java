@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -62,4 +64,12 @@ public class BaseActivity extends ActionBarActivity {
 	    }
 	    return super.onOptionsItemSelected(item);
 	}
+	
+	 @Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			// Inflate the menu; this adds items to the action bar if it is present.
+			MenuInflater inflater = getMenuInflater();
+		    inflater.inflate(R.menu.v2_main, menu);
+			return super.onCreateOptionsMenu(menu);
+		}
 }

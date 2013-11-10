@@ -10,16 +10,20 @@ import sk.peterjurkovic.dril.dto.WordToPronauceDto;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
@@ -89,6 +93,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
         userAnserBoxResult = (TextView) findViewById(R.id.userAnserBoxResult);
         
         checkTTSDataForLocale();
+        
         
         showAnswerBtn.setOnClickListener(new  OnClickListener() {
 			@Override
@@ -184,8 +189,14 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     
     public void showNoCardsAlert(){
     	layout.setVisibility(View.INVISIBLE);
-    	TextView alertBox = (TextView)findViewById(R.id.drilAlertBox);
-    	alertBox.setText(R.string.zero_cards_alert);
+    	TextView alertBox = ((TextView)findViewById(R.id.noCardActivatedAlert));
+    	alertBox.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent( getApplicationContext() , BookListActivity.class);
+        		startActivity(i);
+			}
+		});
     	alertBox.setVisibility(View.VISIBLE);
     	
     }
@@ -272,7 +283,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	if(StringUtils.isBlank(wordDto.getValue())){
     		Toast.makeText(this, R.string.nothing_to_speeach, Toast.LENGTH_LONG).show();
     	}
-    	Log.i(TAG, tts.getLanguage().toString());
+    	//Log.i(TAG, tts.getLanguage().toString());
     	if(wordDto.getLanguage() == null){
     		setEnglishTTSLocale();
     		speek(wordDto.getValue());
@@ -401,6 +412,41 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	};
 
     	thread.start();    	
+    }
+    
+    
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    	if(KeyEvent.KEYCODE_VOLUME_UP == keyCode || KeyEvent.KEYCODE_VOLUME_DOWN == keyCode){
+    		updateVolume(keyCode);
+    		return true;
+    	}
+    	return super.onKeyDown(keyCode, event); 
+    }
+    
+    private void updateVolume(final int keyCode){
+    	AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+		final int maxVolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		final int currentVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+		if(KeyEvent.KEYCODE_VOLUME_DOWN == keyCode && currentVolume > 0){
+			am.setStreamVolume(AudioManager.STREAM_MUSIC, (currentVolume - 1),  AudioManager.FLAG_SHOW_UI);
+		}else if(KeyEvent.KEYCODE_VOLUME_UP == keyCode && currentVolume < maxVolume){
+			am.setStreamVolume(AudioManager.STREAM_MUSIC, (currentVolume + 1), AudioManager.FLAG_SHOW_UI);
+		}
+    }
+    
+    
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		return super.onCreateOptionsMenu(menu);
+	}
+    
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+    	MenuItem settingsMenuItem = menu.findItem(R.id.settings);
+    	settingsMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    	return super.onPrepareOptionsMenu(menu);
     }
     
 }

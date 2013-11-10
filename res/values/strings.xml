@@ -141,7 +141,7 @@
     <string name="import_info_desc">Did you know that you can import your own words ? It is possible two ways:\n\n- via csv file, stored in your mobile device\n- remotely, via www.drilapp.com \n\nHow? long click on given lecture, click on \"Import words\"</string>
     
     <!-- INFO  -->
-    <string name="about_app">About app</string>
+    <string name="about_app">About</string>
     <string name="app_descr">Dril application is created for learning English words and phrases. Dril is based on the method of repetition, it is an effective way of memorizing e.g. words, or other information for the lern. Should not be activated more than 30 cards.</string>
     <string name="info_btn_head">What does the buttons means?</string>
     <string name="ibtn1">1. - I knew it immediately, the card is no longer displayed in the drill.</string>
@@ -211,5 +211,8 @@
 	<string name="error_tts_locale">Pronaucement is not avaiable for %1$s language</string>
 	
 	<string name="write_your_answer">Write your answer</string>
-
+    <string name="alert_no_cards_activated">You have no card activated</string>
+    
+    <string name="nav_feedback">Feedback</string>
+    <string name="nav_settings">Settings</string>
 </resources>

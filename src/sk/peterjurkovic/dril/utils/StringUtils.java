@@ -72,12 +72,17 @@ public class StringUtils {
 		
 		
 		int max = 5;
+		
+		int result = determineSimularityForWord(word, inputText);
+		if(result < max){
+			return result;
+		}
 		String[] words = word.split(",");
 		String[] inputWords = StringUtils.removeSpecialCharacters(inputText).split(",");
 	
 		for(String w : words){
 			for(String iw : inputWords){
-				int result = determineSimularityForWord(w, iw);
+				result = determineSimularityForWord(w, iw);
 				if(result < max){
 					result = max;
 				}
@@ -101,12 +106,13 @@ public class StringUtils {
 		
 		switch(levenshtein){
 			case 1 :
-				return 2;
-			case 2: 
+			case 2:
 				return 2;
 			case 3:
-				return 3;
 			case 4:
+				return 3;
+			case 5:
+			case 6:			
 				return 4;
 			default :
 				return 5;

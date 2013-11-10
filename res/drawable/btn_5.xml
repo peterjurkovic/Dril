@@ -20,12 +20,7 @@
 			                android:bottom="7dp" />
 			        </shape>
 			    </item>		    
-			  	<item>
-			       <bitmap
-					    android:src="@drawable/emot_e"
-					    android:gravity="center|center_vertical"
-			       		/>
-		   		</item>
+			  	
     	</layer-list>
     </item>
     <item>
@@ -44,12 +39,7 @@
 			             <padding  android:top="8dp" android:bottom="8dp" />
 			        </shape>
 			    </item>		    
-			  	<item>
-			       <bitmap
-					    android:src="@drawable/emot_e"
-					    android:gravity="center|center_vertical"
-			       		/>
-		   		</item>
+			  
     	</layer-list>
 	</item>
 </selector>

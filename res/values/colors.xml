@@ -27,4 +27,6 @@
     <color name="youAnserStartColor">#f0f9ff</color>
     <color name="youAnserEndColor">#cbebff</color>
     <color name="youAnserBorder">#a1dbff</color>
+    
+    <color name="alertColor">#FF2950</color>
 </resources>

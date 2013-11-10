@@ -17,6 +17,12 @@
 	        android:visibility="gone"
 	        android:text="@string/dril_finished"
 	    />
+	    
+	    <TextView
+	        android:id="@+id/noCardActivatedAlert"
+	        style="@style/v2drilAlert"
+	        android:text="@string/alert_no_cards_activated"
+	    />
 	    	
 	 	<FrameLayout
 		    android:id="@+id/drilNav"
@@ -184,7 +190,6 @@
 		 	     android:height="100dp"
 		 	     android:text="@string/showAnswerBtn"
 		 	     android:textColor="#EfEFEF"
-		 	     android:visibility="invisible"
 		 	     android:textSize="18sp" />
 		  
 		</RelativeLayout> 

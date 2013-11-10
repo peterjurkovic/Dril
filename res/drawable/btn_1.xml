@@ -16,12 +16,7 @@
 			             <padding  android:top="8dp" android:bottom="8dp" />
 			        </shape>
 			    </item>		    
-			  	<item>
-			       <bitmap
-					    android:src="@drawable/emot_a"
-					    android:gravity="center|center_vertical"
-			       		/>
-		   		</item>
+			  	
     	</layer-list>
     </item>
     <item>
@@ -37,16 +32,11 @@
 			                android:color="#24a108" />
 			            <corners
 			                android:radius="4dp" />
-			           	 <padding  android:top="8dp" android:bottom="8dp" />
+			           	
 			            
 			        </shape>
 			    </item>		    
-			  	<item>
-			       <bitmap 
-					    android:src="@drawable/emot_a"
-					    android:gravity="top|center_horizontal"
-			       		/>
-		   		</item>
+			  	
     	</layer-list>
 	</item>
 </selector>

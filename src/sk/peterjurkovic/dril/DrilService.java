@@ -3,7 +3,6 @@ package sk.peterjurkovic.dril;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import sk.peterjurkovic.dril.dao.WordDao;
 import sk.peterjurkovic.dril.dao.WordDaoImpl;
@@ -40,13 +39,13 @@ public class DrilService {
   		}
 	}
 	
-	public void precessRating(int rate){
+	public void precessRating(final int rating){
 		Word word = getCurrentWord();
 		if(word != null){
-			word.updateAvgRate(rate);
-			word.setRate(rate);
+			word.updateAvgRate(rating);
+			word.setRate(rating);
 			word.increaseHit();
-			if(rate == 1){
+			if(rating == 1){
 				word.setActive(Boolean.FALSE);
 				activatedWords.remove(position);
 				if( WORD_THRESHOLD >= activatedWords.size() && position != 0){
@@ -97,10 +96,10 @@ public class DrilService {
 	  }
 	  
 	  List<Word> clonedList = new ArrayList<Word>(activatedWords);
-	  if(hits % 5 == 0){
+	  if(hits % 4 == 0){
 		  Collections.sort(clonedList, Word.Comparators.AVG_RATE);
 		  position =  getRandomPosition(clonedList);
-	  }else if(hits % 6 == 0){
+	  }else if(hits % 5 == 0){
 		  Collections.sort(clonedList, Word.Comparators.HARDEST);
 		  position =  getRandomPosition(clonedList);
 	  }else{
@@ -153,7 +152,7 @@ public class DrilService {
 	
 	
 	
-	private int findPositionByWordId(long id){
+	private int findPositionByWordId(final long id){
 		for(int i = 0; i < activatedWords.size();i++){
 			if(activatedWords.get(i).getId() == id){
 				return i;
