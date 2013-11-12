@@ -109,7 +109,7 @@ public class EditLectureActivity extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	    case android.R.id.home:
-	       gotBack();
+	       goToParentActivity();
 	        return true;
 	    }
 	    return super.onOptionsItemSelected(item);
@@ -117,7 +117,7 @@ public class EditLectureActivity extends BaseActivity {
 	
 	@Override
     public void onBackPressed() {
-    	 gotBack();
+    	 goToParentActivity();
     }
 	
 }

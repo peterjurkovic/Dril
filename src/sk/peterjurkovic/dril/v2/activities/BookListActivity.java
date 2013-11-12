@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -107,6 +108,17 @@ public class BookListActivity extends ActionBarListActivity {
         }
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.addNewBook :
+				startAddBookActivity();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
 	public void deleteBook(long id){
         Boolean deleted = false;
         try {
@@ -144,10 +156,13 @@ public class BookListActivity extends ActionBarListActivity {
     }
 
 	public void onAddBookClicked(View v){ 
+		startAddBookActivity();
+	}
+	
+	private void startAddBookActivity(){
 		Intent i = new Intent(this, AddBookActivity.class);
 		startActivityForResult(i, REQUEST_ADD_BOOK);
 	}
-	 
 	
 	public void onSaveEditedBook() {	
 		updateList();
@@ -242,6 +257,12 @@ public class BookListActivity extends ActionBarListActivity {
 			}
 		}
 		
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.v2_book_list_menu, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 	
 }

@@ -72,6 +72,7 @@
             	  android:parentActivityName=".v2.activities.DashboardActivity" />
         <activity android:name=".v2.activities.DrilActivity"
             	  android:windowSoftInputMode="adjustPan"
+            	  android:launchMode="singleTask"
             	  android:parentActivityName=".v2.activities.DashboardActivity" />
         
     </application>

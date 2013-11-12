@@ -46,7 +46,7 @@ public class AddLectureActivity extends BaseActivity {
     
     @Override
     public void onBackPressed() {
-    	 gotBack();
+    	 goToParentActivity();
     }
 
     
@@ -58,7 +58,7 @@ public class AddLectureActivity extends BaseActivity {
 	}
 	  
 	public void onCancelAddClicked(){
-		 gotBack();
+		 goToParentActivity();
 	}
 	
 	public void onSubmitAddClicked(){
@@ -71,7 +71,7 @@ public class AddLectureActivity extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	    case android.R.id.home:
-	       gotBack();
+	       goToParentActivity();
 	        return true;
 	    }
 	    return super.onOptionsItemSelected(item);

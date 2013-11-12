@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -43,7 +44,7 @@ public class BaseActivity extends ActionBarActivity {
 	}
 	
 	
-	protected void gotBack(){
+	protected void goToParentActivity(){
     	Intent upIntent =  NavUtils.getParentActivityIntent(this);
          if(NavUtils.shouldUpRecreateTask(this, upIntent)){
         	 TaskStackBuilder.create(this)
@@ -57,19 +58,53 @@ public class BaseActivity extends ActionBarActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	    case android.R.id.home:
-	       gotBack();
-	        return true;
+		Intent intent = null;
+		switch (item.getItemId()) {
+		    case android.R.id.home:
+		    	Log.i("BASE", "going back..");
+		    	Intent prevActivityIntent = getIntent();
+		    	Log.i("BASE", prevActivityIntent.toString());
+			    if(prevActivityIntent != null && prevActivityIntent.getBooleanExtra(DrilActivity.DRIL_ID, false)){
+			    	Log.i("BASE", "prev is DrilActivity");
+			    	if(NavUtils.shouldUpRecreateTask(this, prevActivityIntent)){
+			    		Log.i("BASE", "recreate ");
+			    		TaskStackBuilder.create(this)
+			    		.addNextIntentWithParentStack(prevActivityIntent)
+			            .startActivities();
+			    	}else{
+			    		Log.i("BASE", "going up");
+			    		prevActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			    		finish();
+			    	}
+			    }else{
+			    	goToParentActivity();
+			    }
+			    return true;
+		    case R.id.settings:
+				intent = new Intent(getApplicationContext(), PreferencesActivity.class);
+				Log.i("BASE", this.getClass().getName());
+				if(this.getClass().getName().equals(DrilActivity.class.getName())){
+					intent.putExtra(DrilActivity.DRIL_ID, true);
+				}
+	    		startActivity(intent);
+		        return true;
+		    case R.id.feedback:
+				
+		        return true;
+			case R.id.startDril:
+				intent = new Intent(getApplicationContext(), DrilActivity.class);
+	    		startActivity(intent);
+		        return true;
 	    }
+	    
 	    return super.onOptionsItemSelected(item);
 	}
 	
-	 @Override
-		public boolean onCreateOptionsMenu(Menu menu) {
-			// Inflate the menu; this adds items to the action bar if it is present.
-			MenuInflater inflater = getMenuInflater();
-		    inflater.inflate(R.menu.v2_main, menu);
-			return super.onCreateOptionsMenu(menu);
-		}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.v2_main, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
 }

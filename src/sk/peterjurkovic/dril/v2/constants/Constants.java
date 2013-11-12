@@ -3,7 +3,7 @@ package sk.peterjurkovic.dril.v2.constants;
 public class Constants {
 	
 	public static final String DRIL_HOMEPAGE_URL = "http://www.drilapp.com";
-	public static final String API_URL = "http://192.168.1.34/export2.php";
+	public static final String API_URL = "http://192.168.0.102/drilapp.com/export2.php";
 	
 	public static final int DELAY_BEFORE_PRONUNCIATION = 1500;
 	

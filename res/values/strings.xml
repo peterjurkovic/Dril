@@ -33,7 +33,7 @@
     <string name="book_added">The lesson was not added</string>
     
     <string name="lecture_count">lectures: %1$d / cards: %2$d / activated: %3$d</string>
-    <string name="word_count">Count of card: %1$d activated: %2$d</string>
+    <string name="word_count">Count of cards: %1$d activated: %2$d</string>
     <string name="book_edit_head">Edit textbook</string>
     
     <string name="submit">Save</string>

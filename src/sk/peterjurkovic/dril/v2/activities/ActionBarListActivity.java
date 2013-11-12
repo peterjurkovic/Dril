@@ -17,7 +17,7 @@ import android.widget.ListView;
  * @date Oct 24, 2013
  * @version 2.0
  */
-public class ActionBarListActivity extends ActionBarActivity {
+public class ActionBarListActivity extends BaseActivity {
 
 	
 	private ListView mListView;

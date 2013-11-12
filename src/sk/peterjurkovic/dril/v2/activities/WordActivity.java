@@ -330,7 +330,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			gotBack();
+			goToParentActivity();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

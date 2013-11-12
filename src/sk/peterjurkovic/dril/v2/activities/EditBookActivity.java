@@ -129,7 +129,7 @@ public class EditBookActivity extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	    case android.R.id.home:
-	       gotBack();
+	       goToParentActivity();
 	        return true;
 	    }
 	    return super.onOptionsItemSelected(item);

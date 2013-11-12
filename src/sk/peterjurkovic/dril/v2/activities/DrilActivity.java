@@ -18,6 +18,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -37,6 +39,7 @@ import android.widget.Toast;
 
 public class DrilActivity extends BaseActivity implements OnInitListener{
 	
+	public static final String DRIL_ID = "drilActivity";
 	private static final String QUESTION_TAG = "question";
 	private static final String ANSWER_TAG = "answer";
 	
@@ -247,17 +250,26 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	showAnswerBtn.setVisibility(View.GONE);
 
     	if(writeAnswer){
-    		input.setVisibility(View.GONE);
+    		hideInputField();
     		String text = input.getText().toString();
     		int rating = StringUtils.determineSimularity(getAnserToPronauce().getValue(), text);
     		userAnserBoxResult.setText( "" + rating);
     		userAnserBoxResult.setVisibility(View.VISIBLE);
     		userAnserBox.setVisibility(View.VISIBLE);
     		userAnserBox.setText(text);   		
-    	}else{
-    		
     	}
 		
+    }
+    
+    public void showInputField(){
+    	userAnserBoxResult.setVisibility(View.GONE);
+		userAnserBox.setVisibility(View.GONE);
+		input.setVisibility(View.VISIBLE);
+		input.setText("");
+    }
+    
+    public void hideInputField(){
+    	input.setVisibility(View.GONE);
     }
     
     public void hideAnswer(){
@@ -267,10 +279,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	speachAnswerBtn.setVisibility(View.GONE);
     	showAnswerBtn.setVisibility(View.VISIBLE);
     	if(writeAnswer){
-    		userAnserBoxResult.setVisibility(View.GONE);
-    		userAnserBox.setVisibility(View.GONE);
-    		input.setVisibility(View.VISIBLE);
-    		input.setText("");
+    		 showInputField();
     	}
     }
     
@@ -436,17 +445,26 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     }
     
     
-    @Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		
-		return super.onCreateOptionsMenu(menu);
-	}
+   
     
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-    	MenuItem settingsMenuItem = menu.findItem(R.id.settings);
-    	settingsMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    	MenuItem menuItem = menu.findItem(R.id.settings);
+    	menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    	menuItem = menu.findItem(R.id.startDril);
+    	menuItem.setVisible(Boolean.FALSE);
     	return super.onPrepareOptionsMenu(menu);
+    }
+    
+    @Override
+    protected void onResume() {
+    	writeAnswer = preferences.getBoolean(Constants.PREF_WRITE_ANSWER_KEY, false);
+    	if(writeAnswer && answer.getVisibility() != View.VISIBLE){
+    		showInputField();
+    	}else{
+    		hideInputField();
+    	}
+    	super.onResume();
     }
     
 }
