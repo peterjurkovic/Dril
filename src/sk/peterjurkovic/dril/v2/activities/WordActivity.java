@@ -5,11 +5,8 @@ import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.fragments.AddWordFragment;
 import sk.peterjurkovic.dril.fragments.EditWordFragment;
-import sk.peterjurkovic.dril.fragments.ViewWordFragment;
 import sk.peterjurkovic.dril.fragments.WordListFragment;
 import sk.peterjurkovic.dril.listener.OnAddWordListener;
-import sk.peterjurkovic.dril.listener.OnChangeWordStatusListener;
-import sk.peterjurkovic.dril.listener.OnDeleteWordListener;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnEditWordListener;
 import sk.peterjurkovic.dril.listener.OnWordClickListener;
@@ -30,8 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class WordActivity extends BaseActivity implements OnAddWordListener,
-		OnEditWordClickedListener, OnEditWordListener, OnDeleteWordListener,
-		OnChangeWordStatusListener, OnWordClickListener {
+		OnEditWordClickedListener, OnEditWordListener,  OnWordClickListener {
 
 	private static final int REQUEST_ADD_WORD = 0;
 	private static final int REQUEST_EDIT_WORD = 1;
@@ -225,52 +221,13 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		return lectureId;
 	}
 
-	@Override
-	public void onDeleteClicked(long wordId) {
-		WordListFragment wlf = getWordListFragment();
-		wlf.deleteWord(wordId);
-		wlf.updateList();
-		if (dualPane) {
-			ViewWordFragment f = getViewWordFragment();
-			if (f == null)
-				throw new Error("ViewWordFragment not found.");
-			FragmentTransaction ft = getSupportFragmentManager()
-					.beginTransaction();
-			ft.remove(f);
-			ft.commit();
-		}
-
-	}
-
-	@Override
-	public void activeWord(long wordId) {
-		changeWordStatus(wordId, ViewWordFragment.STATUS_ACTIVE);
-
-	}
-
-	@Override
-	public void deactiveWord(long wordId) {
-		changeWordStatus(wordId, ViewWordFragment.STATUS_ACTIVE);
-		if (dualPane)
-			getWordListFragment().updateList();
-
-	}
-
-	public void changeWordStatus(long wordId, int newStatusVal) {
-		getViewWordFragment().setWordStatus(wordId, newStatusVal);
-		if (dualPane)
-			getWordListFragment().updateList();
-	}
 
 	public WordListFragment getWordListFragment() {
 		return ((WordListFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.WordListFragment));
 	}
 
-	public ViewWordFragment getViewWordFragment() {
-		return (ViewWordFragment) getSupportFragmentManager()
-				.findFragmentByTag("rcTag");
-	}
+	
 
 	public static void showToastMessage(Context ctx, int resourceId) {
 		Toast.makeText(ctx, resourceId, Toast.LENGTH_LONG).show();
@@ -318,24 +275,32 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		}
 	}
 
-	/* OPTION MENU ---------------------------------------- */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.word_list, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
+	/*	ACTION BAR MENU ---------------------	 */
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			goToParentActivity();
+			case R.id.menuAddWord:
+				onAddNewWordClicked();
 			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
+			case R.id.menuActivateLecture:
+				activeAllWordInLecture();
+			return true;
+			case R.id.menuDeactivateLecture:
+				deactiveAllWordInLecture();
+			return true;
+			}
+		return super.onOptionsItemSelected(item);
 	}
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.v2_word_list_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	
 
 	/* ENDOPTION MENU ---------------------------------------- */
 

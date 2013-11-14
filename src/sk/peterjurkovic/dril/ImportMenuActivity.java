@@ -18,7 +18,7 @@ public class ImportMenuActivity extends MainActivity {
 	    setContentView(R.layout.import_menu_layout);
 	
 	    Intent i = getIntent();
-	    
+	    /*
 	    lectureId = i.getLongExtra(EditLectureActivity.EXTRA_LECTURE_ID, 0);
 	    
 	    ((TextView)findViewById(R.id.importLectureName))
@@ -41,9 +41,9 @@ public class ImportMenuActivity extends MainActivity {
 		      		startActivity(i);
 	          }
 	    });
-	    
+	    */
 	    // IMPORT VIA drilapp.com
-	    
+	    /*
 	    LinearLayout importViaIdBtn = (LinearLayout)findViewById(R.id.importViaId);
 	    
 	    importViaIdBtn.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +53,7 @@ public class ImportMenuActivity extends MainActivity {
 		      		startActivity(i);
 	          }
 	    });
-	      
+	      */
 	    }  
 	  	
 	  		

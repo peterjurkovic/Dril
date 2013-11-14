@@ -3,10 +3,17 @@
       xmlns:dril="http://schemas.android.com/apk/res-auto" >
    
     <item 
-        android:id="@+id/addNewBook"
-        android:orderInCategory="97"
+        android:id="@+id/menuAddBook"
+        android:orderInCategory="96"
         android:icon="@drawable/ic_action_new"
         android:title="@string/book_add"
+       />
+    
+    <item 
+        android:id="@+id/menuDeactiveAll"
+        android:orderInCategory="97"
+        android:icon="@drawable/ic_action_deactive"
+        android:title="@string/deactive_all"
        />
 
 </menu>

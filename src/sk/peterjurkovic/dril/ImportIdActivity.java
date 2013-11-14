@@ -42,7 +42,7 @@ public class ImportIdActivity extends MainActivity {
 	    setContentView(R.layout.import_id_activity);
 
 	    Intent i = getIntent();
-	    
+	    /*
 	    lectureId = i.getLongExtra(EditLectureActivity.EXTRA_LECTURE_ID, 0);
 	    
 	    ((TextView)findViewById(R.id.importLectureName))
@@ -56,7 +56,7 @@ public class ImportIdActivity extends MainActivity {
 	              startActivity( new Intent(ImportIdActivity.this, DashboardActivity.class) );
 	          }
 	    });
-	    
+	    */
 	    Button btn = (Button) this.findViewById(R.id.importBtn);
 	    btn.setOnClickListener(new OnClickListener() {
 	      @Override

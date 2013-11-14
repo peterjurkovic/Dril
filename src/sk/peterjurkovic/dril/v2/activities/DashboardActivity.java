@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -44,8 +45,7 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	        
 	        Button btn_info = (Button) findViewById(R.id.btn_info);
 	        
-	        Button btn_update = (Button) findViewById(R.id.btn_update);
-	        
+	       
 	        
 	        startDrilButton.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View view) {
@@ -64,7 +64,7 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	        btn_stats.setOnClickListener(new View.OnClickListener() {
 	            public void onClick(View view) {
 	            	
-	            	showDownloadDialog(1);
+	            	
 		        }
 		    });
 	        
@@ -128,20 +128,29 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 		alertDialog.show();
 	}
 	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.v2_main, menu);
-		return true;
+		getMenuInflater().inflate(R.menu.v2_dashboard_menu, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.checkUpdateMenu :
+				checkForUpdate();
+			return true;
+			
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
 
 	@Override
 	public void onCheckResponse(Integer response) {
 		switch(response){
 		case CheckForUpdate.STATE_NO_INTERNET_CONN :
-			showNoActionDialog(getResources().getString( R.string.update_no_conn));
-			break;
 		case CheckForUpdate.STATE_PARSING_ERROR :
 			showNoActionDialog(getResources().getString( R.string.update_failed));
 			break;
@@ -167,6 +176,12 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 
 	public Context getContext() {
 		return context;
+	}
+	
+	
+	private void checkForUpdate(){
+		 CheckForUpdate chfu = new CheckForUpdate( context );
+         chfu.execute(); 
 	}
 	
 	

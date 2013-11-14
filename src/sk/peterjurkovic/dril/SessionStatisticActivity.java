@@ -35,12 +35,6 @@ public class SessionStatisticActivity extends ListActivity {
 			}
 		});
 		
-		ImageButton goHome = (ImageButton) findViewById(R.id.home);
-        goHome.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity( new Intent(SessionStatisticActivity.this, DashboardActivity.class) );
-            }
-        });
 	}
 	
 	

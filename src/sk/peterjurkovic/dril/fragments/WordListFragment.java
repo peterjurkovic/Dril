@@ -8,6 +8,7 @@ import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnWordClickListener;
 import sk.peterjurkovic.dril.v2.activities.WordActivity;
+import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
@@ -261,12 +262,12 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	                return true;
 	    		case R.id.menu_active:
 	    			Log.d("onOptionsItemSelected", "R.id.menu_active");
-	    			updateSelectedItemStatus(ViewWordFragment.STATUS_ACTIVE);
+	    			updateSelectedItemStatus(Constants.STATUS_ACTIVE);
 	    			mode.finish(); 
 	    			return true;
 	    		case R.id.menu_deactive:
 	    			Log.d("onOptionsItemSelected", "R.id.menu_deactive");
-	    			updateSelectedItemStatus(ViewWordFragment.STATUS_DEACTIVE);
+	    			updateSelectedItemStatus(Constants.STATUS_DEACTIVE);
 	    			mode.finish(); 
 	    			return true;
 	    		default:
@@ -332,7 +333,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 		
 		case R.id.menu_deactive:
 			Log.d("onOptionsItemSelected", "R.id.menu_deactive");
-			updateSelectedItemStatus(ViewWordFragment.STATUS_DEACTIVE);
+			updateSelectedItemStatus(Constants.STATUS_DEACTIVE);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

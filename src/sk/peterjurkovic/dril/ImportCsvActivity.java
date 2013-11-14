@@ -38,17 +38,12 @@ public class ImportCsvActivity extends Activity {
 
 	    Intent i = getIntent();
 	    
-	    lectureId = i.getLongExtra(EditLectureActivity.EXTRA_LECTURE_ID, 0);
+	   /* lectureId = i.getLongExtra(EditLectureActivity.EXTRA_LECTURE_ID, 0);
 	    
 	    ((TextView)findViewById(R.id.importLectureName))
 	    		.setText(WordActivity.getLectureName(this, lectureId));
 	    
-	    ImageButton goHome = (ImageButton) findViewById(R.id.home);
-        goHome.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity( new Intent(ImportCsvActivity.this, DashboardActivity.class) );
-            }
-        });
+	   */
 	    
 	    Button btn = (Button) this.findViewById(R.id.importBtn);
 	    btn.setOnClickListener(new OnClickListener() {

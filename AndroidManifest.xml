@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+        <!-- 
         <activity android:name=".DrilActivity" android:launchMode="singleTask" />
         <activity android:name=".AddBookActivity" />
         <activity android:name=".AddLectureActivity" />
@@ -49,7 +49,7 @@
         <activity android:name=".ImportMenuActivity" />
         <activity android:name=".ImportCsvActivity" />
         <activity android:name=".ImportIdActivity" />
-        
+         -->
         <activity android:name=".v2.activities.BookListActivity"
             	  android:parentActivityName=".v2.activities.DashboardActivity" />
         <activity android:name=".v2.activities.AddBookActivity"

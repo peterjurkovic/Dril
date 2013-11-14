@@ -41,12 +41,11 @@ public static final String EXTRA_BOOK_ID = "bookId";
 	private static final int REQUEST_ADD_LECTURE = 0;
 	private static final int REQUEST_EDIT_LECTURE = 1;
 	
-	public static final int MENU_VIEW_ID = Menu.FIRST +1;
-	public static final int MENU_EDIT_ID = Menu.FIRST+2;
-	public static final int MENU_DELETE_ID = Menu.FIRST+3;
-	public static final int MENU_ACTIVE_RANDOM = Menu.FIRST+4;
-	public static final int MENU_ACTIVE_LECTURE = Menu.FIRST+5;
-	public static final int MENU_DEACTIVE_LECTURE = Menu.FIRST+6;
+	public static final int MENU_EDIT_ID = Menu.FIRST+1;
+	public static final int MENU_DELETE_ID = Menu.FIRST+2;
+	public static final int MENU_ACTIVE_RANDOM = Menu.FIRST+3;
+	public static final int MENU_ACTIVE_LECTURE = Menu.FIRST+4;
+	public static final int MENU_DEACTIVE_LECTURE = Menu.FIRST+5;
 	public static final int MENU_IMPORT = Menu.FIRST+7;
 	
 	private long bookId;	
@@ -82,7 +81,7 @@ public static final String EXTRA_BOOK_ID = "bookId";
 			    ((TextView)findViewById(R.id.lectureListLabel)).setText( getBookName(bookId) );
 			    updateList();
 	        }else {
-				Log.d(TAG, "ERR BookId is not set.");
+				Log.d(TAG, "ERR bookId is not set.");
 			}    
 		 
 	      
@@ -98,7 +97,6 @@ public static final String EXTRA_BOOK_ID = "bookId";
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
 	    super.onCreateContextMenu(menu, v, menuInfo);
 	    menu.setHeaderTitle(R.string.options);
-	    menu.add(Menu.NONE, MENU_VIEW_ID, Menu.NONE, R.string.view);
 	    menu.add(Menu.NONE, MENU_EDIT_ID, Menu.NONE, R.string.edit);
 	    menu.add(Menu.NONE, MENU_DELETE_ID, Menu.NONE, R.string.delete);
 	    menu.add(Menu.NONE, MENU_ACTIVE_RANDOM, Menu.NONE, R.string.active_ten);
@@ -117,9 +115,6 @@ public static final String EXTRA_BOOK_ID = "bookId";
         case MENU_EDIT_ID:
         	onEditLectureClicked(info.id);
             return true;
-        case MENU_VIEW_ID:
-        	startWordActivity(info.id);
-        	return true;
         case MENU_ACTIVE_RANDOM :
         	activeRandomWords(info.id,  10 ); // 10 - count of words
         return true;
@@ -297,7 +292,7 @@ public static final String EXTRA_BOOK_ID = "bookId";
 		} 
 		if(id > -1){
 		    updateList();
-		    Toast.makeText(this, R.string.lecture_added, Toast.LENGTH_LONG).show();		   
+		    Toast.makeText(this, R.string.successfully_updated, Toast.LENGTH_LONG).show();		   
 		}else{
             Toast.makeText(this, R.string.lecture_not_added, Toast.LENGTH_LONG).show();
         }
@@ -318,7 +313,11 @@ public static final String EXTRA_BOOK_ID = "bookId";
 	
 	
 	public void onAddLectureClicked() { 
-	    Intent i = new Intent(this, AddLectureActivity.class);
+		 startAddLectureActivity();
+	}
+	
+	private void startAddLectureActivity(){
+		Intent i = new Intent(this, AddLectureActivity.class);
 	    startActivityForResult(i, REQUEST_ADD_LECTURE);
 	}
 	
@@ -398,4 +397,23 @@ public static final String EXTRA_BOOK_ID = "bookId";
 		}
 		
 	}
+	
+	/*	ACTION BAR MENU ---------------------	 */
+		
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			switch (item.getItemId()) {
+				case R.id.menuAddLecture :
+					startAddLectureActivity();
+				return true;
+			}
+			return super.onOptionsItemSelected(item);
+		}
+		
+		
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			getMenuInflater().inflate(R.menu.v2_lecture_list_menu, menu);
+			return super.onCreateOptionsMenu(menu);
+		}
 }
