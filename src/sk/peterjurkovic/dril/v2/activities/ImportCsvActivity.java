@@ -1,4 +1,4 @@
-package sk.peterjurkovic.dril;
+package sk.peterjurkovic.dril.v2.activities;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -6,10 +6,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.csv.CSVReader;
+import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.model.Word;
-import android.app.Activity;
+import sk.peterjurkovic.dril.utils.StringUtils;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -22,41 +24,91 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-public class ImportCsvActivity extends Activity {
 
-	  final int ACTIVITY_CHOOSE_FILE = 1;
+
+public class ImportCsvActivity extends BaseActivity {
+	
+	
+	private static final int ACTIVITY_CHOOSE_FILE = 1;
 	  
-	  long lectureId;
+	private long bookId = 0;
+	private long lectureId = 0;
+	private boolean createLecture = true;
+	
+	private TextView label = null;
+	private EditText input = null;
+	
 
+	
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.v2_import_csv_activity);
 
 	    Intent i = getIntent();
-	    
-	   /* lectureId = i.getLongExtra(EditLectureActivity.EXTRA_LECTURE_ID, 0);
-	    
-	    ((TextView)findViewById(R.id.importLectureName))
-	    		.setText(WordActivity.getLectureName(this, lectureId));
-	    
-	   */
+	    createLecture = i.getBooleanExtra(ImportMenuActivity.EXTRA_CREATE_LECTURE, false);
+	   
+	    if(createLecture){
+		   bookId = i.getLongExtra(ImportMenuActivity.EXTRA_ID, 0);
+		   initInputs();
+		}else{
+		   lectureId = i.getLongExtra(ImportMenuActivity.EXTRA_ID, 0);
+		}
 	    
 	    Button btn = (Button) this.findViewById(R.id.importBtn);
 	    btn.setOnClickListener(new OnClickListener() {
 	      @Override
 	      public void onClick(View v) {
-	        Intent chooseFile;
-	        Intent intent;
-	        chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
-	        chooseFile.setType("file/*");
-	        intent = Intent.createChooser(chooseFile, "Choose a file");
-	        startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
+	    	String lectureName = null;
+	    	if(createLecture){
+	    		lectureName = input.getText().toString();
+	    	}
+			if(createLecture && StringUtils.isBlank(lectureName)){
+				input.setBackgroundColor( getResources().getColor(R.color.lightRed) );
+				return;
+			}
+			if(createLecture && !StringUtils.isBlank(lectureName)){
+				input.setBackgroundColor( getResources().getColor(android.R.color.white) );
+				createLecture(lectureName);
+			}
+			Intent chooseFile;
+			Intent intent;
+			chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
+			chooseFile.setType("file/*");
+			intent = Intent.createChooser(chooseFile, "Choose a file");
+			startActivityForResult(intent, ACTIVITY_CHOOSE_FILE);
+			
 	      }
 	    });
 	  }
 
+	public void createLecture(final String lectureName) {
+		 if(bookId == 0 && createLecture){
+			 return;
+		 }
+		try {
+			LectureDBAdapter lectureDbAdapter = new LectureDBAdapter(this);
+			lectureId = lectureDbAdapter.insertLecture(bookId, lectureName);
+		} catch (Exception e) {
+			logException(e.getMessage(), false);
+		} 
+	}
+	  
+	
+	  public void removeCreatedLecture(final long id, Context context) {
+		  if(id == 0 && createLecture){
+			  return;
+		  }
+		  try {
+				LectureDBAdapter lectureDbAdapter = new LectureDBAdapter(context);
+				lectureDbAdapter.deleteLecture(id);
+			} catch (Exception e) {
+				logException(e.getMessage(), false);
+			} 
+		}  
 	  
 	  @Override
 	  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -73,7 +125,9 @@ public class ImportCsvActivity extends Activity {
 	  }
 	  
 	  
-			private class ImportData extends AsyncTask<Void, Void, Integer>{
+	
+	  
+	  private class ImportData extends AsyncTask<Void, Void, Integer>{
 			  
 		
 			  private ProgressDialog dialog;
@@ -97,12 +151,23 @@ public class ImportCsvActivity extends Activity {
 				@Override
 				protected Integer doInBackground(Void... params) {
 					List<Word> words = readFile(filePath);
+					if(words == null || words.size() == 0){
+						removeCreatedLecture(lectureId, context);
+					}
+					WordDBAdapter wordDBAdapter = null;
 					try{
-						WordDBAdapter wordDBAdapter = new WordDBAdapter(context);
+						wordDBAdapter = new WordDBAdapter(context);
 						wordDBAdapter.saveWordList(words);
 					}catch(Exception e){
+						removeCreatedLecture(lectureId, context);
 						return -1;
+					}finally{
+						if(wordDBAdapter != null){
+							wordDBAdapter.close();
+						}
 					}
+					
+					
 					
 					return words.size();
 				}
@@ -132,9 +197,11 @@ public class ImportCsvActivity extends Activity {
 			    String[] nextLine;
 			    while ((nextLine = reader.readNext()) != null) {
 			    	
-			        if(nextLine.length == 2)
+			        if(nextLine.length == 2){
 			        	words.add(new Word(nextLine[0], nextLine[1], lectureId));
-			    	Log.d("CSV",  nextLine[0] + " - " + nextLine[1]);
+			        	Log.d("CSV",  nextLine[0] + " - " + nextLine[1]);
+			        }
+			    	
 			    } 
 			} catch (FileNotFoundException e) {
 				Log.e("FILERIEDER", "CSV file not found", e);
@@ -145,7 +212,9 @@ public class ImportCsvActivity extends Activity {
 				Log.e("FILERIEDER", "Parsing error: ", e);
 			}finally{
 				try {
-					reader.close();
+					if(reader != null){
+						reader.close();
+					}
 				} catch (IOException e) {
 					Log.e("FILERIEDER", "CAN NOT CLOSE FILE", e);
 				}
@@ -170,7 +239,13 @@ public class ImportCsvActivity extends Activity {
 			AlertDialog alertDialog = alertDialogBuilder.create();
 			alertDialog.show();
 		}
-
-	    
 	  
-	} 
+	  private void initInputs(){
+		  label = (TextView)findViewById(R.id.inportLectureLabel);
+		  label.setVisibility(View.VISIBLE);
+		  input = (EditText)findViewById(R.id.importLectureName);
+		  input.setVisibility(View.VISIBLE);
+	  }
+	  
+	  
+}

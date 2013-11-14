@@ -8,5 +8,11 @@
         android:icon="@drawable/ic_action_new"
         android:title="@string/lecture_add_head"
     />
+    
+     <item 
+        android:id="@+id/menuImport"
+        android:orderInCategory="98"
+        android:title="@string/import_words"
+    />
 
 </menu>

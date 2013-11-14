@@ -40,13 +40,15 @@ public class AddBookActivity extends BaseActivity {
         Button cancel = (Button)findViewById(R.id.cancelAdd);
         
         submit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
                 onSubmitAddClicked();
             }
         });
         
         cancel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
             	onCancelAddClicked();
             }
         });

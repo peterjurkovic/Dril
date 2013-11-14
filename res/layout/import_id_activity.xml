@@ -10,13 +10,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/actionbar_layout" />
 	
     <FrameLayout
 	    android:id="@+id/lectureListnav"
         android:layout_width="fill_parent"
-        android:layout_below="@id/layoutHeader"
         android:layout_height="35dp"
         android:background="#DEDEDE" >
 

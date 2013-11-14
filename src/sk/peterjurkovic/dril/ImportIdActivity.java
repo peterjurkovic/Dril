@@ -19,8 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class ImportIdActivity extends MainActivity {
@@ -143,6 +141,7 @@ public class ImportIdActivity extends MainActivity {
 				.setMessage(responseMsg)
 				.setCancelable(false)
 				.setNegativeButton(R.string.ok,new DialogInterface.OnClickListener() {
+							@Override
 							public void onClick(DialogInterface dialog,int id) {
 								dialog.cancel();
 							}

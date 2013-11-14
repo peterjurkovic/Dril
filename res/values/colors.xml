@@ -4,7 +4,7 @@
     <color name="text_color">#333333</color>
     <color name="text_color_label">#555555</color>
     <color name="h1">#d54b00</color>
-    <color name="import_head">#5e940b</color>
+    <color name="import_head">#fff</color>
     
     <color name="action_bar_color">#202829</color>
     <color name="action_bar_color_end">#0A0C0C</color>
@@ -29,4 +29,6 @@
     <color name="youAnserBorder">#a1dbff</color>
     
     <color name="alertColor">#FF2950</color>
+    
+    <color name="lightRed">#FFD6D6</color>
 </resources>

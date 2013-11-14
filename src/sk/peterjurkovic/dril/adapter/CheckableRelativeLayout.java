@@ -40,14 +40,16 @@ public class CheckableRelativeLayout extends RelativeLayout implements
     /*
       * @see android.widget.Checkable#isChecked()
       */
-    public boolean isChecked() {
+    @Override
+	public boolean isChecked() {
         return isChecked;
     }
 
     /*
       * @see android.widget.Checkable#setChecked(boolean)
       */
-    public void setChecked(boolean isChecked) {
+    @Override
+	public void setChecked(boolean isChecked) {
         this.isChecked = isChecked;
         for (Checkable c : checkableViews) {
             c.setChecked(isChecked);
@@ -57,7 +59,8 @@ public class CheckableRelativeLayout extends RelativeLayout implements
     /*
       * @see android.widget.Checkable#toggle()
       */
-    public void toggle() {
+    @Override
+	public void toggle() {
         this.isChecked = !this.isChecked;
         for (Checkable c : checkableViews) {
             c.toggle();

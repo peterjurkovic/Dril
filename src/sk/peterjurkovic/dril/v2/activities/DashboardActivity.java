@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+
+
 /**
  * 
  * @author Peter Jurkovič (email@peterjurkovic.sk)
@@ -48,28 +50,32 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	       
 	        
 	        startDrilButton.setOnClickListener(new View.OnClickListener() {
-	            public void onClick(View view) {
+	            @Override
+				public void onClick(View view) {
 	            		Intent i = new Intent(context, DrilActivity.class);
 	            		startActivity(i);
 	            }
 	        });
 	        
 	        btnBook.setOnClickListener(new View.OnClickListener() {
-	            public void onClick(View view) {
+	            @Override
+				public void onClick(View view) {
 	            		Intent i = new Intent(context, BookListActivity.class);
 	            		startActivity(i);
 	            }
 	        });
 	        
 	        btn_stats.setOnClickListener(new View.OnClickListener() {
-	            public void onClick(View view) {
+	            @Override
+				public void onClick(View view) {
 	            	
 	            	
 		        }
 		    });
 	        
 	        btn_info.setOnClickListener(new View.OnClickListener() {
-	            public void onClick(View view) {
+	            @Override
+				public void onClick(View view) {
 	            	Intent i = new Intent(context, PreferencesActivity.class);
             		startActivity(i);
 		        }
@@ -89,11 +95,13 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 			.setMessage(R.string.update_available)
 			.setCancelable(false)
 			.setNegativeButton(R.string.no,new DialogInterface.OnClickListener() {
+						@Override
 						public void onClick(DialogInterface dialog,int id) {
 							dialog.cancel();
 						}
 			})
 			.setPositiveButton(R.string.yes ,new DialogInterface.OnClickListener() {
+				@Override
 				public void onClick(DialogInterface dialog,int id) {
 					dialog.cancel();
 					UpdateSaver updater = new UpdateSaver( context );
@@ -119,6 +127,7 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 			.setMessage(responseMsg)
 			.setCancelable(false)
 			.setNegativeButton(R.string.ok,new DialogInterface.OnClickListener() {
+						@Override
 						public void onClick(DialogInterface dialog,int id) {
 							dialog.cancel();
 						}

@@ -2,35 +2,39 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/repeat"
-    android:fillViewport="true" >
+ >
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/actionbar_layout" />
+	<TextView style="@style/separator" 	/>	  
+    
+	 <TextView
+        android:id="@+id/inportLectureLabel"
+        style="@style/boxLabel"
+        android:text="@string/lecture_add_head"
+        android:visibility="gone"
+ 		/>
 	
-    <FrameLayout
-	    android:id="@+id/lectureListnav"
-        android:layout_width="fill_parent"
-        android:layout_below="@id/layoutHeader"
-        android:layout_height="35dp"
-        android:background="#DEDEDE" >
-
-        <TextView
-            android:id="@+id/importLectureName"
-            style="@style/ListLabel" />
-    </FrameLayout>
-    
-    
+    <EditText
+        android:id="@+id/importLectureName"
+        style="@style/editText"
+        android:background="@drawable/input"
+        android:hint="@string/title"
+        android:visibility="gone"
+        android:lines="1" />
+	
 	<Button 
 	    android:id="@+id/importBtn"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_marginTop="15dp"
+	    android:layout_marginTop="25dp"
+	    android:paddingTop="20dp"
+	    android:paddingBottom="20dp"
+	    style="@style/v2Submitbutton"  
+	    android:textStyle="bold" 
 	    android:text="@string/csv_choose"
 	    />
 	

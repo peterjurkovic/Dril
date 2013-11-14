@@ -5,16 +5,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/repeat" >
 
-    <include
-        android:layout_alignParentTop="true"
-        layout="@layout/actionbar_layout" />
+    
 
       <LinearLayout
           android:id="@+id/statsNav"
           android:layout_width="match_parent"
           android:layout_height="45dp"
-          android:layout_below="@id/layoutHeader"
-          android:background="@drawable/word_view_menubox"
+        
           android:paddingTop="1dp"
           tools:ignore="UnknownIdInLayout" >
        

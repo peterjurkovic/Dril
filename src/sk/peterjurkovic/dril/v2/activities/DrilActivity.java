@@ -81,7 +81,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
         slideLeftIn = new TranslateAnimation(1000, 0, 0, 0);
         slideLeftIn.setDuration(500);
         slideLeftIn.setFillAfter(true);
-    	layout = (RelativeLayout) findViewById(R.id.dril);
+    	layout = findViewById(R.id.dril);
     	layout.startAnimation(slideLeftIn);
 	 
 	    speachQuestionBtn = (ImageButton) findViewById(R.id.speakQuestion);

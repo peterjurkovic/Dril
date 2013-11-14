@@ -2,7 +2,7 @@ package sk.peterjurkovic.dril.v2.activities;
 
 
 
-import sk.peterjurkovic.dril.ImportMenuActivity;
+
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
@@ -71,7 +71,7 @@ public static final String EXTRA_BOOK_ID = "bookId";
 				}
 		    });
 		    registerForContextMenu( getListView() );
-		    bookId = (long) getIntent().getLongExtra( EXTRA_BOOK_ID, 0);
+		    bookId = getIntent().getLongExtra( EXTRA_BOOK_ID, 0);
 	        if(bookId != 0){
 		        lectureProgressBar = (ProgressBar)findViewById(R.id.lectureProgress);
 		        lectureProgressBarLabel = (TextView)findViewById(R.id.lectureProgressLabel);
@@ -126,7 +126,7 @@ public static final String EXTRA_BOOK_ID = "bookId";
         	deactiveAllWordInLecture(info.id); 
         return true; 
         case MENU_IMPORT :
-        	importWords(info.id); 
+        	importIntoLecture(info.id); 
         return true; 
         default:
           return super.onContextItemSelected(item);
@@ -223,9 +223,12 @@ public static final String EXTRA_BOOK_ID = "bookId";
 	}
 	
 	
-	private void importWords(long lectureId) {
+	
+	
+	private void importIntoLecture(final long id){
 		Intent i = new Intent(this,  ImportMenuActivity.class);
-		i.putExtra(EditLectureActivity.EXTRA_LECTURE_ID, lectureId);
+		i.putExtra(ImportMenuActivity.EXTRA_ID, id);
+		i.putExtra(ImportMenuActivity.EXTRA_CREATE_LECTURE, false);
 		startActivity(i);
 	}
 	
@@ -405,6 +408,19 @@ public static final String EXTRA_BOOK_ID = "bookId";
 		
 	}
 	
+	private void importAndCreateLecture(){
+		Intent i = new Intent(this,  ImportMenuActivity.class);
+		i.putExtra(ImportMenuActivity.EXTRA_ID, bookId);
+		i.putExtra(ImportMenuActivity.EXTRA_CREATE_LECTURE, true);
+		startActivity(i);
+	}
+	
+	@Override
+		protected void onResume() {
+			super.onResume();
+			updateList();
+		}
+	
 	/*	ACTION BAR MENU ---------------------	 */
 		
 		@Override
@@ -412,6 +428,9 @@ public static final String EXTRA_BOOK_ID = "bookId";
 			switch (item.getItemId()) {
 				case R.id.menuAddLecture :
 					startAddLectureActivity();
+				return true;
+				case R.id.menuImport : 
+					importAndCreateLecture();
 				return true;
 			}
 			return super.onOptionsItemSelected(item);

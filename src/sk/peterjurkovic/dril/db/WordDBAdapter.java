@@ -1,15 +1,17 @@
 package sk.peterjurkovic.dril.db;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.model.Word;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import android.widget.Toast;
 
 public class WordDBAdapter extends DBAdapter {
 	
@@ -293,6 +295,7 @@ public class WordDBAdapter extends DBAdapter {
     }
     
     
+   
     
    
 }

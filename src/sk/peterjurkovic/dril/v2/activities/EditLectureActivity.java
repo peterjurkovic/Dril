@@ -40,13 +40,15 @@ public class EditLectureActivity extends BaseActivity {
         Button cancel = (Button)findViewById(R.id.cancelLectureEdit);
         
         submit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
             	onSubmitEditLectureClicked();
             }
         });
         
         cancel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
             	onCancelEditLectureClicked();
             	
             }

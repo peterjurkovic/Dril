@@ -8,7 +8,6 @@
 	    android:id="@+id/AddWordFragment"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/layoutHeader"
         class="sk.peterjurkovic.dril.fragments.AddWordFragment" />
 	
 </RelativeLayout>

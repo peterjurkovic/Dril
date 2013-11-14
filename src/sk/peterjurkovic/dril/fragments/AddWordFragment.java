@@ -52,7 +52,8 @@ public class AddWordFragment extends Fragment {
         Button submit = (Button)view.findViewById(R.id.submitAddQuestion);
         
         submit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
                 onSubmitClicked();
             }
         });

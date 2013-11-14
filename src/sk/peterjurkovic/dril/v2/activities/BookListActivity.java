@@ -208,6 +208,11 @@ public class BookListActivity extends ActionBarListActivity {
 		super.onStop();
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		updateList();
+	}
 
 	private void closeAdapterCursor(){
 		try {

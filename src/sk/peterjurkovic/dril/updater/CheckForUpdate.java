@@ -30,7 +30,7 @@ public class CheckForUpdate extends AsyncTask<String, Integer, Integer> {
 	public CheckForUpdate(Context c){
 		context = c;
 		dialog = ProgressDialog.show( context , "" , 
-				context.getResources().getString(R.string.loading_check), true);
+				context.getResources().getString(R.string.loading), true);
 		dialog.show();
 		try {
 			listener = (AsyncLIstener) context;

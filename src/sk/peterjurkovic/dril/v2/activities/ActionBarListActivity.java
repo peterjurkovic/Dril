@@ -3,7 +3,6 @@ package sk.peterjurkovic.dril.v2.activities;
 import android.R;
 import android.app.Activity;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,7 +28,8 @@ public class ActionBarListActivity extends BaseActivity {
 	private Handler mHandler = new Handler();
 	
 	private Runnable mRequestFocus = new Runnable() {
-        public void run() {
+        @Override
+		public void run() {
         	mListView.focusableViewAvailable(mListView);
         }
     };
@@ -90,7 +90,8 @@ public class ActionBarListActivity extends BaseActivity {
 	
 	
 	private AdapterView.OnItemClickListener mOnClickListener = new AdapterView.OnItemClickListener() {
-        public void onItemClick(AdapterView<?> parent, View v, int position, long id){
+        @Override
+		public void onItemClick(AdapterView<?> parent, View v, int position, long id){
             onListItemClick((ListView)parent, v, position, id);
         }
     };

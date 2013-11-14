@@ -1,12 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    android:layout_height="match_parent" >
 
-    <TextView
-		style="@style/separator" 
-	/>
+    <TextView style="@style/separator" 	/>
    
     
    <RelativeLayout 
@@ -51,7 +48,7 @@
 					android:layout_gravity="bottom|left"
 			        />
 			 
-			    <Button
+			   	<Button
 			        android:id="@+id/btn_info"
 			        style="@style/dashboardButtonStyle"
 			        android:drawableTop="@drawable/info"
@@ -75,7 +72,7 @@
 		    android:textColor="#a9a9a9"
 		    android:textColorHint="#00c6ff"
 		    android:textColorLink="#2e3d5e"
-		    android:textSize="10sp" />
+		    android:textSize="12sp" />
 
 </RelativeLayout>
 		

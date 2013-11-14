@@ -75,6 +75,11 @@
             	  android:launchMode="singleTask"
             	  android:parentActivityName=".v2.activities.DashboardActivity" />
         
+        <activity android:name=".v2.activities.ImportMenuActivity" 
+            	  android:parentActivityName=".v2.activities.LectureListActivity" />
+         <activity android:name=".v2.activities.ImportCsvActivity" 
+            	  android:parentActivityName=".v2.activities.ImportMenuActivity" />
+        
     </application>
 
 </manifest>

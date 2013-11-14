@@ -8,14 +8,9 @@
     android:layout_height="wrap_content"
     android:background="@drawable/repeat" >
 
-    <include
-        android:layout_alignParentTop="true"
-        layout="@layout/actionbar_layout" />
-
   
     <LinearLayout 
         android:id="@+id/info1"
-        android:layout_below="@id/layoutHeader"
         style="@style/infoWrapper" >
 		    <TextView 
 		        style="@style/infoH1"

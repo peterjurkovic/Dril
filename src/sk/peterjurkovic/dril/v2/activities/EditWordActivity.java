@@ -30,7 +30,8 @@ public class EditWordActivity extends BaseActivity implements OnEditWordListener
         Button cancel = (Button)findViewById(R.id.cancelEditQuestion);
         
         cancel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
             	finish();
             }
         });

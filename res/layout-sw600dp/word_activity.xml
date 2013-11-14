@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-	<include 
-	    android:layout_alignParentTop="true"
-	    layout="@layout/actionbar_layout" /> 
+
     
 	
 	<View android:id="@+id/strut"
@@ -19,7 +17,7 @@
         android:layout_alignRight="@id/strut"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/layoutHeader" >     
-    		<include layout="@layout/word_list_layout" />
+    		<include layout="@layout/v2_word_list_fragment_layout" />
     </FrameLayout>
 
       <FrameLayout

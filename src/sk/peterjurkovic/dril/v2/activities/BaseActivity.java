@@ -5,8 +5,10 @@ import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -25,10 +27,19 @@ import com.google.analytics.tracking.android.MapBuilder;
  */
 public class BaseActivity extends ActionBarActivity {
 
-	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		/*
+		 ActionBar ab =  getSupportActionBar();
+		ab.setIcon(R.drawable.dril_logo);
+		ab.setTitle("");
+		 
+		 */
+	}
 	
 	public void setGoHomePageListener(){
-			View view = (View) findViewById(R.id.drilPromo);
+			View view = findViewById(R.id.drilPromo);
 			if(view != null){
 				view.setOnClickListener(new View.OnClickListener() {
 					@Override
@@ -114,13 +125,15 @@ public class BaseActivity extends ActionBarActivity {
 	  @Override
 	  public void onStart() {
 	    super.onStart();
-	    EasyTracker.getInstance(this).activityStart(this);  
+	    EasyTracker.getInstance(this).activityStart(this);
+	    Log.i("GA", "onStart");
 	  }
 	
 	  @Override
 	  public void onStop() {
 	    super.onStop();
 	    EasyTracker.getInstance(this).activityStop(this); 
+	    Log.i("GA", "onStop");
 	  }
 	  
 	public void logException(String description, boolean fatal) {

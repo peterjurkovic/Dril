@@ -36,7 +36,8 @@ public static final String EXTRA_QUESTION = "question";
         
         Button cancel = (Button)findViewById(R.id.cancelAddQuestion);
         cancel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
             	finish();
             }
         });

@@ -7,15 +7,12 @@
     android:orientation="vertical"
     tools:ignore="UnknownIdInLayout" >
 
-    <include
-        android:layout_alignParentTop="true"
-        layout="@layout/actionbar_layout" />
 
     <View
         android:id="@+id/aboutShaddow"
         android:layout_width="match_parent"
         android:layout_height="5sp"
-        android:layout_below="@id/layoutHeader"
+
         android:background="@drawable/drop_shaddow2"
       
          />

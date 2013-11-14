@@ -7,7 +7,6 @@
     <include
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/layoutHeader"
-        layout="@layout/word_list_layout" />
+        layout="@layout/v2_word_list_fragment_layout" />
 
 </RelativeLayout>

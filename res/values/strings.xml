@@ -26,7 +26,7 @@
     <string name="deleted">Successfully deleted</string>
     <string name="book_not_deleted">The textbook could not be deleted</string>
     <string name="no_book_available">There are not textbooks</string>
-    <string name="title">Name</string>
+    <string name="title">Write name</string>
    
    
     <string name="error_ocurred">Some error occurred!</string>
@@ -120,7 +120,7 @@
 	<string name="csv_create">Every common application has the opportunity export to CSV format, e.g. MS Excel, Open office calc, LibreOffice etc. \n\nSo you can simply write yours words in Excel, export them to CSV, than copy into your mobile phone\'s storage and import.</string>
     <string name="csv_format">CSV format for this application</string>
     <string name="csv_format_label">This app support basic csv foramt, that is:\n\n \"word\",\"translation\"\n\"second word\",\"and his translation\"\n\n NOTE: This app dont use any heading of csv</string>
-    <string name="csv_choose">Choose csv file to import</string>
+    <string name="csv_choose">Click to choose file</string>
     <string name="import_status">Import status</string>
     <string name="import_failed">import failed, check your csv format.</string>
     <string name="import_success">Successfully imported!\nCount of new words: %1$d</string>

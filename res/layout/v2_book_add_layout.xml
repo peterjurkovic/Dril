@@ -7,7 +7,6 @@
     
     <TextView
         android:id="@+id/boxLabel"
-        android:layout_below="@id/shaddowBookAdd"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:text="@string/book_add_head"

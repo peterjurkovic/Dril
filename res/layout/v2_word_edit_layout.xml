@@ -14,8 +14,7 @@
 	    <TextView
 	        style="@style/boxLabel"
 	        android:text="@string/question"
-	        android:id="@+id/labelQuestion"
-	        android:layout_below="@id/layoutHeader" />
+	        android:id="@+id/labelQuestion" />
 	
 	    <EditText
 	        android:id="@+id/editQestion"

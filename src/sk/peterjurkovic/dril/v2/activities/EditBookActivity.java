@@ -48,13 +48,15 @@ public class EditBookActivity extends BaseActivity {
         bookNameInput =  (EditText) findViewById(R.id.editBookName);
         
         submit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
             	onSubmitEditBookClicked();
             }
         });
         
         cancel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
             	onCancelEditBookClicked();
             	
             }

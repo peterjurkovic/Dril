@@ -3,16 +3,11 @@
     android:background="@drawable/repeat"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
-	<include 
-	    android:layout_alignParentTop="true"
-	    layout="@layout/actionbar_layout" /> 
-    
+	
 	<fragment
-	    android:id="@+id/AddWordFragment"
+        android:id="@+id/WordListFragment"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/layoutHeader"
-        class="sk.peterjurkovic.dril.fragments.AddWordFragment" />
+        android:layout_height="wrap_content"
+        class="sk.peterjurkovic.dril.fragments.WordListFragment" />
 	
 </RelativeLayout>

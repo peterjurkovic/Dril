@@ -59,7 +59,8 @@ public class EditWordFragment extends Fragment {
         
         
         submit.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            @Override
+			public void onClick(View v) {
                 onSubmitClicked();
             }
         });
