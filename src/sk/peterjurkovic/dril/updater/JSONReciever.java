@@ -48,12 +48,7 @@ public class JSONReciever {
 	    	InputStream is = null; 
 	        // Making HTTP request
 	        try {
-	            if (Looper.getMainLooper().getThread() == Thread.currentThread()) {
-            	  Log.d("THREAD", "UI");
-            	} else {
-            	  Log.d("THREAD", "BG");
-            	}
-	            
+	           	            
 	            DefaultHttpClient httpClient = new DefaultHttpClient();
 	            HttpPost httpPost = new HttpPost(getRequestURL(action));
 	            Log.d("HTTP", "Sending request: " + getRequestURL(action));

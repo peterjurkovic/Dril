@@ -181,7 +181,7 @@ public class ImportCsvActivity extends BaseActivity {
 							resultMessage = getResources().getString( R.string.import_success, result);
 						}
 						dialog.dismiss();
-						showResultDialog(resultMessage);
+						showResultDialog(resultMessage, result);
 					}
 			}
 	  
@@ -223,7 +223,7 @@ public class ImportCsvActivity extends BaseActivity {
 		  }
 	  
 	  
-	  public void showResultDialog(String responseMsg){
+	  public void showResultDialog(final String responseMsg, final int result){
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 			alertDialogBuilder
 				.setTitle(R.string.import_status)
@@ -233,6 +233,9 @@ public class ImportCsvActivity extends BaseActivity {
 							@Override
 							public void onClick(DialogInterface dialog,int id) {
 								dialog.cancel();
+								if(result > 0){
+									gotIntoLecture();
+								}
 							}
 				});
 
@@ -247,5 +250,11 @@ public class ImportCsvActivity extends BaseActivity {
 		  input.setVisibility(View.VISIBLE);
 	  }
 	  
+	  
+	  private void gotIntoLecture(){
+		  Intent i = new Intent(this,  WordActivity.class);
+		  i.putExtra( WordActivity.LECTURE_ID_EXTRA, lectureId);
+		  startActivity(i);
+	  }
 	  
 }
