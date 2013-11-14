@@ -49,7 +49,7 @@ public class StatisticAdapter extends CursorAdapter {
 		 			 	
 		 	holder.drilDateIndex = c.getColumnIndex( StatisticDbAdapter.DATE_LOCALTIME );
 			holder.rateIndex = c.getColumnIndex(StatisticDbAdapter.RATE);
-			holder.hitIndex = c.getColumnIndex(StatisticDbAdapter.HIT);
+			holder.hitIndex = c.getColumnIndex(StatisticDbAdapter.HITS);
 			
 		 	String date = customDateFormat(c.getString( holder.drilDateIndex ));
 			double rate = c.getDouble(holder.rateIndex);

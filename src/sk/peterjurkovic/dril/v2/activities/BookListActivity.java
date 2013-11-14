@@ -20,6 +20,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
+
 
 
 /**
@@ -114,6 +117,7 @@ public class BookListActivity extends ActionBarListActivity {
         try {
         	deleted = bookDBAdapter.deleteBook(id);
 		} catch (Exception e) {
+			logException(e.getMessage(), false);
 			Log.e(TAG, "Can not delete book", e);
 		}
 	    
@@ -133,14 +137,21 @@ public class BookListActivity extends ActionBarListActivity {
 	 	} 
 	 	switch(requestCode){
 	 		case REQUEST_ADD_BOOK :
+	 			EasyTracker.getInstance(this).send(
+	 					MapBuilder
+	 				    .createEvent("UX", "click", "saveNewBook", null)
+	 				    .build()
+		
+	 		    );
 	 			onSaveNewBook();
 	 		break;
 	 		case REQUEST_EDIT_BOOK :
 	 			onSaveEditedBook();
 	 		break;
 	 		default:
-	 			throw new Error("requestCode: " + requestCode + 
-	 							" is not implemented in onActivityResult");
+	 			String msg = "requestCode: " + requestCode + " is not implemented in onActivityResult";
+	 			logException(msg, true);
+	 			throw new Error(msg);
 	 	} 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -176,6 +187,7 @@ public class BookListActivity extends ActionBarListActivity {
 		try {
 			wordDBAdapter.deactiveAll();
 		} catch (Exception e) {
+			logException(e.getMessage(), false);
 			Log.d(TAG, "ERROR: " + e.getMessage());
 		} finally {
 			wordDBAdapter.close();

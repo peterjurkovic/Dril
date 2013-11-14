@@ -81,7 +81,8 @@ public static final String EXTRA_BOOK_ID = "bookId";
 			    ((TextView)findViewById(R.id.lectureListLabel)).setText( getBookName(bookId) );
 			    updateList();
 	        }else {
-				Log.d(TAG, "ERR bookId is not set.");
+	        	logException("BOOK ID is not set", false);
+	        	Log.d(TAG, "ERR bookId is not set.");
 			}    
 		 
 	      
@@ -143,7 +144,8 @@ public static final String EXTRA_BOOK_ID = "bookId";
 	    try{
 	    	deleted = lectureDbAdapter.deleteLecture(id);
 	    } catch (Exception e) {
-			Log.d(TAG, "ERROR: " + e.getMessage());
+	    	logException(e.getMessage(), false);
+	    	Log.d(TAG, "ERROR: " + e.getMessage());
 		} 
         if(deleted){
             Toast.makeText(this, R.string.deleted, Toast.LENGTH_SHORT).show();
@@ -172,6 +174,7 @@ public static final String EXTRA_BOOK_ID = "bookId";
  	    try{
  	    	wordDbAdapter.activateWordRandomly(lectureId, countOfwordToActivate);
  	    } catch (Exception e) {
+ 	    	logException(e.getMessage(), false);
  			Log.d(TAG, "ERROR: " + e.getMessage());
  		} finally {
  			wordDbAdapter.close();
@@ -187,6 +190,7 @@ public static final String EXTRA_BOOK_ID = "bookId";
  	    try{
  	    	deactivated = wordDbAdapter.changeWordActivity(lectureId, WordDBAdapter.STATUS_ACTIVE);
  	    } catch (Exception e) {
+ 	    	logException(e.getMessage(), false);
  			Log.d(TAG, "ERROR: " + e.getMessage());
  		} finally {
  			wordDbAdapter.close();
@@ -202,6 +206,7 @@ public static final String EXTRA_BOOK_ID = "bookId";
  	    try{
  	    	deactivated = wordDbAdapter.changeWordActivity(lectureId, WordDBAdapter.STATUS_DEACTIVE);
  	    } catch (Exception e) {
+ 	    	logException(e.getMessage(), false);
  			Log.d(TAG, "ERROR: " + e.getMessage());
  		} finally {
  			wordDbAdapter.close();
@@ -288,6 +293,7 @@ public static final String EXTRA_BOOK_ID = "bookId";
 		try {
 			id = lectureDbAdapter.insertLecture(bookId, lectureName);
 		} catch (Exception e) {
+			logException(e.getMessage(), false);
 			Log.d(TAG, "ERROR: " + e.getMessage());
 		} 
 		if(id > -1){
@@ -378,6 +384,7 @@ public static final String EXTRA_BOOK_ID = "bookId";
 			try {
 				cursor = lectureDbAdapter.getLecturesByBookId( this.bookId );
 			} catch (Exception e) {
+				logException(e.getMessage(), false);
 				Log.d(TAG, e.getMessage());
 			}
 			return cursor;

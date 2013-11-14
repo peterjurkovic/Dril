@@ -18,7 +18,13 @@ public class StatisticDbAdapter extends DBAdapter{
 	
 	public static final String RATE = "rate";
 	
-	public static final String HIT = "hit";
+	public static final String HITS = "hit";
+	
+	public static final String LEARNED_CARDS = "learned_count";
+	
+	public static final String AVG_RATE_SESSION = "avg_rate_session";
+	
+	public static final String AVG_RATE_GLOBAL = "avg_rate_global";
 	
 	
 	/*
@@ -32,10 +38,21 @@ public class StatisticDbAdapter extends DBAdapter{
 				STATISTIC_ID + " INTEGER PRIMARY KEY NOT NULL," + 
 				DATE + " DATETIME NOT NULL  DEFAULT (CURRENT_TIMESTAMP)," + 
 				RATE + " INTEGER NOT NULL  DEFAULT (0),"+
-				HIT + " INTEGER NOT NULL  DEFAULT (0)"+
+				HITS + " INTEGER NOT NULL  DEFAULT (0),"+
+				AVG_RATE_SESSION  + " REAL NOT NULL DEFAULT (0), " +
+				AVG_RATE_GLOBAL  + " REAL NOT NULL DEFAULT (0), " +
+				LEARNED_CARDS + " INTEGER NOT NULL  DEFAULT (0)"+
 		");";
 	
-	public static final String[] columns = { STATISTIC_ID, DATE_LOCALTIME, RATE, HIT};
+	public static final String[] columns = { 
+			STATISTIC_ID, 
+			DATE_LOCALTIME, 
+			RATE, 
+			HITS, 
+			AVG_RATE_SESSION,
+			AVG_RATE_GLOBAL,
+			LEARNED_CARDS
+		};
 	
 	
 	/**
@@ -53,7 +70,7 @@ public class StatisticDbAdapter extends DBAdapter{
         SQLiteDatabase db = openWriteableDatabase();
         ContentValues values = new ContentValues();
         values.put(RATE, 0);
-        values.put(HIT, 0);
+        values.put(HITS, 0);
         long id = db.insert( TABLE_STATISTIC , null, values);
         db.close();
         return id;
@@ -89,7 +106,7 @@ public class StatisticDbAdapter extends DBAdapter{
     public Cursor getSessionsStatistics() {
     	SQLiteDatabase db = openReadableDatabase();
     	Cursor result = db.query(TABLE_STATISTIC, columns, 
-    						RATE+"!=0 AND "+HIT+"!=0", null, null, null, DATE );
+    						RATE+"!=0 AND "+HITS+"!=0", null, null, null, DATE );
     	return result;
 	}
     

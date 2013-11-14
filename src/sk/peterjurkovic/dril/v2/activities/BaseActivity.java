@@ -14,6 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
+
 /**
  * 
  * @author Peter Jurkovič (email@peterjurkovic.sk)
@@ -107,4 +110,24 @@ public class BaseActivity extends ActionBarActivity {
 	    inflater.inflate(R.menu.v2_main, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
+	
+	  @Override
+	  public void onStart() {
+	    super.onStart();
+	    EasyTracker.getInstance(this).activityStart(this);  
+	  }
+	
+	  @Override
+	  public void onStop() {
+	    super.onStop();
+	    EasyTracker.getInstance(this).activityStop(this); 
+	  }
+	  
+	public void logException(String description, boolean fatal) {
+		EasyTracker.getInstance(this).send(
+				MapBuilder.createException(description, fatal)
+				.build()
+	    );
+	}
+
 }

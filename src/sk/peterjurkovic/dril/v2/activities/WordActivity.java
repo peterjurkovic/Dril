@@ -18,7 +18,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.view.ActionMode;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -47,6 +46,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		lectureId = getIntent().getLongExtra(LECTURE_ID_EXTRA, -1);
 
 		if (lectureId == -1) {
+			logException("Lecture ID is not set.", false);
 			throw new Error("Lecture ID is not set.");
 		}
 

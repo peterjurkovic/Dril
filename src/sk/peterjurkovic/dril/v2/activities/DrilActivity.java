@@ -18,8 +18,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -35,6 +33,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.MapBuilder;
 
 
 public class DrilActivity extends BaseActivity implements OnInitListener{
@@ -136,6 +138,8 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
         	layout.setVisibility(View.VISIBLE);
         	tryNextWord();
         }
+        
+        logInit();
     }
     
     private void tryNextWord(){
@@ -467,4 +471,14 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	super.onResume();
     }
     
+    
+    private void logInit(){
+    	 EasyTracker.getInstance(this).send(MapBuilder
+         		.createAppView()
+         		.set(Fields.SCREEN_NAME, "Dril Screen")
+         		.set(Constants.PREF_WRITE_ANSWER_KEY, writeAnswer + "")
+         		.set("wordCount", drilService.getCountOfWords() + "")
+         		.build()
+         		);
+    }
 }
