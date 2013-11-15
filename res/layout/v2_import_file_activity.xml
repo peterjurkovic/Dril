@@ -87,6 +87,7 @@
 
 			<LinearLayout 
 			    android:id="@+id/xlsImportHelp"
+			    android:visibility="gone"
 				style="@style/infoWrapper" >
 				    <TextView 
 				        style="@style/infoH1"

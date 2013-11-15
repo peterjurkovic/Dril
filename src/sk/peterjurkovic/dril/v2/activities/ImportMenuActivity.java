@@ -1,7 +1,6 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 
-import sk.peterjurkovic.dril.ImportIdActivity;
 import sk.peterjurkovic.dril.R;
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,7 +44,7 @@ public class ImportMenuActivity extends BaseActivity {
 	         LinearLayout importViaIdBtn = (LinearLayout)findViewById(R.id.importViaId);     
 	         importViaIdBtn.setOnClickListener(new View.OnClickListener() {
 	         public void onClick(View v) {
-                 Intent i = new Intent(ImportMenuActivity.this, ImportIdActivity.class);
+                 Intent i = new Intent(ImportMenuActivity.this, ImportWebActivity.class);
                  startImportActivity(i);
 	         }
 	         });

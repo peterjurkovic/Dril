@@ -1,9 +1,11 @@
-package sk.peterjurkovic.dril;
+package sk.peterjurkovic.dril.v2.activities;
 
 import java.util.List;
 
 import org.json.JSONObject;
 
+import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.updater.JSONParser;
@@ -19,20 +21,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class ImportIdActivity extends MainActivity {
+public class ImportWebActivity extends BaseActivity {
 	
-	// VARIABLES ------------------------------------------
+
 	public final int ACTIVITY_CHOOSE_FILE = 1;
 	  
-	private long lectureId;
+	private long bookId = 0;
+	private long lectureId = 0;
+	private boolean createLecture = true;
 	
 	private EditText importIdInput;
-	
-	
-	// METHODS  ------------------------------------------
-	
 	
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
@@ -40,21 +41,14 @@ public class ImportIdActivity extends MainActivity {
 	    setContentView(R.layout.v2_import_id_activity);
 
 	    Intent i = getIntent();
-	    /*
-	    lectureId = i.getLongExtra(EditLectureActivity.EXTRA_LECTURE_ID, 0);
+	    createLecture = i.getBooleanExtra(ImportMenuActivity.EXTRA_CREATE_LECTURE, false);
 	    
-	    ((TextView)findViewById(R.id.importLectureName))
-	    		.setText(WordActivity.getLectureName(this, lectureId));
+	    if(createLecture){
+		   bookId = i.getLongExtra(ImportMenuActivity.EXTRA_ID, 0);
+		}else{
+		   lectureId = i.getLongExtra(ImportMenuActivity.EXTRA_ID, 0);
+		}
 	    
-	    importIdInput = (EditText)findViewById(R.id.importIdInput);
-	    
-	    ImageButton goHome = (ImageButton) findViewById(R.id.home);
-	    goHome.setOnClickListener(new View.OnClickListener() {
-	          public void onClick(View v) {
-	              startActivity( new Intent(ImportIdActivity.this, DashboardActivity.class) );
-	          }
-	    });
-	    */
 	    Button btn = (Button) this.findViewById(R.id.importBtn);
 	    btn.setOnClickListener(new OnClickListener() {
 	      @Override
@@ -62,6 +56,14 @@ public class ImportIdActivity extends MainActivity {
 	    	  startImport();
 	      }
 	    });
+	    importIdInput = (EditText)findViewById(R.id.importIdInput);
+	    LinearLayout info = (LinearLayout)findViewById(R.id.importInfo);
+	    info.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				goToHomePage(v);
+			}
+		});
 	  }
 	  
 	  private void startImport(){
@@ -83,8 +85,7 @@ public class ImportIdActivity extends MainActivity {
 			  public ImportData(Context context, String importId){
 				  this.context = context;
 				  this.importId = importId;
-				  dialog = ProgressDialog.show( this.context , "" , 
-							this.context.getResources().getString(R.string.loading), true);
+				  dialog = ProgressDialog.show( this.context , "" , this.context.getResources().getString(R.string.loading), true);
 			  }
 			  
 			  @Override
@@ -96,29 +97,43 @@ public class ImportIdActivity extends MainActivity {
 				@Override
 				protected Integer doInBackground(Void... params) {
 					List<Word> words = null;
+					WordDBAdapter wordDBAdapter = null;
 					try{
 						// Retrieving
 						JSONReciever jsonReciever = new JSONReciever(importId);
 						JSONObject jsonData	 = jsonReciever.getJSONData( JSONReciever.FOR_OWN_WORD_ACTION );
 						// Parsing
 						JSONParser jsonParser = new JSONParser();
+						if(createLecture){
+							String lectureName = jsonData.getString(JSONParser.TAG_NAME);
+							createLecture(lectureName);
+						}
 						words = jsonParser.parseWordsFromJSONArray(
 									jsonData.getJSONArray(JSONParser.TAG_WORDS),
 									lectureId
 								);
+						
 						if(words.size() != 0){
-							WordDBAdapter wordDBAdapter = new WordDBAdapter(context);
+							wordDBAdapter = new WordDBAdapter(context);
 							wordDBAdapter.saveWordList(words);
 						}
 					}catch(Exception e){
+						logException(e.getMessage(), false);
+						if(createLecture){
+							removeCreatedLecture(lectureId, context);
+						}
 						return -1;
+					}finally{
+						if(wordDBAdapter != null){
+							wordDBAdapter.close();
+						}
 					}
 					
 					return words.size();
 				}
 				
 				@Override
-					protected void onPostExecute(Integer result) {
+					protected void onPostExecute(final Integer result) {
 						String resultMessage;
 						if(result == 0){
 							resultMessage = getResources().getString( R.string.import_id_not_found);
@@ -128,13 +143,13 @@ public class ImportIdActivity extends MainActivity {
 							resultMessage = getResources().getString( R.string.import_success, result);
 						}
 						dialog.dismiss();
-						showResultDialog(resultMessage);
+						showResultDialog(resultMessage, result);
 					}
 			}
 	  
 	  
 	  
-	  public void showResultDialog(String responseMsg){
+	  public void showResultDialog(final String responseMsg,final Integer result){
 			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 			alertDialogBuilder
 				.setTitle(R.string.import_status)
@@ -144,10 +159,45 @@ public class ImportIdActivity extends MainActivity {
 							@Override
 							public void onClick(DialogInterface dialog,int id) {
 								dialog.cancel();
+								if(result > 0){
+									gotIntoLecture();
+								}
 							}
 				});
 
 			AlertDialog alertDialog = alertDialogBuilder.create();
 			alertDialog.show();
 		}
+	  
+	  
+	  public void createLecture(final String lectureName) {
+		 if(bookId == 0 && createLecture){
+			 return;
+		 }
+		try {
+			LectureDBAdapter lectureDbAdapter = new LectureDBAdapter(this);
+			lectureId = lectureDbAdapter.insertLecture(bookId, lectureName);
+		} catch (Exception e) {
+			logException(e.getMessage(), false);
+		} 
+	}
+	  
+	
+	  public void removeCreatedLecture(final long id, Context context) {
+		  if(id == 0 && createLecture){
+			  return;
+		  }
+		  try {
+				LectureDBAdapter lectureDbAdapter = new LectureDBAdapter(context);
+				lectureDbAdapter.deleteLecture(id);
+			} catch (Exception e) {
+				logException(e.getMessage(), false);
+			} 
+		}  
+	  
+	  private void gotIntoLecture(){
+		  Intent i = new Intent(this,  WordActivity.class);
+		  i.putExtra( WordActivity.LECTURE_ID_EXTRA, lectureId);
+		  startActivity(i);
+	  }
 }

@@ -278,6 +278,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
         
         @Override
         public void onDestroyActionMode(ActionMode mode) {
+        	updateList();
         	actionMode = null;
         }
     }

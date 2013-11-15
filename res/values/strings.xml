@@ -134,7 +134,7 @@
     <string name="import_id_put">Put your import ID here:</string>
     <string name="import_submit">Download and save</string>
     <string name="id_head">What is import ID?</string>
-    <string name="id_descr">You can comfotable write your own words via www.drilapp.com page. After save your words in this page, you get identifier (import ID), witch you may put here and download your word into you mobile device.\n\nMore info at www.drilapp.com</string>
+    <string name="id_descr">Thought site www.drilapp.com you can easily write your own words. After saving you will get identifier (Import ID), which when you put here, the words will be automatically downloaded into this device. \n\nMore info at www.drilapp.com</string>
     <string name="import_id_failed">Import failed, try it again later.</string>
     <string name="import_id_not_found">Not found. Is your import ID correct?</string>
     <string name="import_id_invalid">Invalid import ID.</string>
@@ -220,4 +220,5 @@
     
     <string name="import_xls_head">Document structure</string>
     <string name="import_xls_descr">The document should contain only two columns. The first column should contain question and the second answer. Supported is only XLS format, not xlsx.</string>
+    <string name="error_blank_lecture_name">Please, fill lesson\'s name</string>
 </resources>

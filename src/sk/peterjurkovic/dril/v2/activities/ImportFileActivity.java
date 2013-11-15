@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 
@@ -39,7 +40,7 @@ public class ImportFileActivity extends BaseActivity {
 	
 	private TextView label = null;
 	private EditText input = null;
-	
+	private Context context;
 	private StorageFileReader storageFileReader;
 	
 
@@ -48,7 +49,7 @@ public class ImportFileActivity extends BaseActivity {
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.v2_import_file_activity);
-	    
+	    context = this;
 	    
 	    Intent i = getIntent();
 	    createLecture = i.getBooleanExtra(ImportMenuActivity.EXTRA_CREATE_LECTURE, false);
@@ -61,6 +62,12 @@ public class ImportFileActivity extends BaseActivity {
 		   lectureId = i.getLongExtra(ImportMenuActivity.EXTRA_ID, 0);
 		}
 	    
+	    if(isCsvImport){
+	    	setVisibleCsvInfo();
+	    }else{
+	    	setVisibleXlsInfo();
+	    }
+	    
 	    Button btn = (Button) this.findViewById(R.id.importBtn);
 	    btn.setOnClickListener(new OnClickListener() {
 	      @Override
@@ -70,7 +77,7 @@ public class ImportFileActivity extends BaseActivity {
 	    		lectureName = input.getText().toString();
 	    	}
 			if(createLecture && StringUtils.isBlank(lectureName)){
-				input.setBackgroundColor( getResources().getColor(R.color.lightRed) );
+				Toast.makeText(context, R.string.error_blank_lecture_name, Toast.LENGTH_LONG).show();
 				return;
 			}
 			if(createLecture && !StringUtils.isBlank(lectureName)){
@@ -163,7 +170,7 @@ public class ImportFileActivity extends BaseActivity {
 					words = storageFileReader.readFile(filePath, lectureId);
 					if(words == null || words.size() == 0){
 						removeCreatedLecture(lectureId, context);
-						return -1;
+						return 0;
 					}
 					WordDBAdapter wordDBAdapter = null;
 					try{
@@ -186,7 +193,7 @@ public class ImportFileActivity extends BaseActivity {
 				@Override
 					protected void onPostExecute(Integer result) {
 						String resultMessage;
-						if(result == 0){
+						if(result < 1){
 							resultMessage = getResources().getString( R.string.import_failed);
 						}else{
 							resultMessage = getResources().getString( R.string.import_success, result);
@@ -235,5 +242,15 @@ public class ImportFileActivity extends BaseActivity {
 		  i.putExtra( WordActivity.LECTURE_ID_EXTRA, lectureId);
 		  startActivity(i);
 	  }
+	  
+	  private void setVisibleXlsInfo(){
+		  findViewById(R.id.xlsImportHelp).setVisibility(View.VISIBLE);
+	  }
+	  
+	  private void setVisibleCsvInfo(){
+		  findViewById(R.id.csvImportHelp).setVisibility(View.VISIBLE);
+	  }
+	  
+	
 	  
 }

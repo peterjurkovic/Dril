@@ -77,8 +77,12 @@
         
         <activity android:name=".v2.activities.ImportMenuActivity" 
             	  android:parentActivityName=".v2.activities.LectureListActivity" />
-         <activity android:name=".v2.activities.ImportFileActivity" 
+        <activity android:name=".v2.activities.ImportFileActivity" 
             	  android:parentActivityName=".v2.activities.ImportMenuActivity" />
+        <activity android:name=".v2.activities.ImportWebActivity" 
+            	  android:parentActivityName=".v2.activities.ImportMenuActivity" />
+         
+         
         
     </application>
 
