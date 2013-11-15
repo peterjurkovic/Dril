@@ -217,4 +217,7 @@
     <string name="nav_settings">Settings</string>
     
     <string name="add_word">Add card</string>
+    
+    <string name="import_xls_head">Document structure</string>
+    <string name="import_xls_descr">The document should contain only two columns. The first column should contain question and the second answer. Supported is only XLS format, not xlsx.</string>
 </resources>

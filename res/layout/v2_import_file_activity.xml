@@ -39,11 +39,14 @@
 	    />
 	
 
-			<LinearLayout
+			<RelativeLayout
+			    android:id="@+id/csvImportHelp"
+			    android:visibility="gone"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content">
 		
 				<LinearLayout 
+				    android:id="@+id/csvBox1"
 					style="@style/infoWrapper" >
 					    <TextView 
 					        style="@style/infoH1"
@@ -55,6 +58,8 @@
 			    </LinearLayout>
 			    
 				<LinearLayout 
+				    android:layout_below="@id/csvBox1"
+				    android:id="@+id/csvBox2"
 					style="@style/infoWrapper" >
 					    <TextView 
 					        style="@style/infoH1"
@@ -66,6 +71,7 @@
 			    </LinearLayout>
 			    
 				<LinearLayout 
+				    android:layout_below="@id/csvBox2"
 					style="@style/infoWrapper" >
 					    <TextView 
 					        style="@style/infoH1"
@@ -75,6 +81,22 @@
 					        style="@style/infoTextDescr"
 					        android:text="@string/csv_format_label"/>
 			    </LinearLayout>
+		    </RelativeLayout>
+		    
+			
+
+			<LinearLayout 
+			    android:id="@+id/xlsImportHelp"
+				style="@style/infoWrapper" >
+				    <TextView 
+				        style="@style/infoH1"
+				        android:text="@string/import_xls_head"/>
+				    
+				     <TextView 
+				        style="@style/infoTextDescr"
+				        android:text="@string/import_xls_descr"/>
 		    </LinearLayout>
+			    
+	
 	</LinearLayout>
 </ScrollView>
