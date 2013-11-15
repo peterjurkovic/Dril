@@ -3,36 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FAFAFA"
-    android:orientation="vertical"
-    tools:ignore="UnknownIdInLayout" >
+    android:orientation="vertical" >
 
 
-    <View
-        android:id="@+id/aboutShaddow"
-        android:layout_width="match_parent"
-        android:layout_height="5sp"
-
-        android:background="@drawable/drop_shaddow2"
-      
-         />
+    <TextView style="@style/separator" 	/>
 
     <TextView
         android:id="@+id/abaoutHead"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/aboutShaddow"
         android:gravity="center"
-        android:paddingTop="40dp"
+        android:textStyle="bold"
+        android:paddingTop="30dp"
         android:text="@string/app_name_long"
-        android:textColor="#084166"
-        android:textSize="15dp" />
+        android:textColor="@color/text_color"
+        android:textSize="18sp" />
 	
 
 		<Button
            android:id="@+id/drilapp"
            android:layout_below="@id/abaoutHead"
-           android:layout_marginTop="40dp"    
+           android:layout_marginTop="20dp"    
            style="@style/pageLink"
            android:autoLink="web"
            android:onClick="goToDrilAppPage"
@@ -57,14 +48,26 @@
            android:text="@string/fb"
            android:textColor="@color/text_color" />
        
-       <Button
+        <Button
+           android:id="@+id/donateDril"
            style="@style/pageLink"
            android:layout_below="@id/fbWebPage"
+           android:layout_marginTop="15dp"
+           android:autoLink="web"
+           android:onClick="donateDril"
+           android:text="@string/donate"
+           android:textColor="@color/text_color" />
+       
+       <Button
+           style="@style/pageLink"
+           android:layout_below="@id/donateDril"
            android:layout_marginTop="15dp"
            android:autoLink="email"
            android:onClick="sendEmail"
            android:text="@string/email" 
            android:textColor="@color/text_color" />
+       
+        
      	
       
     <TextView 
@@ -75,9 +78,9 @@
         android:text="@string/copy"
         android:gravity="center"
         android:textColor="#333333"
-        android:textSize="10dp"
+        android:textSize="14sp"
         android:paddingTop="5dp"
-        android:paddingBottom="12dp"
+        android:paddingBottom="14dp"
         />
     
     <TextView 
@@ -87,6 +90,6 @@
 		android:layout_above="@id/copy"
         android:gravity="center"
         android:textColor="#333333"
-        android:textSize="10dp"
+        android:textSize="14sp"
         />
 </RelativeLayout>

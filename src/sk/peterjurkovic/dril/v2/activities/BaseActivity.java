@@ -103,7 +103,8 @@ public class BaseActivity extends ActionBarActivity {
 	    		startActivity(intent);
 		        return true;
 		    case R.id.feedback:
-				
+		    	Intent i = new Intent(this, FeedbackActivity.class);
+        		startActivity(i);
 		        return true;
 			case R.id.startDril:
 				intent = new Intent(getApplicationContext(), DrilActivity.class);

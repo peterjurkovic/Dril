@@ -5,12 +5,13 @@
     >
 <RelativeLayout 
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/repeat" >
-
+    android:layout_height="wrap_content" >
+	
+    <TextView style="@style/separator" android:layout_marginBottom="10dp"	/>
   
     <LinearLayout 
         android:id="@+id/info1"
+       
         style="@style/infoWrapper" >
 		    <TextView 
 		        style="@style/infoH1"
@@ -49,7 +50,7 @@
 		        />
 	    <TableRow android:layout_marginBottom="10dp" >
 	         <Button
-	            style="@style/infoBtn"
+	            style="@style/v2infoBtn"
 	            android:background="@drawable/btn_1" 
 	            android:text="@string/btn_1" />
 	        
@@ -60,7 +61,7 @@
 	    
 	     <TableRow android:layout_marginBottom="10dp" >
 	        <Button
-	            style="@style/infoBtn"
+	            style="@style/v2infoBtn"
 	            android:background="@drawable/btn_2" 
 	            android:text="@string/btn_2" />
 	        
@@ -71,7 +72,7 @@
 	    
 	     <TableRow android:layout_marginBottom="10dp" >
 	         <Button
-	            style="@style/infoBtn"
+	            style="@style/v2infoBtn"
 	            android:background="@drawable/btn_3" 
 	            android:text="@string/btn_3" />
 	        
@@ -82,7 +83,7 @@
 	    
 	     <TableRow android:layout_marginBottom="10dp" >
 	         <Button
-	            style="@style/infoBtn"
+	            style="@style/v2infoBtn"
 	            android:background="@drawable/btn_4" 
 	            android:text="@string/btn_4" />
 	        
@@ -93,7 +94,7 @@
 	    
 	      <TableRow>
 	         <Button
-	            style="@style/infoBtn"
+	            style="@style/v2infoBtn"
 	            android:background="@drawable/btn_5" 
 	            android:text="@string/btn_5" />
 	        

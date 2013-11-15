@@ -6,6 +6,11 @@ public class Constants {
 	public static int STATUS_DEACTIVE = 0;
 	
 	public static final String DRIL_HOMEPAGE_URL = "http://www.drilapp.com";
+	public static final String PORTFOLIO_URL = "www.peterjurkovic.com";
+	public static final String FACEBOOK_URL = "https://www.facebook.com/drilAnglictinaEfektivne";
+	public static final String CONTACT_EMAIL = "info@drilapp.com";
+	public static final String DONATE_URL = "http://www.drilapp.com/sk/kontakt";
+	
 	public static final String API_URL = "http://192.168.1.34/export2.php";
 	
 	public static final int DELAY_BEFORE_PRONUNCIATION = 1500;

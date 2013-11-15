@@ -76,7 +76,7 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	        btn_info.setOnClickListener(new View.OnClickListener() {
 	            @Override
 				public void onClick(View view) {
-	            	Intent i = new Intent(context, PreferencesActivity.class);
+	            	Intent i = new Intent(context, HelpActivity.class);
             		startActivity(i);
 		        }
 		    });

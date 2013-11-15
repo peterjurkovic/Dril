@@ -2,10 +2,14 @@ package sk.peterjurkovic.dril.v2.activities;
 
 
 import sk.peterjurkovic.dril.R;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 
 /**
  * 
@@ -21,6 +25,7 @@ public class ImportMenuActivity extends BaseActivity {
 	
 	private long id = 0;
 	private boolean createLecture = false;
+	private Context context;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +35,12 @@ public class ImportMenuActivity extends BaseActivity {
 		 Intent i = getIntent();
 		 id = i.getLongExtra(EXTRA_ID, 0);
 		 createLecture = i.getBooleanExtra(EXTRA_CREATE_LECTURE, false);
-		
+		 context = this;
 		 if(id != 0){
 			 LinearLayout importViaCsvBtn = (LinearLayout)findViewById(R.id.importViaCsv);
 	         importViaCsvBtn.setOnClickListener(new View.OnClickListener() {
 	         public void onClick(View v) {
+	        	 logAction("csv_import");
                  Intent i = new Intent(ImportMenuActivity.this, ImportFileActivity.class);
                  i.putExtra(EXTRA_IS_CSV, true);
                  startImportActivity(i);
@@ -44,6 +50,7 @@ public class ImportMenuActivity extends BaseActivity {
 	         LinearLayout importViaIdBtn = (LinearLayout)findViewById(R.id.importViaId);     
 	         importViaIdBtn.setOnClickListener(new View.OnClickListener() {
 	         public void onClick(View v) {
+	        	 logAction("import_id");
                  Intent i = new Intent(ImportMenuActivity.this, ImportWebActivity.class);
                  startImportActivity(i);
 	         }
@@ -52,6 +59,7 @@ public class ImportMenuActivity extends BaseActivity {
 	         LinearLayout importViaXlsBtn = (LinearLayout)findViewById(R.id.importViaXls);
 	         importViaXlsBtn.setOnClickListener(new View.OnClickListener() {
 	         public void onClick(View v) {
+	        	 logAction("xls_import");
                  Intent i = new Intent(ImportMenuActivity.this, ImportFileActivity.class);
                  i.putExtra(EXTRA_IS_CSV, false);
                  startImportActivity(i);
@@ -65,5 +73,15 @@ public class ImportMenuActivity extends BaseActivity {
 		intent.putExtra(EXTRA_ID, id);
 		intent.putExtra(EXTRA_CREATE_LECTURE, createLecture);
         startActivity(intent);
+	}
+	
+	private void logAction(final String name){
+		 EasyTracker tracker = EasyTracker.getInstance(context);
+  		tracker.send(MapBuilder.createEvent(
+  					"ui_action", 
+  					"button_press", 
+  					name, 
+  					null)
+  				.build());
 	}
 }

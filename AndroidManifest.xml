@@ -81,6 +81,12 @@
             	  android:parentActivityName=".v2.activities.ImportMenuActivity" />
         <activity android:name=".v2.activities.ImportWebActivity" 
             	  android:parentActivityName=".v2.activities.ImportMenuActivity" />
+        
+         <activity android:name=".v2.activities.FeedbackActivity" 
+            	  android:parentActivityName=".v2.activities.DashboardActivity" />
+         
+         <activity android:name=".v2.activities.HelpActivity" 
+            	  android:parentActivityName=".v2.activities.DashboardActivity" />
          
          
         

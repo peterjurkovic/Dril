@@ -8,7 +8,7 @@ public class InfoActivity extends MainActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.info_activity);
+		setContentView(R.layout.v2_help_layout);
 		
 		
   

@@ -208,14 +208,7 @@
 	    <item name="android:textSize">15sp</item>
 	    <item name="android:textColor">@color/h1</item>
     </style>
-    <style name="infoBtn">
-        <item name="android:layout_width">50dp</item>
-        <item name="android:layout_height">55dp</item>
-        <item name="android:textColor">#FFF</item>
-        <item name="android:textSize">10sp</item>
-        <item name="android:paddingTop">37dp</item>
-        <item name="android:clickable">false</item>
-    </style>
+   
     <style name="infoBtnLable">
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:width">0dp</item>
@@ -383,5 +376,12 @@
 	    <item name="android:layout_marginTop">4dp</item>
 	    <item name="android:textColor">@color/text_color</item>
 	    <item name="android:textSize">12sp</item>
+    </style>
+    
+    <style name="v2infoBtn">
+        <item name="android:textColor">#fff</item>
+        <item name="android:clickable">false</item>
+        <item name="android:width">50dp</item>
+        <item name="android:height">50dp</item>
     </style>
 </resources>
