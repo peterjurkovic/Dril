@@ -10,7 +10,23 @@
 	
 	    <TextView style="@style/separator" 	/>	
 	    
+	  
 	   <LinearLayout
+	       android:id="@+id/importViaId"
+	       style="@style/v2importMenu"
+	       android:background="@drawable/v2_imprt_importid" >
+			    
+			    <TextView
+			        style="@style/v2importHead"
+			        android:text="@string/import_via_id" />
+			     
+			     <TextView
+			         style="@style/v2importDscr"
+			         android:text="@string/import_via_id_descr" />
+	
+	    </LinearLayout>
+	    
+	    <LinearLayout
 	       android:id="@+id/importViaCsv"
 	       style="@style/v2importMenu"
 	       android:background="@drawable/v2_import_csv" >
@@ -25,22 +41,22 @@
 	
 	    </LinearLayout>
     
-   
-   
-   <LinearLayout
-       android:id="@+id/importViaId"
-       style="@style/v2importMenu"
-       android:background="@drawable/v2_imprt_importid" >
-		    
-		    <TextView
-		        style="@style/v2importHead"
-		        android:text="@string/import_via_id" />
-		     
-		     <TextView
-		         style="@style/v2importDscr"
-		         android:text="@string/import_via_id_descr" />
-
-    </LinearLayout>
+	    
+	     <LinearLayout
+	       android:id="@+id/importViaXls"
+	       style="@style/v2importMenu"
+	       android:background="@drawable/v2_import_xls" >
+			    
+			     <TextView
+			        style="@style/v2importHead"
+			        android:text="@string/import_via_xls" />
+			     
+			     <TextView
+			         style="@style/v2importDscr"
+			         android:text="@string/import_via_xls_descr" />
+	
+	    </LinearLayout>
+    
     
 </LinearLayout>
 </ScrollView>

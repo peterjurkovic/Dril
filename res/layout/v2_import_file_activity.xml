@@ -38,38 +38,43 @@
 	    android:text="@string/csv_choose"
 	    />
 	
-	
-	<LinearLayout 
-		style="@style/infoWrapper" >
-		    <TextView 
-		        style="@style/infoH1"
-		        android:text="@string/what_is_csv"/>
-		    
-		     <TextView 
-		        style="@style/infoTextDescr"
-		        android:text="@string/csv_label"/>
-    </LinearLayout>
-    
-	<LinearLayout 
-		style="@style/infoWrapper" >
-		    <TextView 
-		        style="@style/infoH1"
-		        android:text="@string/how_it_create"/>
-		    
-		     <TextView 
-		        style="@style/infoTextDescr"
-		        android:text="@string/csv_create"/>
-    </LinearLayout>
-    
-	<LinearLayout 
-		style="@style/infoWrapper" >
-		    <TextView 
-		        style="@style/infoH1"
-		        android:text="@string/csv_format"/>
-		    
-		     <TextView 
-		        style="@style/infoTextDescr"
-		        android:text="@string/csv_format_label"/>
-    </LinearLayout>
-</LinearLayout>
+
+			<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content">
+		
+				<LinearLayout 
+					style="@style/infoWrapper" >
+					    <TextView 
+					        style="@style/infoH1"
+					        android:text="@string/what_is_csv"/>
+					    
+					     <TextView 
+					        style="@style/infoTextDescr"
+					        android:text="@string/csv_label"/>
+			    </LinearLayout>
+			    
+				<LinearLayout 
+					style="@style/infoWrapper" >
+					    <TextView 
+					        style="@style/infoH1"
+					        android:text="@string/how_it_create"/>
+					    
+					     <TextView 
+					        style="@style/infoTextDescr"
+					        android:text="@string/csv_create"/>
+			    </LinearLayout>
+			    
+				<LinearLayout 
+					style="@style/infoWrapper" >
+					    <TextView 
+					        style="@style/infoH1"
+					        android:text="@string/csv_format"/>
+					    
+					     <TextView 
+					        style="@style/infoTextDescr"
+					        android:text="@string/csv_format_label"/>
+			    </LinearLayout>
+		    </LinearLayout>
+	</LinearLayout>
 </ScrollView>

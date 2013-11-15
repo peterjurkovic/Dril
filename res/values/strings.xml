@@ -125,7 +125,9 @@
     <string name="import_failed">import failed, check your csv format.</string>
     <string name="import_success">Successfully imported!\nCount of new words: %1$d</string>
     <string name="import_via_csv">Import via CSV file</string>
-    <string name="import_via_csv_descr">Choose your csv file from devices storage</string>
+    <string name="import_via_csv_descr">Choose your CSV file from devices storage</string>
+    <string name="import_via_xls">Import via Excel file</string>
+    <string name="import_via_xls_descr">Choose your XLS file from devices storage</string>
     <string name="import_via_id">Import via drilapp.com</string>
     <string name="import_via_id_descr">Insert your generated import ID from drilapp.com page.</string>
     <string name="import_id">Import ID</string>

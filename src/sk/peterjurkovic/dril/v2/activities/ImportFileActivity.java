@@ -1,16 +1,14 @@
 package sk.peterjurkovic.dril.v2.activities;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import sk.peterjurkovic.dril.R;
-import sk.peterjurkovic.dril.csv.CSVReader;
 import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.model.Word;
+import sk.peterjurkovic.dril.readers.CsvStorageFileReader;
+import sk.peterjurkovic.dril.readers.StorageFileReader;
+import sk.peterjurkovic.dril.readers.XlsStorageFileReader;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -29,7 +27,7 @@ import android.widget.TextView;
 
 
 
-public class ImportCsvActivity extends BaseActivity {
+public class ImportFileActivity extends BaseActivity {
 	
 	
 	private static final int ACTIVITY_CHOOSE_FILE = 1;
@@ -37,20 +35,25 @@ public class ImportCsvActivity extends BaseActivity {
 	private long bookId = 0;
 	private long lectureId = 0;
 	private boolean createLecture = true;
+	private boolean isCsvImport = true;
 	
 	private TextView label = null;
 	private EditText input = null;
+	
+	private StorageFileReader storageFileReader;
 	
 
 	
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.v2_import_csv_activity);
-
+	    setContentView(R.layout.v2_import_file_activity);
+	    
+	    
 	    Intent i = getIntent();
 	    createLecture = i.getBooleanExtra(ImportMenuActivity.EXTRA_CREATE_LECTURE, false);
-	   
+	    isCsvImport = i.getBooleanExtra(ImportMenuActivity.EXTRA_IS_CSV, true);
+	    
 	    if(createLecture){
 		   bookId = i.getLongExtra(ImportMenuActivity.EXTRA_ID, 0);
 		   initInputs();
@@ -150,9 +153,17 @@ public class ImportCsvActivity extends BaseActivity {
 			  
 				@Override
 				protected Integer doInBackground(Void... params) {
-					List<Word> words = readFile(filePath);
+					List<Word> words = null;
+					
+					if(isCsvImport){
+						storageFileReader = new CsvStorageFileReader(context);
+					}else{
+						storageFileReader = new XlsStorageFileReader(context);
+					}
+					words = storageFileReader.readFile(filePath, lectureId);
 					if(words == null || words.size() == 0){
 						removeCreatedLecture(lectureId, context);
+						return -1;
 					}
 					WordDBAdapter wordDBAdapter = null;
 					try{
@@ -188,39 +199,7 @@ public class ImportCsvActivity extends BaseActivity {
 	  
 			
 			
-	  private List<Word> readFile(String fileLocation){
-			CSVReader reader = null;
-			List<Word> words = new ArrayList<Word>();
-			try {
-				reader = new CSVReader( new FileReader(fileLocation) );
-
-			    String[] nextLine;
-			    while ((nextLine = reader.readNext()) != null) {
-			    	
-			        if(nextLine.length == 2){
-			        	words.add(new Word(nextLine[0], nextLine[1], lectureId));
-			        	Log.d("CSV",  nextLine[0] + " - " + nextLine[1]);
-			        }
-			    	
-			    } 
-			} catch (FileNotFoundException e) {
-				Log.e("FILERIEDER", "CSV file not found", e);
-
-			} catch (IOException e) {
-				Log.e("FILERIEDER", "PARSER ERROR", e);
-			}catch (Exception e) {
-				Log.e("FILERIEDER", "Parsing error: ", e);
-			}finally{
-				try {
-					if(reader != null){
-						reader.close();
-					}
-				} catch (IOException e) {
-					Log.e("FILERIEDER", "CAN NOT CLOSE FILE", e);
-				}
-			}
-			  return words;
-		  }
+	 
 	  
 	  
 	  public void showResultDialog(final String responseMsg, final int result){

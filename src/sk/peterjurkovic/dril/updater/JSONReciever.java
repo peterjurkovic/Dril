@@ -15,7 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import sk.peterjurkovic.dril.v2.constants.Constants;
-import android.os.Looper;
 import android.util.Log;
 
 public class JSONReciever {
@@ -51,20 +50,17 @@ public class JSONReciever {
 	           	            
 	            DefaultHttpClient httpClient = new DefaultHttpClient();
 	            HttpPost httpPost = new HttpPost(getRequestURL(action));
+	            httpPost.setHeader("Authorization" , Constants.HTTP_AUTH_VAL);
 	            Log.d("HTTP", "Sending request: " + getRequestURL(action));
 	            HttpResponse response = httpClient.execute(httpPost);
 	            Log.i("HTTP",response.getStatusLine().toString());
 	            
-	        
-	            if(response == null || response.getEntity() == null){
-	            	Log.e("HTTP", "Response is null");
-	            	throw new Error("HTTP Response is null");
+	            final int httpStatus =  response.getStatusLine().getStatusCode();
+	           
+	            if(httpStatus == 200){
+	            	HttpEntity httpEntity = response.getEntity();
+	            	is = httpEntity.getContent();
 	            }
-	            
-	            HttpEntity httpEntity = response.getEntity();
-
-	            
-	            is = httpEntity.getContent();           
 	            Log.e("HTTP", "DATA RECIEVED!");
 	        } catch (UnsupportedEncodingException e) {
 	        	Log.e("HTTP Error", e.getMessage());

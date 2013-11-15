@@ -77,7 +77,7 @@
         
         <activity android:name=".v2.activities.ImportMenuActivity" 
             	  android:parentActivityName=".v2.activities.LectureListActivity" />
-         <activity android:name=".v2.activities.ImportCsvActivity" 
+         <activity android:name=".v2.activities.ImportFileActivity" 
             	  android:parentActivityName=".v2.activities.ImportMenuActivity" />
         
     </application>

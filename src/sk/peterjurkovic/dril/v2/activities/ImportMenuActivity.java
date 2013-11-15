@@ -18,6 +18,7 @@ public class ImportMenuActivity extends BaseActivity {
 	
 	public static final String EXTRA_ID = "extra_id";
 	public static final String EXTRA_CREATE_LECTURE = "extra_only_words";
+	public static final String EXTRA_IS_CSV = "extra_is_csv";
 	
 	private long id = 0;
 	private boolean createLecture = false;
@@ -32,28 +33,34 @@ public class ImportMenuActivity extends BaseActivity {
 		 createLecture = i.getBooleanExtra(EXTRA_CREATE_LECTURE, false);
 		
 		 if(id != 0){
-			 
-		 
 			 LinearLayout importViaCsvBtn = (LinearLayout)findViewById(R.id.importViaCsv);
-		        
 	         importViaCsvBtn.setOnClickListener(new View.OnClickListener() {
 	         public void onClick(View v) {
-                 Intent i = new Intent(ImportMenuActivity.this, ImportCsvActivity.class);
+                 Intent i = new Intent(ImportMenuActivity.this, ImportFileActivity.class);
+                 i.putExtra(EXTRA_IS_CSV, true);
                  startImportActivity(i);
 	         }
 	         });
-	         
-	         
-	         LinearLayout importViaIdBtn = (LinearLayout)findViewById(R.id.importViaId);
-	         
+	             
+	         LinearLayout importViaIdBtn = (LinearLayout)findViewById(R.id.importViaId);     
 	         importViaIdBtn.setOnClickListener(new View.OnClickListener() {
 	         public void onClick(View v) {
                  Intent i = new Intent(ImportMenuActivity.this, ImportIdActivity.class);
                  startImportActivity(i);
 	         }
 	         });
+	         	         
+	         LinearLayout importViaXlsBtn = (LinearLayout)findViewById(R.id.importViaXls);
+	         importViaXlsBtn.setOnClickListener(new View.OnClickListener() {
+	         public void onClick(View v) {
+                 Intent i = new Intent(ImportMenuActivity.this, ImportFileActivity.class);
+                 i.putExtra(EXTRA_IS_CSV, false);
+                 startImportActivity(i);
+	         }
+	         });
 		 }
 	}
+	
 	
 	private void startImportActivity(Intent intent){
 		intent.putExtra(EXTRA_ID, id);

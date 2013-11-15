@@ -10,5 +10,6 @@
 			<attribute name="javadoc_location" value="jar:file:/home/peto/workspace/GoogleAnalyticsServicesAndroid_3.01/ga/javadocs.zip!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/jxl.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
