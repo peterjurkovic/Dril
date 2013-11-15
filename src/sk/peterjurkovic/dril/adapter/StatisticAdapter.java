@@ -47,8 +47,8 @@ public class StatisticAdapter extends CursorAdapter {
          }
 		 this.c.moveToPosition(position);
 		 			 	
-		 	holder.drilDateIndex = c.getColumnIndex( StatisticDbAdapter.DATE_LOCALTIME );
-			holder.rateIndex = c.getColumnIndex(StatisticDbAdapter.RATE);
+		 	//holder.drilDateIndex = c.getColumnIndex( StatisticDbAdapter.DATE_LOCALTIME );
+			holder.rateIndex = c.getColumnIndex(StatisticDbAdapter.AVG_RATE_SESSION);
 			holder.hitIndex = c.getColumnIndex(StatisticDbAdapter.HITS);
 			
 		 	String date = customDateFormat(c.getString( holder.drilDateIndex ));

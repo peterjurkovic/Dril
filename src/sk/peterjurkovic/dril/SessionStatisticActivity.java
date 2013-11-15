@@ -67,7 +67,7 @@ public class SessionStatisticActivity extends ListActivity {
 		Cursor listCursor = null;
 	    StatisticDbAdapter statisticDbAdapter = new StatisticDbAdapter(this);
 	    try{
-	    	listCursor = statisticDbAdapter.getSessionsStatistics();
+	    //	listCursor = statisticDbAdapter.getSessionsStatistics();
 	    	statisticAdapter = new StatisticAdapter(this, listCursor, false);
 		    setListAdapter(statisticAdapter);
 	    } catch (Exception e) {

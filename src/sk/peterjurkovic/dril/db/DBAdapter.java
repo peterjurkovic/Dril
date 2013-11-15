@@ -81,9 +81,8 @@ public class DBAdapter{
 		        			db.execSQL("ALTER TABLE word ADD COLUMN created INTEGER DEFAULT (0)");
 		        			db.execSQL("ALTER TABLE word ADD COLUMN avg_rate REAL NOT NULL DEFAULT (0)");
 		        			
-		        			db.execSQL("ALTER TABLE statistic ADD COLUMN learned_count INTEGER NOT NULL DEFAULT (0)");
-		        			db.execSQL("ALTER TABLE statistic ADD COLUMN avg_rate_session REAL NOT NULL DEFAULT (0)");
-		        			db.execSQL("ALTER TABLE statistic ADD COLUMN avg_rate_global REAL NOT NULL DEFAULT (0)");
+		        			db.execSQL("DROP TABLE IF EXISTS statistic");
+		        			db.execSQL(StatisticDbAdapter.TABLE_STATISTIC_CREATE);
 		        		break;
 		        	}
 	        		db.setTransactionSuccessful();

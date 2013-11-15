@@ -108,7 +108,7 @@ public class Word implements Comparable<Word>{
 		this.rate = rate;
 	}
 	
-	public void increaseHit(){
+	public synchronized void increaseHit(){
 		hit++;
 	}
 	

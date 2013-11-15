@@ -250,14 +250,26 @@ public class WordDBAdapter extends DBAdapter {
 				ACTIVE + "=" + booelanToInt(word.isActive()) + " "+
 		"WHERE " + WORD_ID + "=" + word.getId() + ";";
     	db.execSQL(q);
+    	
+    
+    	
+    	Cursor c = db.rawQuery("SELECT avg("+AVG_RATE+") FROM " + TABLE_WORD +  " WHERE " + HIT + "> 1", null);
+    	
+    	double avg = 0;
+    	if (c.moveToFirst()) {
+    		avg = c.getDouble(0);
+    	}
+    	c.close();
+    	
+    	Log.i("w", "AVG RATE: "+ avg );
+    	
 		/*
 		q = "UPDATE `"+ StatisticDbAdapter.TABLE_STATISTIC + "` " +
 		"SET `"+ StatisticDbAdapter.HIT +"`=`"+ StatisticDbAdapter.HIT +"`+1, `"+
 			StatisticDbAdapter.RATE +"`=`"+ StatisticDbAdapter.RATE +"`+" +word.getRate()+" "+ 
 		"WHERE "+StatisticDbAdapter.STATISTIC_ID +"=" + statisticId + ";";
 		db.execSQL(q);    
-		*/
-			
+		*/	
     	db.close();
     }
     
