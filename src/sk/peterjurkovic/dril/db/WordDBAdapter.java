@@ -249,19 +249,29 @@ public class WordDBAdapter extends DBAdapter {
     			AVG_RATE+"="+word.getAvgRate()+", " +
 				ACTIVE + "=" + booelanToInt(word.isActive()) + " "+
 		"WHERE " + WORD_ID + "=" + word.getId() + ";";
+    	Log.i("SQL",q);
     	db.execSQL(q);
     	
     
     	
-    	Cursor c = db.rawQuery("SELECT avg("+AVG_RATE+") FROM " + TABLE_WORD +  " WHERE " + HIT + "> 1", null);
+    	Cursor c = db.rawQuery("SELECT avg("+AVG_RATE+"), sum("+ HIT +"), sum("+ LAST_RATE +") "+
+    						   "FROM " + TABLE_WORD +  " WHERE " + HIT + "> 0", null);
     	
     	double avg = 0;
+    	double avg2 = 0;
+    	int sumOfHits = 0;
+    	int sumOfLastRate = 0;
     	if (c.moveToFirst()) {
     		avg = c.getDouble(0);
+    		sumOfHits = c.getInt(1);
+    		sumOfLastRate = c.getInt(2);
+    		if(sumOfHits > 0){
+    			avg2 = (double)sumOfLastRate / sumOfHits;
+    		}
     	}
     	c.close();
     	
-    	Log.i("w", "AVG RATE: "+ avg );
+    	Log.i("w", "AVG RATE: "+ avg +" / "+ avg2 +"  SUM HITS: "+ sumOfHits + " SUM RATE: "+ sumOfLastRate );
     	
 		/*
 		q = "UPDATE `"+ StatisticDbAdapter.TABLE_STATISTIC + "` " +
@@ -276,12 +286,15 @@ public class WordDBAdapter extends DBAdapter {
     
     public void activateWordRandomly(long lectureid, int countOfWordsToActivate){
     	SQLiteDatabase db = openWriteableDatabase();
+    	db.beginTransaction();
     	for(int i=0; i < countOfWordsToActivate; i++){
     		db.execSQL("UPDATE "+TABLE_WORD+" SET "+ACTIVE+"=1 WHERE "+WORD_ID+
     					"=(SELECT "+WORD_ID +" "+ "FROM "+TABLE_WORD+" WHERE "+
     					ACTIVE+"=0 AND "+FK_LECTURE_ID+"="+lectureid+
     					" ORDER BY RANDOM() LIMIT 1)");
     	}
+    	db.setTransactionSuccessful();
+    	db.endTransaction();
     	db.close();
     }
     

@@ -5,6 +5,8 @@ import java.util.Locale;
 
 import sk.peterjurkovic.dril.DrilService;
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.dao.StatisticsDao;
+import sk.peterjurkovic.dril.dao.StatisticsDaoImpl;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.dto.WordToPronauceDto;
 import sk.peterjurkovic.dril.model.Word;
@@ -137,6 +139,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
         }else{
         	layout.setVisibility(View.VISIBLE);
         	tryNextWord();
+        	initStatistics();
         }
         
         logInit();
@@ -219,21 +222,6 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	}
     	
     }
-    
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-    	//outState.putLong(STATISTIC_ID_KEY, statisticId);
-    	super.onSaveInstanceState(outState);
-    }
-    
-    @Override
-    protected void onPause() {
-    	super.onPause();
-    	//saveStatisticId();
-    }
-   
-
-    
     
     public void drilFinished(int resourceId){
     	layout.setVisibility(View.INVISIBLE);
@@ -480,5 +468,10 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
          		.set("wordCount", drilService.getCountOfWords() + "")
          		.build()
          		);
+    }
+    
+    private void initStatistics(){
+    	StatisticsDao statisticsDao = new StatisticsDaoImpl(this);
+    	drilService.setStatistics(statisticsDao.getSessionStatisticsOrCreateNew());
     }
 }

@@ -114,21 +114,23 @@ public class StatisticDbAdapter extends DBAdapter{
 	}
     
     private Statistics createObject(Cursor cursor){
-    	if(cursor == null || cursor.isClosed() || cursor.getCount() != 1){
+    	if(cursor == null || cursor.isClosed()){
     		return null;
     	}
-    	cursor.moveToFirst();
-    	Statistics stats = new Statistics();
-    	stats.setId(cursor.getLong(cursor.getColumnIndex(STATISTIC_ID)));
-    	stats.setChanged(cursor.getLong(cursor.getColumnIndex(CHANGED_COLL)));
-    	stats.setCreated(cursor.getLong(cursor.getColumnIndex(CREATED_COLL)));
-    	stats.setAvgGlobalRate(cursor.getDouble(cursor.getColumnIndex(AVG_RATE_GLOBAL)));
-    	stats.setAvgSessionRate(cursor.getDouble(cursor.getColumnIndex(AVG_RATE_SESSION)));
-    	stats.setHits(cursor.getInt(cursor.getColumnIndex(HITS)));
-    	stats.setLearnedCards(cursor.getInt(cursor.getColumnIndex(LEARNED_CARDS)));
-    	stats.setSumOfRate(cursor.getInt(cursor.getColumnIndex(SUM_OF_RATE)));
-    	cursor.close();
-    	return stats;
+    	if(cursor.moveToFirst()){
+	    	Statistics stats = new Statistics();
+	    	stats.setId(cursor.getLong(cursor.getColumnIndex(STATISTIC_ID)));
+	    	stats.setChanged(cursor.getLong(cursor.getColumnIndex(CHANGED_COLL)));
+	    	stats.setCreated(cursor.getLong(cursor.getColumnIndex(CREATED_COLL)));
+	    	stats.setAvgGlobalRate(cursor.getDouble(cursor.getColumnIndex(AVG_RATE_GLOBAL)));
+	    	stats.setAvgSessionRate(cursor.getDouble(cursor.getColumnIndex(AVG_RATE_SESSION)));
+	    	stats.setHits(cursor.getInt(cursor.getColumnIndex(HITS)));
+	    	stats.setLearnedCards(cursor.getInt(cursor.getColumnIndex(LEARNED_CARDS)));
+	    	stats.setSumOfRate(cursor.getInt(cursor.getColumnIndex(SUM_OF_RATE)));
+	    	cursor.close();
+	    	return stats;
+    	}
+    	return null;
     }
     
     public boolean updateStatistics(final Statistics statistics){
@@ -143,7 +145,7 @@ public class StatisticDbAdapter extends DBAdapter{
     }
     
     public long createStatistics(Statistics statistics){
-    	if(statistics == null || statistics.getId() == 0){
+    	if(statistics == null || statistics.getId() != 0){
     		return 0;
     	}
     	SQLiteDatabase db = openWriteableDatabase();

@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import sk.peterjurkovic.dril.dao.StatisticsDao;
 import sk.peterjurkovic.dril.dao.WordDao;
 import sk.peterjurkovic.dril.dao.WordDaoImpl;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
-import sk.peterjurkovic.dril.dto.WordToPronauceDto;
+import sk.peterjurkovic.dril.model.Statistics;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.NumberUtils;
-import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.util.Log;
 
 public class DrilService {
@@ -23,7 +21,7 @@ public class DrilService {
 	private int position = 0;
 	private int hits = 0;
 	private WordDao wordDao;
-	private StatisticsDao statisticsDao;
+	private Statistics statistics;
 	private List<Word> activatedWords = new ArrayList<Word>();
 	
 	
@@ -191,10 +189,16 @@ public class DrilService {
 	public int getCountOfWords(){
 		return activatedWords.size();
 	}
-	
-	
-	public void updateStatisticsInNewThread(int rating){
-		
+
+	public Statistics getStatistics() {
+		return statistics;
 	}
+
+	public void setStatistics(Statistics statistics) {
+		this.statistics = statistics;
+	}
+
+	
+
 }
 ;

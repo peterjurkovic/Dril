@@ -59,5 +59,14 @@ public class Statistics extends AbstractEntity{
 			learnedCards++;
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "Statistics [id="+getId()+", hits=" + hits + ", avgSessionRate="
+				+ avgSessionRate + ", avgGlobalRate=" + avgGlobalRate
+				+ ", learnedCards=" + learnedCards + ", sumOfRate=" + sumOfRate
+				+ "]";
+	}
+	
 	
 }
