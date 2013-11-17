@@ -3,15 +3,16 @@ package sk.peterjurkovic.dril.db;
 import java.util.List;
 import java.util.Set;
 
-import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.model.Statistics;
 import sk.peterjurkovic.dril.model.Word;
+import sk.peterjurkovic.dril.utils.ConversionUtils;
+import sk.peterjurkovic.dril.utils.NumberUtils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
 public class WordDBAdapter extends DBAdapter {
 	
@@ -25,17 +26,19 @@ public class WordDBAdapter extends DBAdapter {
 	public static final String FK_LECTURE_ID = "lecture_id";
 	public static final String LAST_RATE = "rate";
 	public static final String AVG_RATE = "avg_rate";
+	public static final String FAVORITE = "favorite";
 	public static final String HIT = "hit";
 	public static final String TABLE_WORD_CREATE = "CREATE TABLE "+ TABLE_WORD + " ( "+ 
 														WORD_ID + " INTEGER PRIMARY KEY, "+ 
 														QUESTION +" TEXT, "+ 
 														ANSWER +" TEXT, " + 
-														ACTIVE + " INTEGER NOT NULL  DEFAULT (0), "+ 
+														ACTIVE + " INTEGER NOT NULL DEFAULT (0), "+ 
 														FK_LECTURE_ID  + " INTEGER," +
-														LAST_RATE  + " INTEGER NOT NULL  DEFAULT (0)," +
+														LAST_RATE  + " INTEGER NOT NULL DEFAULT (0)," +
 														HIT  + " INTEGER NOT NULL  DEFAULT (0), " +
 														CHANGED_COLL +" INTEGER DEFAULT (0), " + 
 														CREATED_COLL +" INTEGER DEFAULT (0), " +
+														FAVORITE +" INTEGER DEFAULT (0), " +
 														AVG_RATE  + " REAL NOT NULL DEFAULT (0) " +
 													");";
 	
@@ -49,6 +52,7 @@ public class WordDBAdapter extends DBAdapter {
 				HIT, 
 				CHANGED_COLL,
 				CREATED_COLL,
+				FAVORITE,
 				AVG_RATE
 			};
 	
@@ -77,7 +81,7 @@ public class WordDBAdapter extends DBAdapter {
 
     
     
-    public Cursor getWordByLctureId(long lectureId) {
+    public Cursor getWordByLctureId(final long lectureId) {
     	SQLiteDatabase db = openReadableDatabase();
     	String[] selectionArgs = { String.valueOf(lectureId) };
     	Cursor result = db.query(TABLE_WORD, columns, FK_LECTURE_ID + "= ?", 
@@ -87,7 +91,7 @@ public class WordDBAdapter extends DBAdapter {
     
     
     
-    public long insertWord(long lectureId, String question, String answer) {
+    public long insertWord(final long lectureId,final String question,final String answer) {
         SQLiteDatabase db = openWriteableDatabase();        
         ContentValues values = new ContentValues();
         values.put(QUESTION, question);
@@ -102,7 +106,7 @@ public class WordDBAdapter extends DBAdapter {
     }
     
     
-    public boolean deleteWord(long id) {
+    public boolean deleteWord(final long id) {
         SQLiteDatabase db = openWriteableDatabase();
         String[] args = { String.valueOf(id)};
         long deletedCount = db.delete(TABLE_WORD, WORD_ID+ "=?", args);
@@ -119,7 +123,7 @@ public class WordDBAdapter extends DBAdapter {
           db.close();
     }
     
-    public Cursor getWord(long wordId) {
+    public Cursor getWord(final long wordId) {
     	SQLiteDatabase db = openReadableDatabase();
     	String[] selectionArgs = { String.valueOf(wordId) };
     	Cursor result = db.query(TABLE_WORD, columns, WORD_ID + "= ?", 
@@ -240,47 +244,59 @@ public class WordDBAdapter extends DBAdapter {
 		db.close();
 	}
     
-    public void updateReatedWord(Word word){
+    public void updateReatedWord(Word word, Statistics statistics){
     	SQLiteDatabase db = openWriteableDatabase();
-    	String q = "UPDATE " + TABLE_WORD + " " +
+    	db.beginTransaction();
+    	db.execSQL( createUpdateRatedWordQuery(word) );
+    	recomputeStatistics(db, statistics, word);
+    	db.execSQL( createUpdateStatisticsQuery(statistics) );
+    	Log.i("SQL", createUpdateStatisticsQuery(statistics));
+    	db.setTransactionSuccessful();
+    	db.endTransaction();
+    	db.close();
+    }
+    
+    
+    private String createUpdateStatisticsQuery(final Statistics statistics){
+    	return  "UPDATE `"+ StatisticDbAdapter.TABLE_STATISTIC + "` " +
+    			 	"SET `"+ StatisticDbAdapter.HITS +"`="+ statistics.getHits() + ", "+ 
+    			 	"`"+StatisticDbAdapter.LEARNED_CARDS +"`="+ statistics.getLearnedCards() + ", "+
+    			 	"`"+StatisticDbAdapter.CHANGED_COLL +"`="+ System.currentTimeMillis() + ", "+
+    			 	"`"+StatisticDbAdapter.AVG_RATE_SESSION +"`="+ statistics.getAvgSessionRate() + ", "+
+    			 	"`"+StatisticDbAdapter.AVG_RATE_GLOBAL +"`="+ statistics.getAvgGlobalRate() + 	
+    		" WHERE "+StatisticDbAdapter.STATISTIC_ID +"=" + statistics.getId() + ";";
+    }
+    
+    private String createUpdateRatedWordQuery(final Word word){
+    	return  "UPDATE " + TABLE_WORD + " " +
     			"SET "+ 
     			HIT +"="+ HIT +"+1, "+ 
     			LAST_RATE+"="+word.getRate()+", " +
     			AVG_RATE+"="+word.getAvgRate()+", " +
-				ACTIVE + "=" + booelanToInt(word.isActive()) + " "+
+				ACTIVE + "=" + ConversionUtils.booleanToInt(word.isActive()) + " "+
 		"WHERE " + WORD_ID + "=" + word.getId() + ";";
-    	Log.i("SQL",q);
-    	db.execSQL(q);
-    	
+    }
     
-    	
+    
+    private void recomputeStatistics(SQLiteDatabase db, Statistics statistics, Word word){
     	Cursor c = db.rawQuery("SELECT avg("+AVG_RATE+"), sum("+ HIT +"), sum("+ LAST_RATE +") "+
-    						   "FROM " + TABLE_WORD +  " WHERE " + HIT + "> 0", null);
-    	
-    	double avg = 0;
-    	double avg2 = 0;
-    	int sumOfHits = 0;
-    	int sumOfLastRate = 0;
-    	if (c.moveToFirst()) {
-    		avg = c.getDouble(0);
-    		sumOfHits = c.getInt(1);
-    		sumOfLastRate = c.getInt(2);
-    		if(sumOfHits > 0){
-    			avg2 = (double)sumOfLastRate / sumOfHits;
-    		}
-    	}
-    	c.close();
-    	
-    	Log.i("w", "AVG RATE: "+ avg +" / "+ avg2 +"  SUM HITS: "+ sumOfHits + " SUM RATE: "+ sumOfLastRate );
-    	
-		/*
-		q = "UPDATE `"+ StatisticDbAdapter.TABLE_STATISTIC + "` " +
-		"SET `"+ StatisticDbAdapter.HIT +"`=`"+ StatisticDbAdapter.HIT +"`+1, `"+
-			StatisticDbAdapter.RATE +"`=`"+ StatisticDbAdapter.RATE +"`+" +word.getRate()+" "+ 
-		"WHERE "+StatisticDbAdapter.STATISTIC_ID +"=" + statisticId + ";";
-		db.execSQL(q);    
-		*/	
-    	db.close();
+				   "FROM " + TABLE_WORD +  " WHERE " + HIT + "> 0", null);
+		double avg = 0;
+		double avg2 = 0;
+		int sumOfHits = 0;
+		int sumOfLastRate = 0;
+		if (c.moveToFirst()) {
+			avg = c.getDouble(0);
+			sumOfHits = c.getInt(1);
+			sumOfLastRate = c.getInt(2);
+			if(sumOfHits > 0){
+				avg2 = (double)sumOfLastRate / sumOfHits;
+			}
+		}
+		c.close();
+		statistics.setAvgGlobalRate(avg);
+		statistics.setAvgSessionRate(NumberUtils.roundNumber(avg2));
+		statistics.incrementHit(word.getRate());
     }
     
     
@@ -308,16 +324,11 @@ public class WordDBAdapter extends DBAdapter {
     }
     
     	
-    private boolean intToBoolean(int value){
-    	return (value == 1 ? true : false);
-    }
+   
     
     
     
     
-    private int booelanToInt(boolean value){
-    	return (value == true ? 1 : 0);
-    }
     
     
    

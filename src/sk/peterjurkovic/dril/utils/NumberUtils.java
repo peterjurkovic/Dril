@@ -31,4 +31,9 @@ public class NumberUtils {
     	Random r = new Random();
     	return r.nextInt( max );
     }
+	
+	
+	public static double roundNumber(final double number){
+		return Math.round(number * 100.0) / 100.0;
+	}
 }

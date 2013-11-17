@@ -37,8 +37,6 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	
 	private OnEditWordClickedListener onEditWordClickedListener; 
 	
-	//private OnShowWordListener onShowWordListener; 
-	
 	private OnWordClickListener onWordClickListener;
 
 	private WordAdapter wordAdapter;
@@ -61,7 +59,6 @@ public class WordListFragment extends ListFragment implements OnClickListener{
         super.onAttach(activity);
         try {
         	onEditWordClickedListener = (OnEditWordClickedListener) activity;
-        	//onShowWordListener = (OnShowWordListener) activity;
         	onWordClickListener = (OnWordClickListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
@@ -174,14 +171,6 @@ public class WordListFragment extends ListFragment implements OnClickListener{
          }
     }
 
-    /*
-    public void showWord(long wordId){
-    	onShowWordListener.showWord(wordId);
-    }
-    */
-	
-    
-    
     private void deleteSelectedItems(){
     	Context ctx = getActivity();
     	Set<Long> selectedWords = wordAdapter.getCheckedItems();
@@ -256,17 +245,14 @@ public class WordListFragment extends ListFragment implements OnClickListener{
         	Log.d("test", "id" + item.getTitle());
             switch (item.getItemId()) {
 	            case R.id.menu_delete:
-	            	Log.d("onOptionsItemSelected", "R.id.menu_delete");
 	            	deleteSelectedItems();
 	                mode.finish(); 
 	                return true;
 	    		case R.id.menu_active:
-	    			Log.d("onOptionsItemSelected", "R.id.menu_active");
 	    			updateSelectedItemStatus(Constants.STATUS_ACTIVE);
 	    			mode.finish(); 
 	    			return true;
 	    		case R.id.menu_deactive:
-	    			Log.d("onOptionsItemSelected", "R.id.menu_deactive");
 	    			updateSelectedItemStatus(Constants.STATUS_DEACTIVE);
 	    			mode.finish(); 
 	    			return true;
@@ -278,7 +264,6 @@ public class WordListFragment extends ListFragment implements OnClickListener{
         
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-        	updateList();
         	actionMode = null;
         }
     }
@@ -329,11 +314,8 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Log.d("onOptionsItemSelected", "WLF");
 		switch (item.getItemId()) {
-		
 		case R.id.menu_deactive:
-			Log.d("onOptionsItemSelected", "R.id.menu_deactive");
 			updateSelectedItemStatus(Constants.STATUS_DEACTIVE);
 			return true;
 		default:

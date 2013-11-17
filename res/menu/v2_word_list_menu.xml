@@ -18,9 +18,15 @@
     
     <item 
         android:id="@+id/menuDeactivateLecture"
-        android:orderInCategory="91"
+        android:orderInCategory="92"
         android:icon="@drawable/ic_action_deactive"
         android:title="@string/deactive_all"
+    />
+    
+    <item 
+        android:id="@+id/menuImport"
+        android:orderInCategory="93"
+        android:title="@string/import_words"
     />
 
 </menu>

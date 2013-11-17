@@ -13,7 +13,7 @@ public class StatisticDbAdapter extends DBAdapter{
 	
 	public static final String STATISTIC_ID = "_id";
 
-	public static final String SUM_OF_RATE = "rate_sum";
+	public static final String FINISHED = "finished";
 
 	public static final String HITS = "hit";
 	
@@ -29,7 +29,7 @@ public class StatisticDbAdapter extends DBAdapter{
 		"CREATE TABLE "+ TABLE_STATISTIC + " (" + 
 				STATISTIC_ID + " INTEGER PRIMARY KEY NOT NULL," + 
 				HITS + " INTEGER NOT NULL DEFAULT (0),"+
-				SUM_OF_RATE + " INTEGER NOT NULL DEFAULT (0),"+
+				FINISHED + " INTEGER NOT NULL DEFAULT (0),"+
 				AVG_RATE_SESSION  + " REAL NOT NULL DEFAULT (0), " +
 				AVG_RATE_GLOBAL  + " REAL NOT NULL DEFAULT (0), " +
 				CHANGED_COLL +" INTEGER NOT NULL DEFAULT (0), " + 
@@ -40,7 +40,7 @@ public class StatisticDbAdapter extends DBAdapter{
 	public static final String[] columns = { 
 			STATISTIC_ID, 
 			HITS, 
-			SUM_OF_RATE,
+			FINISHED,
 			AVG_RATE_SESSION,
 			AVG_RATE_GLOBAL,
 			CHANGED_COLL,
@@ -101,7 +101,7 @@ public class StatisticDbAdapter extends DBAdapter{
     	Cursor result = db.query(
     			TABLE_STATISTIC, 
     			columns, 
-    			CHANGED_COLL+">=" + timestamp, 
+    			CHANGED_COLL+">=" + timestamp + " AND " +FINISHED+"=0", 
     			null, 
     			null, 
     			null, 
@@ -126,7 +126,6 @@ public class StatisticDbAdapter extends DBAdapter{
 	    	stats.setAvgSessionRate(cursor.getDouble(cursor.getColumnIndex(AVG_RATE_SESSION)));
 	    	stats.setHits(cursor.getInt(cursor.getColumnIndex(HITS)));
 	    	stats.setLearnedCards(cursor.getInt(cursor.getColumnIndex(LEARNED_CARDS)));
-	    	stats.setSumOfRate(cursor.getInt(cursor.getColumnIndex(SUM_OF_RATE)));
 	    	cursor.close();
 	    	return stats;
     	}
@@ -173,8 +172,19 @@ public class StatisticDbAdapter extends DBAdapter{
 	   	values.put(LEARNED_CARDS, statistics.getLearnedCards());
 	   	values.put(AVG_RATE_GLOBAL, statistics.getAvgGlobalRate());
 	   	values.put(AVG_RATE_SESSION, statistics.getAvgSessionRate());
-	   	values.put(SUM_OF_RATE, statistics.getSumOfRate());
    	 return values;
    }
+    
+    public Cursor getAllStatistics() {
+    	SQLiteDatabase db = openReadableDatabase();
+    	Cursor result = db.query(TABLE_STATISTIC, 
+    							 columns, 
+    							 null, 
+    							 null, 
+    							 null, 
+    							 null, 
+    							 CREATED_COLL + " DESC");
+    	return result;
+	}
     
 }

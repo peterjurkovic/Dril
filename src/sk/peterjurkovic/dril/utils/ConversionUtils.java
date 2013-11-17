@@ -7,8 +7,8 @@ public class ConversionUtils {
 	}
 	
 	
-	public static boolean booleanToInt(boolean value){
-		return (value  ? true : false);   
+	public static int booleanToInt(boolean value){
+		return (value  ? 1 : 0);   
 	}
 	
 }

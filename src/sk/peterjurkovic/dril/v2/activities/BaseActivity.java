@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -30,12 +29,6 @@ public class BaseActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		/*
-		 ActionBar ab =  getSupportActionBar();
-		ab.setIcon(R.drawable.dril_logo);
-		ab.setTitle("");
-		 
-		 */
 	}
 	
 	public void setGoHomePageListener(){
@@ -75,18 +68,13 @@ public class BaseActivity extends ActionBarActivity {
 		Intent intent = null;
 		switch (item.getItemId()) {
 		    case android.R.id.home:
-		    	Log.i("BASE", "going back..");
 		    	Intent prevActivityIntent = getIntent();
-		    	Log.i("BASE", prevActivityIntent.toString());
 			    if(prevActivityIntent != null && prevActivityIntent.getBooleanExtra(DrilActivity.DRIL_ID, false)){
-			    	Log.i("BASE", "prev is DrilActivity");
 			    	if(NavUtils.shouldUpRecreateTask(this, prevActivityIntent)){
-			    		Log.i("BASE", "recreate ");
 			    		TaskStackBuilder.create(this)
 			    		.addNextIntentWithParentStack(prevActivityIntent)
 			            .startActivities();
 			    	}else{
-			    		Log.i("BASE", "going up");
 			    		prevActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			    		finish();
 			    	}
@@ -96,7 +84,6 @@ public class BaseActivity extends ActionBarActivity {
 			    return true;
 		    case R.id.settings:
 				intent = new Intent(getApplicationContext(), PreferencesActivity.class);
-				Log.i("BASE", this.getClass().getName());
 				if(this.getClass().getName().equals(DrilActivity.class.getName())){
 					intent.putExtra(DrilActivity.DRIL_ID, true);
 				}

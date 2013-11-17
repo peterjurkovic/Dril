@@ -64,8 +64,7 @@ public class DrilService {
     	{
     	    @Override
     	    public void run() {
-    	    	
-    	    	wordDao.updateReatedWord(word);
+    	    	wordDao.updateReatedWord(word, statistics);
     	    }
     	};
     	thread.start();    
@@ -122,7 +121,7 @@ public class DrilService {
 	private int getRandomPosition(List<Word> collection){
 		if(!collection.isEmpty()){
 			final int max = collection.size() - 1;
-			int min = max - 5;
+			int min = max - 3;
 			if(min > 0){
 				min = 0;
 			}

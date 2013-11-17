@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+	    	
+		<View
+	        android:layout_width="match_parent"
+	        android:layout_height="5dp"
+	        android:layout_below="@id/bookListnav"
+	        android:background="@drawable/drop_shaddow" />
+	    
+		
+		<ProgressBar 
+        	android:id="@+id/statisticsProgress"
+        	android:layout_width="wrap_content" 
+        	android:layout_height="wrap_content" 
+        	android:layout_centerHorizontal="true"
+        	android:layout_centerVertical="true" 
+        	/>
+			
+		<TextView
+	        android:id="@+id/statisticsProgressLabel"
+	        android:layout_below="@id/bookListnav"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:text="@string/loading"
+	        android:paddingTop="40dp"
+	        android:gravity="center"
+	        android:textColor="@color/text_color"
+	        android:visibility="visible" />
+		
+	    <ListView
+	        android:id="@android:id/list"
+	        android:layout_below="@id/shaddowBookList"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:visibility="gone" >
+        </ListView>
+	  	
+	    
+	    
+	    <TextView
+	        android:id="@android:id/empty"
+	        android:layout_below="@id/bookListnav"
+	       	style="@style/v2drilAlert"
+	        android:text="@string/no_book_available"
+	       />
+
+	
+</RelativeLayout>

@@ -88,8 +88,9 @@
          <activity android:name=".v2.activities.HelpActivity" 
             	  android:parentActivityName=".v2.activities.DashboardActivity" />
          
+         <activity android:name=".v2.activities.StatisticActivity"
+        		  android:parentActivityName=".v2.activities.DashboardActivity" />
          
-        
     </application>
 
 </manifest>

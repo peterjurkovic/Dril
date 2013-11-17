@@ -289,10 +289,19 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 			case R.id.menuDeactivateLecture:
 				deactiveAllWordInLecture();
 			return true;
+			case R.id.menuImport:
+				importIntoLecture();
+			return true;
 			}
 		return super.onOptionsItemSelected(item);
 	}
 	
+	private void importIntoLecture(){
+		Intent i = new Intent(this,  ImportMenuActivity.class);
+		i.putExtra(ImportMenuActivity.EXTRA_ID, lectureId);
+		i.putExtra(ImportMenuActivity.EXTRA_CREATE_LECTURE, false);
+		startActivity(i);
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

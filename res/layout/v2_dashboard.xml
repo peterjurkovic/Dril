@@ -71,7 +71,7 @@
 		    android:text="@string/drilapp_ow"
 		    android:textColor="#a9a9a9"
 		    android:textColorHint="#333"
-		    android:textColorLink="#2e3d5e"
+		    android:textColorLink="#333"
 		    android:textSize="15sp" />
 
 </RelativeLayout>

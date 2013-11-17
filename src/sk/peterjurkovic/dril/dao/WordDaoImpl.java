@@ -5,6 +5,7 @@ import java.util.List;
 
 import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
+import sk.peterjurkovic.dril.model.Statistics;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.ConversionUtils;
 import android.database.Cursor;
@@ -39,7 +40,8 @@ public class WordDaoImpl implements WordDao {
 	    				 cursor.getInt(cursor.getColumnIndex( WordDBAdapter.LAST_RATE )),
 	    				 ConversionUtils.intToBoolean(cursor.getInt(cursor.getColumnIndex( WordDBAdapter.ACTIVE ))),
 	    				 cursor.getInt(cursor.getColumnIndex( BookDBAdapter.QUESTION_LANG_COLL )), 
-	    				 cursor.getInt(cursor.getColumnIndex(BookDBAdapter.ANSWER_LANG_COLL ))
+	    				 cursor.getInt(cursor.getColumnIndex(BookDBAdapter.ANSWER_LANG_COLL )),
+	    				 ConversionUtils.intToBoolean(cursor.getInt(cursor.getColumnIndex(WordDBAdapter.FAVORITE)))
 	    			)); 
 	    	     cursor.moveToNext();
 	    	}
@@ -53,13 +55,15 @@ public class WordDaoImpl implements WordDao {
 
 	
 	@Override
-	public void updateReatedWord(Word word) {
+	public void updateReatedWord(Word word, Statistics statistics) {
 		try{
-			wordDBAdapter.updateReatedWord(word);
+			wordDBAdapter.updateReatedWord(word, statistics);
   	    } catch (Exception e) {
   			Log.d( getClass().getName() , "ERROR: " + e.getMessage());
   		} finally {
-  			wordDBAdapter.close();
+  			if(wordDBAdapter != null){
+  				wordDBAdapter.close();
+  			}
   		}
 	}
 

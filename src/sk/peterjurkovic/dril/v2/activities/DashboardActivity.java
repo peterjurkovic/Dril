@@ -68,8 +68,8 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	        btn_stats.setOnClickListener(new View.OnClickListener() {
 	            @Override
 				public void onClick(View view) {
-	            	
-	            	
+	            	Intent i = new Intent(context, StatisticActivity.class);
+            		startActivity(i);
 		        }
 		    });
 	        

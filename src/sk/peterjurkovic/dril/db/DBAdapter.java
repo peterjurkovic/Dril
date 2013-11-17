@@ -78,6 +78,7 @@ public class DBAdapter{
 		        			db.execSQL("ALTER TABLE lecture ADD COLUMN created INTEGER DEFAULT (0)");
 		        			
 		        			db.execSQL("ALTER TABLE word ADD COLUMN changed INTEGER DEFAULT (0)");
+		        			db.execSQL("ALTER TABLE word ADD COLUMN favorite INTEGER DEFAULT (0)");
 		        			db.execSQL("ALTER TABLE word ADD COLUMN created INTEGER DEFAULT (0)");
 		        			db.execSQL("ALTER TABLE word ADD COLUMN avg_rate REAL NOT NULL DEFAULT (0)");
 		        			
@@ -87,7 +88,8 @@ public class DBAdapter{
 		        	}
 	        		db.setTransactionSuccessful();
 	        		} catch (SQLException e) {
-                        Log.e("Error creating tables and debug data", e.toString());
+                       
+	        			Log.e("Error creating tables and debug data", e.toString());
 	        		}finally {
                         db.endTransaction();
                     }
