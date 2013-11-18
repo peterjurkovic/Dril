@@ -191,8 +191,7 @@ public class WordDBAdapter extends DBAdapter {
     	SQLiteDatabase db = openWriteableDatabase();
     	db.beginTransaction();
     	for (Long id : ids) {
-    	    db.execSQL("DELETE FROM " + WordDBAdapter.TABLE_WORD + " WHERE " 
-    	    						+ WordDBAdapter.WORD_ID + "=" + id + ";");
+    	    db.execSQL("DELETE FROM " + WordDBAdapter.TABLE_WORD + " WHERE " + WordDBAdapter.WORD_ID + "=" + id + ";");
     	}
     	db.setTransactionSuccessful();
     	db.endTransaction();
@@ -244,15 +243,12 @@ public class WordDBAdapter extends DBAdapter {
 		db.close();
 	}
     
-    public void updateReatedWord(Word word, Statistics statistics){
+    public synchronized void updateReatedWord(Word word, Statistics statistics){
     	SQLiteDatabase db = openWriteableDatabase();
-    	db.beginTransaction();
     	db.execSQL( createUpdateRatedWordQuery(word) );
     	recomputeStatistics(db, statistics, word);
     	db.execSQL( createUpdateStatisticsQuery(statistics) );
     	Log.i("SQL", createUpdateStatisticsQuery(statistics));
-    	db.setTransactionSuccessful();
-    	db.endTransaction();
     	db.close();
     }
     
@@ -263,6 +259,7 @@ public class WordDBAdapter extends DBAdapter {
     			 	"`"+StatisticDbAdapter.LEARNED_CARDS +"`="+ statistics.getLearnedCards() + ", "+
     			 	"`"+StatisticDbAdapter.CHANGED_COLL +"`="+ System.currentTimeMillis() + ", "+
     			 	"`"+StatisticDbAdapter.AVG_RATE_SESSION +"`="+ statistics.getAvgSessionRate() + ", "+
+    			 	"`"+StatisticDbAdapter.SUM_OR_RATING +"`="+ statistics.getSumOfRate() + ", "+
     			 	"`"+StatisticDbAdapter.AVG_RATE_GLOBAL +"`="+ statistics.getAvgGlobalRate() + 	
     		" WHERE "+StatisticDbAdapter.STATISTIC_ID +"=" + statistics.getId() + ";";
     }
@@ -279,23 +276,17 @@ public class WordDBAdapter extends DBAdapter {
     
     
     private void recomputeStatistics(SQLiteDatabase db, Statistics statistics, Word word){
-    	Cursor c = db.rawQuery("SELECT avg("+AVG_RATE+"), sum("+ HIT +"), sum("+ LAST_RATE +") "+
+    	Cursor c = db.rawQuery("SELECT avg("+AVG_RATE+"), avg("+LAST_RATE +") "+
 				   "FROM " + TABLE_WORD +  " WHERE " + HIT + "> 0", null);
-		double avg = 0;
-		double avg2 = 0;
-		int sumOfHits = 0;
-		int sumOfLastRate = 0;
+		double globalRate = 0;
+		double sessionRate = 0;
 		if (c.moveToFirst()) {
-			avg = c.getDouble(0);
-			sumOfHits = c.getInt(1);
-			sumOfLastRate = c.getInt(2);
-			if(sumOfHits > 0){
-				avg2 = (double)sumOfLastRate / sumOfHits;
-			}
+			globalRate = c.getDouble(0);
+			sessionRate = c.getDouble(1);
 		}
 		c.close();
-		statistics.setAvgGlobalRate(avg);
-		statistics.setAvgSessionRate(NumberUtils.roundNumber(avg2));
+		statistics.setAvgGlobalRate(globalRate);
+		statistics.setAvgSessionRate(NumberUtils.roundNumber(sessionRate));
 		statistics.incrementHit(word.getRate());
     }
     

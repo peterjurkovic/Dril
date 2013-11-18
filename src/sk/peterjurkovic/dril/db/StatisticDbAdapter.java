@@ -23,12 +23,14 @@ public class StatisticDbAdapter extends DBAdapter{
 	
 	public static final String AVG_RATE_GLOBAL = "avg_rate_global";
 	
+	public static final String SUM_OR_RATING = "sum_of_rating";
 	
 	
 	public static final String TABLE_STATISTIC_CREATE = 
 		"CREATE TABLE "+ TABLE_STATISTIC + " (" + 
 				STATISTIC_ID + " INTEGER PRIMARY KEY NOT NULL," + 
 				HITS + " INTEGER NOT NULL DEFAULT (0),"+
+				SUM_OR_RATING + " INTEGER NOT NULL DEFAULT (0),"+
 				FINISHED + " INTEGER NOT NULL DEFAULT (0),"+
 				AVG_RATE_SESSION  + " REAL NOT NULL DEFAULT (0), " +
 				AVG_RATE_GLOBAL  + " REAL NOT NULL DEFAULT (0), " +
@@ -45,7 +47,8 @@ public class StatisticDbAdapter extends DBAdapter{
 			AVG_RATE_GLOBAL,
 			CHANGED_COLL,
 			CREATED_COLL,
-			LEARNED_CARDS
+			LEARNED_CARDS,
+			SUM_OR_RATING
 		};
 	
 	
@@ -126,6 +129,7 @@ public class StatisticDbAdapter extends DBAdapter{
 	    	stats.setAvgSessionRate(cursor.getDouble(cursor.getColumnIndex(AVG_RATE_SESSION)));
 	    	stats.setHits(cursor.getInt(cursor.getColumnIndex(HITS)));
 	    	stats.setLearnedCards(cursor.getInt(cursor.getColumnIndex(LEARNED_CARDS)));
+	    	stats.setSumOfRate(cursor.getInt(cursor.getColumnIndex(SUM_OR_RATING)));
 	    	cursor.close();
 	    	return stats;
     	}
@@ -172,6 +176,7 @@ public class StatisticDbAdapter extends DBAdapter{
 	   	values.put(LEARNED_CARDS, statistics.getLearnedCards());
 	   	values.put(AVG_RATE_GLOBAL, statistics.getAvgGlobalRate());
 	   	values.put(AVG_RATE_SESSION, statistics.getAvgSessionRate());
+	   	values.put(SUM_OR_RATING, statistics.getSumOfRate());
    	 return values;
    }
     

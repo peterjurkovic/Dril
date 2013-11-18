@@ -55,6 +55,7 @@ public class Statistics extends AbstractEntity{
 
 	public synchronized void incrementHit(int rate){
 		this.hits++;
+		sumOfRate = sumOfRate + rate;
 		if(rate == 1){
 			learnedCards++;
 		}

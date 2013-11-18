@@ -2,12 +2,16 @@ package sk.peterjurkovic.dril.v2.activities;
 
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.fragments.StatisticsListFragment;
+import sk.peterjurkovic.dril.listener.OnChangedProgressListenter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 /**
  * 
@@ -15,15 +19,21 @@ import android.support.v7.app.ActionBar.Tab;
  * @date Nov 18, 2013
  *
  */
-public class StatisticActivity extends BaseActivity{
+public class StatisticActivity extends BaseActivity implements OnChangedProgressListenter{
 	
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
+	
+	private ProgressBar progressBar;
+	private TextView progressBarLabel;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.v2_statistics_list_layout);
- 
+        
+        progressBar = (ProgressBar)findViewById(R.id.statisticsProgress);
+        progressBarLabel = (TextView)findViewById(R.id.statisticsProgressLabel);
+        
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -88,5 +98,19 @@ public class StatisticActivity extends BaseActivity{
 	    }
 	    
 
+	}
+
+
+
+	@Override
+	public void showLoader() {
+		progressBar.setVisibility(View.VISIBLE);
+		progressBarLabel.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void hideLoader() {
+		progressBar.setVisibility(View.GONE);
+		progressBarLabel.setVisibility(View.GONE);
 	}
 }

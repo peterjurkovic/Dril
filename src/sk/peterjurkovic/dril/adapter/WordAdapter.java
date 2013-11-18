@@ -124,7 +124,7 @@ public class WordAdapter extends CursorAdapter{
         int	isActiveIndex;
         TextView questonView;
         TextView answerView;
-        CheckBox	checkBoxView;
+        CheckBox checkBoxView;
 
    }
 	 

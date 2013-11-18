@@ -303,7 +303,7 @@ public static final String EXTRA_BOOK_ID = "bookId";
 		    updateList();
 		    Toast.makeText(this, R.string.successfully_updated, Toast.LENGTH_LONG).show();		   
 		}else{
-            Toast.makeText(this, R.string.lecture_not_added, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.error_ocurred, Toast.LENGTH_LONG).show();
         }
 	}
 		

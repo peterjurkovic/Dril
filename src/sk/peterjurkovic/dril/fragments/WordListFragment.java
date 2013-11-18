@@ -85,7 +85,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
         Log.d(TAG, "onCreateContextMenu");
 		super.onCreateContextMenu(menu, v, menuInfo);
         menu.setHeaderTitle(R.string.wordAction);
-        menu.add(Menu.NONE, MENU_EDIT_ID, Menu.NONE, R.string.editWord);
+        menu.add(Menu.NONE, MENU_EDIT_ID, Menu.NONE, R.string.edit);
         menu.add(Menu.NONE, MENU_DELETE_ID, Menu.NONE, R.string.delete);
     }
 	

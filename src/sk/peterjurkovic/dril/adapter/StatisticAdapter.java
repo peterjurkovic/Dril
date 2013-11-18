@@ -1,33 +1,29 @@
 package sk.peterjurkovic.dril.adapter;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.StatisticDbAdapter;
+import sk.peterjurkovic.dril.utils.ConversionUtils;
+import sk.peterjurkovic.dril.utils.NumberUtils;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class StatisticAdapter extends CursorAdapter {
 
-	private double prevAvg = 0;
+	private LayoutInflater inflater;	
+	private Cursor c;
+	private int padding;
 	
-	LayoutInflater inflater;
-	
-	Cursor c;
 	
 	public StatisticAdapter(Context context, Cursor c, boolean autoRequery){
 		super(context, c, autoRequery);
 		this.c = c;
 		inflater = LayoutInflater.from(context);
+		padding = ConversionUtils.convertDpToPixel(5, context);
 	}
 	
 	
@@ -36,33 +32,35 @@ public class StatisticAdapter extends CursorAdapter {
 		 
 		 ViewHolder holder;
 		 if(convertView == null){
-        	convertView = inflater.inflate(R.layout.statistic, null);
+        	convertView = inflater.inflate(R.layout.v2_stastistic, null);
         	holder = new ViewHolder();
-		 	holder.dateView = (TextView) convertView.findViewById(R.id.statisticDate);
-			holder.avgRateView = (TextView) convertView.findViewById(R.id.statisticRate);
-			holder.imgStateView = (ImageView) convertView.findViewById(R.id.imgState);
+		 	holder.dateView = (TextView) convertView.findViewById(R.id.statisticsDate);
+			holder.learnedCardsView = (TextView) convertView.findViewById(R.id.statisticsLearnedCards);
+			holder.ratingView = (TextView) convertView.findViewById(R.id.statisticsRating);
 			convertView.setTag(holder);
          }else{
         	 holder = (ViewHolder)convertView.getTag();
          }
 		 this.c.moveToPosition(position);
 		 			 	
-		 	//holder.drilDateIndex = c.getColumnIndex( StatisticDbAdapter.DATE_LOCALTIME );
-			holder.rateIndex = c.getColumnIndex(StatisticDbAdapter.AVG_RATE_SESSION);
-			holder.hitIndex = c.getColumnIndex(StatisticDbAdapter.HITS);
+		 	holder.createdIndex = c.getColumnIndex( StatisticDbAdapter.CREATED_COLL );
+			holder.learnedCardsIndex = c.getColumnIndex(StatisticDbAdapter.LEARNED_CARDS);
+			holder.sumOrRatingIndex = c.getColumnIndex(StatisticDbAdapter.SUM_OR_RATING);
+			holder.hits = c.getColumnIndex(StatisticDbAdapter.HITS);
 			
-		 	String date = customDateFormat(c.getString( holder.drilDateIndex ));
-			double rate = c.getDouble(holder.rateIndex);
-			double hit = c.getDouble(holder.hitIndex);
-			double avgRate = (rate / hit) * 100.0;
-			avgRate = Math.round(avgRate); 
-
-			holder.dateView.setText(date);
+			final long timestamp = c.getLong(holder.createdIndex);
+			final int learnedCards = c.getInt(holder.learnedCardsIndex);
+			final int sumOfRating = c.getInt(holder.sumOrRatingIndex);
+			final int hits = c.getInt(holder.hits);
 			
-			holder.avgRateView.setText((avgRate / 100) + "");
-			holder.imgStateView.setImageResource(getResource(avgRate));
-			holder.dateView.setText(date); 				
-			prevAvg = avgRate;
+			double avgRate = (double)sumOfRating / (double)hits;
+            
+			
+			holder.dateView.setText(ConversionUtils.timestampToString(timestamp)); 				
+			holder.learnedCardsView.setText(learnedCards+ "");
+			holder.ratingView.setText(String.format( "%.2f", avgRate ) + "");
+			holder.ratingView.setBackgroundResource(getResourceByRating(avgRate));
+			holder.ratingView.setPadding(padding, padding, padding, padding);
 			return convertView;
 	 }
 	
@@ -74,46 +72,32 @@ public class StatisticAdapter extends CursorAdapter {
 	
 	@Override
 	public View newView(Context ctx, Cursor c, ViewGroup root) {
+		
 		return null;
 	}
 	
-	
-	
-	public static String customDateFormat(String date){
-		SimpleDateFormat curFormater = new SimpleDateFormat("yyyy-MM-dd mm:ss"); 
-		Date dateObj = null;
-		try {
-			dateObj = curFormater.parse(date);
-		} catch (ParseException e) {
-			Log.d("StatisticAdapter", e.getMessage());
-		} 
-		SimpleDateFormat postFormater = new SimpleDateFormat("dd.MM.yyyy / mm:ss"); 
-		return postFormater.format(dateObj);
-	}
-	
-	
-	private int getResource(double val){
-		if(prevAvg == 0 || prevAvg == val){
-			return R.drawable.neutral;
+	private int getResourceByRating(final double rating){
+		if(rating < 2){
+			return R.drawable.btn_1;
+		}else if(rating < 3){
+			return R.drawable.btn_2;
+		}else if(rating < 4){
+			return R.drawable.btn_3;
+		}else if(rating < 4.5){
+			return R.drawable.btn_4;
 		}
-		if(prevAvg < val && prevAvg != 0){
-			return R.drawable.bed;
-		}
-		
-		if(prevAvg > val && prevAvg != 0){
-			return R.drawable.good;
-		}
-		return R.drawable.neutral;
+		return R.drawable.btn_5;
 	}
 	
 	
 	private static class ViewHolder{
-		int drilDateIndex;
-		int rateIndex;
-		int hitIndex;
+		int createdIndex;
+		int learnedCardsIndex;
+		int sumOrRatingIndex;
+		int hits;
 		TextView dateView;
-		TextView avgRateView;
-		ImageView imgStateView;
+		TextView learnedCardsView;
+		TextView ratingView;
 	}
 	
 }

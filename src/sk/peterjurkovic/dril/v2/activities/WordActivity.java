@@ -32,7 +32,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 	private static final int REQUEST_EDIT_WORD = 1;
 
 	public static final String LECTURE_ID_EXTRA = "fk_lecture_id";
-	private boolean dualPane;
+	private boolean dualPane = false;
 	public static final String TAG = "WordActivity";
 	private long lectureId = -1;
 	private String lectureName;
@@ -50,7 +50,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 			throw new Error("Lecture ID is not set.");
 		}
 
-		dualPane = findViewById(R.id.right_column) != null;
+		// dualPane = findViewById(R.id.right_column) != null;
 
 		lectureName = getLectureName(this, lectureId);
 
@@ -162,7 +162,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 			f.setArguments(data);
 			FragmentTransaction ft = getSupportFragmentManager()
 					.beginTransaction();
-			ft.replace(R.id.right_column, f);
+			//ft.replace(R.id.right_column, f);
 			ft.addToBackStack(null);
 			ft.commit();
 		} else {
@@ -181,7 +181,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 			f.setArguments(data);
 			FragmentTransaction ft = getSupportFragmentManager()
 					.beginTransaction();
-			ft.replace(R.id.right_column, f);
+			// ft.replace(R.id.right_column, f);
 			ft.addToBackStack(null);
 			ft.commit();
 		} else {
