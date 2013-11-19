@@ -1,17 +1,23 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.fragments.ProblematicWordsListFragment;
 import sk.peterjurkovic.dril.fragments.StatisticsListFragment;
+import sk.peterjurkovic.dril.fragments.WordListFragment;
 import sk.peterjurkovic.dril.listener.OnChangedProgressListenter;
-import android.app.Activity;
+import sk.peterjurkovic.dril.listener.OnWordClickListener;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
+import android.support.v7.view.ActionMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * 
@@ -19,7 +25,7 @@ import android.widget.TextView;
  * @date Nov 18, 2013
  *
  */
-public class StatisticActivity extends BaseActivity implements OnChangedProgressListenter{
+public class StatisticActivity extends BaseActivity implements OnChangedProgressListenter, OnWordClickListener{
 	
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	
@@ -36,16 +42,25 @@ public class StatisticActivity extends BaseActivity implements OnChangedProgress
         
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
+        
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
- 
+        actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
+        
         Tab tab = actionBar.newTab()
                 .setText("Test")
-                .setTabListener(new TabListener<StatisticsListFragment>(
-                        this, "artist", StatisticsListFragment.class));
-        	actionBar.addTab(tab);
-
-
-    }
+                .setTabListener(new TabListener<StatisticsListFragment>(this, "artist", StatisticsListFragment.class));
+       
+        actionBar.addTab(tab);
+        
+        Tab tab2 = actionBar.newTab()
+                .setText("Problematic Words")
+                .setTabListener(new TabListener<ProblematicWordsListFragment>(this, "pw", ProblematicWordsListFragment.class));
+      
+        actionBar.addTab(tab2);
+        if (savedInstanceState != null) {
+        	actionBar.setSelectedNavigationItem(savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM, 0));
+        }
+	}
 	
 	@Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -63,39 +78,52 @@ public class StatisticActivity extends BaseActivity implements OnChangedProgress
 	
 	public static class TabListener<T extends Fragment> implements ActionBar.TabListener{
 		
-		private Fragment mFragment;
-	    private final Activity mActivity;
-	    private final String mTag;
-	    private final Class<T> mClass;
+		private final FragmentActivity mActivity;
+        private final String mTag;
+        private final Class<T> mClass;
+        private final Bundle mArgs;
+        private Fragment mFragment;
 
-	    public TabListener(Activity activity, String tag, Class<T> clz) {
-	        mActivity = activity;
-	        mTag = tag;
-	        mClass = clz;
-	    }
-	  
-	    /* The following are each of the ActionBar.TabListener callbacks */
-	    public void onTabSelected(Tab tab, FragmentTransaction ft) {
-	        // Check if the fragment is already initialized
-	        if (mFragment == null) {
-	            // If not, instantiate and add it to the activity
-	            mFragment = Fragment.instantiate(mActivity, mClass.getName());
-	            ft.add(android.R.id.content, mFragment, mTag);
-	        } else {
-	            // If it exists, simply attach it in order to show it
-	            ft.attach(mFragment);
-	        }
-	    }
-	    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-	        if (mFragment != null) {
-	            // Detach the fragment, because another one is being attached
-	            ft.detach(mFragment);
-	        }
-	    }
+        public TabListener(FragmentActivity activity, String tag, Class<T> clz) {
+            this(activity, tag, clz, null);
+        }
 
-	    public void onTabReselected(Tab tab, FragmentTransaction ft) {
-	        // User selected the already selected tab. Usually do nothing.
-	    }
+        public TabListener(FragmentActivity activity, String tag, Class<T> clz, Bundle args) {
+            mActivity = activity;
+            mTag = tag;
+            mClass = clz;
+            mArgs = args;
+
+            // Check to see if we already have a fragment for this tab, probably
+            // from a previously saved state.  If so, deactivate it, because our
+            // initial state is that a tab isn't shown.
+         
+            mFragment = mActivity.getSupportFragmentManager().findFragmentByTag(mTag);
+            if (mFragment != null && !mFragment.isDetached()) {
+                FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
+                ft.detach(mFragment);
+                ft.commit();
+            }
+        }
+
+        public void onTabSelected(Tab tab, FragmentTransaction ft) {
+            if (mFragment == null) {
+                mFragment = Fragment.instantiate(mActivity, mClass.getName(), mArgs);
+                ft.add(android.R.id.content, mFragment, mTag);
+            } else {
+                ft.attach(mFragment);
+            }
+        }
+
+        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+            if (mFragment != null) {
+                ft.detach(mFragment);
+            }
+        }
+
+        public void onTabReselected(Tab tab, FragmentTransaction ft) {
+            Toast.makeText(mActivity, "Reselected!", Toast.LENGTH_SHORT).show();
+        }
 	    
 
 	}
@@ -112,5 +140,30 @@ public class StatisticActivity extends BaseActivity implements OnChangedProgress
 	public void hideLoader() {
 		progressBar.setVisibility(View.GONE);
 		progressBarLabel.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void onListItemClick(View v, long id) {
+		/*
+		ProblematicWordsListFragment wordListFratment = (ProblematicWordsListFragment) getSupportFragmentManager()
+				.findFragmentById(R.id.WordListFragment);
+		if (wordListFratment != null) {
+			if (wordListFratment.hasSelectedItems()
+					&& wordListFratment.getActionMode() == null) {
+				ActionMode actionMode = startSupportActionMode(wordListFratment
+						.getActionModeCallback());
+				actionMode.setTitle(wordListFratment.getWordAdapter()
+						.getCountOfSelected() + "");
+				wordListFratment.setActionMode(actionMode);
+			} else if (!wordListFratment.hasSelectedItems()
+					&& wordListFratment.getActionMode() != null) {
+				wordListFratment.getActionMode().finish();
+			} else if (wordListFratment.getActionMode() != null) {
+				wordListFratment.getActionMode().setTitle(
+						wordListFratment.getWordAdapter().getCountOfSelected()
+								+ "");
+			}
+		}
+		*/
 	}
 }

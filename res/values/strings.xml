@@ -222,5 +222,10 @@
     <string name="error_blank_lecture_name">Please, fill lesson\'s name</string>
     
     <string name="donate">Donation</string>
-
+	
+    <string name="leardned_cards">No. learned</string>
+    <string name="date">Date</string>
+    <string name="avg_rate">Avg. rate</string>
+    
+    <string name="no_data_available">No data available</string>
 </resources>

@@ -315,7 +315,13 @@ public class WordDBAdapter extends DBAdapter {
     }
     
     	
-   
+    public Cursor getProblematicsWords() {
+    	SQLiteDatabase db = openReadableDatabase();
+    	return  
+    			db.rawQuery("SELECT * "+ 
+    						"FROM " + TABLE_WORD +  
+    						" WHERE " + HIT + "> 1 ORDER BY "+ AVG_RATE + " LIMIT 100", null);
+	}
     
     
     

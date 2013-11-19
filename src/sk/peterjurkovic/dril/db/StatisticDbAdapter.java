@@ -184,7 +184,7 @@ public class StatisticDbAdapter extends DBAdapter{
     	SQLiteDatabase db = openReadableDatabase();
     	Cursor result = db.query(TABLE_STATISTIC, 
     							 columns, 
-    							 null, 
+    							 HITS +">0", 
     							 null, 
     							 null, 
     							 null, 

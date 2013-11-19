@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tableLayout1"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceSmall"
     android:paddingTop="3dp"
-    android:paddingLeft="14dp"
+    android:paddingLeft="2dp"
     android:background="#ccc"
     android:paddingBottom="3dp"
-    android:paddingRight="14dp"
+    android:paddingRight="5dp"
     android:weightSum="5"
      >
  
@@ -17,8 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:gravity="center"
-        android:text="Datum"
+        android:text="@string/date"
         />
     
 	<TextView 
@@ -26,16 +25,16 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_weight="2"
-        android:text="Pc."
+        android:text="@string/leardned_cards"
         />
 	
 	<TextView 
         android:layout_width="0dp"
-        android:gravity="center"
+        android:gravity="left"
         android:layout_height="wrap_content"
         android:layout_marginLeft="25dp"
         android:layout_weight="1"
-        android:text="AVG"
+        android:text="@string/avg_rate"
         />
        
 	

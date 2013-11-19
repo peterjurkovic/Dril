@@ -5,7 +5,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/list_view"
     android:textAppearance="?android:attr/textAppearanceMedium"
-    android:padding="14dp"
+    android:paddingTop="14dp"
+    android:paddingBottom="14dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     android:weightSum="5"
      >
  
@@ -15,8 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:padding="6dp"
-        android:gravity="center"
-        android:text="21.22.1201/12:00"
         />
     
 	<TextView 
@@ -26,7 +27,6 @@
         android:gravity="center"
         android:padding="6dp"
         android:layout_weight="1"
-        android:text="253"
         />
 	
 	<TextView 
@@ -34,14 +34,10 @@
         android:layout_width="0dp"
         android:gravity="center"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+
         android:textColor="@android:color/white"
         android:layout_weight="1"
         android:maxWidth="15dp"
-        android:text="1.25"
         />
-       
-	
-      
-    
+
 </LinearLayout>
