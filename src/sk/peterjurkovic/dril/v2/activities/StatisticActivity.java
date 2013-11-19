@@ -1,11 +1,13 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.fragments.EditWordFragment;
 import sk.peterjurkovic.dril.fragments.ProblematicWordsListFragment;
 import sk.peterjurkovic.dril.fragments.StatisticsListFragment;
-import sk.peterjurkovic.dril.fragments.WordListFragment;
 import sk.peterjurkovic.dril.listener.OnChangedProgressListenter;
+import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnWordClickListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,7 +15,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.view.ActionMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,7 +26,10 @@ import android.widget.Toast;
  * @date Nov 18, 2013
  *
  */
-public class StatisticActivity extends BaseActivity implements OnChangedProgressListenter, OnWordClickListener{
+public class StatisticActivity extends BaseActivity implements 
+		OnChangedProgressListenter, 
+		OnWordClickListener,
+		OnEditWordClickedListener{
 	
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	
@@ -45,6 +49,7 @@ public class StatisticActivity extends BaseActivity implements OnChangedProgress
         
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
+
         
         Tab tab = actionBar.newTab()
                 .setText("Test")
@@ -144,9 +149,8 @@ public class StatisticActivity extends BaseActivity implements OnChangedProgress
 
 	@Override
 	public void onListItemClick(View v, long id) {
-		/*
 		ProblematicWordsListFragment wordListFratment = (ProblematicWordsListFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.WordListFragment);
+				.findFragmentById(R.id.problematicWordListFragment);
 		if (wordListFratment != null) {
 			if (wordListFratment.hasSelectedItems()
 					&& wordListFratment.getActionMode() == null) {
@@ -164,6 +168,13 @@ public class StatisticActivity extends BaseActivity implements OnChangedProgress
 								+ "");
 			}
 		}
-		*/
+		
+	}
+
+	@Override
+	public void onEditWordClicked(long wordId) {
+		Intent i = new Intent(this, EditWordActivity.class);
+		i.putExtra(EditWordActivity.EXTRA_WORD_ID, wordId);
+		startActivityForResult(i, WordActivity.REQUEST_EDIT_WORD);
 	}
 }

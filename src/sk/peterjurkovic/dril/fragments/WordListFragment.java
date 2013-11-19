@@ -35,11 +35,11 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	public static final int MENU_DELETE_ID = Menu.FIRST+2;
 	
 	
-	private OnEditWordClickedListener onEditWordClickedListener; 
+	protected OnEditWordClickedListener onEditWordClickedListener; 
 	
-	private OnWordClickListener onWordClickListener;
+	protected OnWordClickListener onWordClickListener;
 
-	private WordAdapter wordAdapter;
+	protected WordAdapter wordAdapter;
 	
 	private ActionMode actionMode;
 	
@@ -58,8 +58,12 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 		Log.d(TAG, "onAttaching wordList fagment");
         super.onAttach(activity);
         try {
-        	onEditWordClickedListener = (OnEditWordClickedListener) activity;
-        	onWordClickListener = (OnWordClickListener) activity;
+        	if(onEditWordClickedListener == null){
+        		onEditWordClickedListener = (OnEditWordClickedListener) activity;
+        	}
+        	if(onWordClickListener == null){
+        		onWordClickListener = (OnWordClickListener) activity;
+        	}
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnEditWordListener, OnWordClickListener and onShowWordListener");
@@ -117,11 +121,15 @@ public class WordListFragment extends ListFragment implements OnClickListener{
     
 	public void updateList() {
 		closeAdapterCursor();
-		Context ctx = getActivity();
+		Context ctx = getActivity();		
 		Cursor cursor = null;
 	    WordDBAdapter wordDbAdapter = new WordDBAdapter(ctx);
 	    try{
-	    	cursor = wordDbAdapter.getWordByLctureId(((WordActivity)ctx).getLectureId()); 
+	    	if(isWordListActivity()){
+	    		cursor = wordDbAdapter.getWordByLctureId(((WordActivity)ctx).getLectureId());
+	    	}else{
+	    		cursor = wordDbAdapter.getProblematicsWords();
+	    	}
 	    	wordAdapter = new WordAdapter(ctx, cursor, 0);
 	    	wordAdapter.setOnClickListener(this);
 	 	    setListAdapter(wordAdapter);
@@ -132,8 +140,13 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 		}
 	   
 	}
- 
-	private void closeAdapterCursor(){
+	
+	private boolean isWordListActivity(){
+		String n = getActivity().getClass().getName();
+		return WordListFragment.class.getName().equals(n);
+	}
+	
+	public void closeAdapterCursor(){
 		try {
 			if(wordAdapter != null){
 				if(!wordAdapter.getCursor().isClosed())
@@ -227,7 +240,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
     }
     
     
-    private class ActionModeCallback implements ActionMode.Callback {
+    protected class ActionModeCallback implements ActionMode.Callback {
       	
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {

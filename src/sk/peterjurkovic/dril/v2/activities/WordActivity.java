@@ -5,6 +5,7 @@ import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.fragments.AddWordFragment;
 import sk.peterjurkovic.dril.fragments.EditWordFragment;
+import sk.peterjurkovic.dril.fragments.ProblematicWordsListFragment;
 import sk.peterjurkovic.dril.fragments.WordListFragment;
 import sk.peterjurkovic.dril.listener.OnAddWordListener;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
@@ -28,8 +29,8 @@ import android.widget.Toast;
 public class WordActivity extends BaseActivity implements OnAddWordListener,
 		OnEditWordClickedListener, OnEditWordListener,  OnWordClickListener {
 
-	private static final int REQUEST_ADD_WORD = 0;
-	private static final int REQUEST_EDIT_WORD = 1;
+	public static final int REQUEST_ADD_WORD = 0;
+	public static final int REQUEST_EDIT_WORD = 1;
 
 	public static final String LECTURE_ID_EXTRA = "fk_lecture_id";
 	private boolean dualPane = false;
@@ -315,26 +316,25 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 
 	@Override
 	public void onListItemClick(View v, long id) {
-		WordListFragment wordListFratment = (WordListFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.WordListFragment);
-		Log.d(TAG, "on list item clicked...");
-		if (wordListFratment != null) {
-			if (wordListFratment.hasSelectedItems()
-					&& wordListFratment.getActionMode() == null) {
-				ActionMode actionMode = startSupportActionMode(wordListFratment
-						.getActionModeCallback());
-				actionMode.setTitle(wordListFratment.getWordAdapter()
-						.getCountOfSelected() + "");
-				wordListFratment.setActionMode(actionMode);
-			} else if (!wordListFratment.hasSelectedItems()
-					&& wordListFratment.getActionMode() != null) {
-				wordListFratment.getActionMode().finish();
-			} else if (wordListFratment.getActionMode() != null) {
-				wordListFratment.getActionMode().setTitle(
-						wordListFratment.getWordAdapter().getCountOfSelected()
-								+ "");
-			}
-		}
-
+		 WordListFragment wordListFratment = (WordListFragment) getSupportFragmentManager()
+                 .findFragmentById(R.id.WordListFragment);
+		 Log.d(TAG, "on list item clicked...");
+		 if (wordListFratment != null) {
+		         if (wordListFratment.hasSelectedItems()
+		                         && wordListFratment.getActionMode() == null) {
+		                 ActionMode actionMode = startSupportActionMode(wordListFratment
+		                                 .getActionModeCallback());
+		                 actionMode.setTitle(wordListFratment.getWordAdapter()
+		                                 .getCountOfSelected() + "");
+		                 wordListFratment.setActionMode(actionMode);
+		         } else if (!wordListFratment.hasSelectedItems()
+		                         && wordListFratment.getActionMode() != null) {
+		                 wordListFratment.getActionMode().finish();
+		         } else if (wordListFratment.getActionMode() != null) {
+		                 wordListFratment.getActionMode().setTitle(
+		                                 wordListFratment.getWordAdapter().getCountOfSelected()
+		                                                 + "");
+		         }
+		 }
 	}
 }
