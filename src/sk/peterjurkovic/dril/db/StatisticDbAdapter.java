@@ -80,7 +80,7 @@ public class StatisticDbAdapter extends DBAdapter{
     }
     
     
-    public Cursor getStatistics(){
+    public Cursor getGeneralStatistics(){
     	SQLiteDatabase db = openReadableDatabase();    	
     	Cursor result = db.rawQuery(
     	"SELECT count(*) as "+BookDBAdapter.WORD_COUNT+", " +
@@ -88,10 +88,9 @@ public class StatisticDbAdapter extends DBAdapter{
     	"(SELECT count(*) FROM "+BookDBAdapter.TABLE_BOOK+") as "+BookDBAdapter.BOOK_COUNT+", " +
     	"(SELECT count(*) FROM "+WordDBAdapter.TABLE_WORD+" WHERE "+WordDBAdapter.ACTIVE+"=1) as "+ 
     			BookDBAdapter.ACTIVE_WORD_COUNT+", " +
-    	"(SELECT ifnull(avg("+WordDBAdapter.LAST_RATE+"), 0) FROM "+ WordDBAdapter.TABLE_WORD+
-    			" WHERE "+WordDBAdapter.LAST_RATE+"!=0) as "+BookDBAdapter.AVG_RATE + "," +
-    	"(SELECT count(*) FROM "+ WordDBAdapter.TABLE_WORD+
-    			" WHERE "+WordDBAdapter.LAST_RATE+"=1) as "+BookDBAdapter.FINISHED + " " +
+    	"(SELECT ifnull(avg("+WordDBAdapter.AVG_RATE+"), 0) FROM "+ WordDBAdapter.TABLE_WORD+
+    			" WHERE "+WordDBAdapter.AVG_RATE+"!=0) as "+BookDBAdapter.AVG_RATE + "," +
+    	"(SELECT ifnull(sum("+ StatisticDbAdapter.LEARNED_CARDS +"),0) FROM "+ StatisticDbAdapter.TABLE_STATISTIC+") as "+StatisticDbAdapter.LEARNED_CARDS + " " +
     	"FROM "+WordDBAdapter.TABLE_WORD+";"
     	, null);
     	return result;

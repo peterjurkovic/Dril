@@ -21,7 +21,7 @@
              android:alpha=".4"
              android:background="@drawable/stats_lines"
              android:clickable="false"
-             android:text="@string/stats_session" />
+             android:text="Sessions" />
         
           <Button
               android:id="@+id/statsCommon"

@@ -1,7 +1,7 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 import sk.peterjurkovic.dril.R;
-import sk.peterjurkovic.dril.fragments.EditWordFragment;
+import sk.peterjurkovic.dril.fragments.GeneralStatisticsFragment;
 import sk.peterjurkovic.dril.fragments.ProblematicWordsListFragment;
 import sk.peterjurkovic.dril.fragments.StatisticsListFragment;
 import sk.peterjurkovic.dril.listener.OnChangedProgressListenter;
@@ -18,7 +18,6 @@ import android.support.v7.view.ActionMode;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * 
@@ -33,6 +32,10 @@ public class StatisticActivity extends BaseActivity implements
 	
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	
+	private final static String TAG_KEY_STATISTICS = "sessionStats";
+	private final static String TAG_KEY_PROBLEMATIC_WORD = "problematicsWords";
+	private final static String TAG_KEY_GENERAL_STATS = "generalStats";
+	
 	private ProgressBar progressBar;
 	private TextView progressBarLabel;
 	
@@ -44,7 +47,6 @@ public class StatisticActivity extends BaseActivity implements
         progressBar = (ProgressBar)findViewById(R.id.statisticsProgress);
         progressBarLabel = (TextView)findViewById(R.id.statisticsProgressLabel);
         
-        // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -52,16 +54,22 @@ public class StatisticActivity extends BaseActivity implements
 
         
         Tab tab = actionBar.newTab()
-                .setText("Test")
-                .setTabListener(new TabListener<StatisticsListFragment>(this, "artist", StatisticsListFragment.class));
+                .setText(R.string.stats_sessions)
+                .setTabListener(new TabListener<StatisticsListFragment>(this, TAG_KEY_STATISTICS, StatisticsListFragment.class));
        
         actionBar.addTab(tab);
         
         Tab tab2 = actionBar.newTab()
-                .setText("Problematic Words")
-                .setTabListener(new TabListener<ProblematicWordsListFragment>(this, "pw", ProblematicWordsListFragment.class));
+                .setText(R.string.stats_problematics_words)
+                .setTabListener(new TabListener<ProblematicWordsListFragment>(this, TAG_KEY_PROBLEMATIC_WORD, ProblematicWordsListFragment.class));
       
         actionBar.addTab(tab2);
+        
+        Tab tab3 = actionBar.newTab()
+                .setText(R.string.stats_general)
+                .setTabListener(new TabListener<GeneralStatisticsFragment>(this, TAG_KEY_GENERAL_STATS, GeneralStatisticsFragment.class));
+      
+        actionBar.addTab(tab3);
         if (savedInstanceState != null) {
         	actionBar.setSelectedNavigationItem(savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM, 0));
         }
@@ -126,9 +134,7 @@ public class StatisticActivity extends BaseActivity implements
             }
         }
 
-        public void onTabReselected(Tab tab, FragmentTransaction ft) {
-            Toast.makeText(mActivity, "Reselected!", Toast.LENGTH_SHORT).show();
-        }
+        public void onTabReselected(Tab tab, FragmentTransaction ft) { }
 	    
 
 	}
@@ -150,7 +156,7 @@ public class StatisticActivity extends BaseActivity implements
 	@Override
 	public void onListItemClick(View v, long id) {
 		ProblematicWordsListFragment wordListFratment = (ProblematicWordsListFragment) getSupportFragmentManager()
-				.findFragmentById(R.id.problematicWordListFragment);
+				.findFragmentByTag(TAG_KEY_PROBLEMATIC_WORD);
 		if (wordListFratment != null) {
 			if (wordListFratment.hasSelectedItems()
 					&& wordListFratment.getActionMode() == null) {

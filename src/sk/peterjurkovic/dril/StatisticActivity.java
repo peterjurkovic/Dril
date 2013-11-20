@@ -19,18 +19,7 @@ public class StatisticActivity extends  MainActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.statistics_layout);
-			Button commonStats = (Button) findViewById(R.id.statsList);
-		
-		commonStats.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				startListStatisticActivity();
-			}
-		});
-		
-		
+	
 		initStatistics();
 	}
 	
@@ -75,7 +64,7 @@ public class StatisticActivity extends  MainActivity{
 		Cursor statsCursor = null;
 	    StatisticDbAdapter statisticDbAdapter = new StatisticDbAdapter(this);
 	    try{
-	    	statsCursor = statisticDbAdapter.getStatistics();
+	    	statsCursor = statisticDbAdapter.getGeneralStatistics();
 		    putLectureData(statsCursor);
 	    } catch (Exception e) {
 			Log.d("SatisticActivity", "ERROR: " + e.getMessage());

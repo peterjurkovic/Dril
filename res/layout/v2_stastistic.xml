@@ -34,10 +34,9 @@
         android:layout_width="0dp"
         android:gravity="center"
         android:layout_height="wrap_content"
-
         android:textColor="@android:color/white"
         android:layout_weight="1"
-        android:maxWidth="15dp"
+
         />
 
 </LinearLayout>

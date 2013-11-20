@@ -3,62 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/repeat" >
-
+    android:fillViewport="true"
+    android:background="@drawable/v2_app_background"
+     >
+	
+     <TextView style="@style/separator" 	/>
     
 
-      <LinearLayout
-          android:id="@+id/statsNav"
-          android:layout_width="match_parent"
-          android:layout_height="45dp"
-        
-          android:paddingTop="1dp"
-          tools:ignore="UnknownIdInLayout" >
-       
-         <Button 
-            android:id="@+id/statsList"
-          	android:text="@string/stats_session"
-          	android:background="@drawable/stats_lines"
-          	style="@style/wordViewBtn"
-            />
-        
-          <Button
-              style="@style/wordViewBtn"
-              android:layout_height="match_parent"
-              android:layout_marginLeft="1dp"
-              android:alpha=".4"
-              android:background="@drawable/stats_btn"
-              android:clickable="false"
-              android:text="@string/stats_fully" />
-         
-    </LinearLayout>
-    <FrameLayout
-	    android:id="@+id/statHeader"
-        android:layout_width="fill_parent"
-        android:layout_height="25dp"
-        android:layout_below="@id/statsNav"
-        android:background="#DEDEDE" >
-
-        <TextView
-            style="@style/drilLabel"
-        	android:layout_gravity="center"
-        	android:layout_marginTop="2dp"
-        	android:text="@string/stats_fully"/>
-		       
-	</FrameLayout>
-
-    <View
-        android:id="@+id/shaddowStats"
-        android:layout_width="match_parent"
-        android:layout_height="3sp"
-        android:layout_below="@+id/statHeader"
-        android:background="@drawable/drop_shaddow" />
-    
-    <TableLayout
+      <TableLayout
         android:id="@+id/statisticTable"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/statHeader"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -78,6 +33,7 @@
 
             <TextView
                 android:id="@+id/tableCountOfBooks"
+                android:paddingLeft="15dp"
                 style="@style/tableRow" />
         </TableRow>
 

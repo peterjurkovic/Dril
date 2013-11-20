@@ -98,7 +98,6 @@
     <string name="table_avg_rate">Your average rate:</string>
     <string name="table_finished">Number of learned cards:</string>
     <string name="stats_fully">General statistics</string>
-    <string name="stats_session">Individual statistics</string>
     <string name="stats_reset">Delete stats</string>
     
     <string name="netural">no progress</string>
@@ -228,4 +227,8 @@
     <string name="avg_rate">Avg. rate</string>
     
     <string name="no_data_available">No data available</string>
+    
+    <string name="stats_sessions">Sessions</string>
+    <string name="stats_problematics_words">Prob. wo.</string>
+    <string name="stats_general">General</string>
 </resources>

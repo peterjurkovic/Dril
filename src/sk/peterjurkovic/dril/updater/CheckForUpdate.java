@@ -3,6 +3,7 @@ package sk.peterjurkovic.dril.updater;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.DBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -66,6 +67,7 @@ public class CheckForUpdate extends AsyncTask<String, Integer, Integer> {
 					jsonReciever.getJSONData( JSONReciever.FOR_CHECK_ACTION )
 					);
 		} catch (Exception e) {
+			GoogleAnalyticsUtils.logException(e, context);
 			return STATE_PARSING_ERROR;
 		}
 		

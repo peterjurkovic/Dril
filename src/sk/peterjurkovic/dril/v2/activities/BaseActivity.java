@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
+import com.google.analytics.tracking.android.StandardExceptionParser;
 
 /**
  * 
@@ -124,11 +125,21 @@ public class BaseActivity extends ActionBarActivity {
 	    Log.i("GA", "onStop");
 	  }
 	  
-	public void logException(String description, boolean fatal) {
+	public void logException(final String description, final boolean fatal) {
 		EasyTracker.getInstance(this).send(
 				MapBuilder.createException(description, fatal)
 				.build()
 	    );
+	}
+	
+	public void logException(final Exception e){
+		 EasyTracker easyTracker = EasyTracker.getInstance(this);
+		  easyTracker.send(MapBuilder
+			      .createException(new StandardExceptionParser(this, null)             
+			      .getDescription(Thread.currentThread().getName(),  e),  false)                                              
+			      .build()
+			    );
+
 	}
 
 }

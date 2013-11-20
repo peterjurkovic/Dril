@@ -7,6 +7,7 @@ import sk.peterjurkovic.dril.adapter.WordAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnWordClickListener;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.v2.activities.WordActivity;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.app.Activity;
@@ -65,7 +66,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
         		onWordClickListener = (OnWordClickListener) activity;
         	}
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+        	throw new ClassCastException(activity.toString()
                     + " must implement OnEditWordListener, OnWordClickListener and onShowWordListener");
         }
         
@@ -135,6 +136,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	 	    setListAdapter(wordAdapter);
 	    } catch (Exception e) {
 			Log.d(TAG, "ERROR: " + e.getMessage());
+			GoogleAnalyticsUtils.logException(e, ctx);
 		} finally {
 			wordDbAdapter.close();
 		}
@@ -153,6 +155,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 					wordAdapter.getCursor().close();
 			}
 		} catch (Exception e) {
+			GoogleAnalyticsUtils.logException(e, getActivity());
 			Log.d(TAG, e.getMessage());
 		}
 	}
@@ -172,6 +175,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
  	    	deleted = wordDbAdapter.deleteWord(wordId);
  	    } catch (Exception e) {
  			Log.d(TAG, "ERROR: " + e.getMessage());
+ 			GoogleAnalyticsUtils.logException(e, ctx);
  		} finally {
  			wordDbAdapter.close();
  		}
@@ -194,6 +198,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	 	    	deleted = wordDbAdapter.deleteSelected( selectedWords );
 	 	    } catch (Exception e) {
 	 			Log.d(TAG, "ERROR: " + e.getMessage());
+	 			GoogleAnalyticsUtils.logException(e, ctx);
 	 		} finally {
 	 			wordDbAdapter.close();
 	 		}
@@ -218,6 +223,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	 	    	updated = wordDbAdapter.updateActivitySelected(selectedWords, newStatusval );
 	 	    } catch (Exception e) {
 	 			Log.d(TAG, "ERROR: " + e.getMessage());
+	 			GoogleAnalyticsUtils.logException(e, ctx);
 	 		} finally {
 	 			wordDbAdapter.close();
 	 		}

@@ -9,6 +9,7 @@ import java.util.List;
 
 import sk.peterjurkovic.dril.csv.CSVReader;
 import sk.peterjurkovic.dril.model.Word;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import android.content.Context;
 
@@ -75,13 +76,7 @@ public class CsvStorageFileReader implements StorageFileReader {
 	
 	
 	protected void logException(Exception e){
-		 EasyTracker easyTracker = EasyTracker.getInstance(context);
-		  easyTracker.send(MapBuilder
-			      .createException(new StandardExceptionParser(context, null)             
-			      .getDescription(Thread.currentThread().getName(),  e),  false)                                              
-			      .build()
-			    );
-
+		 GoogleAnalyticsUtils.logException(e, context);
 	}
 
 }
