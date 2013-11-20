@@ -9,6 +9,7 @@ import sk.peterjurkovic.dril.dao.StatisticsDao;
 import sk.peterjurkovic.dril.dao.StatisticsDaoImpl;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.dto.WordToPronauceDto;
+import sk.peterjurkovic.dril.model.Statistics;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
@@ -198,17 +199,16 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     }
     
     public void showNoCardsAlert(){
-    	layout.setVisibility(View.INVISIBLE);
-    	TextView alertBox = ((TextView)findViewById(R.id.noCardActivatedAlert));
-    	alertBox.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent( getApplicationContext() , BookListActivity.class);
-        		startActivity(i);
-			}
-		});
-    	alertBox.setVisibility(View.VISIBLE);
-    	
+    	 layout.setVisibility(View.INVISIBLE);
+         TextView alertBox = ((TextView)findViewById(R.id.noCardActivatedAlert));
+         alertBox.setOnClickListener(new OnClickListener() {
+                     @Override
+                     public void onClick(View v) {
+                             Intent i = new Intent( getApplicationContext() , BookListActivity.class);
+                     startActivity(i);
+                     }
+             });
+         alertBox.setVisibility(View.VISIBLE);
     }
     
     public void processRate(View view){
@@ -218,16 +218,29 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	if(drilService.hasNext()){
     		tryNextWord();
     	}else{
-    		showNoCardsAlert();
+    		drilFinished();
     	}
     	
     }
     
-    public void drilFinished(int resourceId){
+    public void drilFinished(){
+    	
+    	RelativeLayout layoutFinished = ((RelativeLayout)findViewById(R.id.drilAlertBox));
+    	Statistics stats = drilService.getStatistics();
+    	if(stats != null){
+	    	TextView label = (TextView)findViewById(R.id.drilFinishedLabel);
+	    	label.setText(getString(R.string.dril_finished, stats.getLearnedCards() ));
+    	}
+    	Button nextWords = (Button) findViewById(R.id.drilActivateNextWords);
+    	nextWords.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent( getApplicationContext() , BookListActivity.class);
+        		startActivity(i);
+			}
+		});
     	layout.setVisibility(View.INVISIBLE);
-    	TextView alertBox = (TextView)findViewById(R.id.drilAlertBox);
-    	alertBox.setText(resourceId);
-    	alertBox.setVisibility(View.VISIBLE);
+    	layoutFinished.setVisibility(View.VISIBLE);
     	
     }
     

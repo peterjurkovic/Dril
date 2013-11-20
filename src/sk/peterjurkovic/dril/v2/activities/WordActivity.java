@@ -5,7 +5,6 @@ import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.fragments.AddWordFragment;
 import sk.peterjurkovic.dril.fragments.EditWordFragment;
-import sk.peterjurkovic.dril.fragments.ProblematicWordsListFragment;
 import sk.peterjurkovic.dril.fragments.WordListFragment;
 import sk.peterjurkovic.dril.listener.OnAddWordListener;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;

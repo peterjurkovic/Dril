@@ -73,7 +73,7 @@
 	<string name="selected">Selected:</string>
 	<string name="wordAction">Card:</string>
 	<string name="activated_words">Cards: %1$d  |  viewed: %2$dx |  last rating: %3$s</string>
-	<string name="dril_finished">Drill was completed! You can activate new cards.</string>
+	<string name="dril_finished">Great! You learned %1$d new word(s).</string>
 	<string name="pronauce_question">speech question</string>
 	<string name="pronauce_answer">speech answer</string>
 	<string name="speach_failed">Could not be pronounced given expression!</string>
@@ -231,4 +231,15 @@
     <string name="stats_sessions">Sessions</string>
     <string name="stats_problematics_words">Prob. wo.</string>
     <string name="stats_general">General</string>
+    <string name="activate_next_words">Activate other cards</string>
+    
+    
+    <string name="status_update">Updating status for %1$s at %2$s</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
+    <string name="success">Success</string>
+    <string name="successfully_posted_post">Successfully posted \'%1$s\'.\nPost ID: %2$s</string>
+    
+    
+    <string name="app_id">1422248241338902</string>
 </resources>

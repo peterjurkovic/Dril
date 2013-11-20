@@ -22,4 +22,6 @@ public class Constants {
 	public static final String PREF_WRITE_ANSWER_KEY = "pref_input_answer";
 	
 	public static final String HTTP_AUTH_VAL = "b379c5f65387e482844779a5626a01c7";
+	
+	//public static final String FB_API_ID = "1422248241338902";
 }

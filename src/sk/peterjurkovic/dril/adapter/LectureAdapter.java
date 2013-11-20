@@ -42,7 +42,7 @@ public class LectureAdapter extends CursorAdapter{
 	@Override
 	public View newView(Context ctx, Cursor c, ViewGroup root) {
 		LayoutInflater inflater = LayoutInflater.from(ctx);
-		View view = inflater.inflate(R.layout.lecture, root, false);
+		View view = inflater.inflate(R.layout.v2_lecture, root, false);
 		bindView(view, ctx, c);
 		return view;
 	}

@@ -127,8 +127,10 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	    WordDBAdapter wordDbAdapter = new WordDBAdapter(ctx);
 	    try{
 	    	if(isWordListActivity()){
+	    		Log.d(TAG, "isWordListActivity: true");
 	    		cursor = wordDbAdapter.getWordByLctureId(((WordActivity)ctx).getLectureId());
 	    	}else{
+	    		Log.d(TAG, "isWordListActivity: false");
 	    		cursor = wordDbAdapter.getProblematicsWords();
 	    	}
 	    	wordAdapter = new WordAdapter(ctx, cursor, 0);
@@ -144,8 +146,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 	}
 	
 	private boolean isWordListActivity(){
-		String n = getActivity().getClass().getName();
-		return WordListFragment.class.getName().equals(n);
+		return (getActivity() instanceof WordActivity);
 	}
 	
 	public void closeAdapterCursor(){

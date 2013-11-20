@@ -7,16 +7,43 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical" >
-		    
-	    <TextView
+		
+	    <RelativeLayout 
 	        android:id="@+id/drilAlertBox"
-	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
-	        android:gravity="center|center_vertical"
-	        android:textColor="#ba0000"
+	        android:layout_width="match_parent"
 	        android:visibility="gone"
-	        android:text="@string/dril_finished"
-	    />
+	        >
+	        
+	        <TextView style="@style/separator" 	/>
+	        
+	        <TextView   
+	            android:id="@+id/drilFinishedLabel"   
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:gravity="center|center_vertical"
+		        android:textColor="@color/alertColor"
+		        android:textSize="16sp"
+		        android:textStyle="bold"
+		        android:paddingTop="35dp"
+		        android:paddingBottom="35dp"
+		        android:text="@string/dril_finished"
+	    	/>
+	        <Button 
+	            android:layout_below="@id/drilFinishedLabel"
+	            android:id="@+id/drilActivateNextWords"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingTop="30dp"
+	            android:paddingBottom="30dp"
+				android:text="@string/activate_next_words"
+				style="@style/v2Submitbutton"
+	            />
+	        
+	       
+	        
+	    </RelativeLayout>
+	   
 	    
 	    <TextView
 	        android:id="@+id/noCardActivatedAlert"
@@ -152,7 +179,7 @@
 		     android:layout_height="wrap_content"
 		     android:visibility="gone"
 		     android:background="@drawable/v2_input_answer_result"
-		    style="@style/drilBox"
+		     style="@style/drilBox"
 		     
 		 />
 		 
