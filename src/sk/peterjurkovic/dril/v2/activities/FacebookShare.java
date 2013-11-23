@@ -1,12 +1,15 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.FacebookAuthorizationException;
@@ -15,14 +18,23 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.FacebookDialog;
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 
 public class FacebookShare extends BaseActivity{
+	
+	public static final String EXTRA_LEARNED_DARDS = "noLearnedCards";
 	
 	private static final String PERMISSION = "publish_actions";
 	private final String PENDING_ACTION_BUNDLE_KEY = "sk.peterjurkovic.dril.v2.activities.FacebookShare";
 	private UiLifecycleHelper uiHelper;
 	private PendingAction pendingAction = PendingAction.NONE;
-	private Button postStatusUpdateButton;
+	private Button sharOnFacebookBtn;
+	private Button activateNewWordsBtn;
+	private Context context;
+	private TextView label;
+	private int learnedCards = 1;
+	
 	private enum PendingAction {
 	        NONE,
 	        POST_PHOTO,
@@ -49,27 +61,77 @@ public class FacebookShare extends BaseActivity{
             String name = savedInstanceState.getString(PENDING_ACTION_BUNDLE_KEY);
             pendingAction = PendingAction.valueOf(name);
         }
-	    postStatusUpdateButton = (Button) findViewById(R.id.postStatusUpdateButton);
-        postStatusUpdateButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                onClickPostStatusUpdate();
-            }
-        });
+	    this.context = this;
+	    initViews();
+	    
+	}
+	
+	protected void initViews(){
+		sharOnFacebookBtn = (Button) findViewById(R.id.facebookShareBtn);
+		
+		if(isFacebookSharingEnabled()){
+			sharOnFacebookBtn.setVisibility(View.VISIBLE);
+			sharOnFacebookBtn.setOnClickListener(new View.OnClickListener() {
+	            public void onClick(View view) {
+	                onClickPostStatusUpdate();
+	            }
+	        });
+		}
+		
+	    activateNewWordsBtn = (Button) findViewById(R.id.drilActivateNextWords);
+	    activateNewWordsBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(context, BookListActivity.class);
+				startActivity(intent);
+				
+			}
+		});
+	    
+	    Intent intent = getIntent();
+	    learnedCards = intent.getIntExtra(EXTRA_LEARNED_DARDS, 1);
+	    label = (TextView) findViewById(R.id.drilFinishedLabel);
+	    label.setText(getString(R.string.dril_finished, learnedCards));
+	    
+		
+	}
+	
+	private boolean isFacebookSharingEnabled(){
+		return FacebookDialog.canPresentShareDialog(getApplicationContext(),  
+			   FacebookDialog.ShareDialogFeature.SHARE_DIALOG);
 	}
 	
 	 private void onClickPostStatusUpdate() {
-		if (FacebookDialog.canPresentShareDialog(getApplicationContext(),  FacebookDialog.ShareDialogFeature.SHARE_DIALOG)) {
+		if (isFacebookSharingEnabled()) {
 			 FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
-		        .setLink("https://developers.facebook.com/android")
+			 .setLink(Constants.DRIL_HOMEPAGE_URL)
+			 .setPicture(getPictureUrl())
+			 .setName(getFacebokTitle())
+			 .setCaption(getString(R.string.facebook_caption))
 		        .build();
 			 uiHelper.trackPendingDialogCall(shareDialog.present());
-			
+			 logSharing();
 		}else{
 			Toast.makeText(getApplicationContext(), "No FB app instalated", Toast.LENGTH_LONG).show();
 		}
  
    }
-	
+	 
+   private void logSharing(){
+	   EasyTracker.getInstance(this)
+	   .send(MapBuilder.createEvent("Social", "Dril result share", "Clicked", (long) 1).build());
+	   
+   }
+
+   private String getPictureUrl(){
+	   return Constants.FB_IMAGE_URL.replace("{locale}", Constants.APP_VARIANT);
+   }
+   
+   private String getFacebokTitle(){
+	   String name = getResources().getQuantityString(R.plurals.facebook_share_tile, learnedCards);
+	   return name + " - " + getString(R.string.app_name_long);
+   }
+   
 	 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

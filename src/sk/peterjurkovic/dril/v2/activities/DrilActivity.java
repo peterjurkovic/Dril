@@ -33,7 +33,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -212,8 +211,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     }
     
     public void processRate(View view){
-    	int rate = Integer.valueOf((String)view.getTag());
-    	Log.d(TAG, "clicked: "+ rate);
+    	final int rate = Integer.valueOf((String)view.getTag());
     	drilService.precessRating(rate);
     	if(drilService.hasNext()){
     		tryNextWord();
@@ -223,25 +221,19 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	
     }
     
+    
     public void drilFinished(){
-    	
-    	RelativeLayout layoutFinished = ((RelativeLayout)findViewById(R.id.drilAlertBox));
-    	Statistics stats = drilService.getStatistics();
-    	if(stats != null){
-	    	TextView label = (TextView)findViewById(R.id.drilFinishedLabel);
-	    	label.setText(getString(R.string.dril_finished, stats.getLearnedCards() ));
+    	Intent shareIntent = new Intent(this, FacebookShare.class);
+    	Statistics statistics = drilService.getStatistics();
+    	int learnedCards = 1;
+    	if(statistics != null){
+    		statistics.setFinished(Boolean.TRUE);
+    		StatisticsDao statisDao = new StatisticsDaoImpl(this);
+    		statisDao.updateStatistics(statistics);
+    		learnedCards = statistics.getLearnedCards();
     	}
-    	Button nextWords = (Button) findViewById(R.id.drilActivateNextWords);
-    	nextWords.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent i = new Intent( getApplicationContext() , BookListActivity.class);
-        		startActivity(i);
-			}
-		});
-    	layout.setVisibility(View.INVISIBLE);
-    	layoutFinished.setVisibility(View.VISIBLE);
-    	
+    	shareIntent.putExtra(FacebookShare.EXTRA_LEARNED_DARDS, learnedCards);
+    	startActivity(shareIntent);
     }
     
     

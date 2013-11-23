@@ -3,14 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView style="@style/separator" 	/>
-    
-    <Button
-       android:id="@+id/postStatusUpdateButton"
-       android:layout_width="fill_parent"
-       android:layout_height="wrap_content"
-       android:text="Post Status Update"
-       />
-
-    
+   
+   <TextView style="@style/separator" 	/>   
+       <TextView   
+           android:id="@+id/drilFinishedLabel"   
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center|center_vertical"
+	        android:textColor="@color/alertColor"
+	        android:textSize="16sp"
+	        android:textStyle="bold"
+	        android:paddingTop="35dp"
+	        android:paddingBottom="35dp"
+	        android:text="@string/dril_finished"
+   	/>
+     <Button 
+         android:layout_below="@id/drilFinishedLabel"
+         android:id="@+id/drilActivateNextWords"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:paddingTop="20dp"
+         android:paddingBottom="20dp"
+		android:text="@string/activate_next_words"
+		style="@style/v2Submitbutton"
+         />
+     
+      <Button 
+         android:layout_below="@id/drilActivateNextWords"
+         android:id="@+id/facebookShareBtn"
+		 style="@style/v2FacebookBtn"
+		 android:visibility="gone"
+         android:text="@string/share_it_on_facebook"
+         android:layout_margin="5dp"
+         />
+	        
 </RelativeLayout>

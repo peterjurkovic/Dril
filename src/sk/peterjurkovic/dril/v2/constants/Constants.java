@@ -11,7 +11,7 @@ public class Constants {
 	public static final String CONTACT_EMAIL = "info@drilapp.com";
 	public static final String DONATE_URL = "http://www.drilapp.com/sk/kontakt";
 	
-	public static final String API_URL = "http://192.168.0.104/drilapp.com/export2.php";
+	public static final String API_URL = "http://192.168.1.34/export2.php";
 	
 	public static final int DELAY_BEFORE_PRONUNCIATION = 1500;
 	
@@ -24,4 +24,7 @@ public class Constants {
 	public static final String HTTP_AUTH_VAL = "b379c5f65387e482844779a5626a01c7";
 	
 	//public static final String FB_API_ID = "1422248241338902";
+	
+	public static final String APP_VARIANT = "en";
+	public static final String FB_IMAGE_URL = "http://www.drilapp.com/img/lachucher_ico_{locale}.png";
 }

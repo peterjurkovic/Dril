@@ -1,6 +1,7 @@
 package sk.peterjurkovic.dril.db;
 
 import sk.peterjurkovic.dril.model.Statistics;
+import sk.peterjurkovic.dril.utils.ConversionUtils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -129,6 +130,7 @@ public class StatisticDbAdapter extends DBAdapter{
 	    	stats.setHits(cursor.getInt(cursor.getColumnIndex(HITS)));
 	    	stats.setLearnedCards(cursor.getInt(cursor.getColumnIndex(LEARNED_CARDS)));
 	    	stats.setSumOfRate(cursor.getInt(cursor.getColumnIndex(SUM_OR_RATING)));
+	    	stats.setFinished(ConversionUtils.intToBoolean(cursor.getColumnIndex(FINISHED)));
 	    	cursor.close();
 	    	return stats;
     	}
@@ -140,10 +142,13 @@ public class StatisticDbAdapter extends DBAdapter{
     		return false;
     	}
     	SQLiteDatabase db = openWriteableDatabase();
-    	ContentValues values = bindBookParams(statistics);
-        long count = db.update(TABLE_STATISTIC, values, STATISTIC_ID+"="+statistics.getId(), null);
-        db.close();
-        return count > 0;
+    	if(db != null){
+	    	ContentValues values = bindBookParams(statistics);
+	        long count = db.update(TABLE_STATISTIC, values, STATISTIC_ID+"="+statistics.getId(), null);
+	        db.close();
+	        return count > 0;
+    	}
+    	return false;
     }
     
     public long createStatistics(Statistics statistics){
@@ -172,6 +177,7 @@ public class StatisticDbAdapter extends DBAdapter{
 	   	values.put(CHANGED_COLL, statistics.getChanged());
 	   	values.put(CREATED_COLL, statistics.getCreated());
 	   	values.put(HITS, statistics.getHits());
+	   	values.put(FINISHED, ConversionUtils.booleanToInt(statistics.isFinished()));
 	   	values.put(LEARNED_CARDS, statistics.getLearnedCards());
 	   	values.put(AVG_RATE_GLOBAL, statistics.getAvgGlobalRate());
 	   	values.put(AVG_RATE_SESSION, statistics.getAvgSessionRate());

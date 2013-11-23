@@ -13,6 +13,7 @@ public class Statistics extends AbstractEntity{
 	private double avgGlobalRate = 0;
 	private int learnedCards = 0;
 	private int sumOfRate = 0;
+	private boolean finished;
 	
 	public Statistics(){
 		setChanged(System.currentTimeMillis());
@@ -43,7 +44,13 @@ public class Statistics extends AbstractEntity{
 	public void setLearnedCards(int learnedCards) {
 		this.learnedCards = learnedCards;
 	}
-	
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
 
 	public int getSumOfRate() {
 		return sumOfRate;

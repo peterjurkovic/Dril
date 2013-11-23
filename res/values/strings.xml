@@ -239,7 +239,12 @@
     <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
     <string name="success">Success</string>
     <string name="successfully_posted_post">Successfully posted \'%1$s\'.\nPost ID: %2$s</string>
-    
+    <string name="share_it_on_facebook">Share it on Facebook</string>
+    <string name="facebook_caption">Do not waste your free time and start educate</string>
+    <plurals name="facebook_share_tile">
+        <item quantity="one">I learned one new word</item>
+        <item quantity="other">I learned %1$d new words</item>
+    </plurals>
     
     <string name="app_id">1422248241338902</string>
 </resources>
