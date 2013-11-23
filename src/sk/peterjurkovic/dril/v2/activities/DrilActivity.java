@@ -67,7 +67,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
 	private EditText input;
 	private TextView userAnserBox;
 	private TextView userAnserBoxResult;
-	
+	private ImageButton helpMe;
 	private boolean writeAnswer = false;
 	SharedPreferences preferences;
 	
@@ -85,7 +85,8 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
         slideLeftIn.setFillAfter(true);
     	layout = findViewById(R.id.dril);
     	layout.startAnimation(slideLeftIn);
-	 
+    	
+    	helpMe = (ImageButton) findViewById(R.id.helpMe);
 	    speachQuestionBtn = (ImageButton) findViewById(R.id.speakQuestion);
 	    speachAnswerBtn = (ImageButton) findViewById(R.id.speakAnswer);
 	    showAnswerBtn = (Button) findViewById(R.id.showAnswer);

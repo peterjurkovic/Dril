@@ -182,6 +182,17 @@
 		 	     android:textColor="#EfEFEF"
 		 	     android:textSize="18sp" />
 		  
+		 	  <ImageButton 
+			    android:id="@+id/helpMe"
+			    style="@style/v2helpMeBtn"
+			    android:layout_above="@id/showAnswer"
+			    android:layout_alignParentRight="true"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:scaleType="fitXY"
+			 	android:contentDescription="@string/pronauce_answer" 
+			 	  />
+		 	  
 		</RelativeLayout> 
 		
 		

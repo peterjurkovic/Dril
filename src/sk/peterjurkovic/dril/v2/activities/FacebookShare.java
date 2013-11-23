@@ -21,11 +21,16 @@ import com.facebook.widget.FacebookDialog;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 
+/**
+ * 
+ * @author Peter Jurkovič
+ * @date Nov 23, 2013
+ *
+ */
 public class FacebookShare extends BaseActivity{
 	
 	public static final String EXTRA_LEARNED_DARDS = "noLearnedCards";
-	
-	private static final String PERMISSION = "publish_actions";
+
 	private final String PENDING_ACTION_BUNDLE_KEY = "sk.peterjurkovic.dril.v2.activities.FacebookShare";
 	private UiLifecycleHelper uiHelper;
 	private PendingAction pendingAction = PendingAction.NONE;
@@ -128,8 +133,8 @@ public class FacebookShare extends BaseActivity{
    }
    
    private String getFacebokTitle(){
-	   String name = getResources().getQuantityString(R.plurals.facebook_share_tile, learnedCards);
-	   return name + " - " + getString(R.string.app_name_long);
+	   String name = getResources().getString(R.string.facebook_share_tile, learnedCards);
+	   return name;
    }
    
 	 
@@ -199,7 +204,7 @@ public class FacebookShare extends BaseActivity{
         pendingAction = PendingAction.NONE;
         switch (previouslyPendingAction) {
             case POST_STATUS_UPDATE:
-               
+            	 onClickPostStatusUpdate();
                 break;
         }
     }
