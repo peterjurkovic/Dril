@@ -393,9 +393,4 @@
 	   <item name="android:padding">20dp</item>
     </style>
     
-    <style name="v2helpMeBtn">
-        <item name="android:background">@drawable/ic_help</item>
-   
-	   
-    </style>
 </resources>

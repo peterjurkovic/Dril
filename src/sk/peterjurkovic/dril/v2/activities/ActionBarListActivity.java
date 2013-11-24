@@ -66,7 +66,7 @@ public class ActionBarListActivity extends BaseActivity {
      *
      * @see Activity#onContentChanged()
      */
-	@Override
+	//@Override
 	public void onContentChanged() {
         super.onContentChanged();
         View emptyView = findViewById(R.id.empty);

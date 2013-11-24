@@ -28,6 +28,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +43,7 @@ import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.MapBuilder;
 
 
-public class DrilActivity extends BaseActivity implements OnInitListener{
+public class DrilActivity extends BaseActivity implements OnInitListener, AnimationListener {
 	
 	public static final String DRIL_ID = "drilActivity";
 	private static final String QUESTION_TAG = "question";
@@ -62,6 +64,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
 	private TextView drilheaderInfo;
 	private TextView answerLabel;
 	private Animation slideLeftIn;
+	private Animation helpIcoAnim;
 	private View  layout;
 	private LinearLayout answerLayout;
 	private EditText input;
@@ -83,10 +86,17 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
         slideLeftIn = new TranslateAnimation(1000, 0, 0, 0);
         slideLeftIn.setDuration(500);
         slideLeftIn.setFillAfter(true);
-    	layout = findViewById(R.id.dril);
+        slideLeftIn.setAnimationListener(this);
+        
+        helpIcoAnim = AnimationUtils.loadAnimation(getApplicationContext(),    R.anim.bounce );     
+        helpIcoAnim.setAnimationListener(this);
+        helpMe = (ImageButton) findViewById(R.id.helpMe);
+    	helpMe.setAnimation(helpIcoAnim);
+    	
+        layout = findViewById(R.id.dril);
     	layout.startAnimation(slideLeftIn);
     	
-    	helpMe = (ImageButton) findViewById(R.id.helpMe);
+    	
 	    speachQuestionBtn = (ImageButton) findViewById(R.id.speakQuestion);
 	    speachAnswerBtn = (ImageButton) findViewById(R.id.speakAnswer);
 	    showAnswerBtn = (Button) findViewById(R.id.showAnswer);
@@ -246,6 +256,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	answer.setVisibility(View.VISIBLE);
     	speachAnswerBtn.setVisibility(View.VISIBLE);
     	showAnswerBtn.setVisibility(View.GONE);
+    	helpMe.setVisibility(View.INVISIBLE);
 
     	if(writeAnswer){
     		hideInputField();
@@ -275,6 +286,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	answerLabel.setVisibility(View.GONE);
     	answer.setVisibility(View.GONE);
     	speachAnswerBtn.setVisibility(View.GONE);
+    	helpMe.setVisibility(View.VISIBLE);
     	showAnswerBtn.setVisibility(View.VISIBLE);
     	if(writeAnswer){
     		 showInputField();
@@ -480,4 +492,23 @@ public class DrilActivity extends BaseActivity implements OnInitListener{
     	StatisticsDao statisticsDao = new StatisticsDaoImpl(this);
     	drilService.setStatistics(statisticsDao.getSessionStatisticsOrCreateNew());
     }
+
+	@Override
+	public void onAnimationStart(Animation animation) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onAnimationEnd(Animation animation) {
+		if(slideLeftIn.equals(animation)){
+			helpMe.startAnimation(helpIcoAnim);
+		}
+	}
+
+	@Override
+	public void onAnimationRepeat(Animation animation) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -184,8 +184,9 @@
 		  
 		 	  <ImageButton 
 			    android:id="@+id/helpMe"
-			    style="@style/v2helpMeBtn"
+			    android:background="@drawable/ic_help"
 			    android:layout_above="@id/showAnswer"
+			    android:visibility="gone"
 			    android:layout_alignParentRight="true"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
