@@ -35,6 +35,7 @@ public class BookListActivity extends ActionBarListActivity {
 	
 	public static final String TAG = "BookListActivity";
 	
+	
 	private static final int REQUEST_ADD_BOOK = 0;
 	private static final int REQUEST_EDIT_BOOK = 1;
 	

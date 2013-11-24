@@ -27,9 +27,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-
+/**
+ * 
+ * 
+ * @author Peter Jurkovič
+ * @date Nov 24, 2013
+ *
+ */
 public class ImportFileActivity extends BaseActivity {
 	
+	private final static String CREATE_LECTURE_KEY = "importCreateLecture";
+	private final static String BOOK_ID_KEY = "importBookId";
+	private final static String LECTURE_ID_KEY = "importLectureId";
+	private final static String IS_CSV_KEY = "importIsCsv";
 	
 	private static final int ACTIVITY_CHOOSE_FILE = 1;
 	  
@@ -51,16 +61,23 @@ public class ImportFileActivity extends BaseActivity {
 	    setContentView(R.layout.v2_import_file_activity);
 	    context = this;
 	    
-	    Intent i = getIntent();
-	    createLecture = i.getBooleanExtra(ImportMenuActivity.EXTRA_CREATE_LECTURE, false);
-	    isCsvImport = i.getBooleanExtra(ImportMenuActivity.EXTRA_IS_CSV, true);
+	    if(savedInstanceState != null){
+	    	restoreDate(savedInstanceState);
+	    }else{
+		    Intent i = getIntent();
+		    createLecture = i.getBooleanExtra(ImportMenuActivity.EXTRA_CREATE_LECTURE, false);
+		    isCsvImport = i.getBooleanExtra(ImportMenuActivity.EXTRA_IS_CSV, true);
+		    
+		    if(createLecture){
+			   bookId = i.getLongExtra(ImportMenuActivity.EXTRA_ID, 0);
+			}else{
+			   lectureId = i.getLongExtra(ImportMenuActivity.EXTRA_ID, 0);
+			}
+	    }
 	    
 	    if(createLecture){
-		   bookId = i.getLongExtra(ImportMenuActivity.EXTRA_ID, 0);
-		   initInputs();
-		}else{
-		   lectureId = i.getLongExtra(ImportMenuActivity.EXTRA_ID, 0);
-		}
+	    	initInputs();
+	    }
 	    
 	    if(isCsvImport){
 	    	setVisibleCsvInfo();
@@ -94,6 +111,20 @@ public class ImportFileActivity extends BaseActivity {
 	      }
 	    });
 	  }
+	  
+	private void restoreDate(Bundle instanceState){  
+		createLecture = instanceState.getBoolean(CREATE_LECTURE_KEY);
+		bookId = instanceState.getLong(BOOK_ID_KEY);
+		lectureId = instanceState.getLong(LECTURE_ID_KEY);
+		isCsvImport = instanceState.getBoolean(IS_CSV_KEY);
+	}
+	
+	private void backupData(Bundle outState){
+		outState.putBoolean(CREATE_LECTURE_KEY, createLecture);
+		outState.putLong(BOOK_ID_KEY, bookId);
+		outState.putLong(LECTURE_ID_KEY, lectureId);
+		outState.putBoolean(IS_CSV_KEY, isCsvImport);
+	}
 
 	public void createLecture(final String lectureName) {
 		 if(bookId == 0 && createLecture){
@@ -252,5 +283,16 @@ public class ImportFileActivity extends BaseActivity {
 	  }
 	  
 	
+	  @Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		backupData(outState);
+	}
+	  
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		restoreDate(savedInstanceState);
+	}
 	  
 }

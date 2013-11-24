@@ -201,7 +201,9 @@
 	
 	<string name="pref_input_answer">Inscribe answer</string>
 	<string name="pref_input_answer_descr">Will determine the question similarity</string>
-
+	
+	<string name="pref_show_helper">Show whisperer</string>
+	<string name="pref_show_helper_descr">Will shown help icon in dril</string>
 	
 	<string name="lang_question">Language of question</string>
 	<string name="lang_answer">Language of answer</string>
@@ -241,4 +243,5 @@
     <string name="facebook_share_tile">English effectively</string>
     
     <string name="app_id">1422248241338902</string>
+    <string name="help">\?</string>
 </resources>

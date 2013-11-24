@@ -39,6 +39,14 @@
         android:title="@string/pref_input_answer"
         android:summary="@string/pref_input_answer_descr" 
      />
+    
+    
+     <CheckBoxPreference
+        android:key="pref_show_helper"
+        android:defaultValue="true"
+        android:title="@string/pref_show_helper"
+        android:summary="@string/pref_show_helper_descr" 
+     />
 
    
 </PreferenceScreen>

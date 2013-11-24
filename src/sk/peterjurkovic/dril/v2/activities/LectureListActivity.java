@@ -34,9 +34,10 @@ import android.widget.Toast;
  */
 public class LectureListActivity extends ActionBarListActivity {
 
-public static final String EXTRA_BOOK_ID = "bookId";
+	public static final String EXTRA_BOOK_ID = "bookId";
 	
 	public static final String TAG = "LectureListActivity";
+	
 	
 	private static final int REQUEST_ADD_LECTURE = 0;
 	private static final int REQUEST_EDIT_LECTURE = 1;
@@ -71,7 +72,11 @@ public static final String EXTRA_BOOK_ID = "bookId";
 				}
 		    });
 		    registerForContextMenu( getListView() );
-		    bookId = getIntent().getLongExtra( EXTRA_BOOK_ID, 0);
+		    if(savedInstanceState != null){
+		    	bookId = savedInstanceState.getLong(EXTRA_BOOK_ID);
+		    }else{
+		    	bookId = getIntent().getLongExtra( EXTRA_BOOK_ID, 0);
+		    }
 	        if(bookId != 0){
 		        lectureProgressBar = (ProgressBar)findViewById(R.id.lectureProgress);
 		        lectureProgressBarLabel = (TextView)findViewById(R.id.lectureProgressLabel);
@@ -441,5 +446,17 @@ public static final String EXTRA_BOOK_ID = "bookId";
 		public boolean onCreateOptionsMenu(Menu menu) {
 			getMenuInflater().inflate(R.menu.v2_lecture_list_menu, menu);
 			return super.onCreateOptionsMenu(menu);
+		}
+		
+		@Override
+		protected void onSaveInstanceState(Bundle outState) {
+			super.onSaveInstanceState(outState);
+			outState.putLong(EXTRA_BOOK_ID, bookId);
+		}
+		
+		@Override
+		protected void onRestoreInstanceState(Bundle savedInstanceState) {
+			super.onRestoreInstanceState(savedInstanceState);
+			bookId = savedInstanceState.getLong(EXTRA_BOOK_ID);
 		}
 }

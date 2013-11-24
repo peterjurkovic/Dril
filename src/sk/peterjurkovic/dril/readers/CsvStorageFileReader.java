@@ -13,10 +13,6 @@ import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import android.content.Context;
 
-import com.google.analytics.tracking.android.EasyTracker;
-import com.google.analytics.tracking.android.MapBuilder;
-import com.google.analytics.tracking.android.StandardExceptionParser;
-
 /**
  * 
  * @author Peter Jurkovič

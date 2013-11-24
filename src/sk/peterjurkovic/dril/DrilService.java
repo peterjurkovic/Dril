@@ -178,6 +178,7 @@ public class DrilService {
 		return sum;
 	}
 	
+	
 	public Word getCurrentWord(){
 		if(activatedWords.size() > 0){
 			return activatedWords.get(position);

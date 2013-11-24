@@ -32,6 +32,8 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 	public static final int REQUEST_EDIT_WORD = 1;
 
 	public static final String LECTURE_ID_EXTRA = "fk_lecture_id";
+	public static final String LECTURE_NAME_EXTRA = "fk_lecture_name";
+	
 	private boolean dualPane = false;
 	public static final String TAG = "WordActivity";
 	private long lectureId = -1;
@@ -43,17 +45,17 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 
 		setContentView(R.layout.v2_word_list_layout);
 
-		lectureId = getIntent().getLongExtra(LECTURE_ID_EXTRA, -1);
-
-		if (lectureId == -1) {
-			logException("Lecture ID is not set.", false);
-			throw new Error("Lecture ID is not set.");
+		if(savedInstanceState != null){
+			lectureId = savedInstanceState.getLong(LECTURE_ID_EXTRA);
+			lectureName = savedInstanceState.getString(LECTURE_NAME_EXTRA);
+		}else{
+			lectureId = getIntent().getLongExtra(LECTURE_ID_EXTRA, -1);
+			if (lectureId == -1) {
+				logException("Lecture ID is not set.", false);
+				throw new Error("Lecture ID is not set.");
+			}
+			lectureName = getLectureName(this, lectureId);
 		}
-
-		// dualPane = findViewById(R.id.right_column) != null;
-
-		lectureName = getLectureName(this, lectureId);
-
 		((TextView) findViewById(R.id.wordListLabel)).setText(lectureName);
 
 		((Button) findViewById(R.id.addNewWord))
@@ -335,5 +337,19 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		                                                 + "");
 		         }
 		 }
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putLong(LECTURE_ID_EXTRA, lectureId);
+		outState.putString(LECTURE_NAME_EXTRA, lectureName);
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		lectureId =  savedInstanceState.getLong(LECTURE_ID_EXTRA);
+		lectureName = savedInstanceState.getString(LECTURE_NAME_EXTRA);
 	}
 }

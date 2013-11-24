@@ -165,8 +165,105 @@ public class StringUtils {
 	      // actually has the most recent cost counts
 	      return p[n];
 	  }
-
 	
+	
+	/**
+	 * Check if character at given position is space
+	 * 
+	 * @param value
+	 * @param position
+	 * @return TRUE, if is '\s' 
+	 */
+	public static boolean isSpace(final String value, final int position){
+		if(StringUtils.isBlank(value) || value.length() <= position){
+			return false;
+		}
+		
+		return StringUtils.isWhitespace( value.charAt(position) );
+	}
+	
+	
+	/**
+	 * 
+	 * @param character
+	 * @return
+	 */
+	public static boolean isWhitespace(final char character){
+		if (character == ' ' || character == '\t' || character == '\n' || character == '\r'){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+	public static int getCountOfWhitespacesToPostion(final String value, final int position){
+		int count = 0;
+		if(StringUtils.isBlank(value)){
+			return count;
+		}
+		for (char c : value.toCharArray()) {
+		    if (StringUtils.isWhitespace(c)) {
+		    	count++;
+		    }
+		} 	
+		return count;
+	}
+	
+	
+	public static String getDrilHelpMessage(final String answer, final int hit){
+		Log.i("StringUtils", "Creating help for: " + answer);
+		if(!StringUtils.isBlank(answer)){
+			if(StringUtils.hasNextCharacter(answer, hit)){
+				String[] words = answer.split(" ");
+				if(words.length > 3 && answer.length() > 10){
+					return StringUtils.getNexWord(words, hit);
+				}
+				return StringUtils.getHelpMessage(answer, hit);
+			}
+			return answer;
+		}
+		return "";
+	}
+	
+	
+	private static String getHelpMessage(final String answer, final int hit){
+		if(StringUtils.hasNextCharacter(answer, hit)){
+			int nextIndex = hit + 1;
+			int countOfSpaces = StringUtils.getCountOfWhitespacesToPostion(answer, hit);
+			Log.i("String Utils", "Count of whitesaces to "+nextIndex+" position: " + countOfSpaces);
+			nextIndex += countOfSpaces;
+			
+			if(answer.length() > nextIndex){
+				return answer.substring(0, nextIndex) + "...";
+			}
+			
+		}
+		return answer;
+	}
+	
+	
+	private static String getNexWord(String[] words, final int hit){
+		if(words != null){
+			StringBuilder builder = new StringBuilder();
+			for(int i = 0; i < words.length; i++){
+				builder.append(words[i]);
+				if(i == hit){
+					if((i+1) != words.length){
+						builder.append(" ...");
+					}
+					return builder.toString();
+				}
+				builder.append(" ");
+			}
+		}
+		return "";
+	}
+	
+	
+	private static boolean hasNextCharacter(final String answer, final int hit){
+		return (answer.trim().length() > (hit + 1));
+	}
 	
 	
 }

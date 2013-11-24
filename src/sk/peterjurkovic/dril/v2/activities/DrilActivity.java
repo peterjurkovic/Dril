@@ -28,8 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,7 +41,7 @@ import com.google.analytics.tracking.android.Fields;
 import com.google.analytics.tracking.android.MapBuilder;
 
 
-public class DrilActivity extends BaseActivity implements OnInitListener, AnimationListener {
+public class DrilActivity extends BaseActivity implements OnInitListener {
 	
 	public static final String DRIL_ID = "drilActivity";
 	private static final String QUESTION_TAG = "question";
@@ -52,6 +50,8 @@ public class DrilActivity extends BaseActivity implements OnInitListener, Animat
 	public static final String TAG = "DRIL";
 	public static final int DATA_CHECK_CODE = 0;
 	public static final String STATISTIC_ID_KEY = "statisticId";
+	
+	private int helpClickedCounter = 0;
 	
 	private TextToSpeech tts;
 	private DrilService drilService;
@@ -64,13 +64,12 @@ public class DrilActivity extends BaseActivity implements OnInitListener, Animat
 	private TextView drilheaderInfo;
 	private TextView answerLabel;
 	private Animation slideLeftIn;
-	private Animation helpIcoAnim;
 	private View  layout;
 	private LinearLayout answerLayout;
 	private EditText input;
 	private TextView userAnserBox;
 	private TextView userAnserBoxResult;
-	private ImageButton helpMe;
+	private TextView helpMe;
 	private boolean writeAnswer = false;
 	SharedPreferences preferences;
 	
@@ -86,16 +85,10 @@ public class DrilActivity extends BaseActivity implements OnInitListener, Animat
         slideLeftIn = new TranslateAnimation(1000, 0, 0, 0);
         slideLeftIn.setDuration(500);
         slideLeftIn.setFillAfter(true);
-        slideLeftIn.setAnimationListener(this);
         
-        helpIcoAnim = AnimationUtils.loadAnimation(getApplicationContext(),    R.anim.bounce );     
-        helpIcoAnim.setAnimationListener(this);
-        helpMe = (ImageButton) findViewById(R.id.helpMe);
-    	helpMe.setAnimation(helpIcoAnim);
-    	
+        helpMe = (TextView) findViewById(R.id.helpMe);    	
         layout = findViewById(R.id.dril);
     	layout.startAnimation(slideLeftIn);
-    	
     	
 	    speachQuestionBtn = (ImageButton) findViewById(R.id.speakQuestion);
 	    speachAnswerBtn = (ImageButton) findViewById(R.id.speakAnswer);
@@ -111,37 +104,44 @@ public class DrilActivity extends BaseActivity implements OnInitListener, Animat
         userAnserBoxResult = (TextView) findViewById(R.id.userAnserBoxResult);
         
         checkTTSDataForLocale();
-        
-        
-        showAnswerBtn.setOnClickListener(new  OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				showAnswer();				
-			}
-		});
-
-        OnClickListener onQuestionClick = new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				speakWords( getQuestionToPronauce() );
-			}
-		};
-		
-		OnClickListener onAnswerClick = new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				speakWords( getAnserToPronauce() );
-			}
-		};
-        speachQuestionBtn.setOnClickListener(onQuestionClick);
-        speachAnswerBtn.setOnClickListener(onAnswerClick);
-        question.setOnClickListener(onQuestionClick);
-        answer.setOnClickListener(onAnswerClick);
-        
         init();
     }
     
+    private void setListeners(){
+    	 showAnswerBtn.setOnClickListener(new  OnClickListener() {
+ 			@Override
+ 			public void onClick(View v) {
+ 				showAnswer();				
+ 			}
+ 		});
+
+         OnClickListener onQuestionClick = new OnClickListener() {
+ 			@Override
+ 			public void onClick(View v) {
+ 				speakWords( getQuestionToPronauce() );
+ 			}
+ 		};
+ 		
+ 		OnClickListener onAnswerClick = new OnClickListener() {
+ 			@Override
+ 			public void onClick(View v) {
+ 				speakWords( getAnserToPronauce() );
+ 			}
+ 		};
+         speachQuestionBtn.setOnClickListener(onQuestionClick);
+         speachAnswerBtn.setOnClickListener(onAnswerClick);
+         question.setOnClickListener(onQuestionClick);
+         answer.setOnClickListener(onAnswerClick);
+         helpMe.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				onHelpMeClicked();
+			}
+		});
+    }
+    
     private void init(){
+    	setListeners();
     	preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     	drilService = new DrilService(new WordDBAdapter(this));
     	writeAnswer = preferences.getBoolean(Constants.PREF_WRITE_ANSWER_KEY, false);
@@ -157,6 +157,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener, Animat
     }
     
     private void tryNextWord(){
+    	helpClickedCounter = 0;
     	hideAnswer();
     	Word currentWord = drilService.getNext();
     	setWordIntoViews(currentWord);
@@ -256,8 +257,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener, Animat
     	answer.setVisibility(View.VISIBLE);
     	speachAnswerBtn.setVisibility(View.VISIBLE);
     	showAnswerBtn.setVisibility(View.GONE);
-    	helpMe.setVisibility(View.INVISIBLE);
-
+    	hideHelper();
     	if(writeAnswer){
     		hideInputField();
     		String text = input.getText().toString();
@@ -286,15 +286,27 @@ public class DrilActivity extends BaseActivity implements OnInitListener, Animat
     	answerLabel.setVisibility(View.GONE);
     	answer.setVisibility(View.GONE);
     	speachAnswerBtn.setVisibility(View.GONE);
-    	helpMe.setVisibility(View.VISIBLE);
     	showAnswerBtn.setVisibility(View.VISIBLE);
     	if(writeAnswer){
     		 showInputField();
     	}
+    	
+    	if(shouldShowHelper()){
+    		showHelper();
+    	}
     }
     
+    private void showHelper(){
+    	helpMe.setVisibility(View.VISIBLE);
+    }
+    
+    private void hideHelper(){
+    	helpMe.setVisibility(View.GONE);
+    }
 
-
+    private boolean shouldShowHelper(){
+    	return preferences.getBoolean(Constants.PREF_SHOW_HELPER, true);
+    }
    
     
     
@@ -466,13 +478,22 @@ public class DrilActivity extends BaseActivity implements OnInitListener, Animat
     	return super.onPrepareOptionsMenu(menu);
     }
     
+    
     @Override
     protected void onResume() {
     	writeAnswer = preferences.getBoolean(Constants.PREF_WRITE_ANSWER_KEY, false);
-    	if(writeAnswer && answer.getVisibility() != View.VISIBLE){
-    		showInputField();
+    	if(answer.getVisibility() != View.VISIBLE){
+    		if(writeAnswer){
+    			showInputField();
+    		}
+    		if(shouldShowHelper()){
+    			showHelper();
+    		}else{
+    			hideHelper();
+    		}
     	}else{
     		hideInputField();
+    		
     	}
     	super.onResume();
     }
@@ -488,27 +509,17 @@ public class DrilActivity extends BaseActivity implements OnInitListener, Animat
          		);
     }
     
+    
+    private void onHelpMeClicked(){
+    	String text =  StringUtils.getDrilHelpMessage(getAnserToPronauce().getValue(), helpClickedCounter);
+    	if(!StringUtils.isBlank(text)){
+    		Toast.makeText(this, text , Toast.LENGTH_SHORT).show();
+    		helpClickedCounter++;
+    	}
+    }
+    
     private void initStatistics(){
     	StatisticsDao statisticsDao = new StatisticsDaoImpl(this);
     	drilService.setStatistics(statisticsDao.getSessionStatisticsOrCreateNew());
     }
-
-	@Override
-	public void onAnimationStart(Animation animation) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onAnimationEnd(Animation animation) {
-		if(slideLeftIn.equals(animation)){
-			helpMe.startAnimation(helpIcoAnim);
-		}
-	}
-
-	@Override
-	public void onAnimationRepeat(Animation animation) {
-		// TODO Auto-generated method stub
-		
-	}
 }

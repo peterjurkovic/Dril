@@ -182,16 +182,21 @@
 		 	     android:textColor="#EfEFEF"
 		 	     android:textSize="18sp" />
 		  
-		 	  <ImageButton 
+		 	  <TextView 
 			    android:id="@+id/helpMe"
-			    android:background="@drawable/ic_help"
-			    android:layout_above="@id/showAnswer"
-			    android:visibility="gone"
-			    android:layout_alignParentRight="true"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:scaleType="fitXY"
-			 	android:contentDescription="@string/pronauce_answer" 
+			    android:background="@drawable/btn_help"
+			    android:padding="5dp"
+			    android:gravity="center"
+			    android:text="@string/help"
+			    android:textSize="20sp"
+			    android:textColor="@android:color/white"
+			    android:layout_marginRight="10dp"
+			    android:layout_marginBottom="110dp"
+				android:layout_alignParentBottom="true"
+				android:layout_alignParentRight="true"
+			    android:layout_width="40dp"
+			    android:layout_height="45dp"
+				android:contentDescription="@string/pronauce_answer" 
 			 	  />
 		 	  
 		</RelativeLayout> 

@@ -18,8 +18,6 @@ import android.widget.TextView;
 public class GeneralStatisticsFragment extends Fragment{
 	
 	private Context context;
-	private Activity mActivity;
-	
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

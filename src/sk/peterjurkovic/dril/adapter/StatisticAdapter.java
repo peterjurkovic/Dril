@@ -3,7 +3,6 @@ package sk.peterjurkovic.dril.adapter;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.StatisticDbAdapter;
 import sk.peterjurkovic.dril.utils.ConversionUtils;
-import sk.peterjurkovic.dril.utils.NumberUtils;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
