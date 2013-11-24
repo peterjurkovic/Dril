@@ -66,10 +66,10 @@ public class ActionBarListActivity extends BaseActivity {
      *
      * @see Activity#onContentChanged()
      */
-	//@Override
-	public void onContentChanged() {
-        super.onContentChanged();
-        View emptyView = findViewById(R.id.empty);
+	@Override
+	public void onSupportContentChanged () {
+        super.onSupportContentChanged();
+         View emptyView = findViewById(R.id.empty);
         mListView = (ListView)findViewById(android.R.id.list);
         if (mListView == null) {
             throw new RuntimeException(
@@ -84,8 +84,7 @@ public class ActionBarListActivity extends BaseActivity {
             setListAdapter(mAdapter);
         }
         mHandler.post(mRequestFocus);
-        mFinishedStart = true;
-	    
+        mFinishedStart = true;    
 	}
 	
 	

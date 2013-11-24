@@ -27,10 +27,12 @@ import com.google.analytics.tracking.android.StandardExceptionParser;
  */
 public class BaseActivity extends ActionBarActivity {
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
+	
 	
 	public void setGoHomePageListener(){
 			View view = findViewById(R.id.drilPromo);
@@ -45,11 +47,13 @@ public class BaseActivity extends ActionBarActivity {
 			}
 	}
 	
+	
 	public void goToHomePage(View view){
 		Uri uriUrl = Uri.parse(Constants.DRIL_HOMEPAGE_URL);
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);
 	}
+	
 	
 	
 	protected void goToParentActivity(){
@@ -63,6 +67,8 @@ public class BaseActivity extends ActionBarActivity {
              NavUtils.navigateUpTo(this, upIntent);
          }
     }
+	
+	
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -103,6 +109,8 @@ public class BaseActivity extends ActionBarActivity {
 	    return super.onOptionsItemSelected(item);
 	}
 	
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -110,6 +118,7 @@ public class BaseActivity extends ActionBarActivity {
 	    inflater.inflate(R.menu.v2_main, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
+	
 	
 	  @Override
 	  public void onStart() {
@@ -131,6 +140,7 @@ public class BaseActivity extends ActionBarActivity {
 				.build()
 	    );
 	}
+	
 	
 	public void logException(final Exception e){
 		 EasyTracker easyTracker = EasyTracker.getInstance(this);
