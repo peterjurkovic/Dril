@@ -4,7 +4,9 @@ import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.v2.adapters.BookAdapter;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -101,7 +103,7 @@ public class BookListActivity extends ActionBarListActivity {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
         case MENU_DELETE_ID:
-        	deleteBook(info.id);
+        	showConfiramtionDialog(info.id);
             return true;
         case MENU_EDIT_ID:
         	onEditBookClicked(info.id);
@@ -113,7 +115,7 @@ public class BookListActivity extends ActionBarListActivity {
 	
 	
 	
-	public void deleteBook(long id){
+	public void deleteBook(final long id){
         Boolean deleted = false;
         try {
         	deleted = bookDBAdapter.deleteBook(id);
@@ -128,6 +130,30 @@ public class BookListActivity extends ActionBarListActivity {
 	    } else{
 	        Toast.makeText(this, R.string.book_not_deleted, Toast.LENGTH_SHORT).show();
 	    }
+	}
+	
+	
+	public void showConfiramtionDialog(final long bookId){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder
+			.setTitle(R.string.confirm_delete)
+			.setMessage(getString(R.string.confirm_delete_message))
+			.setPositiveButton(R.string.yes,new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						deleteBook(bookId);
+						dialog.cancel();
+					}
+			})
+			.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+					@Override
+                   public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+                   }
+			});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
 	}
 	
 	

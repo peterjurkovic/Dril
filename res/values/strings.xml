@@ -248,4 +248,8 @@
     <string name="app_id">1422248241338902</string>
     <string name="help">\?</string>
     <string name="progress_importing_books">%1$s Importing textbooks&#8230;</string>
+    
+    <string name="confirm_delete">Confirm delete</string>
+    <string name="confirm_delete_message">Are you sure you want to delete this item?</string>
+    <string name="confirm_delete_selected_words">Are you sure you want to delete selected word(s)?</string>
 </resources>

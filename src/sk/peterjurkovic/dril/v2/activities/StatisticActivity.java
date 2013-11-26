@@ -3,11 +3,13 @@ package sk.peterjurkovic.dril.v2.activities;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.fragments.GeneralStatisticsFragment;
 import sk.peterjurkovic.dril.fragments.ProblematicWordsListFragment;
-import sk.peterjurkovic.dril.fragments.StatisticsHeader;
 import sk.peterjurkovic.dril.fragments.StatisticsListFragment;
+import sk.peterjurkovic.dril.fragments.WordListFragment;
+import sk.peterjurkovic.dril.listener.OnDeleteSelectedWordsListener;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnWordClickListener;
-import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,9 +18,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.view.ActionMode;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 /**
  * 
@@ -28,7 +28,8 @@ import android.widget.TextView;
  */
 public class StatisticActivity extends BaseActivity implements
 		OnWordClickListener,
-		OnEditWordClickedListener{
+		OnEditWordClickedListener,
+		OnDeleteSelectedWordsListener{
 	
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
 	private static final String TAG_KEY_STATISTICS = "sessionStats";
@@ -175,6 +176,32 @@ public class StatisticActivity extends BaseActivity implements
 		startActivityForResult(i, WordActivity.REQUEST_EDIT_WORD);
 	}
 
+	@Override
+	public void showConfirationDialog(final ActionMode mode){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder
+			.setTitle(R.string.confirm_delete)
+			.setMessage(getString(R.string.confirm_delete_selected_words))
+			.setPositiveButton(R.string.yes,new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						ProblematicWordsListFragment fratment = (ProblematicWordsListFragment) getSupportFragmentManager()
+				                 .findFragmentByTag(TAG_KEY_PROBLEMATIC_WORD);
+						 fratment.deleteSelectedItems();
+						 mode.finish();
+						dialog.cancel();
+					}
+			})
+			.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+					@Override
+                   public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+                   }
+			});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
 	
 	
 	

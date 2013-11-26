@@ -7,7 +7,9 @@ import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.v2.adapters.LectureAdapter;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -116,7 +118,7 @@ public class LectureListActivity extends ActionBarListActivity {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
         case MENU_DELETE_ID:
-        	deleteLecture(info.id);
+        	showConfiramtionDialog(info.id);
             return true;
         case MENU_EDIT_ID:
         	onEditLectureClicked(info.id);
@@ -136,6 +138,30 @@ public class LectureListActivity extends ActionBarListActivity {
         default:
           return super.onContextItemSelected(item);
         }
+	}
+	
+	
+	public void showConfiramtionDialog(final long lectureId){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder
+			.setTitle(R.string.confirm_delete)
+			.setMessage(getString(R.string.confirm_delete_message))
+			.setPositiveButton(R.string.yes,new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						deleteLecture(lectureId);
+						dialog.cancel();
+					}
+			})
+			.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+					@Override
+                   public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+                   }
+			});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
 	}
 	
 	/**

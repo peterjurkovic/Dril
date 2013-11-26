@@ -7,10 +7,13 @@ import sk.peterjurkovic.dril.fragments.AddWordFragment;
 import sk.peterjurkovic.dril.fragments.EditWordFragment;
 import sk.peterjurkovic.dril.fragments.WordListFragment;
 import sk.peterjurkovic.dril.listener.OnAddWordListener;
+import sk.peterjurkovic.dril.listener.OnDeleteSelectedWordsListener;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnEditWordListener;
 import sk.peterjurkovic.dril.listener.OnWordClickListener;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,7 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class WordActivity extends BaseActivity implements OnAddWordListener,
-		OnEditWordClickedListener, OnEditWordListener,  OnWordClickListener {
+		OnEditWordClickedListener, OnEditWordListener,  OnWordClickListener,
+		OnDeleteSelectedWordsListener{
 
 	public static final int REQUEST_ADD_WORD = 0;
 	public static final int REQUEST_EDIT_WORD = 1;
@@ -38,6 +42,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 	public static final String TAG = "WordActivity";
 	private long lectureId = -1;
 	private String lectureName;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -135,6 +140,10 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		}
 
 	}
+	
+	
+	
+	
 
 	/**
 	 * ------------------------------------------------------------ Select
@@ -313,7 +322,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 	
 	
 
-	/* ENDOPTION MENU ---------------------------------------- */
+
 
 	@Override
 	public void onListItemClick(View v, long id) {
@@ -338,6 +347,34 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		         }
 		 }
 	}
+	
+	@Override
+	public void showConfirationDialog(final ActionMode mode){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder
+			.setTitle(R.string.confirm_delete)
+			.setMessage(getString(R.string.confirm_delete_selected_words))
+			.setPositiveButton(R.string.yes,new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						 WordListFragment wordListFratment = (WordListFragment) getSupportFragmentManager()
+				                 .findFragmentById(R.id.WordListFragment);
+						 wordListFratment.deleteSelectedItems();
+						 mode.finish();
+						dialog.cancel();
+					}
+			})
+			.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+					@Override
+                   public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+                   }
+			});
+
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
+	
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {

@@ -5,6 +5,7 @@ import java.util.Set;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.adapter.WordAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
+import sk.peterjurkovic.dril.listener.OnDeleteSelectedWordsListener;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnWordClickListener;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
@@ -27,7 +28,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Toast;
 
-public class WordListFragment extends ListFragment implements OnClickListener{
+public class WordListFragment extends ListFragment 	implements OnClickListener{
 	
 	
 	public static final String TAG = "WordListFragment";
@@ -189,7 +190,7 @@ public class WordListFragment extends ListFragment implements OnClickListener{
          }
     }
 
-    private void deleteSelectedItems(){
+    public void deleteSelectedItems(){
     	Context ctx = getActivity();
     	Set<Long> selectedWords = wordAdapter.getCheckedItems();
     	if(isCheckBoxChecked(ctx, selectedWords)){
@@ -265,8 +266,12 @@ public class WordListFragment extends ListFragment implements OnClickListener{
         	Log.d("test", "id" + item.getTitle());
             switch (item.getItemId()) {
 	            case R.id.menu_delete:
-	            	deleteSelectedItems();
-	                mode.finish(); 
+	            	try{
+	            		((OnDeleteSelectedWordsListener)getActivity()).showConfirationDialog(mode);
+	            	}catch(ClassCastException e){
+	            		Log.e(TAG, "Activiti must implement OnDeleteSelectedWordsListener");
+	            		GoogleAnalyticsUtils.logException(e, getActivity());
+	            	}
 	                return true;
 	    		case R.id.menu_active:
 	    			updateSelectedItemStatus(Constants.STATUS_ACTIVE);
@@ -342,6 +347,6 @@ public class WordListFragment extends ListFragment implements OnClickListener{
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
-    
+
+
 }
