@@ -14,6 +14,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.util.Log;
 
@@ -77,7 +78,7 @@ public class JSONReciever {
 	    
 	    
 	    private JSONObject toJSON(final String jsonString){
-	    	if(jsonString == null){
+	    	if(StringUtils.isBlank(jsonString)){
 	        	return null;
 	        }
 	    
@@ -85,6 +86,7 @@ public class JSONReciever {
 	            return new JSONObject(jsonString);
 	        } catch (JSONException e) {
 	            Log.e("JSON Parser", "Error parsing data " + e.toString());
+	            Log.i("JSON Parser", jsonString);
 	        }
 	        return null;
 	    }

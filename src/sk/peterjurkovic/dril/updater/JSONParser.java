@@ -9,14 +9,19 @@ import org.json.JSONObject;
 
 import android.util.Log;
 import sk.peterjurkovic.dril.model.Book;
+import sk.peterjurkovic.dril.model.Language;
 import sk.peterjurkovic.dril.model.Lecture;
 import sk.peterjurkovic.dril.model.Word;
+import sk.peterjurkovic.dril.utils.ConversionUtils;
 
 public class JSONParser {
 	
 	
 	public static final String TAG_BOOKS = "books";
 	public static final String TAG_NAME = "name";
+	public static final String TAG_BOOK_LANG_QUESTION = "lang_question";
+	public static final String TAG_BOOK_LANG_ANSWER = "lang_answer";
+	public static final String TAG_BOOK_SYNC = "sync";
 	public static final String TAG_VERSION = "version";
 	public static final String TAG_LECTURES = "lectures";
 	public static final String TAG_LECTURE_NAME = "lecture_name";
@@ -37,7 +42,7 @@ public class JSONParser {
 	}
 	
 	
-	public List<Book> parseBooks(JSONObject json){
+	public List<Book> parseBooks(final JSONObject json){
 	   List<Book> bookList = null;
        try {
          bookList = parseBooksFromJSONArray( json.getJSONArray(TAG_BOOKS) );
@@ -55,7 +60,7 @@ public class JSONParser {
 	 * @return List<Book> parsed books
 	 * @throws JSONException if some error occurred
 	 */
-	public List<Book> parseBooksFromJSONArray(JSONArray bookArray) throws JSONException{
+	public List<Book> parseBooksFromJSONArray(final JSONArray bookArray) throws JSONException{
 		//Log.d("JSON", "books: "+ bookArray.length() );
 		List<Book> bookList = new ArrayList<Book>();
 		for(int i = 0; i < bookArray.length(); i++){
@@ -63,6 +68,9 @@ public class JSONParser {
        		Book book = new Book();
        		book.setName( b.getString( TAG_NAME ));
        		book.setVersion( b.getInt( TAG_VERSION ));
+       		book.setSync( ConversionUtils.intToBoolean( b.getInt( TAG_BOOK_SYNC )));
+       		book.setQuestionLang( Language.getById( b.getInt( TAG_BOOK_LANG_QUESTION )));
+       		book.setAnswerLang(Language.getById( b.getInt( TAG_BOOK_LANG_ANSWER)));
        		Log.i("BOOK", book.getName());
        		book.setLectures( parseLecturesFromJSONArray( b.getJSONArray(TAG_LECTURES) ));
        		bookList.add(book);
@@ -78,7 +86,7 @@ public class JSONParser {
 	 * @return List<Lecture> parsed lecture of current book
 	 * @throws JSONException if some error occurred
 	 */
-	public List<Lecture> parseLecturesFromJSONArray(JSONArray lectureArray) throws JSONException{
+	public List<Lecture> parseLecturesFromJSONArray(final JSONArray lectureArray) throws JSONException{
 		//Log.d("JSON", "lectures: "+ lectureArray.length() );
 		List<Lecture> lectureList = new ArrayList<Lecture>();
 		for(int i = 0; i < lectureArray.length(); i++){
@@ -99,7 +107,7 @@ public class JSONParser {
 	 * @return List<Word> parse Words 
 	 * @throws JSONException if some error occurred
 	 */
-	public List<Word> parseWordsFromJSONArray(JSONArray wordArray) throws JSONException{
+	public List<Word> parseWordsFromJSONArray(final  JSONArray wordArray) throws JSONException{
 		List<Word> wordList = new ArrayList<Word>();
 		for(int i = 0; i < wordArray.length(); i++){
 				JSONObject w = wordArray.getJSONObject(i);

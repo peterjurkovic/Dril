@@ -1,6 +1,7 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
 import sk.peterjurkovic.dril.updater.CheckForUpdate;
@@ -25,18 +26,17 @@ import android.widget.Button;
  */
 public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	
-	private WordDBAdapter wordAdapter = null;
-	private  long countOfActiveWords = 0;
+	private BookDBAdapter bookDbAdapter = null;
 	private Context context;
-	private int pos = 0;
+
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.v2_dashboard);
-		 	wordAdapter = new WordDBAdapter(this);
-		 	//wordAdapter.getCountOfActiveWords();
+			bookDbAdapter = new BookDBAdapter(this);
+		 	
 		 	Button startDrilButton = (Button) findViewById(R.id.btn_start);
 	        
 	        context = this;
@@ -76,11 +76,14 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	        btn_info.setOnClickListener(new View.OnClickListener() {
 	            @Override
 				public void onClick(View view) {
-	            	//Intent i = new Intent(context, HelpActivity.class);
-	            	Intent i = new Intent(context, FacebookShare.class);
+	            	Intent i = new Intent(context, HelpActivity.class);
 	            	startActivity(i);
 		        }
 		    });
+	        
+	        if(bookDbAdapter.getBooksCount() == 0){
+	        	downloadBooks();
+	        }
 	}
 	
 	
@@ -105,9 +108,7 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 				@Override
 				public void onClick(DialogInterface dialog,int id) {
 					dialog.cancel();
-					UpdateSaver updater = new UpdateSaver( context );
-					updater.sendRequest();
-			        
+					downloadBooks();
 				}
 			  })
 			;
@@ -194,5 +195,10 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
          chfu.execute(); 
 	}
 	
+	
+	private void downloadBooks(){
+		UpdateSaver updater = new UpdateSaver( context );
+		updater.sendRequest();
+	}
 	
 }

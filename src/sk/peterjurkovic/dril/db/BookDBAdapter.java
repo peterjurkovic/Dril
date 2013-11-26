@@ -48,7 +48,7 @@ public class BookDBAdapter extends DBAdapter {
 										QUESTION_LANG_COLL +" INTEGER NOT NULL DEFAULT (0), " + 
 										CHANGED_COLL +" INTEGER DEFAULT (0), " + 
 										CREATED_COLL +" INTEGER DEFAULT (0), " +
-										SYNC_COLL +" INTEGER NOT NULL DEFAULT (0) " +
+										SYNC_COLL +" INTEGER NOT NULL DEFAULT (1) " +
 								");";
 	
 	public static final String TABLE_BOOK_VIEW = "view_book";

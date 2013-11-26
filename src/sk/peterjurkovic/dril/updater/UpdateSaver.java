@@ -7,14 +7,17 @@ import org.json.JSONObject;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.DBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
+import sk.peterjurkovic.dril.listener.OnProgressChangeListener;
 import sk.peterjurkovic.dril.model.Book;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
-public class UpdateSaver extends AsyncTask<String, Integer, Integer> {
+public class UpdateSaver extends AsyncTask<String, Integer, Integer> 
+									implements OnProgressChangeListener{
 	
 	private AsyncLIstener listener;
 	private Context context;
@@ -64,12 +67,19 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer> {
 			JSONReciever jsonReciever = new JSONReciever( lastVer );
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = jsonReciever.getJSONData( JSONReciever.FOR_UPDATE_ACTION );
+
 			List<Book> books = jsonParser.parseBooks(jsonObject);
-			db.updateBooks(books);
+			db.updateBooks(books, this);
 			return books.size();
 		} catch (Exception e) {
+			GoogleAnalyticsUtils.logException(e, context);
 			return STATE_PARSING_ERROR;
 		}
+	}
+	
+	@Override
+	protected void onProgressUpdate(Integer... values) {
+		dialog.setMessage(context.getString(R.string.progress_importing_books, values[0]+"/"+values[1]));;
 	}
 	
 	public boolean isOnline() {
@@ -81,4 +91,9 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer> {
         }
         return false;
     }
+
+	@Override
+	public void onProgressChange(Integer... progress) {
+		publishProgress(progress);
+	}
 }

@@ -244,4 +244,5 @@
     
     <string name="app_id">1422248241338902</string>
     <string name="help">\?</string>
+    <string name="progress_importing_books">%1$s Importing textbooks&#8230;</string>
 </resources>
