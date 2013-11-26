@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import sk.peterjurkovic.dril.R;
 
+
+
 public enum Language {
 	
 	ENGLISH(1, R.string.label_lang_en, Locale.US),

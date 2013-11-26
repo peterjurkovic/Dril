@@ -257,7 +257,7 @@ public class WordDBAdapter extends DBAdapter {
     	return  "UPDATE `"+ StatisticDbAdapter.TABLE_STATISTIC + "` " +
     			 	"SET `"+ StatisticDbAdapter.HITS +"`="+ statistics.getHits() + ", "+ 
     			 	"`"+StatisticDbAdapter.LEARNED_CARDS +"`="+ statistics.getLearnedCards() + ", "+
-    			 	"`"+StatisticDbAdapter.CHANGED_COLL +"`="+ System.currentTimeMillis() + ", "+
+    			 	"`"+DBAdapter.CHANGED_COLL +"`="+ System.currentTimeMillis() + ", "+
     			 	"`"+StatisticDbAdapter.AVG_RATE_SESSION +"`="+ statistics.getAvgSessionRate() + ", "+
     			 	"`"+StatisticDbAdapter.SUM_OR_RATING +"`="+ statistics.getSumOfRate() + ", "+
     			 	"`"+StatisticDbAdapter.AVG_RATE_GLOBAL +"`="+ statistics.getAvgGlobalRate() + 	

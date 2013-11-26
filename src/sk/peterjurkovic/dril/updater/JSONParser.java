@@ -7,12 +7,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
 import sk.peterjurkovic.dril.model.Book;
 import sk.peterjurkovic.dril.model.Language;
 import sk.peterjurkovic.dril.model.Lecture;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.ConversionUtils;
+import android.util.Log;
 
 public class JSONParser {
 	

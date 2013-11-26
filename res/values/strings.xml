@@ -231,8 +231,11 @@
     <string name="no_data_available">No data available</string>
     
     <string name="stats_sessions">Sessions</string>
+    <string name="header_stats_sessions">Sessions statistics</string>
     <string name="stats_problematics_words">Prob. wo.</string>
+    <string name="header_stats_problematics_words">Problematic words</string>
     <string name="stats_general">General</string>
+    <string name="header_stats_general">General statistics</string>
     <string name="activate_next_words">Activate other cards</string>
     
     <string name="cancelled">Cancelled</string>

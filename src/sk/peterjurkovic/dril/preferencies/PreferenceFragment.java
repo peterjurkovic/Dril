@@ -16,6 +16,7 @@
 
 package sk.peterjurkovic.dril.preferencies;
 
+
 import sk.peterjurkovic.dril.R;
 import android.content.Intent;
 import android.os.Bundle;

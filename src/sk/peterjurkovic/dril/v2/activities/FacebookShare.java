@@ -77,7 +77,8 @@ public class FacebookShare extends BaseActivity{
 		if(isFacebookSharingEnabled()){
 			sharOnFacebookBtn.setVisibility(View.VISIBLE);
 			sharOnFacebookBtn.setOnClickListener(new View.OnClickListener() {
-	            public void onClick(View view) {
+	            @Override
+				public void onClick(View view) {
 	                onClickPostStatusUpdate();
 	            }
 	        });

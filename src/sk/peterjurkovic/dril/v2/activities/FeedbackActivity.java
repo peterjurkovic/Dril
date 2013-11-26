@@ -1,8 +1,5 @@
 package sk.peterjurkovic.dril.v2.activities;
 
-import com.google.analytics.tracking.android.EasyTracker;
-import com.google.analytics.tracking.android.MapBuilder;
-
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Intent;
@@ -12,6 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.MapBuilder;
 
 
 public class FeedbackActivity extends BaseActivity {

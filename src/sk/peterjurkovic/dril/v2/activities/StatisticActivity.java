@@ -3,10 +3,11 @@ package sk.peterjurkovic.dril.v2.activities;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.fragments.GeneralStatisticsFragment;
 import sk.peterjurkovic.dril.fragments.ProblematicWordsListFragment;
+import sk.peterjurkovic.dril.fragments.StatisticsHeader;
 import sk.peterjurkovic.dril.fragments.StatisticsListFragment;
-import sk.peterjurkovic.dril.listener.OnChangedProgressListenter;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnWordClickListener;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,8 +16,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.view.ActionMode;
+import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 /**
@@ -25,27 +26,23 @@ import android.widget.TextView;
  * @date Nov 18, 2013
  *
  */
-public class StatisticActivity extends BaseActivity implements 
-		OnChangedProgressListenter, 
+public class StatisticActivity extends BaseActivity implements
 		OnWordClickListener,
 		OnEditWordClickedListener{
 	
 	private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
+	private static final String TAG_KEY_STATISTICS = "sessionStats";
+	private static final String TAG_KEY_PROBLEMATIC_WORD = "problematicsWords";
+	private static final String TAG_KEY_GENERAL_STATS = "generalStats";
 	
-	private final static String TAG_KEY_STATISTICS = "sessionStats";
-	private final static String TAG_KEY_PROBLEMATIC_WORD = "problematicsWords";
-	private final static String TAG_KEY_GENERAL_STATS = "generalStats";
-	
-	private ProgressBar progressBar;
-	private TextView progressBarLabel;
+	private TextView headerTextView;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.v2_statistics_list_layout);
         
-        progressBar = (ProgressBar)findViewById(R.id.statisticsProgress);
-        progressBarLabel = (TextView)findViewById(R.id.statisticsProgressLabel);
+        headerTextView = (TextView)findViewById(R.id.statisticHeader);
         
         final ActionBar actionBar = getSupportActionBar();
         
@@ -119,39 +116,43 @@ public class StatisticActivity extends BaseActivity implements
             }
         }
 
-        public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        @Override
+		public void onTabSelected(Tab tab, FragmentTransaction ft) {
             if (mFragment == null) {
                 mFragment = Fragment.instantiate(mActivity, mClass.getName(), mArgs);
                 ft.add(android.R.id.content, mFragment, mTag);
             } else {
                 ft.attach(mFragment);
             }
+            setTitle();
         }
 
-        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+        @Override
+		public void onTabUnselected(Tab tab, FragmentTransaction ft) {
             if (mFragment != null) {
                 ft.detach(mFragment);
             }
         }
 
-        public void onTabReselected(Tab tab, FragmentTransaction ft) { }
+        @Override
+		public void onTabReselected(Tab tab, FragmentTransaction ft) { }
+        
+        public void setTitle(){
+        	 try{
+             	String title = ((StatisticsHeader)mFragment).getTitle();
+             	((StatisticActivity)mActivity).getHeaderTextView().setText(title);
+             }catch(ClassCastException e){
+             	Log.e(this.getClass().getName(), "Statistics fragment must implements StatisticsHeader");
+             	GoogleAnalyticsUtils.logException(e, mActivity);
+             }
+        }
 	    
 
 	}
 
 
 
-	@Override
-	public void showLoader() {
-		progressBar.setVisibility(View.VISIBLE);
-		progressBarLabel.setVisibility(View.VISIBLE);
-	}
-
-	@Override
-	public void hideLoader() {
-		progressBar.setVisibility(View.GONE);
-		progressBarLabel.setVisibility(View.GONE);
-	}
+	
 
 	@Override
 	public void onListItemClick(View v, long id) {
@@ -183,4 +184,12 @@ public class StatisticActivity extends BaseActivity implements
 		i.putExtra(EditWordActivity.EXTRA_WORD_ID, wordId);
 		startActivityForResult(i, WordActivity.REQUEST_EDIT_WORD);
 	}
+
+	public TextView getHeaderTextView() {
+		return headerTextView;
+	}
+
+	
+	
+	
 }

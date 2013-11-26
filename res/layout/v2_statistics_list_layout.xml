@@ -3,30 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 	    	
-		<View
-	        android:layout_width="match_parent"
-	        android:layout_height="5dp"
-	        android:layout_below="@id/bookListnav"
-	        android:background="@drawable/drop_shaddow" />
+	<TextView 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:minHeight="25dp"
+	    android:id="@+id/statisticHeader"
+	    android:background="@color/action_border"
+	    />	   	
+   
+	
 	    
 		
-		<ProgressBar 
-        	android:id="@+id/statisticsProgress"
-        	android:layout_width="wrap_content" 
-        	android:layout_height="wrap_content" 
-        	android:layout_centerHorizontal="true"
-        	android:layout_centerVertical="true" 
-        	/>
-			
-		<TextView
-	        android:id="@+id/statisticsProgressLabel"
-	        android:layout_below="@id/bookListnav"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:text="@string/loading"
-	        android:paddingTop="60dp"
-	        android:gravity="center"
-	        android:textColor="@color/text_color"
-	        android:visibility="visible" />
+		
 	
 </RelativeLayout>

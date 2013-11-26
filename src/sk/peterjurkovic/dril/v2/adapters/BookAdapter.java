@@ -1,7 +1,6 @@
 package sk.peterjurkovic.dril.v2.adapters;
 
 import sk.peterjurkovic.dril.R;
-
 import sk.peterjurkovic.dril.db.BookDBAdapter;
 import android.content.Context;
 import android.content.res.Resources;

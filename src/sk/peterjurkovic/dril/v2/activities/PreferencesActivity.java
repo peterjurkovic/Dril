@@ -1,5 +1,6 @@
 package sk.peterjurkovic.dril.v2.activities;
 
+
 import sk.peterjurkovic.dril.R;
 import android.os.Bundle;
 

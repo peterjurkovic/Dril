@@ -79,7 +79,7 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer>
 	
 	@Override
 	protected void onProgressUpdate(Integer... values) {
-		dialog.setMessage(context.getString(R.string.progress_importing_books, values[0]+"/"+values[1]));;
+		dialog.setMessage(context.getString(R.string.progress_importing_books, values[1]+"/"+values[0]));;
 	}
 	
 	public boolean isOnline() {

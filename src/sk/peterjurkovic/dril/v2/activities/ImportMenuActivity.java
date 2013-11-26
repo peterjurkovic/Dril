@@ -1,6 +1,7 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 
+
 import sk.peterjurkovic.dril.R;
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +40,8 @@ public class ImportMenuActivity extends BaseActivity {
 		 if(id != 0){
 			 LinearLayout importViaCsvBtn = (LinearLayout)findViewById(R.id.importViaCsv);
 	         importViaCsvBtn.setOnClickListener(new View.OnClickListener() {
-	         public void onClick(View v) {
+	         @Override
+			public void onClick(View v) {
 	        	 logAction("csv_import");
                  Intent i = new Intent(ImportMenuActivity.this, ImportFileActivity.class);
                  i.putExtra(EXTRA_IS_CSV, true);
@@ -49,7 +51,8 @@ public class ImportMenuActivity extends BaseActivity {
 	             
 	         LinearLayout importViaIdBtn = (LinearLayout)findViewById(R.id.importViaId);     
 	         importViaIdBtn.setOnClickListener(new View.OnClickListener() {
-	         public void onClick(View v) {
+	         @Override
+			public void onClick(View v) {
 	        	 logAction("import_id");
                  Intent i = new Intent(ImportMenuActivity.this, ImportWebActivity.class);
                  startImportActivity(i);
@@ -58,7 +61,8 @@ public class ImportMenuActivity extends BaseActivity {
 	         	         
 	         LinearLayout importViaXlsBtn = (LinearLayout)findViewById(R.id.importViaXls);
 	         importViaXlsBtn.setOnClickListener(new View.OnClickListener() {
-	         public void onClick(View v) {
+	         @Override
+			public void onClick(View v) {
 	        	 logAction("xls_import");
                  Intent i = new Intent(ImportMenuActivity.this, ImportFileActivity.class);
                  i.putExtra(EXTRA_IS_CSV, false);

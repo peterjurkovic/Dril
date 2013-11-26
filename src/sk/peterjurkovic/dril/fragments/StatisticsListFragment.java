@@ -19,13 +19,13 @@ import android.view.ViewGroup;
  * @date Nov 17, 2013
  *
  */
-public class StatisticsListFragment extends ListFragment{
+public class StatisticsListFragment extends ListFragment implements StatisticsHeader{
 
 
 	private StatisticAdapter statisticAdapter;
 	private StatisticDbAdapter statisticDbAdapter;
 	private Context mContext;
-	
+	private String title;
 
 	
 	@Override
@@ -36,7 +36,7 @@ public class StatisticsListFragment extends ListFragment{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		Log.i("sa", "onCreateView");
+		title = getActivity().getString(R.string.header_stats_problematics_words);
 		View listView  = inflater.inflate(R.layout.v2_statistics_list_fragment, container, false);
 		return listView;
 	}
@@ -67,5 +67,14 @@ public class StatisticsListFragment extends ListFragment{
 		super.onDestroy();
 		setListAdapter(null);
 	}
+	
+	@Override
+	public String getTitle() {
+		if(title == null){
+			return "";
+		}
+		return title;
+	}
+		
 
 }

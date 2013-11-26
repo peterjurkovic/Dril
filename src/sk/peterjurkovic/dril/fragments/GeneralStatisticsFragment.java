@@ -15,9 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class GeneralStatisticsFragment extends Fragment{
+public class GeneralStatisticsFragment extends Fragment implements StatisticsHeader{
 	
 	private Context context;
+	private String title;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class GeneralStatisticsFragment extends Fragment{
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		title = context.getString(R.string.header_stats_general);
 		loeadData();
 	}
 	
@@ -83,4 +85,13 @@ public class GeneralStatisticsFragment extends Fragment{
 		
 		cursor.close();
 	}
+	
+	@Override
+	public String getTitle() {
+		if(title == null){
+			return "";
+		}
+		return title;
+	}
+		
 }

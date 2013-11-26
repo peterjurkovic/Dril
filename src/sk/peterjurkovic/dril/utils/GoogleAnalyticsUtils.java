@@ -1,10 +1,10 @@
 package sk.peterjurkovic.dril.utils;
 
+import android.content.Context;
+
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.StandardExceptionParser;
-
-import android.content.Context;
 
 public class GoogleAnalyticsUtils {
 

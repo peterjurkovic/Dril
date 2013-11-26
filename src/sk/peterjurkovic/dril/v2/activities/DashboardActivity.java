@@ -2,7 +2,6 @@ package sk.peterjurkovic.dril.v2.activities;
 
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.BookDBAdapter;
-import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
 import sk.peterjurkovic.dril.updater.CheckForUpdate;
 import sk.peterjurkovic.dril.updater.UpdateSaver;

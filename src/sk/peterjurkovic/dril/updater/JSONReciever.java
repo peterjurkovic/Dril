@@ -74,7 +74,7 @@ public class JSONReciever {
 	        }
 
 	        return toJSON(toStreamToString(is));
-	    }
+	    }	
 	    
 	    
 	    private JSONObject toJSON(final String jsonString){

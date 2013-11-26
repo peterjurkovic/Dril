@@ -5,8 +5,6 @@
     android:fillViewport="true"
     android:background="@drawable/v2_app_background"
     android:orientation="vertical" >
-   
-    <TextView style="@style/separator" 	/>
 
     <include layout="@layout/v2_statistics_header"  />
     
