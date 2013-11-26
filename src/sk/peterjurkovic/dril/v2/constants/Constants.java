@@ -5,6 +5,9 @@ public class Constants {
 	public static int STATUS_ACTIVE = 1;
 	public static int STATUS_DEACTIVE = 0;
 	
+	// 900000 == 15min 
+	public static final int SESSION_EXPIRATION_MS = 900000; 
+	
 	public static final String DRIL_HOMEPAGE_URL = "http://www.drilapp.com";
 	public static final String PORTFOLIO_URL = "www.peterjurkovic.com";
 	public static final String FACEBOOK_URL = "https://www.facebook.com/drilAnglictinaEfektivne";
@@ -22,10 +25,8 @@ public class Constants {
 	public static final String PREF_WRITE_ANSWER_KEY = "pref_input_answer";
 	public static final String PREF_SHOW_HELPER = "pref_show_helper";
 	
+	
 	public static final String HTTP_AUTH_VAL = "b379c5f65387e482844779a5626a01c7";
-	
-	//public static final String FB_API_ID = "1422248241338902";
-	
 	public static final String APP_VARIANT = "en";
 	public static final String FB_IMAGE_URL = "http://www.drilapp.com/img/lachucher_ico_{locale}.png";
 }

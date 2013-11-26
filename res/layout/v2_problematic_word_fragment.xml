@@ -7,7 +7,10 @@
     android:background="@drawable/v2_app_background"
     android:orientation="vertical" >
     
-    <TextView style="@style/separator" 	/>
+    <TextView 
+        style="@style/v2StatisticHeader" 
+        android:id="@+id/statisticProblematicWordsHeader" 
+    />
     
     <ListView 
         android:id="@id/android:list" 

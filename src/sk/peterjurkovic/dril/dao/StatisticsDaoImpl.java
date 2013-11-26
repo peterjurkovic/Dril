@@ -2,6 +2,7 @@ package sk.peterjurkovic.dril.dao;
 
 import sk.peterjurkovic.dril.db.StatisticDbAdapter;
 import sk.peterjurkovic.dril.model.Statistics;
+import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
@@ -14,9 +15,7 @@ import android.util.Log;
  *
  */
 public class StatisticsDaoImpl implements StatisticsDao {
-	
-	private static final int SESSION_TIMEOUT = 900000;
-	
+		
 	private StatisticDbAdapter statisticDbAdapter;
 	
 	public StatisticsDaoImpl(){}
@@ -31,7 +30,7 @@ public class StatisticsDaoImpl implements StatisticsDao {
 	
 	@Override
 	public Statistics getSessionStatisticsOrCreateNew() {
-		final long threshold = System.currentTimeMillis() - SESSION_TIMEOUT;
+		final long threshold = System.currentTimeMillis() - Constants.SESSION_EXPIRATION_MS;
 		Statistics statistics = statisticDbAdapter.getSessionsStatistics(threshold);
 		if(statistics == null){
 			statistics = new Statistics();

@@ -35,14 +35,14 @@ public class StatisticActivity extends BaseActivity implements
 	private static final String TAG_KEY_PROBLEMATIC_WORD = "problematicsWords";
 	private static final String TAG_KEY_GENERAL_STATS = "generalStats";
 	
-	private TextView headerTextView;
+
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.v2_statistics_list_layout);
         
-        headerTextView = (TextView)findViewById(R.id.statisticHeader);
+       
         
         final ActionBar actionBar = getSupportActionBar();
         
@@ -124,7 +124,7 @@ public class StatisticActivity extends BaseActivity implements
             } else {
                 ft.attach(mFragment);
             }
-            setTitle();
+            
         }
 
         @Override
@@ -137,17 +137,7 @@ public class StatisticActivity extends BaseActivity implements
         @Override
 		public void onTabReselected(Tab tab, FragmentTransaction ft) { }
         
-        public void setTitle(){
-        	 try{
-             	String title = ((StatisticsHeader)mFragment).getTitle();
-             	((StatisticActivity)mActivity).getHeaderTextView().setText(title);
-             }catch(ClassCastException e){
-             	Log.e(this.getClass().getName(), "Statistics fragment must implements StatisticsHeader");
-             	GoogleAnalyticsUtils.logException(e, mActivity);
-             }
-        }
-	    
-
+       
 	}
 
 
@@ -185,10 +175,7 @@ public class StatisticActivity extends BaseActivity implements
 		startActivityForResult(i, WordActivity.REQUEST_EDIT_WORD);
 	}
 
-	public TextView getHeaderTextView() {
-		return headerTextView;
-	}
-
+	
 	
 	
 	

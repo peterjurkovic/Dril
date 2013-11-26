@@ -7,10 +7,14 @@
     android:background="@drawable/v2_app_background"
      >
 	
-     <TextView style="@style/separator" 	/>
+    <TextView 
+        style="@style/v2StatisticHeader" 
+        android:id="@+id/statisticGeneralWordsHeader" 
+     />
     
 
       <TableLayout
+        android:layout_below="@id/statisticGeneralWordsHeader"
         android:id="@+id/statisticTable"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

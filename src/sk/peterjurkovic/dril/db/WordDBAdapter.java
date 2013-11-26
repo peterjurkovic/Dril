@@ -319,7 +319,7 @@ public class WordDBAdapter extends DBAdapter {
     	SQLiteDatabase db = openReadableDatabase();
     	return db.rawQuery("SELECT * "+ 
     						"FROM " + TABLE_WORD +  
-    						" WHERE " + HIT + "> 1 AND "+AVG_RATE+">2 ORDER BY "+ AVG_RATE + " LIMIT 100", null);
+    						" WHERE " + HIT + "> 2 AND "+AVG_RATE+">3 ORDER BY "+ AVG_RATE + " LIMIT 100", null);
 	}
 
    

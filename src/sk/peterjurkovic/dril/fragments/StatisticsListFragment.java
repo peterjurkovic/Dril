@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * 
@@ -36,9 +37,9 @@ public class StatisticsListFragment extends ListFragment implements StatisticsHe
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		title = getActivity().getString(R.string.header_stats_problematics_words);
-		View listView  = inflater.inflate(R.layout.v2_statistics_list_fragment, container, false);
-		return listView;
+		View view  = inflater.inflate(R.layout.v2_statistics_list_fragment, container, false);
+		((TextView)view.findViewById(R.id.statisticSessionHeader)).setText(getString(R.string.header_stats_sessions));
+		return view;
 	}
 	
 	

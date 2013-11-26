@@ -2,18 +2,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-	    	
-	<TextView 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:minHeight="25dp"
-	    android:id="@+id/statisticHeader"
-	    android:background="@color/action_border"
-	    />	   	
-   
-	
-	    
-		
-		
-	
+
 </RelativeLayout>

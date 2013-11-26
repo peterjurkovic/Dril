@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * 
@@ -21,8 +22,9 @@ public class ProblematicWordsListFragment extends WordListFragment implements On
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		title = getActivity().getString(R.string.header_stats_problematics_words);
-		return inflater.inflate(R.layout.v2_problematic_word_fragment, container, false);
+		View view = inflater.inflate(R.layout.v2_problematic_word_fragment, container, false);
+		((TextView)view.findViewById(R.id.statisticProblematicWordsHeader)).setText(getString(R.string.header_stats_problematics_words));
+		return view;
 	}
 	
 	
