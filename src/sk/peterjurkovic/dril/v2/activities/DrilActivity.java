@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -169,7 +168,6 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     
     private void setWordIntoViews(Word word){
     	if(word == null){
-    		Log.e(TAG, "Word is NULL");
     		return;
     	}
     	String shouldBeShown = preferences.getString(Constants.PREF_TEST_VALUE_KEY, "question");
@@ -314,7 +312,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	if(StringUtils.isBlank(wordDto.getValue())){
     		Toast.makeText(this, R.string.nothing_to_speeach, Toast.LENGTH_LONG).show();
     	}
-    	//Log.i(TAG, tts.getLanguage().toString());
+    	//.i(TAG, tts.getLanguage().toString());
     	if(wordDto.getLanguage() == null){
     		setEnglishTTSLocale();
     		speek(wordDto.getValue());
@@ -392,7 +390,6 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     
     
     public WordToPronauceDto determineWord(final String tagValue){
-    	Log.i(TAG, tagValue);
     	WordToPronauceDto wordDto = new WordToPronauceDto();
     	if(tagValue.equals(QUESTION_TAG)){
     		wordDto.setValue(drilService.getCurrentWord().getQuestion());

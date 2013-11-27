@@ -54,7 +54,6 @@ public class DrilService {
 					position--;
 				}
 			}
-			Log.d("RATE", word.toString());
 			updateRatedWord(word);
 		}
 	}

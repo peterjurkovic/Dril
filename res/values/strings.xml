@@ -44,7 +44,6 @@
 	<string name="no_lecture_available">Textbook is empty</string>
 	<string name="lecture">Lessons</string>
 	<string name="options">Options</string>
-	<string name="home">Go to dashboard</string>
 	
 	<string name="deactive_lecture">Deactivate lesson</string>
 	<string name="deactive_all">Deactive all</string>
@@ -104,6 +103,7 @@
     
 	<string name="loading">Loading, please wait &#8230;</string>
 	
+	
 	<!-- IMPORT v 1.4 -->
 	<string name="import_words">Import words</string>
 	<string name="what_is_csv">What is CSV file?</string>
@@ -154,6 +154,7 @@
 	<string name="update_failed">Update failed, please check your network connection</string>
 	<string name="update_available">New textbooks available! \nDo you want download it?</string>
 	<string name="please_wait">Please wait &#8230;</string>
+	<string name="loading_check">Checking, please wait&#8230;</string>
 	<string name="loading_down">Downloading, please wait &#8230;</string>
 	<string name="successfully_updated">Successfully updated! \nCount of new textbooks: %1$d</string>
 	<string name="yes">Yes</string>
@@ -181,7 +182,6 @@
 	<string name="label_lang_sk">Slovak</string>
 	<string name="label_lang_de">German</string>
 	<string name="label_lang_fr">French</string>
-	<string name="label_lang_de">German</string>
 	<string name="label_lang_es">Spanich</string>
 	<string name="label_lang_en">English</string>
 	<string name="label_lang_cs">Czech</string>

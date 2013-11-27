@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sk.peterjurkovic.dril"
-    android:versionCode="11"
-    android:versionName="2.0"
+    android:versionCode="12"
+    android:versionName="2.0 Beta"
     android:installLocation="auto" >
 
     <uses-sdk

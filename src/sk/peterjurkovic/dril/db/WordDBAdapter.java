@@ -12,7 +12,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class WordDBAdapter extends DBAdapter {
 	
@@ -248,7 +247,6 @@ public class WordDBAdapter extends DBAdapter {
     	db.execSQL( createUpdateRatedWordQuery(word) );
     	recomputeStatistics(db, statistics, word);
     	db.execSQL( createUpdateStatisticsQuery(statistics) );
-    	Log.i("SQL", createUpdateStatisticsQuery(statistics));
     	db.close();
     }
     

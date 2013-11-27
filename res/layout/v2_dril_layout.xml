@@ -129,6 +129,7 @@
 		     android:layout_height="wrap_content"
 		     android:background="@drawable/v2_input_answer_text"
 		     style="@style/drilBox"
+		     android:visibility="gone"
 		     android:paddingLeft="30dp"
 		 />
 		 
@@ -136,6 +137,7 @@
 		     android:id="@+id/userAnserBoxResult"
 		     android:layout_below="@id/question"
 		     android:gravity="right"
+		     android:visibility="gone"
 		     android:layout_width="wrap_content"
 		     android:layout_height="wrap_content"
 		     android:background="@drawable/v2_input_answer_result"
