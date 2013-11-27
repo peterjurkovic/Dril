@@ -5,6 +5,7 @@
     <item 
         android:id="@+id/menuAddWord"
         android:orderInCategory="90"
+        dril:showAsAction="never"
         android:icon="@drawable/ic_action_new"
         android:title="@string/add_word"
     />
@@ -12,6 +13,7 @@
     <item 
         android:id="@+id/menuActivateLecture"
         android:orderInCategory="91"
+        dril:showAsAction="never"
         android:icon="@drawable/ic_action_active"
         android:title="@string/active_all"
     />
@@ -19,6 +21,7 @@
     <item 
         android:id="@+id/menuDeactivateLecture"
         android:orderInCategory="92"
+        dril:showAsAction="never"
         android:icon="@drawable/ic_action_deactive"
         android:title="@string/deactive_all"
     />
@@ -26,6 +29,7 @@
     <item 
         android:id="@+id/menuImport"
         android:orderInCategory="93"
+        dril:showAsAction="never"
         android:title="@string/import_words"
     />
 

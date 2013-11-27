@@ -136,7 +136,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 				//edi (id);
 			}
 		} else {
-			showToastMessage(this, R.string.word_not_added);
+			showToastMessage(this, R.string.error_ocurred);
 		}
 
 	}

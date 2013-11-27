@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
+<resources xmlns:tools="http://schemas.android.com/tools" >
 
     <string name="app_name">Dril</string>
     <string name="app_name_long">English effectively</string>
@@ -60,8 +60,6 @@
 	
 	<string name="word_add_label">Add card to:</string>
 	<string name="word_added">Card was successfully added</string>
-	<string name="word_not_added">Adding of card failed</string>
-	<string name="word_not_deleted">Deleting of card failed</string>
 	<string name="no_word_available">Lesson is empty</string>
 	<string name="word_edit_label">Edit card</string>
 	
@@ -83,7 +81,7 @@
     <string name="menu_about">About app</string>
     <string name="copy">Copyright &#169; 2012 Peter Jurkovič</string>
     <string name="version">Version </string>
-    <string name="pageLink">www.peterjurkovic.sk</string>
+    <string name="pageLink">www.peterjurkovic.com</string>
     <string name="fb">Facebook page</string>
     <string name="email">email</string>
     <string name="send_email">Send email to author</string>
@@ -100,10 +98,6 @@
     <string name="stats_fully">General statistics</string>
     <string name="stats_reset">Delete stats</string>
     
-    <string name="netural">no progress</string>
-    <string name="good">Improvement</string>
-    <string name="bad">Worsening</string>
-    <string name="dril_date">Date of drilling</string>
     <string name="dril_avg">Average rating</string>
     <string name="error_no_data">Can not load data</string>
 	
@@ -115,7 +109,7 @@
 	<string name="what_is_csv">What is CSV file?</string>
 	<string name="csv_label">CSV is a delimited text file that uses a comma to separate values. More sophisticated CSV implementations (And this app too!) permit them, often by requiring \" (double quote) characters around values that contain reserved characters.</string>
     <string name="how_it_create">How can I create it?</string>
-	<string name="csv_create">Every common application has the opportunity export to CSV format, e.g. MS Excel, Open office calc, LibreOffice etc. \n\nSo you can simply write yours words in Excel, export them to CSV, than copy into your mobile phone\'s storage and import.</string>
+	<string name="csv_create">Every common application has the opportunity export date to CSV format, e.g. MS Excel, Open office calc, LibreOffice etc. \n\nSo you can simply write yours words in Excel, export them to CSV, than copy into your mobile phone\'s storage and import.</string>
     <string name="csv_format">CSV format for this application</string>
     <string name="csv_format_label">This app support basic csv foramt, that is:\n\n \"word\",\"translation\"\n\"second word\",\"and his translation\"\n\n NOTE: This app dont use any heading of csv</string>
     <string name="csv_choose">Click to choose file</string>
@@ -143,13 +137,13 @@
     <string name="about_app">About</string>
     <string name="app_descr">Dril application is created for learning English words and phrases. Dril is based on the method of repetition, it is an effective way of memorizing e.g. words, or other information for the lern. Should not be activated more than 30 cards.</string>
     <string name="info_btn_head">What does the buttons means?</string>
-    <string name="ibtn1">1. - I knew it immediately, the card is no longer displayed in the drill.</string>
+    <string name="ibtn1">1. - I knew it immediately, the card is no longer displayed in the dril.</string>
     <string name="ibtn2">2. - I knew it, but I had to think a moment, the card will in the dril again.</string>
     <string name="ibtn3">3. - I knew it with some little error. The card will be displayed again.</string>
     <string name="ibtn4">4. - I did not know it, but somewhere I saw / heard! The card will be displayed again.</string>
-    <string name="ibtn5">5. - I\'v never seen before, I sow it first time, the card will be displayed again.</string>
-	<string name="how_its_work">How its work?</string>
-	<string name="how_its_work_descr">At the first you must choose in the section \"Textbooks\" cards that you want to learn. This can be done in two ways. Long click on the lesson, then in the pop-up menu, select \"Activate 10 cards randomly\", or individually select and activate some cards. </string>
+    <string name="ibtn5">5. - I\'v never seen before, that was actually the first I have ever seen this word/phrase.</string>
+	<string name="how_its_work">How it\'s work?</string>
+	<string name="how_its_work_descr">At the first, you must choose in the section \"Textbooks\" cards that you want to learn. This can be done in two ways. Long click on the lesson, then in the pop-up menu, select \"Activate 10 cards randomly\", or individually select and activate some cards. </string>
 	
 	
 	<!-- UPDATE -->

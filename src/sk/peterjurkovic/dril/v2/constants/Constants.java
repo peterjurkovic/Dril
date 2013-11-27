@@ -14,7 +14,7 @@ public class Constants {
 	public static final String CONTACT_EMAIL = "info@drilapp.com";
 	public static final String DONATE_URL = "http://www.drilapp.com/sk/kontakt";
 	
-	public static final String API_URL = "http://192.168.0.104/drilapp.com/export2.php";
+	public static final String API_URL = "http://www.drilapp.com/export2.php";
 	
 	public static final int DELAY_BEFORE_PRONUNCIATION = 1500;
 	

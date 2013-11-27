@@ -4,14 +4,14 @@
 	<item 
         android:id="@+id/startDril"
         android:orderInCategory="10"
-        android:showAsAction="never"
+        dril:showAsAction="collapseActionView"
         android:icon="@drawable/ic_action_active"
         android:title="@string/btn_start"
        />
     <item 
         android:id="@+id/settings"
         android:orderInCategory="110"
-        android:showAsAction="ifRoom"
+        dril:showAsAction="collapseActionView"
         android:icon="@drawable/ic_action_settings"
         android:title="@string/nav_settings"
         />
@@ -19,7 +19,7 @@
     <item
         android:id="@+id/feedback"
         android:orderInCategory="111"
-        android:showAsAction="always"
+       	dril:showAsAction="collapseActionView"
         android:icon="@drawable/ic_action_about"
         android:title="@string/nav_feedback"/>
 

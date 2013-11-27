@@ -3,6 +3,10 @@
    <gradient android:startColor="@color/youAnserBorder"
        		 android:endColor="@color/youAnserBorder"
        		 android:angle="270" />
-   <corners android:bottomRightRadius="4dp" 
-     		android:topRightRadius="4dp"/>
+   
+   <corners 
+     android:bottomLeftRadius="4dp" 
+     android:topLeftRadius="4dp"
+   />
+   
 </shape>

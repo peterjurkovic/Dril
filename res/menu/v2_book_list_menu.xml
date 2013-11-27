@@ -5,6 +5,7 @@
     <item 
         android:id="@+id/menuAddBook"
         android:orderInCategory="96"
+        dril:showAsAction="never"
         android:icon="@drawable/ic_action_new"
         android:title="@string/book_add"
        />
@@ -12,6 +13,7 @@
     <item 
         android:id="@+id/menuDeactiveAll"
         android:orderInCategory="97"
+        dril:showAsAction="never"
         android:icon="@drawable/ic_action_deactive"
         android:title="@string/deactive_all"
        />
