@@ -6,9 +6,19 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.StandardExceptionParser;
 
+/**
+ * 
+ * @author Peter Jurkovič
+ * @date Nov 28, 2013
+ *
+ */
 public class GoogleAnalyticsUtils {
 
+	public static final String CATEGORY_UI_ACTION = "ui_action";
+	public static final String CATEGORY_PROCESSING_ACTION = "processing_action";
 	
+	public static final String ACTION_BUTTON_PRESS = "button_press";
+	public static final String ACTION_RESULT = "process_result";
 	
 	public static void logException(final Exception e, final Context context){
 		 if(e != null && context != null){
@@ -19,5 +29,17 @@ public class GoogleAnalyticsUtils {
 				      .build()
 			 );
 		 }
+	}
+	
+	
+	
+	public static void logAction(Context context, final String category, final String action, final String label, final Long value){
+		EasyTracker tracker = EasyTracker.getInstance(context);
+  		tracker.send(MapBuilder.createEvent(
+  				category, 
+  				action, 
+  				label, 
+  				value)
+  				.build());
 	}
 }

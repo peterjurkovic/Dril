@@ -10,6 +10,7 @@ import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.updater.JSONParser;
 import sk.peterjurkovic.dril.updater.JSONReciever;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -28,7 +29,8 @@ public class ImportWebActivity extends BaseActivity {
 	
 
 	public final int ACTIVITY_CHOOSE_FILE = 1;
-	  
+	private final static String GA_ACTION_NAME = "ImportId";
+	
 	private long bookId = 0;
 	private long lectureId = 0;
 	private boolean createLecture = true;
@@ -141,12 +143,21 @@ public class ImportWebActivity extends BaseActivity {
 							resultMessage = getResources().getString( R.string.import_id_failed);
 						}else{
 							resultMessage = getResources().getString( R.string.import_success, result);
+							
 						}
+						logResult(result);
 						dialog.dismiss();
 						showResultDialog(resultMessage, result);
 					}
 			}
 	  
+	private void logResult(final Integer result){
+		GoogleAnalyticsUtils.logAction(this, 
+				GoogleAnalyticsUtils.CATEGORY_PROCESSING_ACTION,
+				GoogleAnalyticsUtils.ACTION_RESULT,
+				GA_ACTION_NAME, 
+				Long.valueOf(result));
+	}
 	  
 	  
 	  public void showResultDialog(final String responseMsg,final Integer result){

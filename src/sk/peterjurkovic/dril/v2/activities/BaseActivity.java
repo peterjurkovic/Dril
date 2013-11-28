@@ -1,7 +1,10 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 
+import java.lang.reflect.Field;
+
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,9 +14,9 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.MapBuilder;
@@ -31,6 +34,16 @@ public class BaseActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		try {
+	        ViewConfiguration config = ViewConfiguration.get(this);
+	        Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+	        if(menuKeyField != null) {
+	            menuKeyField.setAccessible(true);
+	            menuKeyField.setBoolean(config, false);
+	        }
+	    } catch (Exception e) {
+	       GoogleAnalyticsUtils.logException(e, this);
+	    }
 	}
 	
 	

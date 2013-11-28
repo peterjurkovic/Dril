@@ -9,6 +9,7 @@ import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.readers.CsvStorageFileReader;
 import sk.peterjurkovic.dril.readers.StorageFileReader;
 import sk.peterjurkovic.dril.readers.XlsStorageFileReader;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -40,6 +41,7 @@ public class ImportFileActivity extends BaseActivity {
 	private final static String BOOK_ID_KEY = "importBookId";
 	private final static String LECTURE_ID_KEY = "importLectureId";
 	private final static String IS_CSV_KEY = "importIsCsv";
+
 	
 	private static final int ACTIVITY_CHOOSE_FILE = 1;
 	  
@@ -157,8 +159,7 @@ public class ImportFileActivity extends BaseActivity {
 	      case ACTIVITY_CHOOSE_FILE: {
 	        if (resultCode == RESULT_OK){
 	          Uri uri = data.getData();
-	          String filePath = uri.getPath();
-	          Log.d("FILERIEDER", filePath);
+	          final String filePath = uri.getPath();
 	          new ImportData(filePath, this).execute();
 	        }
 	      }
@@ -229,6 +230,7 @@ public class ImportFileActivity extends BaseActivity {
 						}else{
 							resultMessage = getResources().getString( R.string.import_success, result);
 						}
+						logResult(result);
 						dialog.dismiss();
 						showResultDialog(resultMessage, result);
 					}
@@ -293,6 +295,18 @@ public class ImportFileActivity extends BaseActivity {
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		restoreDate(savedInstanceState);
+	}
+	
+	private void logResult(final Integer result){
+		GoogleAnalyticsUtils.logAction(this, 
+				GoogleAnalyticsUtils.CATEGORY_PROCESSING_ACTION,
+				GoogleAnalyticsUtils.ACTION_RESULT,
+				getImportType(), 
+				Long.valueOf(result));
+	}
+	
+	private String getImportType(){
+		return isCsvImport ? "csv" : "xls";
 	}
 	  
 }
