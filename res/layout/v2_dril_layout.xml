@@ -39,7 +39,7 @@
 			<View
 		      android:id="@+id/shaddowDril"
 		      android:layout_width="match_parent"
-		      android:layout_height="5sp"
+		      android:layout_height="5sp" 
 		      android:background="@drawable/drop_shaddow" />
 			
 			<TextView

@@ -69,7 +69,7 @@
 	<string name="error">Operáciu sa nepodarilo vykonať</string>
 	<string name="selected">Označené:</string>
 	<string name="wordAction">Kartičku:</string>
-	<string name="activated_words">kartičky: %1$d | zobazená: %2$dx | posledné hodnotenie: %3$s</string>
+	<string name="activated_words">Kartičiek: %1$d / Zobazená: %2$dx / Posledné hodnoteie: %3$s</string>
 	<string name="dril_finished">Super! Počet naučených slovíčok: %1$d</string>
 	<string name="pronauce_question">Vysloviť otázku</string>
 	<string name="pronauce_answer">Vysloviť odpoveď</string>
@@ -88,7 +88,7 @@
     
     <string name="no_data_available">Nie sú dostupné žiadne dáta</string>
     
-    <string name="table_book_count">Počet učebnic:</string>
+    <string name="table_book_count">Počet učebníc:</string>
     <string name="table_lecture_count">Počet lekcií:</string>
     <string name="table_word_count">Počet kartičiek:</string>
     <string name="table_book_active_count">Počet aktivovaných katičiek:</string>
@@ -104,7 +104,7 @@
 	<string name="loading">Čakajte prosím, načítavam &#8230;</string>
 	
 	<!-- IMPORT v 1.4 -->
-	<string name="import_words">Importovat slovíčka</string>
+	<string name="import_words">Importovať slovíčka</string>
 	<string name="what_is_csv">Čo to je CSV?</string>
 	<string name="csv_label">CSV je jednoduchý súborový formát určený pre výmenu tabuľkových dát. Súbor vo formátu CSV sa skladá z riadkov, v ktorých sú jednotlivé položky oddelené znakom čiarka (,). Hodnoty položiek môžu býť uzatvorené do úvodzoviek (\"), čo umožňuje, aby text položky obsahoval čiarku.</string>
     <string name="how_it_create">Ako si ho môžem vytvoriť?</string>
@@ -171,11 +171,11 @@
 	
     <string name="label_pref_head">Nastavenia aplikácie</string>
     <string name="pref_target_lang">Cieľový jazyk</string>
-    <string name="pref_target_lang_descr">Vyberte jazyk, v kotom by ste sa chceli zdokonaliť</string>
+    <string name="pref_target_lang_descr">Vyberte jazyk, v ktorm by ste sa chceli zdokonaliť</string>
     
     <string name="pref_label_autoplay_head">Výslovnosť slovíčok</string>
-    <string name="pref_label_autoplayT2S">Automaticky prehdať</string>
-    <string name="pref_label_autoplay_descr">Automaticky prehdať výslovnosť slovíčok po ich zobrazení a v prípade, ak sú v cieľovom jazyku</string>
+    <string name="pref_label_autoplayT2S">Automaticky prehrať</string>
+    <string name="pref_label_autoplay_descr">Automaticky prehrať výslovnosť slovíčok po ich zobrazení a v prípade, ak sú v cieľovom jazyku</string>
     
 	<string name="label_lang_sk">Slovenčina</string>
 	<string name="label_lang_de">Nemčina</string>
@@ -203,9 +203,9 @@
 	<string name="error_tts_locale">Pre jazyk %1$s nie je dostupná výslovnosť</string>
 	
 	<string name="write_your_answer">Vpište odpoveď</string>
-    <string name="alert_no_cards_activated">Nemáte aktivované kratičky</string>
+    <string name="alert_no_cards_activated">Nemáte aktivované kartičky</string>
     
-    <string name="nav_feedback">Sätná väzba</string>
+    <string name="nav_feedback">Spätná väzba</string>
     <string name="nav_settings">Nastavenia</string>
     
     <string name="add_word">Pridať kartičku</string>
@@ -244,4 +244,5 @@
     <string name="confirm_delete">Potvrdiť zmazanie</string>
     <string name="confirm_delete_message">Ste si istý, že chcete odstrániť položku?</string>
     <string name="confirm_delete_selected_words">Ste si istý, že chcete odstrániť kartičky?</string>
+    <string name="error_invalid_file">Vybraný súbor má chybný formát</string>
 </resources>

@@ -2,11 +2,14 @@ package sk.peterjurkovic.dril;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import sk.peterjurkovic.dril.dao.WordDao;
 import sk.peterjurkovic.dril.dao.WordDaoImpl;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
+import sk.peterjurkovic.dril.dto.WordWithPosition;
 import sk.peterjurkovic.dril.model.Statistics;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.NumberUtils;
@@ -14,15 +17,18 @@ import android.util.Log;
 
 public class DrilService {
 
-	private final static int WORD_THRESHOLD = 5;
+	private final static int WORD_THRESHOLD = 7;
 	private final static int WORDS_HITS_THRESHOLD = 8;
+	private final int HISTORY_SIZE = 3;
 	
+	private final String TAG = "DRILSERVICE";
 	
 	private int position = 0;
 	private int hits = 0;
 	private WordDao wordDao;
 	private Statistics statistics;
 	private List<Word> activatedWords = new ArrayList<Word>();
+	private List<Integer> history = new ArrayList<Integer>();
 	
 	
 	public DrilService(WordDBAdapter wordDbAdapter){
@@ -37,7 +43,7 @@ public class DrilService {
   	    try{
   	    	activatedWords = wordDao.getActivatedWords();
   	    } catch (Exception e) {
-  			Log.e( getClass().getName() , "ERROR: " + e.getMessage());
+  			Log.e( TAG , "ERROR: " + e.getMessage());
   		}
 	}
 	
@@ -82,8 +88,9 @@ public class DrilService {
 		if(listSize <= WORD_THRESHOLD || WORDS_HITS_THRESHOLD > getSumOfHits()){
 			nextPostion();
 		}else{
-			selectRandomPostion();
+			selectAppropriatePosition();
 		}
+		updateHistory();
 		hits++;
 		return activatedWords.get(position);
 	}
@@ -97,77 +104,104 @@ public class DrilService {
     }
 	
 	
-	private void selectRandomPostion(){
-	  int listSize = activatedWords.size();
-	  if(listSize == 0){
-		  return;
-	  }
-	  
-	  List<Word> clonedList = new ArrayList<Word>(activatedWords);
-	  if(hits % 4 == 0){
-		  Collections.sort(clonedList, Word.Comparators.AVG_RATE);
-		  position =  getRandomPosition(clonedList);
-	  }else if(hits % 5 == 0){
-		  Collections.sort(clonedList, Word.Comparators.HARDEST);
-		  position =  getRandomPosition(clonedList);
-	  }else{
-		  position = getRandomPosition();
-	  }
-		 	  
-	}
-
+	private void selectAppropriatePosition(){	
+		if(hits % 4 == 0){
+			selectHardestWord();
+		}else{
+			selectAppropriatePosition(seletRandomPositions());
+		} 
+    }
 	
-	private int getRandomPosition(List<Word> collection){
-		if(!collection.isEmpty()){
-			final int max = collection.size() - 1;
-			int min = max - 3;
-			if(min > 0){
-				min = 0;
+	private Set<Integer> seletRandomPositions(){
+		Set<Integer> randWords = new HashSet<Integer>();	
+		int size = activatedWords.size() - 1;
+		int i = 0;
+		do{
+			int pos = NumberUtils.randInt(0, size);
+			if(!isInHistory(pos)){
+				randWords.add(pos);
 			}
-			Word word = collection.get( NumberUtils.randInt(min, max) );
-			return findPositionByWordId(word.getId());
+			i++;
+		}while(randWords.size() < 3);
+		Log.i(TAG, "randWords size: " + randWords.size() + " int " + i + " iterations");
+		return randWords;
+	}
+	
+	private void selectAppropriatePosition(final Set<Integer> postions){
+		Log.i(TAG, "selectAppropriatePosition ..");
+		List<WordWithPosition> words = new ArrayList<WordWithPosition>();
+		for(Integer pos : postions){
+			WordWithPosition w = new WordWithPosition();
+			w.setPositin(pos);
+			w.setWord(activatedWords.get(pos));
+			words.add(w);
+		}
+		if(words.size() == 0){
+			Log.e(TAG, "unexpected position");
+			this.position = 0;
+			return ;
+		}
+		if(System.currentTimeMillis() % 4 == 0){
+			Collections.sort(words, WordWithPosition.Comparators.LAST_RATE);
+			printRatesOfSelected(words);
+		}
+		this.position =  words.get(words.size() - 1).getPositin();
+	}
+	
+	
+	
+	private void printRatesOfSelected(List<WordWithPosition> words){
+		String html ="";
+		for(WordWithPosition w : words){
+			html += ", " + w.getWord().getAvgRate();
+		}
+		Log.i(TAG, "AVG rate compared: " + html);
+	}
+	
+	
+	
+	
+	
+	
+	private void selectHardestWord(){
+		Log.i(TAG, "selectHardestWord..");
+		List<WordWithPosition> wordPositionList = cloneList();
+		Collections.sort(wordPositionList, WordWithPosition.Comparators.LAST_RATE);
+		int i = 1;
+		int position = 0;
+		do{
 			
-		}
-		return 0;
-	}
-	
-	private int getRandomPosition(){	
-    	List<Integer> randWords = new ArrayList<Integer>();	
-    		while(randWords.size() < 2 ){
-    			int pos = getRandomPostion();
-    			if(pos > (position +1) || pos < (position - 1))
-    				randWords.add(pos);
-    		}
-    		
-    		Word word0 = activatedWords.get(randWords.get(0));
-    		if(word0.getRate() == 0){
-    			return randWords.get(0);
-    		}else{
-    			Word word1 = activatedWords.get(randWords.get(1));
-    			if(word1.getRate() == 0){
-    				return randWords.get(1);
-    			}else{
-    				return( word0.getRate() > word1.getRate() ? randWords.get(0) : randWords.get(1));
-    			}
-    		}
-    }
-	
-	
-	private int getRandomPostion(){
-    	return  NumberUtils.getRandomPostion(activatedWords.size());
-    }
-	
-	
-	
-	
-	private int findPositionByWordId(final long id){
-		for(int i = 0; i < activatedWords.size();i++){
-			if(activatedWords.get(i).getId() == id){
-				return i;
+			if(position != 0){
+				Log.i(TAG, "positon is in history: " + position);
+				printHistory();
 			}
-		}
-		return -1;
+			
+			position = wordPositionList.get(wordPositionList.size() - i).getPositin();
+			i++;
+		}while(isInHistory(position));
+		Log.i(TAG, "selected position " + position + " in " + (i-1) + "iteration");
+		this.position = position;
+		logWordPositionList(wordPositionList);
 	}
+	
+	private void logWordPositionList(List<WordWithPosition> wordPositionList){
+		for(int i = 0; i < wordPositionList.size(); i++){
+			Log.i(TAG, "LAST RATE SORTED LIST: " + wordPositionList.get(i).getWord().toString());
+			if(i == 5) break;
+		}
+	}
+	
+	private List<WordWithPosition> cloneList(){
+		List<WordWithPosition> wordPositionList = new ArrayList<WordWithPosition>();
+		for(int pos = 0; pos < activatedWords.size(); pos++ ){
+			WordWithPosition wp = new WordWithPosition();
+			wp.setPositin(pos);
+			wp.setWord(activatedWords.get(pos));
+			wordPositionList.add(wp);
+		}
+		return wordPositionList;
+	}
+	
 	
 	private int getSumOfHits(){
 		int sum = 0;
@@ -196,8 +230,29 @@ public class DrilService {
 	public void setStatistics(Statistics statistics) {
 		this.statistics = statistics;
 	}
-
 	
+	private void updateHistory(){
+		if(history.size() < HISTORY_SIZE){
+			history.add(position);
+		}else{
+			history.add(0, position);
+			history = history.subList(0, HISTORY_SIZE);
+		}
+		printHistory();
+	}
+	
+	private void printHistory(){
+		String h = "";
+		for(Integer id : history){
+			h +=  ", " + id;
+		}
+		Log.i(TAG, "History is: " + h);
+	}
+	
+	
+	private boolean isInHistory(final Integer pos){
+		return history.contains(pos);
+	}
 
 }
 ;

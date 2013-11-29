@@ -312,7 +312,6 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	if(StringUtils.isBlank(wordDto.getValue())){
     		Toast.makeText(this, R.string.nothing_to_speeach, Toast.LENGTH_LONG).show();
     	}
-    	//.i(TAG, tts.getLanguage().toString());
     	if(wordDto.getLanguage() == null){
     		setEnglishTTSLocale();
     		speek(wordDto.getValue());

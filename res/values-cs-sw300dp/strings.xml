@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" >
+	<string name="activated_words">Kartiček: %1$d / Zobazená: %2$dx / Posl. hod.: %3$s</string>
+</resources>

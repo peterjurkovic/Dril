@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -160,12 +161,24 @@ public class ImportFileActivity extends BaseActivity {
 	        if (resultCode == RESULT_OK){
 	          Uri uri = data.getData();
 	          final String filePath = uri.getPath();
-	          new ImportData(filePath, this).execute();
+	          if(isFileValid(filePath)){
+	        	  new ImportData(filePath, this).execute();
+	          }else{
+	        	  Toast.makeText(this, R.string.error_invalid_file, Toast.LENGTH_LONG).show();
+	          }
 	        }
 	      }
 	    }
 	  }
 	  
+	  
+	  private boolean isFileValid(final String filePath){
+		  final String extension = MimeTypeMap.getFileExtensionFromUrl(filePath);
+		  if(isCsvImport){
+			  return extension.equals("csv");
+		  }
+		  return extension.equals("xls");
+	  }
 	  
 	
 	  
