@@ -105,7 +105,7 @@ public class DrilService {
 	
 	
 	private void selectAppropriatePosition(){	
-		if(hits % 4 == 0){
+		if(hits % 10 == 0){
 			selectHardestWord();
 		}else{
 			selectAppropriatePosition(seletRandomPositions());
@@ -115,20 +115,17 @@ public class DrilService {
 	private Set<Integer> seletRandomPositions(){
 		Set<Integer> randWords = new HashSet<Integer>();	
 		int size = activatedWords.size() - 1;
-		int i = 0;
 		do{
 			int pos = NumberUtils.randInt(0, size);
 			if(!isInHistory(pos)){
 				randWords.add(pos);
 			}
-			i++;
 		}while(randWords.size() < 3);
-		Log.i(TAG, "randWords size: " + randWords.size() + " int " + i + " iterations");
 		return randWords;
 	}
 	
 	private void selectAppropriatePosition(final Set<Integer> postions){
-		Log.i(TAG, "selectAppropriatePosition ..");
+		//Log.i(TAG, "selectAppropriatePosition ..");
 		List<WordWithPosition> words = new ArrayList<WordWithPosition>();
 		for(Integer pos : postions){
 			WordWithPosition w = new WordWithPosition();
@@ -137,29 +134,15 @@ public class DrilService {
 			words.add(w);
 		}
 		if(words.size() == 0){
-			Log.e(TAG, "unexpected position");
+			//Log.e(TAG, "unexpected position");
 			this.position = 0;
 			return ;
 		}
 		if(System.currentTimeMillis() % 4 == 0){
 			Collections.sort(words, WordWithPosition.Comparators.LAST_RATE);
-			printRatesOfSelected(words);
 		}
 		this.position =  words.get(words.size() - 1).getPositin();
 	}
-	
-	
-	
-	private void printRatesOfSelected(List<WordWithPosition> words){
-		String html ="";
-		for(WordWithPosition w : words){
-			html += ", " + w.getWord().getAvgRate();
-		}
-		Log.i(TAG, "AVG rate compared: " + html);
-	}
-	
-	
-	
 	
 	
 	
@@ -170,26 +153,14 @@ public class DrilService {
 		int i = 1;
 		int position = 0;
 		do{
-			
-			if(position != 0){
-				Log.i(TAG, "positon is in history: " + position);
-				printHistory();
-			}
-			
 			position = wordPositionList.get(wordPositionList.size() - i).getPositin();
 			i++;
 		}while(isInHistory(position));
-		Log.i(TAG, "selected position " + position + " in " + (i-1) + "iteration");
 		this.position = position;
-		logWordPositionList(wordPositionList);
+		
 	}
 	
-	private void logWordPositionList(List<WordWithPosition> wordPositionList){
-		for(int i = 0; i < wordPositionList.size(); i++){
-			Log.i(TAG, "LAST RATE SORTED LIST: " + wordPositionList.get(i).getWord().toString());
-			if(i == 5) break;
-		}
-	}
+	
 	
 	private List<WordWithPosition> cloneList(){
 		List<WordWithPosition> wordPositionList = new ArrayList<WordWithPosition>();
@@ -238,15 +209,6 @@ public class DrilService {
 			history.add(0, position);
 			history = history.subList(0, HISTORY_SIZE);
 		}
-		printHistory();
-	}
-	
-	private void printHistory(){
-		String h = "";
-		for(Integer id : history){
-			h +=  ", " + id;
-		}
-		Log.i(TAG, "History is: " + h);
 	}
 	
 	
