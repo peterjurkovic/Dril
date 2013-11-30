@@ -199,6 +199,9 @@
 	<string name="pref_show_helper">Show whisperer</string>
 	<string name="pref_show_helper_descr">Will shown help icon in dril</string>
 	
+	<string name="pref_disable_tts_notifi">Disable notification</string>
+	<string name="pref_disable_tts_notifi_descr">Disable notification of missing Text-2-speech data</string>
+	
 	<string name="lang_question">Language of question</string>
 	<string name="lang_answer">Language of answer</string>
 	<string name="error_same_languages">Selected languages are same!</string>

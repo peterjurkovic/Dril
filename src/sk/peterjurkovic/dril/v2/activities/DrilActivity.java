@@ -9,8 +9,10 @@ import sk.peterjurkovic.dril.dao.StatisticsDao;
 import sk.peterjurkovic.dril.dao.StatisticsDaoImpl;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.dto.WordToPronauceDto;
+import sk.peterjurkovic.dril.exceptions.DrilUnexpectedFinishedException;
 import sk.peterjurkovic.dril.model.Statistics;
 import sk.peterjurkovic.dril.model.Word;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Context;
@@ -21,6 +23,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -158,11 +161,16 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     private void tryNextWord(){
     	helpClickedCounter = 0;
     	hideAnswer();
-    	Word currentWord = drilService.getNext();
-    	setWordIntoViews(currentWord);
-    	boolean autoplayPronunciation =  preferences.getBoolean(Constants.PREF_AUTOPLAY_PRONAUCE_KEY, false);
-    	if(autoplayPronunciation){
-    		playPronunciationInNewThread(Constants.DELAY_BEFORE_PRONUNCIATION);
+    	try{
+	    	Word currentWord = drilService.getNext();
+	    	setWordIntoViews(currentWord);
+	    	boolean autoplayPronunciation =  preferences.getBoolean(Constants.PREF_AUTOPLAY_PRONAUCE_KEY, false);
+	    	if(autoplayPronunciation){
+	    		playPronunciationInNewThread(Constants.DELAY_BEFORE_PRONUNCIATION);
+	    	}
+    	}catch(DrilUnexpectedFinishedException e){
+    		Log.e(TAG, "Dril unexpected finished");
+    		GoogleAnalyticsUtils.logException(e, this);
     	}
     }
     
@@ -317,7 +325,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     		speek(wordDto.getValue());
     	}else{
     		Locale locale = wordDto.getLanguage().getLocale();
-    		if(isLanguageAvailable(locale)){
+    		if(isLanguageAvailable(locale) && tts != null){
     			tts.setLanguage(locale);
     			speek(wordDto.getValue());
     		}else{
@@ -343,10 +351,11 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
                tts = new TextToSpeech(this, this);
             }
             else {
-            	// missing data, install it
-                Intent installIntent = new Intent();
-                installIntent.setAction( TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-                startActivity(installIntent);
+            	if(!preferences.getBoolean(Constants.PREF_DISABLE_TTS_NOTIFi, false)){
+	                Intent installIntent = new Intent();
+	                installIntent.setAction( TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+	                startActivity(installIntent);
+            	}
             }
         }
     	super.onActivityResult(requestCode, resultCode, data);
@@ -401,13 +410,18 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     }
     
     public boolean isLanguageAvailable(Locale speechLocale) {
-        return tts.isLanguageAvailable(speechLocale) != TextToSpeech.LANG_MISSING_DATA
+        if(tts == null){
+        	return false;
+        }
+    	return tts.isLanguageAvailable(speechLocale) != TextToSpeech.LANG_MISSING_DATA
                 && tts.isLanguageAvailable(speechLocale) != TextToSpeech.LANG_NOT_SUPPORTED;
     }
 
     
     private void setEnglishTTSLocale(){
-		tts.setLanguage(Locale.ENGLISH);
+		if(tts != null){
+			tts.setLanguage(Locale.ENGLISH);
+		}
     }
     
     private void checkTTSDataForLocale(){

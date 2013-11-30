@@ -76,7 +76,10 @@ public class BaseActivity extends ActionBarActivity {
              .addNextIntentWithParentStack(upIntent)
              .startActivities();
          }else {
-             upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+             if(upIntent == null){
+            	 upIntent = new Intent(this, DashboardActivity.class);
+             }
+        	 upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
              NavUtils.navigateUpTo(this, upIntent);
          }
     }

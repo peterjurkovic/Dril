@@ -47,6 +47,13 @@
         android:title="@string/pref_show_helper"
         android:summary="@string/pref_show_helper_descr" 
      />
+     
+     <CheckBoxPreference
+        android:key="pref_disable_tts_notifi"
+        android:defaultValue="false"
+        android:title="@string/pref_disable_tts_notifi"
+        android:summary="@string/pref_disable_tts_notifi_descr" 
+     />
 
    
 </PreferenceScreen>

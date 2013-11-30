@@ -177,6 +177,7 @@
     <string name="pref_label_autoplayT2S">Automaticky prehrať</string>
     <string name="pref_label_autoplay_descr">Automaticky prehrať výslovnosť slovíčok po ich zobrazení a v prípade, ak sú v cieľovom jazyku</string>
     
+
 	<string name="label_lang_sk">Slovenčina</string>
 	<string name="label_lang_de">Nemčina</string>
 	<string name="label_lang_fr">Francúzština</string>
@@ -196,6 +197,9 @@
 	
 	<string name="pref_show_helper">Zobraziť našepkávač</string>
 	<string name="pref_show_helper_descr">Zobrazí sa ikona nápovedy</string>
+	
+	<string name="pref_disable_tts_notifi">Nezobrazovat upozornění</string>
+	<string name="pref_disable_tts_notifi_descr">Nezobrazovať upozornenia o chýbajúcich dátach k TTS</string>
 	
 	<string name="lang_question">Jazyk otázky</string>
 	<string name="lang_answer">Jazyk odpovede</string>

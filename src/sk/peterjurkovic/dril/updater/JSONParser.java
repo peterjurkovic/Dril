@@ -44,11 +44,13 @@ public class JSONParser {
 	
 	public List<Book> parseBooks(final JSONObject json){
 	   List<Book> bookList = null;
-       try {
-         bookList = parseBooksFromJSONArray( json.getJSONArray(TAG_BOOKS) );
-       }catch(JSONException e){
-       	e.printStackTrace();
-       }		
+	   if(json != null){
+	       try {
+	         bookList = parseBooksFromJSONArray( json.getJSONArray(TAG_BOOKS) );
+	       }catch(JSONException e){
+	       	e.printStackTrace();
+	       }		
+	   }
        return bookList;
 	}
 	

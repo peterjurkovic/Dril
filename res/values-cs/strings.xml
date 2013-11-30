@@ -196,6 +196,9 @@
 	<string name="pref_show_helper">Zobrazit našeptávač</string>
 	<string name="pref_show_helper_descr">Zobrazí se ikona nápovědy</string>
 	
+	<string name="pref_disable_tts_notifi">Nezobrazovat upozornení</string>
+	<string name="pref_disable_tts_notifi_descr">Nezobrazovat upozornení o chybějících datech k TTS</string>
+	
 	<string name="lang_question">Jazyk otázky</string>
 	<string name="lang_answer">Jazyk odpovědi</string>
 	<string name="error_same_languages">Vybrané jazyky se shodují!</string>

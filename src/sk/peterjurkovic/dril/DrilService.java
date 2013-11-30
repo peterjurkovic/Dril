@@ -10,6 +10,7 @@ import sk.peterjurkovic.dril.dao.WordDao;
 import sk.peterjurkovic.dril.dao.WordDaoImpl;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.dto.WordWithPosition;
+import sk.peterjurkovic.dril.exceptions.DrilUnexpectedFinishedException;
 import sk.peterjurkovic.dril.model.Statistics;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.NumberUtils;
@@ -80,7 +81,7 @@ public class DrilService {
 		return activatedWords != null && activatedWords.size() > 0;
 	}
 	
-	public Word getNext(){
+	public Word getNext() throws DrilUnexpectedFinishedException{
 		int listSize = activatedWords.size();
 		if(listSize == 0){
 			return null;
@@ -104,7 +105,7 @@ public class DrilService {
     }
 	
 	
-	private void selectAppropriatePosition(){	
+	private void selectAppropriatePosition() throws DrilUnexpectedFinishedException{	
 		if(hits % 10 == 0){
 			selectHardestWord();
 		}else{
@@ -124,7 +125,7 @@ public class DrilService {
 		return randWords;
 	}
 	
-	private void selectAppropriatePosition(final Set<Integer> postions){
+	private void selectAppropriatePosition(final Set<Integer> postions) throws DrilUnexpectedFinishedException{
 		//Log.i(TAG, "selectAppropriatePosition ..");
 		List<WordWithPosition> words = new ArrayList<WordWithPosition>();
 		for(Integer pos : postions){
@@ -134,10 +135,14 @@ public class DrilService {
 			words.add(w);
 		}
 		if(words.size() == 0){
-			//Log.e(TAG, "unexpected position");
+			if(activatedWords.size() == 0){
+				throw new DrilUnexpectedFinishedException("Dril unexpected at selectAppropriatePosition");
+			}else{
 			this.position = 0;
+			}
 			return ;
 		}
+		
 		if(System.currentTimeMillis() % 4 == 0){
 			Collections.sort(words, WordWithPosition.Comparators.LAST_RATE);
 		}
@@ -146,7 +151,7 @@ public class DrilService {
 	
 	
 	
-	private void selectHardestWord(){
+	private void selectHardestWord() throws DrilUnexpectedFinishedException{
 		Log.i(TAG, "selectHardestWord..");
 		List<WordWithPosition> wordPositionList = cloneList();
 		Collections.sort(wordPositionList, WordWithPosition.Comparators.LAST_RATE);
@@ -156,6 +161,11 @@ public class DrilService {
 			position = wordPositionList.get(wordPositionList.size() - i).getPositin();
 			i++;
 		}while(isInHistory(position));
+		
+		if(position >= this.activatedWords.size()){
+			throw new DrilUnexpectedFinishedException("Position \"" + position + "\" is out of range in selectHardestWord");
+		}
+		
 		this.position = position;
 		
 	}
