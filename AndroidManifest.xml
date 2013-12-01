@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sk.peterjurkovic.dril"
-    android:versionCode="14"
-    android:versionName="2.0 r2"
+    android:versionCode="15"
+    android:versionName="2.1"
     android:installLocation="auto" >
 
     <uses-sdk
@@ -10,7 +10,8 @@
     
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> 
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> 
  
     <application 
         android:theme="@style/DrilActionBarTheme" 
@@ -66,6 +67,10 @@
             	  android:parentActivityName=".v2.activities.DashboardActivity" />
          <activity android:name=".v2.activities.StatisticActivity"
         		  android:parentActivityName=".v2.activities.DashboardActivity" />
+         <activity android:name=".v2.activities.BackupRestoreActivity"
+        		  android:parentActivityName=".v2.activities.DashboardActivity" />
+         
+         
          
          <activity android:name=".v2.activities.FacebookShare" 
              		android:parentActivityName=".v2.activities.DashboardActivity"/>

@@ -1,4 +1,4 @@
-package sk.peterjurkovic.dril.readers;
+package sk.peterjurkovic.dril.io;
 
 import java.io.File;
 import java.io.IOException;

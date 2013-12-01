@@ -251,4 +251,23 @@
     <string name="confirm_delete_selected_words">Are you sure you want to delete selected word(s)?</string>
     
     <string name="error_invalid_file">Selected file has invalid format</string>
+    
+    <!-- v 2.1 -->
+    <string name="backup">Backup data</string>
+    <string name="backupPath">Process back up</string>
+    <string name="backupLocation">Backup file location:</string>
+    <string name="backup_success">Data has been successfully backed up</string>
+    
+    <string name="restore">Restore data</string>
+    <string name="confirmRestore">Confirm data restore</string>
+    <string name="confirmRestoreMsg">Are you sure you want to restore data? All data in this application will be replaced.</string>
+    <string name="restoreSelectFile">Select file to restore</string>
+    <string name="restoreAlert">Alert: All your data stored in this application, will be permanently removed!</string>
+    <string name="error_notExists">Selected file does not exists</string>
+	<string name="error_invalid_filename">Invalid file name.</string>
+	<string name="error_invalid_version">ERROR. Backup was created in newer version of application.</string>
+	<string name="error_access_write">Application can not access to device\'s storage</string>
+	
+	<string name="backupRestoreH1">Data backup/restore</string>
+	<string name="backupRestoreDescr">The application provides the ability to backup and restore data. NOTE: Please do not change the generated file name. The format has always to be: yyyyMdd_d.dril</string>
 </resources>

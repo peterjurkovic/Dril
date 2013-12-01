@@ -130,8 +130,9 @@ public class JSONParser {
 	 * @return List<Word> parse Words 
 	 * @throws JSONException if some error occurred
 	 */
-	public List<Word> parseWordsFromJSONArray(JSONArray wordArray, long lectureId) throws JSONException{
+	public List<Word> parseWordsFromJSONArray(JSONArray wordArray,final long lectureId) throws JSONException{
 		List<Word> wordList = new ArrayList<Word>();
+		Log.i("JSON parser", "Importing into lecture: " + lectureId);
 		for(int i = 0; i < wordArray.length(); i++){
 				JSONObject w = wordArray.getJSONObject(i);
 				wordList.add(

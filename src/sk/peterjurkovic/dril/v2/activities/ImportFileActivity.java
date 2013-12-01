@@ -5,10 +5,10 @@ import java.util.List;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
+import sk.peterjurkovic.dril.io.CsvStorageFileReader;
+import sk.peterjurkovic.dril.io.StorageFileReader;
+import sk.peterjurkovic.dril.io.XlsStorageFileReader;
 import sk.peterjurkovic.dril.model.Word;
-import sk.peterjurkovic.dril.readers.CsvStorageFileReader;
-import sk.peterjurkovic.dril.readers.StorageFileReader;
-import sk.peterjurkovic.dril.readers.XlsStorageFileReader;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import android.app.AlertDialog;
@@ -189,7 +189,7 @@ public class ImportFileActivity extends BaseActivity {
 			  private String filePath;
 			  private Context context;
 			  
-			  public ImportData(String filePath, Context context){
+			  public ImportData(final String filePath, Context context){
 				  this.filePath = filePath;
 				  this.context = context;
 				  dialog = ProgressDialog.show( this.context , "" , 

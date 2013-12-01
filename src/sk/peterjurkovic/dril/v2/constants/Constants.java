@@ -30,4 +30,6 @@ public class Constants {
 	public static final String HTTP_AUTH_VAL = "b379c5f65387e482844779a5626a01c7";
 	public static final String APP_VARIANT = "en";
 	public static final String FB_IMAGE_URL = "http://www.drilapp.com/img/lachucher_ico_{locale}.png";
+	
+	public static final String IO_DRIL_FOLDER_NAME = "dril";
 }

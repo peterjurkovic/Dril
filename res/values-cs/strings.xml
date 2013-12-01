@@ -16,66 +16,66 @@
     <string name="btn_4">4</string>
     <string name="btn_5">5</string>
     <string name="showAnswerBtn">Zobraziť odpověď</string>
-    <string name="zero_cards_alert">Nejsou aktivovány žádné kartičky</string>
-    <string name="book_add">Přidat učebnici</string>
-    <string name="book_add_head">Přidání vlastní učebnice</string>
+    <string name="zero_cards_alert">Neexistují žádné aktivní kartičky</string>
+    <string name="book_add">Vytvořit učebnici</string>
+    <string name="book_add_head">Vytvořit novou učebnici</string>
     <string name="view">Zobrazit</string>
     <string name="edit">Upravit</string>
     <string name="delete">Smazat</string>
-    <string name="deleted">Úspěšně smazané</string>
+    <string name="deleted">Úspěšně smazáno</string>
     <string name="book_not_deleted">Učebnici se nepodařilo smazat</string>
-    <string name="no_book_available">Nejsou evidovány žádné učebnice</string>
-    <string name="title">Název</string>
+    <string name="no_book_available">Neexistují žádné učebnice.</string>
+    <string name="title">Napiště název</string>
    
    
     <string name="error_ocurred">Vyskytla se neočakávaná chyba</string>
-    <string name="successfully_added">Učebnice úspěšně přidaná</string>
+    <string name="successfully_added">Úspěšně přidáno</string>
 
     
-    <string name="lecture_count">Počet lekcí: %1$d / kartiček: %2$d / aktivované: %3$d</string>
+    <string name="lecture_count">lekcí: %1$d / kartiček: %2$d / aktivních k.: %3$d</string>
     <string name="word_count">Počet kartiček v lekci: %1$d, z toho aktivovaných: %2$d</string>
-    <string name="book_edit_head">Editace učebnice</string>
+    <string name="book_edit_head">Upravit učebnici</string>
     
     <string name="submit">Uložit</string>
 	<string name="cancel">Zrušit</string>
 	<string name="saved_ok">Úspěšně uloženo</string>
 	<string name="saved_no">Změny se nepodařilo uložit</string>
 	
-	<string name="no_lecture_available">Učebnice neobsahuje žádné lekce</string>
+	<string name="no_lecture_available">Učebnice je prázdná</string>
 	<string name="lecture">Lekce</string>
 	<string name="options">Možnosti</string>
 	
-	<string name="deactive_lecture">Deaktivovat lekci</string>
+	<string name="deactive_lecture">Deaktivace lekci</string>
 	<string name="deactive_all">Deaktivovat vše</string>
 	<string name="deactive">Deaktivovat</string>
 	<string name="active">Aktivovat</string>
 	<string name="active_lecture">Aktivovat lekci</string>
 	<string name="active_all">Aktivovat vše</string>
-	<string name="active_ten">Aktivovat 10 náhodně</string>
+	<string name="active_ten">Náhodně aktivovat 10 k.</string>
 	
-    <string name="lecture_add_head">Přidat novou lekci</string>
+    <string name="lecture_add_head">Přidat lekci</string>
     <string name="lecture_edit_head">Přejmenovat lekci</string>
 	<string name="lecture_not_deleted">Lekci se nepodařilo smazat</string>
 	
 	<string name="word_add_label">Přidání kartičky do:</string>
-	<string name="word_added">Kartička úspěšně vytvořena</string>
-	<string name="no_word_available">Lekce neobsahuje žádné kartičky</string>
+	<string name="word_added">Kartička byla úspěšně přidána</string>
+	<string name="no_word_available">Lekce je prázdná</string>
 	<string name="word_edit_label">Editace kartičky</string>
 	
 	<string name="word_active">Kartička je aktivována</string>
 	<string name="word_deactive">Kartička je deaktivována</string>
 	<string name="words_deactived">Kartičky byly deaktivovány</string>
 	
-	<string name="error">Operaci se nepodařilo provést</string>
-	<string name="selected">Označené:</string>
+	<string name="error">Vyskytla se nějaká chyba, zkuste znovu</string>
+	<string name="selected">Vybráno:</string>
 	<string name="wordAction">Kartičku:</string>
-	<string name="activated_words">Kartičky: %1$d / Zobazená: %2$dx / Poslední hodnocení: %3$s</string>
-	<string name="dril_finished">Výborně! Počet naučených slovíček: %1$d</string>
+	<string name="activated_words">Kartiček: %1$d / Zobrazená: %2$dx / Poslední hod.: %3$s</string>
+	<string name="dril_finished">Drillování bylo dokončeno! Počet naučených slovíček: %1$d</string>
 	<string name="pronauce_question">Vysloviť otázku</string>
-	<string name="pronauce_answer">Vyslovit otázku</string>
+	<string name="pronauce_answer">Vyslovit odpověď</string>
 	<string name="speach_failed">Není možne vyslovit požadovaný výraz</string>
-	<string name="nothing_to_speeach">Není co vyslovit</string>
-	<string name="word_not_selected">Nejsou označeny žádné kartičky</string>
+	<string name="nothing_to_speeach">Výslovnost nenalezena</string>
+	<string name="word_not_selected">Nejsou vybrány žádné kartičky</string>
 	
     <string name="menu_about">O aplikaci</string>
     <string name="copy">Copyright &#169; 2012 Peter Jurkovič</string>
@@ -86,14 +86,14 @@
     <string name="send_email">Kontaktovat autora</string>
     <string name="activated">Aktivované</string>
     
-    <string name="no_data_available">Nejsou dostupné žádné data</string>
+    <string name="no_data_available">Nejsou dostupná žádná data</string>
     
     <string name="table_book_count">Počet učebnic:</string>
     <string name="table_lecture_count">Počet lekcí:</string>
     <string name="table_word_count">Počet kartiček:</string>
-    <string name="table_book_active_count">Počet aktivovaných katiček:</string>
+    <string name="table_book_active_count">Počet aktivních katiček:</string>
     <string name="table_avg_rate">Vaše průměrné hodnocení:</string>
-    <string name="table_finished">Počet zvládnutých kartiček:</string>
+    <string name="table_finished">Počet zodpovězených:</string>
     <string name="stats_fully">Obecné statistiky</string>
     <string name="stats_reset">Smazat statistiky</string>
     
@@ -105,53 +105,52 @@
 	
 	<!-- IMPORT v 1.4 -->
 	<string name="import_words">Importovat slovíčka</string>
-	<string name="what_is_csv">Co to je CSV soubor?</string>
-	<string name="csv_label">CSV je jednoduchý souborový formát určený pro výměnu tabulkových dat. Soubor ve formátu CSV sestává z řádků, ve kterých jsou jednotlivé položky odděleny znakem čárka (,). Hodnoty položek mohou být uzavřeny do uvozovek (\"), což umožňuje, aby text položky obsahoval čárku.</string>
-    <string name="how_it_create">Jak si ho mohu vytvořiť?</string>
-    <string name="csv_create">Kazdá kancelářská aplikace má možnost exportu do formátu CSV, např. MS EXcel, Open Office Calc, Libre Office atd. \n\nTakže jednoduše můžete napsat svoje slovíčka například v Excelu, exportovat je do formátu CSV a následne exportovaný soubor skopírovat do Vašeho mobilního zařízení.</string>
+	<string name="what_is_csv">Co je CSV soubor?</string>
+	<string name="csv_label">CSV je textový soubor, který používá čárku pro oddělení jednotlivých hodnot. Pokročilejší apliakce a tato aplikace také, povolují uzavřít specifické znaky do uvozovek (").</string>
+    <string name="how_it_create">Jak jej mohu vytvořit?</string>
+    <string name="csv_create">Většina známých aplikací jako např. MS-Excel, Open office calc, LibreOffice atd. mají možnost exportu dat do CSV souboru.\n\nTudíž můžete jednoduše zapsat Vaše slovíčka do Excelu, vyexportovat (uložit) v CSV formátu CSV, poté přeneste do Vašeho mobilního zařízení a naimportujte do aplikace.</string>
     <string name="csv_format">CSV formát pro tuto aplikaci</string>
-    <string name="csv_format_label">Tato aplikace podporuje základní csv formát:\n\n\"slovíčko\",\"překlad\"\n\"slovíčko 2\",\"překlad\"\n\nPOZNÁMKA: nepoužíva žádnou csv hlavičku.</string>
-    <string name="csv_choose">Vybrat csv soubor k importu</string>
-    <string name="import_status">Import status</string>
-    <string name="import_failed">Import zlyhal, skontrolujte formát CSV souboru.</string>
-    <string name="import_success">Úspěšně nahráno!\nPočet nových slovíček: %1$d</string>
-    <string name="import_via_csv">Improt nahráním CSV souboru</string>
-    <string name="import_via_csv_descr">Vyberete CSV soubor z paměti zařízení</string>
+    <string name="csv_format_label">Tato aplikace podporuje základní CSV formát, tj.:\n\n \"slovo1\",\"překlad1\"\n\"slovo2\",\"překlad2\"\n\n Upozornění: CSV soubor nesmí mít záhlaví.</string>
+    <string name="csv_choose">Kliknutím vyberte soubor</string>
+    <string name="import_status">Stav importu</string>
+    <string name="import_failed">Import selhal, zkontrolujte CSV formát.</string>
+    <string name="import_success">Úspěšně naimportováno!\nPočet nových kartiček: %1$d</string>
+    <string name="import_via_csv">Import prostřednictvím CSV souboru</string>
+    <string name="import_via_csv_descr">Import prostřednictvím Excel-souboru</string>
     <string name="import_via_xls">Importovat z Excelu</string>
     <string name="import_via_xls_descr">Vyberete XLS soubor z paměti zařízení</string>
-   	<string name="import_id">Import ID</string>
+   	<string name="import_id">Import prostřednictvím drilapp.com</string>
     <string name="import_id_put">Vložte Vaš import ID:</string>
     <string name="import_submit">Stáhnout a uložit</string>
-    <string name="id_head">Co je import ID?</string>
-    <string name="id_descr">Můžete pohodně napsat vlastní slovíčka na stránce www.drilapp.com. Po uložení získáte identifikátor (import ID), který vložíte do aplikace dril, následne se slovíčka stáhnou a uloží.\n\nVíce na: www.drilapp.com</string>
-    <string name="import_id_failed">Import se nezdařil, zkuste to znovu později.</string>
-    <string name="import_id_not_found">Nenašli se žádné slovíčka. Je vaše import ID správané?</string>
-    <string name="import_id_invalid">Chybné import ID.</string>
-    <string name="import_info_head">Importovat vlastní slovíčka</string>
-    <string name="import_info_desc">Věděli jste, že si můžete nahrát své vlastní slovíčka? To je možné dvěma způsoby: \n\n-přes CSV soubor, uložený ve Vašem mobilním zařízení \n-vzdálene, prostřednictvím www.drilapp.com \n\n Jak? Dlouhím kliknutím na danou lekci, následne kliknout na položku kontextového menu \"Importovat slovíčka\"</string>
+    <string name="id_head">Co je ID pro import?</string>
+    <string name="id_descr">Prostřednictvím stránek www.drilapp.com is můžete jednoduše nahrát Vaši vlastní slovní zásobu k procvičení. Po uložení obdržíte identifikátor (ID pro import), který následně zadáte zde, kde díky tomu dojde k automatickému stažení na nahrání do zařízení. \n\nVíce informací na www.drilapp.com</string>
+    <string name="import_id_failed">Import selhal, zkuste ještě jednou později.</string>
+    <string name="import_id_not_found">Nenalezeno. Je ID pro import správný?</string>
+    <string name="import_id_invalid">Špatné ID pro import.</string>
+    <string name="import_info_head">Import Vámi zadané slovní zásoby</string>
+    <string name="import_info_desc">Věděli jste, že můžete Vaši testovanou slovní zásobu jednoduše naimportovat? Je to možné dvěma způsoby:\n\n- pomocí CSV souboru uloženém v mobilním zařízení\n- vzdáleně pomocí www.drilapp.com \n\nJak? Dlouze stiskněte na název lekce, kam chce slova vložit a pak vyberte \"Imprt slovíček\"</string>
     
     
     <!-- INFO -->
     <string name="about_app">O aplikaci</string>
-    <string name="app_descr">Aplikace dril je určena na učení anglických slovíček a fráz. Dril je založen na metodě opakování, je to efektivní způsob memorování např. slovíček či jiných jednotlivých informací určených k naučení se nazpaměť. Neni vhodné mít aktivovaných více než 30 kartiček.</string>
-    <string name="info_btn_head">Co znamenají jednotlivé tlačítka?</string>
-    <string name="ibtn1">1. - Věděl jsem to okamžitě, kartička se už v drilu nezobrazí.</string>
-    <string name="ibtn2">2. - Věděl jsem to, ale musel jsem chvilku přemýšlet, kartička se v drilu znovu objeví.</string>
-    <string name="ibtn3">3. - Věděl jsem to jen přibližně a s chybou. Kartička bude znovu zobrazena.</string>
-    <string name="ibtn4">4. - Nevěděl jsem to, ale už jsem to někde viděl / slyšel! Kartička bude znovu zobrazena.</string>
-    <string name="ibtn5">5. - Nevěděl jsem to, vidim to poprvé. Kartička bude znovu zobrazena.</string>
-    <string name="how_its_work">Jak to funguje?</string>
-    <string name="how_its_work_descr">Jako první si musíte vybrat v sekci \ "Učebnice \" kartičky, které chcete drilovat, resp. učit se. To je možné udělat dvěma způsoby. Dlouhým kliknutím na lekci, následně v kontextovém menu zvolit \ "Náhodně aktivovat 10 kartiček \", nebo si jednotlivě vybrat kartičky a aktivovat je.</string>
-            
+    <string name="app_descr">Aplikace Dril je vytvořena pro výuku anglických slovíček (slovní zásoby) a frází. Myšlenka aplikace Dril je založena na metodě opakování. Jedná se o účinnou metodu zapamatování jak slovíček tak i obecně informací. Nemělo by být aktivováno více než 50 kartiček.</string>
+    <string name="info_btn_head">Co znamenají jednotlivá tlačítka při provádění testu?</string>
+    <string name="ibtn1">1. - Věděl jsem to přesně, kartičku již dále ve zkoušení nezobrazovat.</string>
+    <string name="ibtn2">2. - Věděl jsem to, ale chvíli jsem musel o tom přemýšlet, kartičku ještě při zkoušení zobrazit.</string>
+    <string name="ibtn3">3. - Věděl jsem to s malou chybkou. Kartičku opět znova zobrazit.</string>
+    <string name="ibtn4">4. - Nevěděl jsem to, ale už jsem někdy výraz viděl/slyšel! Kartička znovu zobrazit.</string>
+    <string name="ibtn5">5. - Ještě jsem toto slovíčko neviděl, vidím jej prvně, kartičku zobrazit znovu.</string>
+	<string name="how_its_work">Jak spustit test?</string>
+	<string name="how_its_work_descr">Nejprve je nutné vybrat mezi \"učebnicemi\" kartičky, které chcete testovat. Test můžete spustit dvěma způsoby. Buď dlouhým stisknutím názvu lekce a vybráním následné volby \"Náhodná aktivace 10 kartiček\", nebo v dané lekci ručně aktivovat potřebné kartičky. </string>      
 	
 	<!-- UPDATE -->
     <string name="update_textbooks">Aktualizovat učebnice</string>
     <string name="update_status">Aktualizace</string>
-    <string name="up_to_date">Nejsou dostupné žádné nové učebnice</string>
+    <string name="up_to_date">Vaše učebnice jsou aktuální</string>
     <string name="update_failed">Aktualizace se nezdařila, zkontrolujte připojení k internetu.</string>
-    <string name="update_available">Nové učebnice jsou k dispozici! \nChcete si je stáhnout?</string>
+    <string name="update_available">Nové učebnice! \nNechcete je stáhnout?</string>
     <string name="loading_check">Zistuji, čekejte prosím &#8230;</string>
-    <string name="loading_down">Stahuji, čekejte prosím &#8230;</string>
+    <string name="loading_down">Stahuje se, prosím počkejte &#8230;</string>
     <string name="successfully_updated">Úspěšně aktualizováno! \nPočet nových učebnic: %1$d</string>
     <string name="yes">Ano</string>
     <string name="no">Ne</string>
@@ -159,7 +158,7 @@
 	
 	<!-- DRIL APP v 1.5 -->
 	<string name="drilapp">www.drilapp.com</string>
-	<string name="drilapp_ow">www.drilapp.com\n vlastní slovíčka</string>
+	<string name="drilapp_ow">www.drilapp.com\n vlastní slovní zásoba</string>
 	
 	<!-- DRIL APP v 2 -->
 	<string name="back_button_label">Zpět</string>
@@ -168,13 +167,13 @@
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="skip_button_label">Přeskočit</string>
 	
-    <string name="label_pref_head">Nastavení aplikace</string>
+    <string name="label_pref_head">Nastavení</string>
     <string name="pref_target_lang">Cílový jazyk</string>
-    <string name="pref_target_lang_descr">Vyberte jazyk, ve který se chcete učit</string>
+    <string name="pref_target_lang_descr">Vyberte jazyk, který chcete procvičovat</string>
     
-    <string name="pref_label_autoplay_head">Výslovnost slovíček</string>
-    <string name="pref_label_autoplayT2S">Automaticky přehrát</string>
-    <string name="pref_label_autoplay_descr">Automaticky prehdať výslovnosť slovíčok po ich zobrazení a v prípade, ak sú v cieľovom jazyku</string>
+    <string name="pref_label_autoplay_head">Výslovnost slov</string>
+    <string name="pref_label_autoplayT2S">Automatické přehrání výslovnosti</string>
+    <string name="pref_label_autoplay_descr">Když je dané slovo v cílovem jazyku</string>
     
 	<string name="label_lang_sk">Slovenčina</string>
 	<string name="label_lang_de">Nemčina</string>
@@ -184,8 +183,8 @@
 	<string name="label_lang_cs">Čeština</string>
 	<string name="label_lang_sv">Švédština</string>
 	
-	<string name="pref_label_test">Co by mělo být zobrazeno</string>
-	<string name="pref_label_test_descr">Otázka, odpověď nebo náhodně</string>
+	<string name="pref_label_test">Dotazované pole</string>
+	<string name="pref_label_test_descr">Otázka, odpověď, náhodně</string>
 	<string name="pref_label_test_question">Otázka</string>
 	<string name="pref_label_test_answer">Odpověď</string>
 	<string name="pref_label_test_rand">Náhodne</string>
@@ -201,22 +200,22 @@
 	
 	<string name="lang_question">Jazyk otázky</string>
 	<string name="lang_answer">Jazyk odpovědi</string>
-	<string name="error_same_languages">Vybrané jazyky se shodují!</string>
+	<string name="error_same_languages">Vybrané jazyky jsou stejné</string>
 	<string name="error_tts_locale">Pro jazyk %1$s není dostupná výslovnost</string>
 	
-	<string name="write_your_answer">Napište odpověď</string>
+	<string name="write_your_answer">Napište Vaši odpověď</string>
     <string name="alert_no_cards_activated">Nemáte aktivované kartičky</string>
     
-    <string name="nav_feedback">Zpětná vazba</string>
+    <string name="nav_feedback">Vaše reakce/hodnocení</string>
     <string name="nav_settings">Nastavení</string>
     
     <string name="add_word">Přidat kartičku</string>
     
     <string name="import_xls_head">Struktura dokumentu</string>
-    <string name="import_xls_descr">Dokument by měl obsahovat pouze dva sloupce. První sloupec by měl obsahovat otázku, druhý odpověď. Podporován je pouze XLS formát, ne XLSX.</string>
-    <string name="error_blank_lecture_name">Prosím napište název lekce</string>
+    <string name="import_xls_descr">Dokument by měl obsahovat pouze dva sloupce. V prvním sloupci by měla být otázka ve druhém odpověď. Je podporovaný pouze formát XLS, nikoliv XLSX.</string>
+    <string name="error_blank_lecture_name">Prosím, vyplňte název lekce</string>
     
-    <string name="donate">Darovat</string>
+    <string name="donate">Finanční příspěvek</string>
 	
     <string name="leardned_cards">Pč. naučených</string>
     <string name="date">Datum</string>
@@ -248,4 +247,24 @@
     <string name="confirm_delete_selected_words">Jste si jistý, že chcete odstranit kartičky?</string>
     
     <string name="error_invalid_file">Vybraný soubor je v nesprávném formátu</string>
+    
+     <!-- v 2.1 -->
+    <string name="backup">Záloha dat</string>
+    <string name="backupPath">Zálohovat data</string>
+    <string name="backupLocation">Umístění vygenerovaného souboru:</string>
+    <string name="backup_success">Záloha proběhla úspěšně</string>
+    
+    <string name="restore">Obnova dat</string>
+    <string name="confirmRestore">Potvrdte obnovení dat</string>
+    <string name="confirmRestoreMsg">Jste si jisti, že chcete obnovit data? Všechny uložené data v této aplikaci se pŕepíšou/odstraní.</string>
+    <string name="restoreSelectFile">Vyberte soubor, který chcete obnovit</string>
+    <string name="restoreAlert">Upozornění: Všechny Vaše data uložená v této aplikaci, budou nenávratne smazána!</string>
+    <string name="error_notExists">Vybraný soubor neexistuje</string>
+	<string name="error_invalid_filename">Neplatný název souboru</string>
+	<string name="error_invalid_version">Zálohovaný soubor byl vytvořen v novější verzi aplikace</string>
+	<string name="error_access_write">Aplikace nemá oprávnění zapisovat do paměti zařízení</string>
+	
+	<string name="backupRestoreH1">Záloha a obnovení dat</string>
+	<string name="backupRestoreDescr">
+Aplikace poskytuje možnost zálohovat, resp. obnovit uložená data. Zálohovaný soubor je možné přenést do dalšího zařízení a následné ho v něm jednoduše obnovit. UPOZORNĚNÍ: Prosím, neměňte název vygenerovaného souboru. Formát názvu musí být zachován: yyyyMdd_d.dril</string>
 </resources>

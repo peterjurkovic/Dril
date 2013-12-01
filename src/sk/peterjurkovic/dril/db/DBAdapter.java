@@ -161,6 +161,9 @@ public class DBAdapter{
 	}
 	
 	private void importBooks(final List<Book> books,  SQLiteDatabase db, OnProgressChangeListener downloader){
+		if(books == null){
+			return ;
+		}
 		int i = 0;
 		for(Book book : books){
 			i++;

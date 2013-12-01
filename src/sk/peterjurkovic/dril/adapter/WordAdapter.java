@@ -73,9 +73,9 @@ public class WordAdapter extends CursorAdapter{
 	    if (!mCursor.moveToPosition(position)) {
 	        throw new IllegalStateException("couldn't move cursor to position " + position);
 	    }
-	    if (convertView == null) {
+	    //if (convertView == null) {
 	    	convertView = newView(mContext, mCursor, parent);
-	    } 
+	    //} 
 	    
 	    bindView(convertView, mContext, mCursor);
 	    return convertView;

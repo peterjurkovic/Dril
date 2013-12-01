@@ -69,6 +69,9 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer>
 			JSONObject jsonObject = jsonReciever.getJSONData( JSONReciever.FOR_UPDATE_ACTION );
 
 			List<Book> books = jsonParser.parseBooks(jsonObject);
+			if(books == null){
+				return STATE_PARSING_ERROR;
+			}
 			db.updateBooks(books, this);
 			return books.size();
 		} catch (Exception e) {

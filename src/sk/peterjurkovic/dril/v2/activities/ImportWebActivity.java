@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import com.google.analytics.tracking.android.Log;
+
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
@@ -115,7 +117,7 @@ public class ImportWebActivity extends BaseActivity {
 									lectureId
 								);
 						
-						if(words.size() != 0){
+						if(words != null && words.size() > 0){
 							wordDBAdapter = new WordDBAdapter(context);
 							wordDBAdapter.saveWordList(words);
 						}
@@ -188,6 +190,7 @@ public class ImportWebActivity extends BaseActivity {
 		try {
 			LectureDBAdapter lectureDbAdapter = new LectureDBAdapter(this);
 			lectureId = lectureDbAdapter.insertLecture(bookId, lectureName);
+			Log.i("Created lectureId: " + lectureId);
 		} catch (Exception e) {
 			logException(e.getMessage(), false);
 		} 

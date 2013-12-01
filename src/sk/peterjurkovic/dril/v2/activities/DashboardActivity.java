@@ -151,11 +151,22 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 			case R.id.checkUpdateMenu :
 				checkForUpdate();
 			return true;
+			case R.id.backup :
+				startActivityBackupRestore(Boolean.TRUE);
+			return true;
+			case R.id.restore :
+				startActivityBackupRestore(Boolean.FALSE);
+			return true;
 			
 		}
 		return super.onOptionsItemSelected(item);
 	}
 	
+	private void startActivityBackupRestore(final boolean isBackup){
+		Intent i = new Intent(context, BackupRestoreActivity.class);
+		i.putExtra(BackupRestoreActivity.ACTION_KEY, isBackup);
+		startActivity(i);
+	}
 
 	@Override
 	public void onCheckResponse(Integer response) {

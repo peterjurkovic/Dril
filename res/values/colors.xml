@@ -33,4 +33,7 @@
     <color name="lightRed">#FFD6D6</color>
     
     <color name="transparent">#00FFFFFF</color>
+    
+    <color name="alertStartcolor">#D60000</color>
+    <color name="alertEndcolor">#BD0000</color>
 </resources>

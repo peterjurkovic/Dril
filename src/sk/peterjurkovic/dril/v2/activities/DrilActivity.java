@@ -317,7 +317,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     
     
     private void speakWords(WordToPronauceDto wordDto) {
-    	if(StringUtils.isBlank(wordDto.getValue())){
+    	if(wordDto == null || StringUtils.isBlank(wordDto.getValue())){
     		Toast.makeText(this, R.string.nothing_to_speeach, Toast.LENGTH_LONG).show();
     	}
     	if(wordDto.getLanguage() == null){
@@ -341,7 +341,9 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     }
     
     private void speek(String word){
-    	tts.speak(StringUtils.removeSpecialCharacters(word), TextToSpeech.QUEUE_FLUSH, null);
+    	if(tts == null){
+    		tts.speak(StringUtils.removeSpecialCharacters(word), TextToSpeech.QUEUE_FLUSH, null);
+    	}
     }
     
     @Override
@@ -398,6 +400,9 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     
     
     public WordToPronauceDto determineWord(final String tagValue){
+    	if(StringUtils.isBlank(tagValue)){
+    		return null;
+    	}
     	WordToPronauceDto wordDto = new WordToPronauceDto();
     	if(tagValue.equals(QUESTION_TAG)){
     		wordDto.setValue(drilService.getCurrentWord().getQuestion());
@@ -437,7 +442,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	    public void run() {
     	        try {
 	                WordToPronauceDto wordDto = getQuestionToPronauce();
-	            	if(wordDto.getLanguage() != null){
+	            	if(wordDto != null && wordDto.getLanguage() != null){
 	            		 sleep(delay);
 	            		int targetLang = Integer.valueOf(preferences.getString(Constants.PREF_TARGET_LANG_KEY, "1"));
 	            		if(targetLang == wordDto.getLanguage().getId()){

@@ -248,5 +248,24 @@
     <string name="confirm_delete">Potvrdiť zmazanie</string>
     <string name="confirm_delete_message">Ste si istý, že chcete odstrániť položku?</string>
     <string name="confirm_delete_selected_words">Ste si istý, že chcete odstrániť kartičky?</string>
-    <string name="error_invalid_file">Vybraný súbor má chybný formát</string>
+    <string name="error_invalid_file">Vybraný súbor má chybný formát</string> 
+    
+    <!-- v 2.1 -->
+    <string name="backup">Záloha dát</string>
+    <string name="backupPath">Zálohovať dáta</string>
+    <string name="backupLocation">Umiestnenie vygenerovaného súbora:</string>
+    <string name="backup_success">Záloha prebehla úspešne</string>
+    
+    <string name="restore">Obnova dát</string>
+    <string name="confirmRestore">Ptvrdte obnovenie dát</string>
+    <string name="confirmRestoreMsg">Ste si istý, že chcete obnoviť dáta? Všteky edivované učebnice sa prepíšu/odstrania.</string>
+    <string name="restoreSelectFile">Vyberte súbor so zálohou</string>
+    <string name="restoreAlert">Upozornenie: Všetky Vaše dáta uložené v tejto aplikácii, budú nenávratne odstránené!</string>
+    <string name="error_notExists">Vybraný súbor neexistuje</string>
+	<string name="error_invalid_filename">Neplatný názov súboru</string>
+	<string name="error_invalid_version">Zálohovaný súbor bol vytvorený v novšej verzii aplikácie</string>
+	<string name="error_access_write">Aplikácia nemá oprávnenie zapisovať do pamäti zariadenia</string>
+	
+	<string name="backupRestoreH1">Záloha a obnovenie dát</string>
+	<string name="backupRestoreDescr">Aplikácia poskytuje možnosť zálohovat, resp. obnoviť uložené dáta. Zálohovaný súbor je možné preniesť do ďalšieho zariadenia a následné ho v ňom jednoducho obnoviť. UPOZORNENIE: Prosím, nemente názov vygenerovaného súbora. Formát názvu musí byť zachovaný: yyyyMdd_d.dril</string>
 </resources>

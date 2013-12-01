@@ -7,6 +7,21 @@
         dril:showAsAction="never"
         android:title="@string/update"
        />
+	
+	
+	<item 
+        android:id="@+id/backup"
+        android:orderInCategory="108"
+        dril:showAsAction="never"
+        android:title="@string/backup"
+       />
+	
+	<item 
+        android:id="@+id/restore"
+        android:orderInCategory="107"
+        dril:showAsAction="never"
+        android:title="@string/restore"
+       />
   
 
 </menu>

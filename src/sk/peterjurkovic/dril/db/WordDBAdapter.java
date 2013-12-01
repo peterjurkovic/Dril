@@ -13,6 +13,8 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.google.analytics.tracking.android.Log;
+
 public class WordDBAdapter extends DBAdapter {
 	
 	public static final int STATUS_ACTIVE = 1;
@@ -83,8 +85,7 @@ public class WordDBAdapter extends DBAdapter {
     public Cursor getWordByLctureId(final long lectureId) {
     	SQLiteDatabase db = openReadableDatabase();
     	String[] selectionArgs = { String.valueOf(lectureId) };
-    	Cursor result = db.query(TABLE_WORD, columns, FK_LECTURE_ID + "= ?", 
-    												selectionArgs, null, null, null);
+    	Cursor result = db.query(TABLE_WORD, columns, FK_LECTURE_ID + "= ?", selectionArgs, null, null, null);
     	return result;
 	}
     
@@ -233,6 +234,7 @@ public class WordDBAdapter extends DBAdapter {
 			cv.put(WordDBAdapter.QUESTION, word.getQuestion() );
 			cv.put(WordDBAdapter.ANSWER, word.getAnsware() );
 			cv.put(WordDBAdapter.FK_LECTURE_ID, word.getLectureId() );
+			Log.i(word.getQuestion() + " / " + word.getAnsware() + " / "  + word.getLectureId());
 	        if( db.insert(WordDBAdapter.TABLE_WORD , null, cv) == -1)
 	        						throw new Exception("Can not insert word. ");
 	        cv = null;

@@ -91,6 +91,12 @@ public class DrilService {
 		}else{
 			selectAppropriatePosition();
 		}
+		
+		if(position >= activatedWords.size()){
+			Log.e(TAG, "IndexOutOfBoundsException catched. Position: " + position + " countOfWords: " + activatedWords.size());
+			position = 0;
+		}
+		
 		updateHistory();
 		hits++;
 		return activatedWords.get(position);
