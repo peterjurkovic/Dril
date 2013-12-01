@@ -52,8 +52,8 @@ public class DrilRestore extends AsyncTask<Void, Void, BackupRestoreDto>{
 		try{
 			
 			final String ext = MimeTypeMap.getFileExtensionFromUrl(filepath);
-			int startIndex = filepath.indexOf("_");
-			int endIndex = filepath.indexOf(".");
+			final int startIndex = filepath.indexOf("_");
+			final int endIndex = filepath.indexOf(".");
 			
 			if(startIndex == -1 || endIndex == -1 || startIndex > endIndex){
 				state.setData(R.string.error_invalid_filename);
