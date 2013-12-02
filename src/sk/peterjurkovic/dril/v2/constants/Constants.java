@@ -32,4 +32,7 @@ public class Constants {
 	public static final String FB_IMAGE_URL = "http://www.drilapp.com/img/lachucher_ico_{locale}.png";
 	
 	public static final String IO_DRIL_FOLDER_NAME = "dril";
+	
+	public static final String BACKUP_RESTORE_HELP_URL = "http://www.drilapp.com/img/dril_backuprestore.png";
+	
 }

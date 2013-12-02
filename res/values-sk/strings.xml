@@ -267,5 +267,5 @@
 	<string name="error_access_write">Aplikácia nemá oprávnenie zapisovať do pamäti zariadenia</string>
 	
 	<string name="backupRestoreH1">Záloha a obnovenie dát</string>
-	<string name="backupRestoreDescr">Aplikácia poskytuje možnosť zálohovat, resp. obnoviť uložené dáta. Zálohovaný súbor je možné preniesť do ďalšieho zariadenia a následné ho v ňom jednoducho obnoviť. UPOZORNENIE: Prosím, nemente názov vygenerovaného súbora. Formát názvu musí byť zachovaný: yyyyMdd_d.dril</string>
+	<string name="backupRestoreDescr">Aplikácia poskytuje možnosť zálohovat, resp. obnoviť uložené dáta. Zálohovaný súbor je možné preniesť do ďalšieho zariadenia a následné ho v ňom jednoducho obnoviť. UPOZORNENIE: Prosím, nemente názov vygenerovaného súbora. Formát názvu musí byť zachovaný: yyyyMdd_d.dril \n\n Kliknite pre viac informácií</string>
 </resources>

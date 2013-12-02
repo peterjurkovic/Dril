@@ -22,6 +22,7 @@ public class BookDaoImpl implements BookDao {
 		if(bookDBAdapter == null){
 			return null;
 		}
+		try{
 		Cursor cursor =  bookDBAdapter.getBook(id);
 		if(cursor != null && !cursor.isClosed()){
 			cursor.moveToFirst();
@@ -40,6 +41,9 @@ public class BookDaoImpl implements BookDao {
 				book.setAnswerLang(Language.getById(bid));
 			}
 			return book;
+		}
+		}catch(Exception e){
+			return null;
 		}
 		return null;
 	}

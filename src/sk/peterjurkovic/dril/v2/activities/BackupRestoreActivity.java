@@ -5,6 +5,7 @@ import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.io.DrilBackup;
 import sk.peterjurkovic.dril.io.DrilRestore;
 import sk.peterjurkovic.dril.utils.StringUtils;
+import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -57,6 +59,16 @@ public class BackupRestoreActivity extends BaseActivity {
 					showRestoreConfirmationDialog();
 				}
 				
+			}
+		});
+		
+		((LinearLayout)findViewById(R.id.backupRestoreHelp)).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Uri uriUrl = Uri.parse(Constants.BACKUP_RESTORE_HELP_URL);
+		        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+		        startActivity(launchBrowser);
 			}
 		});
 	}

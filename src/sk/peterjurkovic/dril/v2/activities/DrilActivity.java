@@ -55,7 +55,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
 	
 	private int helpClickedCounter = 0;
 	
-	private TextToSpeech tts;
+	private TextToSpeech tts = null;
 	private DrilService drilService;
 
 	private Button showAnswerBtn;
@@ -340,8 +340,8 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	
     }
     
-    private void speek(String word){
-    	if(tts == null){
+    private void speek(final String word){
+    	if(tts != null ){
     		tts.speak(StringUtils.removeSpecialCharacters(word), TextToSpeech.QUEUE_FLUSH, null);
     	}
     }
@@ -403,13 +403,18 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	if(StringUtils.isBlank(tagValue)){
     		return null;
     	}
+    	Word currentWord = drilService.getCurrentWord();
+    	if(currentWord == null){
+    		return null;
+    	}
+    	
     	WordToPronauceDto wordDto = new WordToPronauceDto();
     	if(tagValue.equals(QUESTION_TAG)){
-    		wordDto.setValue(drilService.getCurrentWord().getQuestion());
-    		wordDto.setLanguage( drilService.getCurrentWord().getQuestionLanguage() );
+    			wordDto.setValue(currentWord.getQuestion());
+    			wordDto.setLanguage( currentWord.getQuestionLanguage() );
     	}else{
-    		wordDto.setValue(drilService.getCurrentWord().getAnsware());
-    		wordDto.setLanguage( drilService.getCurrentWord().getAnserLanguage() );
+    		wordDto.setValue(currentWord.getAnsware());
+    		wordDto.setLanguage(currentWord.getAnserLanguage() );
     	}
     	return wordDto;
     }

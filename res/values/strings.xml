@@ -269,5 +269,7 @@
 	<string name="error_access_write">Application can not access to device\'s storage</string>
 	
 	<string name="backupRestoreH1">Data backup/restore</string>
-	<string name="backupRestoreDescr">The application provides the ability to backup and restore data. NOTE: Please do not change the generated file name. The format has always to be: yyyyMdd_d.dril</string>
+	<string name="backupRestoreDescr">The application provides the ability to backup and restore data. NOTE: Please do not change the generated file name. The format has always to be: yyyyMdd_d.dril \n\n Click here for more information</string>
+	
+	<string name="moreInfor">More infro here</string>
 </resources>
