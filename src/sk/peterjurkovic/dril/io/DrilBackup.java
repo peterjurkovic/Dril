@@ -99,8 +99,20 @@ public class DrilBackup extends AsyncTask<Void, Void, BackupRestoreDto>{
 		            	dst.close();
 		            }
 		            state.setSuccess(true);
+		            GoogleAnalyticsUtils.logAction(
+		        			context, 
+		        			GoogleAnalyticsUtils.CATEGORY_PROCESSING_ACTION,
+		    				GoogleAnalyticsUtils.ACTION_RESULT, 
+		    				"backup",
+		    				1l);
 		            return state;
 		        }else{
+		        	GoogleAnalyticsUtils.logAction(
+		        			context, 
+		        			GoogleAnalyticsUtils.CATEGORY_PROCESSING_ACTION,
+		    				GoogleAnalyticsUtils.ACTION_RESULT, 
+		    				"backup",
+		    				0l);
 		        	state.setData(R.string.error_access_write);
 		        }
 		} catch (Exception e) {

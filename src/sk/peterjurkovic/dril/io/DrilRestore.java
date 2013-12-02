@@ -38,6 +38,7 @@ public class DrilRestore extends AsyncTask<Void, Void, BackupRestoreDto>{
 			Toast.makeText(context, context.getString(R.string.success), Toast.LENGTH_LONG).show();;
 		}else{
 			Toast.makeText(context, context.getString((Integer)state.getData()), Toast.LENGTH_LONG).show();;
+			logError();
 		}
 		
 		
@@ -64,7 +65,7 @@ public class DrilRestore extends AsyncTask<Void, Void, BackupRestoreDto>{
 			
 			if(!version.matches("\\d") || Integer.valueOf(version) < DBAdapter.DATABASE_VERSION){
 				state.setData(R.string.error_invalid_version);
-				return state;
+				
 			}
 			
 			if(!ext.equals("dril")){
@@ -95,6 +96,12 @@ public class DrilRestore extends AsyncTask<Void, Void, BackupRestoreDto>{
 			
             databaseBackUp.delete();
             state.setSuccess(true);
+            GoogleAnalyticsUtils.logAction(
+        			context, 
+        			GoogleAnalyticsUtils.CATEGORY_PROCESSING_ACTION,
+    				GoogleAnalyticsUtils.ACTION_RESULT, 
+    				"restore",
+    				1l);
 		}catch(Exception e){
 			state.setData(R.string.error_ocurred);
 			Log.e(e);
@@ -102,4 +109,14 @@ public class DrilRestore extends AsyncTask<Void, Void, BackupRestoreDto>{
 		}
 		return state;
 	}
+	
+	private void logError(){
+		 GoogleAnalyticsUtils.logAction(
+     			context, 
+     			GoogleAnalyticsUtils.CATEGORY_PROCESSING_ACTION,
+ 				GoogleAnalyticsUtils.ACTION_RESULT, 
+ 				"restore",
+ 				0l);
+	}
+	
 }
