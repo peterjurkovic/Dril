@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +25,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.analytics.tracking.android.Log;
 
 
 /**
@@ -89,7 +90,6 @@ public class LectureListActivity extends ActionBarListActivity {
 			    updateList();
 	        }else {
 	        	logException("BOOK ID is not set", false);
-	        	Log.d(TAG, "ERR bookId is not set.");
 			}    
 		 
 	      
@@ -175,8 +175,7 @@ public class LectureListActivity extends ActionBarListActivity {
 	    try{
 	    	deleted = lectureDbAdapter.deleteLecture(id);
 	    } catch (Exception e) {
-	    	logException(e.getMessage(), false);
-	    	Log.d(TAG, "ERROR: " + e.getMessage());
+	    	Log.e(e);
 		} 
         if(deleted){
             Toast.makeText(this, R.string.deleted, Toast.LENGTH_SHORT).show();
@@ -205,8 +204,7 @@ public class LectureListActivity extends ActionBarListActivity {
  	    try{
  	    	wordDbAdapter.activateWordRandomly(lectureId, countOfwordToActivate);
  	    } catch (Exception e) {
- 	    	logException(e.getMessage(), false);
- 			Log.d(TAG, "ERROR: " + e.getMessage());
+ 	    	Log.e(e);
  		} finally {
  			wordDbAdapter.close();
  		}
@@ -221,8 +219,7 @@ public class LectureListActivity extends ActionBarListActivity {
  	    try{
  	    	deactivated = wordDbAdapter.changeWordActivity(lectureId, WordDBAdapter.STATUS_ACTIVE);
  	    } catch (Exception e) {
- 	    	logException(e.getMessage(), false);
- 			Log.d(TAG, "ERROR: " + e.getMessage());
+ 	    	Log.e(e);
  		} finally {
  			wordDbAdapter.close();
  		}
@@ -237,8 +234,7 @@ public class LectureListActivity extends ActionBarListActivity {
  	    try{
  	    	deactivated = wordDbAdapter.changeWordActivity(lectureId, WordDBAdapter.STATUS_DEACTIVE);
  	    } catch (Exception e) {
- 	    	logException(e.getMessage(), false);
- 			Log.d(TAG, "ERROR: " + e.getMessage());
+ 	    	Log.e(e);
  		} finally {
  			wordDbAdapter.close();
  		}
@@ -280,7 +276,7 @@ public class LectureListActivity extends ActionBarListActivity {
 				lectureDbAdapter.close();
 			}
 		} catch (Exception e) {
-			Log.d(TAG, e.getMessage());
+			Log.e(e);
 		}
 	}
 	
@@ -327,8 +323,7 @@ public class LectureListActivity extends ActionBarListActivity {
 		try {
 			id = lectureDbAdapter.insertLecture(bookId, lectureName);
 		} catch (Exception e) {
-			logException(e.getMessage(), false);
-			Log.d(TAG, "ERROR: " + e.getMessage());
+			Log.e(e);
 		} 
 		if(id > -1){
 		    updateList();
@@ -345,7 +340,7 @@ public class LectureListActivity extends ActionBarListActivity {
 		try{
 			bookName = lectureDbAdapter.getBookNameByLecture(bookId);
 		}catch(Exception e){
-			Log.d(TAG, "ERROR: "+e.getMessage());
+			Log.e(e);
 		}
 		return bookName;
 	}
@@ -386,7 +381,7 @@ public class LectureListActivity extends ActionBarListActivity {
 		try {
 			result = lectureDbAdapter.editLecture(lectureId , lectureName);
 		} catch (Exception e) {
-			Log.d(TAG, "ERROR: " + e.getMessage());
+			Log.e(e);
 		} 
 		if(result){
 		    updateList();
@@ -418,8 +413,7 @@ public class LectureListActivity extends ActionBarListActivity {
 			try {
 				cursor = lectureDbAdapter.getLecturesByBookId( this.bookId );
 			} catch (Exception e) {
-				logException(e.getMessage(), false);
-				Log.d(TAG, e.getMessage());
+				Log.e(e);
 			}
 			return cursor;
 		}

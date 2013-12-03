@@ -2,6 +2,8 @@ package sk.peterjurkovic.dril.dao;
 
 import java.util.List;
 
+import com.google.analytics.tracking.android.Log;
+
 import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.model.Book;
 import sk.peterjurkovic.dril.model.Language;
@@ -43,6 +45,7 @@ public class BookDaoImpl implements BookDao {
 			return book;
 		}
 		}catch(Exception e){
+			 Log.e(e);
 			return null;
 		}
 		return null;

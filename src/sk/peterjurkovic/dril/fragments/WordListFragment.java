@@ -17,7 +17,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v7.view.ActionMode;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +26,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Toast;
+
+import com.google.analytics.tracking.android.Log;
 
 public class WordListFragment extends ListFragment 	implements OnClickListener{
 	
@@ -57,7 +58,6 @@ public class WordListFragment extends ListFragment 	implements OnClickListener{
 	
 	@Override
     public void onAttach(Activity activity) {
-		Log.d(TAG, "onAttaching wordList fagment");
         super.onAttach(activity);
         try {
         	if(onEditWordClickedListener == null){
@@ -76,7 +76,6 @@ public class WordListFragment extends ListFragment 	implements OnClickListener{
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		Log.d(TAG, "Activity created");
 		super.onActivityCreated(savedInstanceState);
 		registerForContextMenu( getListView() );
 		updateList();
@@ -88,7 +87,6 @@ public class WordListFragment extends ListFragment 	implements OnClickListener{
 	
 	@Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-        Log.d(TAG, "onCreateContextMenu");
 		super.onCreateContextMenu(menu, v, menuInfo);
         menu.setHeaderTitle(R.string.wordAction);
         menu.add(Menu.NONE, MENU_EDIT_ID, Menu.NONE, R.string.edit);
@@ -100,7 +98,6 @@ public class WordListFragment extends ListFragment 	implements OnClickListener{
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        Log.d(TAG, "" + info.id);
         switch (item.getItemId()) {
 	        case MENU_EDIT_ID:
 	        	onEditBookClicked(info.id);
@@ -128,18 +125,15 @@ public class WordListFragment extends ListFragment 	implements OnClickListener{
 	    WordDBAdapter wordDbAdapter = new WordDBAdapter(ctx);
 	    try{
 	    	if(isWordListActivity()){
-	    		Log.d(TAG, "isWordListActivity: true");
 	    		cursor = wordDbAdapter.getWordByLctureId(((WordActivity)ctx).getLectureId());
 	    	}else{
-	    		Log.d(TAG, "isWordListActivity: false");
 	    		cursor = wordDbAdapter.getProblematicsWords();
 	    	}
 	    	wordAdapter = new WordAdapter(ctx, cursor, 0);
 	    	wordAdapter.setOnClickListener(this);
 	 	    setListAdapter(wordAdapter);
 	    } catch (Exception e) {
-			Log.d(TAG, "ERROR: " + e.getMessage());
-			GoogleAnalyticsUtils.logException(e, ctx);
+	    	 Log.e(e);
 		} finally {
 			wordDbAdapter.close();
 		}
@@ -157,8 +151,7 @@ public class WordListFragment extends ListFragment 	implements OnClickListener{
 					wordAdapter.getCursor().close();
 			}
 		} catch (Exception e) {
-			GoogleAnalyticsUtils.logException(e, getActivity());
-			Log.d(TAG, e.getMessage());
+			 Log.e(e);
 		}
 	}
 	
@@ -176,8 +169,7 @@ public class WordListFragment extends ListFragment 	implements OnClickListener{
  	    try{
  	    	deleted = wordDbAdapter.deleteWord(wordId);
  	    } catch (Exception e) {
- 			Log.d(TAG, "ERROR: " + e.getMessage());
- 			GoogleAnalyticsUtils.logException(e, ctx);
+ 	    	 Log.e(e);
  		} finally {
  			wordDbAdapter.close();
  		}
@@ -199,8 +191,7 @@ public class WordListFragment extends ListFragment 	implements OnClickListener{
 	 	    try{
 	 	    	deleted = wordDbAdapter.deleteSelected( selectedWords );
 	 	    } catch (Exception e) {
-	 			Log.d(TAG, "ERROR: " + e.getMessage());
-	 			GoogleAnalyticsUtils.logException(e, ctx);
+	 	    	 Log.e(e);
 	 		} finally {
 	 			wordDbAdapter.close();
 	 		}
@@ -224,8 +215,7 @@ public class WordListFragment extends ListFragment 	implements OnClickListener{
 	 	    try{
 	 	    	updated = wordDbAdapter.updateActivitySelected(selectedWords, newStatusval );
 	 	    } catch (Exception e) {
-	 			Log.d(TAG, "ERROR: " + e.getMessage());
-	 			GoogleAnalyticsUtils.logException(e, ctx);
+	 	    	 Log.e(e);
 	 		} finally {
 	 			wordDbAdapter.close();
 	 		}
@@ -263,14 +253,12 @@ public class WordListFragment extends ListFragment 	implements OnClickListener{
  
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-        	Log.d("test", "id" + item.getTitle());
             switch (item.getItemId()) {
 	            case R.id.menu_delete:
 	            	try{
 	            		((OnDeleteSelectedWordsListener)getActivity()).showConfirationDialog(mode);
 	            	}catch(ClassCastException e){
-	            		Log.e(TAG, "Activiti must implement OnDeleteSelectedWordsListener");
-	            		GoogleAnalyticsUtils.logException(e, getActivity());
+	            		 Log.e(e);
 	            	}
 	                return true;
 	    		case R.id.menu_active:

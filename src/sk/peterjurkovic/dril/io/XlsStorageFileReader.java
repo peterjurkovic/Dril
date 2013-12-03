@@ -12,7 +12,8 @@ import jxl.read.biff.BiffException;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import android.content.Context;
-import android.util.Log;
+
+import com.google.analytics.tracking.android.Log;
 
 /**
  * 
@@ -36,7 +37,7 @@ public class XlsStorageFileReader extends CsvStorageFileReader implements Storag
 			try{
 			 return readWords(workbook, lectureId);
 			}catch(Exception e){
-				logException(e);
+				 Log.e(e);
 			}
 		}
 		return null;
@@ -52,9 +53,9 @@ public class XlsStorageFileReader extends CsvStorageFileReader implements Storag
 				return Workbook.getWorkbook(xlsFile);
 			}
 		} catch (BiffException e) {
-			logException(e);
+			 Log.e(e);
 		} catch (IOException e) {
-			logException(e);
+			 Log.e(e);
 		} 
 		return null;
 	}
@@ -77,7 +78,6 @@ public class XlsStorageFileReader extends CsvStorageFileReader implements Storag
 	    	if(!StringUtils.isBlank(question.getContents()) && 
 	    	   !StringUtils.isBlank(answer.getContents())){	    	
 	    		list.add(new Word(question.getContents(),answer.getContents(), lectureId));
-	    		Log.i("XLS READR", question.getContents() + " / " + answer.getContents());
 	    	}
 	     }
 	     

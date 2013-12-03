@@ -8,7 +8,6 @@ import sk.peterjurkovic.dril.model.Book;
 import sk.peterjurkovic.dril.model.Lecture;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.ConversionUtils;
-import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,7 +15,8 @@ import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+
+import com.google.analytics.tracking.android.Log;
 
 public class DBAdapter{
 	
@@ -58,16 +58,13 @@ public class DBAdapter{
 	        
 	        @Override
 	        public void onCreate(SQLiteDatabase db) {
-	        	Log.d(TAG, "onCreate creating db...");
 	        	 createTables(db);
 	        }
 
 	        @Override
 	        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {               
-	        	Log.d("DB", "Upgrading.. OLDV: " + oldVersion + " NEWV" + newVersion);
 	        	if (newVersion > oldVersion){          
-	        		try {
-	        		Log.d(TAG, "NEWER VERSION DETECTED, DATABASE UPGRADE REQUIRED!");               
+	        		try {              
 	        		db.beginTransaction();
 	        		switch(oldVersion){
 		        		case 2:
@@ -92,8 +89,7 @@ public class DBAdapter{
 		        	}
 	        		db.setTransactionSuccessful();
 	        		} catch (SQLException e) {
-                       
-	        			Log.e("Error creating tables and debug data", e.toString());
+	        			 Log.e(e);
 	        		}finally {
                         db.endTransaction();
                     }
@@ -151,7 +147,7 @@ public class DBAdapter{
 			importBooks(books, db, object);
 			db.setTransactionSuccessful();
 		}catch(Exception e){
-			GoogleAnalyticsUtils.logException(e, context);
+			 Log.e(e);
 		}finally{
 			if(db != null){
 				db.endTransaction();

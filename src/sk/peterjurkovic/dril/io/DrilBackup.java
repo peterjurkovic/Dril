@@ -116,8 +116,7 @@ public class DrilBackup extends AsyncTask<Void, Void, BackupRestoreDto>{
 		        	state.setData(R.string.error_access_write);
 		        }
 		} catch (Exception e) {
-			GoogleAnalyticsUtils.logException(e, context);
-			Log.e(e);
+			 Log.e(e);
 		}
 		return new BackupRestoreDto();
 	}

@@ -4,7 +4,6 @@ package sk.peterjurkovic.dril.v2.activities;
 import java.lang.reflect.Field;
 
 import sk.peterjurkovic.dril.R;
-import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,13 +11,13 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Log;
 import com.google.analytics.tracking.android.MapBuilder;
 import com.google.analytics.tracking.android.StandardExceptionParser;
 
@@ -42,7 +41,7 @@ public class BaseActivity extends ActionBarActivity {
 	            menuKeyField.setBoolean(config, false);
 	        }
 	    } catch (Exception e) {
-	       GoogleAnalyticsUtils.logException(e, this);
+	    	Log.e(e);
 	    }
 	}
 	
@@ -139,14 +138,12 @@ public class BaseActivity extends ActionBarActivity {
 	  public void onStart() {
 	    super.onStart();
 	    EasyTracker.getInstance(this).activityStart(this);
-	    Log.i("GA", "onStart");
 	  }
 	
 	  @Override
 	  public void onStop() {
 	    super.onStop();
 	    EasyTracker.getInstance(this).activityStop(this); 
-	    Log.i("GA", "onStop");
 	  }
 	  
 	public void logException(final String description, final boolean fatal) {

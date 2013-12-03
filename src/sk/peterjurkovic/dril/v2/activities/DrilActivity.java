@@ -12,7 +12,6 @@ import sk.peterjurkovic.dril.dto.WordToPronauceDto;
 import sk.peterjurkovic.dril.exceptions.DrilUnexpectedFinishedException;
 import sk.peterjurkovic.dril.model.Statistics;
 import sk.peterjurkovic.dril.model.Word;
-import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Context;
@@ -23,7 +22,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +38,7 @@ import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.google.analytics.tracking.android.Fields;
+import com.google.analytics.tracking.android.Log;
 import com.google.analytics.tracking.android.MapBuilder;
 
 
@@ -169,8 +168,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
 	    		playPronunciationInNewThread(Constants.DELAY_BEFORE_PRONUNCIATION);
 	    	}
     	}catch(DrilUnexpectedFinishedException e){
-    		Log.e(TAG, "Dril unexpected finished");
-    		GoogleAnalyticsUtils.logException(e, this);
+    		Log.e(e);
     	}
     }
     

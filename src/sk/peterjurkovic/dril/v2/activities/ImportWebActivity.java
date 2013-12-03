@@ -122,7 +122,7 @@ public class ImportWebActivity extends BaseActivity {
 							wordDBAdapter.saveWordList(words);
 						}
 					}catch(Exception e){
-						logException(e.getMessage(), false);
+						Log.e(e);
 						if(createLecture){
 							removeCreatedLecture(lectureId, context);
 						}
@@ -205,7 +205,7 @@ public class ImportWebActivity extends BaseActivity {
 				LectureDBAdapter lectureDbAdapter = new LectureDBAdapter(context);
 				lectureDbAdapter.deleteLecture(id);
 			} catch (Exception e) {
-				logException(e.getMessage(), false);
+				Log.e(e);
 			} 
 		}  
 	  

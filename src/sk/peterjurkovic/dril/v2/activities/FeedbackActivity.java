@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Log;
 import com.google.analytics.tracking.android.MapBuilder;
 
 
@@ -27,7 +28,7 @@ public class FeedbackActivity extends BaseActivity {
 			((TextView)findViewById(R.id.version)).setText(getString(R.string.version) 
 					+ pInfo.versionName);
 		} catch (NameNotFoundException e) {
-			logException(e.getMessage(), false);
+			Log.e(e);
 		}
 		 
 		

@@ -1,5 +1,7 @@
 package sk.peterjurkovic.dril.updater;
 
+import com.google.analytics.tracking.android.Log;
+
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.DBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
@@ -9,7 +11,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.util.Log;
 
 /**
  * Check for new available book in remote server, Do it in background using AsyncTask
@@ -48,7 +49,6 @@ public class CheckForUpdate extends AsyncTask<String, Integer, Integer> {
 	@Override
 	protected void onPostExecute(Integer result) {
 		dialog.hide();
-		Log.d("CFA", "onPostExecute: " + result);
 		listener.onCheckResponse(result);
 	}
 	
@@ -67,7 +67,7 @@ public class CheckForUpdate extends AsyncTask<String, Integer, Integer> {
 					jsonReciever.getJSONData( JSONReciever.FOR_CHECK_ACTION )
 					);
 		} catch (Exception e) {
-			GoogleAnalyticsUtils.logException(e, context);
+			Log.e(e);
 			return STATE_PARSING_ERROR;
 		}
 		

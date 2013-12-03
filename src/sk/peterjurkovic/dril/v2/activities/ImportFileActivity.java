@@ -19,7 +19,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.MimeTypeMap;
@@ -27,6 +26,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.analytics.tracking.android.Log;
 
 
 /**
@@ -199,7 +200,6 @@ public class ImportFileActivity extends BaseActivity {
 			  @Override
 				protected void onPreExecute() {
 				    dialog.show();
-					Log.d("FILERIDER", "starting reading file");
 				}
 			  
 			  
@@ -223,6 +223,7 @@ public class ImportFileActivity extends BaseActivity {
 						wordDBAdapter.saveWordList(words);
 					}catch(Exception e){
 						removeCreatedLecture(lectureId, context);
+						Log.e(e);
 						return -1;
 					}finally{
 						if(wordDBAdapter != null){

@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.Log;
 import com.google.analytics.tracking.android.MapBuilder;
 
 
@@ -120,8 +120,7 @@ public class BookListActivity extends ActionBarListActivity {
         try {
         	deleted = bookDBAdapter.deleteBook(id);
 		} catch (Exception e) {
-			logException(e.getMessage(), false);
-			Log.e(TAG, "Can not delete book", e);
+			Log.e(e);
 		}
 	    
 	    if(deleted){
@@ -214,8 +213,7 @@ public class BookListActivity extends ActionBarListActivity {
 		try {
 			wordDBAdapter.deactiveAll();
 		} catch (Exception e) {
-			logException(e.getMessage(), false);
-			Log.d(TAG, "ERROR: " + e.getMessage());
+			Log.e(e);
 		} finally {
 			wordDBAdapter.close();
 		}
@@ -250,7 +248,7 @@ public class BookListActivity extends ActionBarListActivity {
 			if(bookDBAdapter != null)
 					bookDBAdapter.close();
 		} catch (Exception e) {
-			Log.d(TAG, "closeAdapterCursor()");
+			Log.e(e);
 		}
 	}
 	
@@ -273,7 +271,7 @@ public class BookListActivity extends ActionBarListActivity {
 			try {
 				cursor = bookDBAdapter.getBooks();
 			} catch (Exception e) {
-				Log.e(TAG, "Can not retrieve books", e);
+				Log.e(e);
 			}
 			return cursor;
 		}

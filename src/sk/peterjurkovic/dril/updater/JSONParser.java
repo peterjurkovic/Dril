@@ -12,7 +12,8 @@ import sk.peterjurkovic.dril.model.Language;
 import sk.peterjurkovic.dril.model.Lecture;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.ConversionUtils;
-import android.util.Log;
+
+import com.google.analytics.tracking.android.Log;
 
 public class JSONParser {
 	
@@ -35,9 +36,9 @@ public class JSONParser {
 		int count = 0;
 		try {
 			count = json.getInt(TAG_COUNT);
-	       }catch(JSONException e){
-	       	e.printStackTrace();
-	       }
+		}catch(JSONException e){
+			Log.e(e);
+		}
 		return count;
 	}
 	
@@ -48,7 +49,7 @@ public class JSONParser {
 	       try {
 	         bookList = parseBooksFromJSONArray( json.getJSONArray(TAG_BOOKS) );
 	       }catch(JSONException e){
-	       	e.printStackTrace();
+	    	 Log.e(e);
 	       }		
 	   }
        return bookList;
@@ -73,7 +74,6 @@ public class JSONParser {
        		book.setSync( ConversionUtils.intToBoolean( b.getInt( TAG_BOOK_SYNC )));
        		book.setQuestionLang( Language.getById( b.getInt( TAG_BOOK_LANG_QUESTION )));
        		book.setAnswerLang(Language.getById( b.getInt( TAG_BOOK_LANG_ANSWER)));
-       		Log.i("BOOK", book.getName());
        		book.setLectures( parseLecturesFromJSONArray( b.getJSONArray(TAG_LECTURES) ));
        		bookList.add(book);
        	}
@@ -132,7 +132,6 @@ public class JSONParser {
 	 */
 	public List<Word> parseWordsFromJSONArray(JSONArray wordArray,final long lectureId) throws JSONException{
 		List<Word> wordList = new ArrayList<Word>();
-		Log.i("JSON parser", "Importing into lecture: " + lectureId);
 		for(int i = 0; i < wordArray.length(); i++){
 				JSONObject w = wordArray.getJSONObject(i);
 				wordList.add(

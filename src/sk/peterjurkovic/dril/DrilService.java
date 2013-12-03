@@ -14,15 +14,14 @@ import sk.peterjurkovic.dril.exceptions.DrilUnexpectedFinishedException;
 import sk.peterjurkovic.dril.model.Statistics;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.NumberUtils;
-import android.util.Log;
+
+import com.google.analytics.tracking.android.Log;
 
 public class DrilService {
 
 	private final static int WORD_THRESHOLD = 7;
 	private final static int WORDS_HITS_THRESHOLD = 8;
 	private final int HISTORY_SIZE = 3;
-	
-	private final String TAG = "DRILSERVICE";
 	
 	private int position = 0;
 	private int hits = 0;
@@ -44,7 +43,7 @@ public class DrilService {
   	    try{
   	    	activatedWords = wordDao.getActivatedWords();
   	    } catch (Exception e) {
-  			Log.e( TAG , "ERROR: " + e.getMessage());
+  	    	 Log.e(e);
   		}
 	}
 	
@@ -93,7 +92,7 @@ public class DrilService {
 		}
 		
 		if(position >= activatedWords.size()){
-			Log.e(TAG, "IndexOutOfBoundsException catched. Position: " + position + " countOfWords: " + activatedWords.size());
+			Log.e("IndexOutOfBoundsException catched. Position: " + position + " countOfWords: " + activatedWords.size());
 			position = 0;
 		}
 		
@@ -158,7 +157,6 @@ public class DrilService {
 	
 	
 	private void selectHardestWord() throws DrilUnexpectedFinishedException{
-		Log.i(TAG, "selectHardestWord..");
 		List<WordWithPosition> wordPositionList = cloneList();
 		Collections.sort(wordPositionList, WordWithPosition.Comparators.LAST_RATE);
 		int i = 1;

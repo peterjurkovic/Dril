@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import com.google.analytics.tracking.android.Log;
+
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.DBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
@@ -75,7 +77,7 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer>
 			db.updateBooks(books, this);
 			return books.size();
 		} catch (Exception e) {
-			GoogleAnalyticsUtils.logException(e, context);
+			 Log.e(e);
 			return STATE_PARSING_ERROR;
 		}
 	}

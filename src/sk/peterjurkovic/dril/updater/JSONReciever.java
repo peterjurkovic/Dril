@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
@@ -16,7 +14,8 @@ import org.json.JSONObject;
 
 import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
-import android.util.Log;
+
+import com.google.analytics.tracking.android.Log;
 
 public class JSONReciever {
 	
@@ -52,9 +51,7 @@ public class JSONReciever {
 	            DefaultHttpClient httpClient = new DefaultHttpClient();
 	            HttpPost httpPost = new HttpPost(getRequestURL(action));
 	            httpPost.setHeader("Authorization" , Constants.HTTP_AUTH_VAL);
-	            Log.d("HTTP", "Sending request: " + getRequestURL(action));
 	            HttpResponse response = httpClient.execute(httpPost);
-	            Log.i("HTTP",response.getStatusLine().toString());
 	            
 	            final int httpStatus =  response.getStatusLine().getStatusCode();
 	           
@@ -62,15 +59,8 @@ public class JSONReciever {
 	            	HttpEntity httpEntity = response.getEntity();
 	            	is = httpEntity.getContent();
 	            }
-	            Log.e("HTTP", "DATA RECIEVED!");
-	        } catch (UnsupportedEncodingException e) {
-	        	Log.e("HTTP Error", e.getMessage());
-	        } catch (ClientProtocolException e) {
-	        	Log.e("HTTP ClientProtocolException", e.getMessage());
-	        } catch (IOException e) {
-	        	Log.e("IO EX Error", e.getMessage());
 	        } catch (Exception e) {
-	        	Log.e("Error", e.getMessage());
+	        	 Log.e(e);
 	        }
 
 	        return toJSON(toStreamToString(is));
@@ -85,8 +75,7 @@ public class JSONReciever {
 	        try {
 	            return new JSONObject(jsonString);
 	        } catch (JSONException e) {
-	            Log.e("JSON Parser", "Error parsing data " + e.toString());
-	            Log.i("JSON Parser", jsonString);
+	        	 Log.e(e);
 	        }
 	        return null;
 	    }
@@ -104,16 +93,15 @@ public class JSONReciever {
 		            while ((line = reader.readLine()) != null) {
 		            	sb.append(line + "n");
 		            }
-		            Log.d("JSON", "Data SUCCESSFULLY recieved");
 		            return sb.toString();
 	        } catch (Exception e) {
-	            Log.e("Buffer Error", "Error converting result " + e.toString());
+	        	 Log.e(e);
 	        }finally{
 	        	if(is != null){
 	        		 try {
 						is.close();
 					} catch (IOException e) {
-						Log.e("HTTP INPUT STREAM", e.getMessage());
+						 Log.e(e);
 					}
 	        	}
 	        }

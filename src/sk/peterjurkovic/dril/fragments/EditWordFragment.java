@@ -10,13 +10,14 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.analytics.tracking.android.Log;
 
 public class EditWordFragment extends Fragment {
 	 
@@ -89,7 +90,7 @@ public class EditWordFragment extends Fragment {
 			cursor = wordDbAdapter.getWord( wordId );
 			putWordDataIntoViews(view , cursor);
 	    } catch (Exception e) {
-			Log.d("EditBookFragment", "ERROR: " + e.getMessage());
+	    	 Log.e(e);
 		} finally {
 			cursor.close();
 			wordDbAdapter.close();

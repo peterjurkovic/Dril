@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.view.ActionMode;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +26,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.analytics.tracking.android.Log;
 
 public class WordActivity extends BaseActivity implements OnAddWordListener,
 		OnEditWordClickedListener, OnEditWordListener,  OnWordClickListener,
@@ -124,7 +125,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		try {
 			id = wordDBAdapter.insertWord(lectureId, question, answer);
 		} catch (Exception e) {
-			Log.d(TAG, "ERROR: " + e.getMessage());
+			Log.e(e);
 		} finally {
 			wordDBAdapter.close();
 		}
@@ -158,7 +159,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		try {
 			lectureName = wordDBAdapter.getLectureNameById(lectureId);
 		} catch (Exception e) {
-			Log.d("getLectureName", "ERROR: " + e.getMessage());
+			Log.e(e);
 		} finally {
 			wordDBAdapter.close();
 		}
@@ -211,7 +212,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		try {
 			updated = wordDBAdapter.updateWord(wordId, question, answer);
 		} catch (Exception e) {
-			Log.d(TAG, "ERROR: " + e.getMessage());
+			Log.e(e);
 		} finally {
 			wordDBAdapter.close();
 		}
@@ -255,7 +256,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 			deactivated = wordDbAdapter.changeWordActivity(lectureId,
 					WordDBAdapter.STATUS_ACTIVE);
 		} catch (Exception e) {
-			Log.d(TAG, "ERROR: " + e.getMessage());
+			Log.e(e);
 		} finally {
 			wordDbAdapter.close();
 		}
@@ -275,7 +276,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 			deactivated = wordDbAdapter.changeWordActivity(lectureId,
 					WordDBAdapter.STATUS_DEACTIVE);
 		} catch (Exception e) {
-			Log.d(TAG, "ERROR: " + e.getMessage());
+			Log.e(e);
 		} finally {
 			wordDbAdapter.close();
 		}
@@ -328,7 +329,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 	public void onListItemClick(View v, long id) {
 		 WordListFragment wordListFratment = (WordListFragment) getSupportFragmentManager()
                  .findFragmentById(R.id.WordListFragment);
-		 Log.d(TAG, "on list item clicked...");
+		
 		 if (wordListFratment != null) {
 		         if (wordListFratment.hasSelectedItems()
 		                         && wordListFratment.getActionMode() == null) {

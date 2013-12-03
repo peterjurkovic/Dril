@@ -3,17 +3,17 @@ package sk.peterjurkovic.dril.fragments;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.db.StatisticDbAdapter;
-import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.analytics.tracking.android.Log;
 
 public class GeneralStatisticsFragment extends Fragment{
 	
@@ -46,8 +46,7 @@ public class GeneralStatisticsFragment extends Fragment{
 			Cursor cursor = statisticDbAdapter.getGeneralStatistics();
 			prepareUI(cursor);
 		}catch(Exception e){
-			 GoogleAnalyticsUtils.logException(e, context);
-			 Log.e(this.getClass().getName(), e.getMessage());
+			 Log.e(e);
 		}finally{
 			if(statisticDbAdapter != null){
 				statisticDbAdapter.close();

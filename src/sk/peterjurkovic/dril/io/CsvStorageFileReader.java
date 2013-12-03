@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.analytics.tracking.android.Log;
+
 import sk.peterjurkovic.dril.csv.CSVReader;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
@@ -50,19 +52,15 @@ public class CsvStorageFileReader implements StorageFileReader {
 			    	
 			    } 
 			}
-		} catch (FileNotFoundException e) {
-			logException(e);
-		} catch (IOException e) {
-			logException(e);
 		}catch (Exception e) {
-			logException(e);
+			 Log.e(e);
 		}finally{
 			try {
 				if(reader != null){
 					reader.close();
 				}
 			} catch (IOException e) {
-				logException(e);
+				 Log.e(e);
 			}
 		}
 		  return words;
