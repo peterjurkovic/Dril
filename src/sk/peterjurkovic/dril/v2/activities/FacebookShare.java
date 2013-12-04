@@ -64,7 +64,9 @@ public class FacebookShare extends BaseActivity{
 	    
 	    if (savedInstanceState != null) {
             String name = savedInstanceState.getString(PENDING_ACTION_BUNDLE_KEY);
-            pendingAction = PendingAction.valueOf(name);
+            if(name != null){
+            	pendingAction = PendingAction.valueOf(name);
+            }
         }
 	    this.context = this;
 	    initViews();
