@@ -1,3 +1,4 @@
+
 package sk.peterjurkovic.dril.v2.activities;
 
 
@@ -12,11 +13,14 @@ import sk.peterjurkovic.dril.dto.WordToPronauceDto;
 import sk.peterjurkovic.dril.exceptions.DrilUnexpectedFinishedException;
 import sk.peterjurkovic.dril.model.Statistics;
 import sk.peterjurkovic.dril.model.Word;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -119,14 +123,22 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
          OnClickListener onQuestionClick = new OnClickListener() {
  			@Override
  			public void onClick(View v) {
- 				speakWords( getQuestionToPronauce() );
+ 				try{
+ 					speakWords( getQuestionToPronauce() );
+ 				}catch(Exception e){
+ 					GoogleAnalyticsUtils.logException(e, getApplicationContext());
+ 				}
  			}
  		};
  		
  		OnClickListener onAnswerClick = new OnClickListener() {
  			@Override
  			public void onClick(View v) {
- 				speakWords( getAnserToPronauce() );
+ 				try{
+ 					speakWords( getAnserToPronauce() );
+ 				}catch(Exception e){
+ 					GoogleAnalyticsUtils.logException(e, getApplicationContext());
+ 				}	
  			}
  		};
          speachQuestionBtn.setOnClickListener(onQuestionClick);
@@ -435,7 +447,12 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     private void checkTTSDataForLocale(){
     	 Intent checkTTSIntent = new Intent();
          checkTTSIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-         startActivityForResult(checkTTSIntent, DATA_CHECK_CODE);
+         PackageManager pm = getPackageManager();
+         ResolveInfo resolveInfo = pm.resolveActivity( checkTTSIntent, PackageManager.MATCH_DEFAULT_ONLY );
+         if( resolveInfo != null ) {
+        	 startActivityForResult(checkTTSIntent, DATA_CHECK_CODE);
+         }
+         
     }
     
     private void playPronunciationInNewThread(final int delay){

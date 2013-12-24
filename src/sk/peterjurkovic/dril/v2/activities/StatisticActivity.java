@@ -83,7 +83,7 @@ public class StatisticActivity extends BaseActivity implements
 	@Override
     public void onSaveInstanceState(Bundle outState) {
         if(outState != null){
-        	outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getActionBar().getSelectedNavigationIndex());
+        	outState.putInt(STATE_SELECTED_NAVIGATION_ITEM, getSupportActionBar().getSelectedNavigationIndex());
         }
     }
 	 

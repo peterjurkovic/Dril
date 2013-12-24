@@ -179,10 +179,12 @@ public class DrilService {
 	private List<WordWithPosition> cloneList(){
 		List<WordWithPosition> wordPositionList = new ArrayList<WordWithPosition>();
 		for(int pos = 0; pos < activatedWords.size(); pos++ ){
-			WordWithPosition wp = new WordWithPosition();
-			wp.setPositin(pos);
-			wp.setWord(activatedWords.get(pos));
-			wordPositionList.add(wp);
+			if(activatedWords.get(pos).getHit() > 1){
+				WordWithPosition wp = new WordWithPosition();
+				wp.setPositin(pos);
+				wp.setWord(activatedWords.get(pos));
+				wordPositionList.add(wp);
+			}
 		}
 		return wordPositionList;
 	}

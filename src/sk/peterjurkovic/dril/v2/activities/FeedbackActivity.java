@@ -4,7 +4,9 @@ import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -73,7 +75,12 @@ public class FeedbackActivity extends BaseActivity {
 	 private void goToUrl (String url) {
 	        Uri uriUrl = Uri.parse(url);
 	        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-	        startActivity(launchBrowser);
+	        PackageManager pm = getPackageManager();
+	        ResolveInfo resolveInfo = pm.resolveActivity( launchBrowser, PackageManager.MATCH_DEFAULT_ONLY );
+	        if( resolveInfo != null ) {
+	        	 startActivity(launchBrowser);
+	        }
+	        
 	    }
 	
 	 

@@ -42,7 +42,6 @@ public class FacebookShare extends BaseActivity{
 	
 	private enum PendingAction {
 	        NONE,
-	        POST_PHOTO,
 	        POST_STATUS_UPDATE
 	    }
 	
@@ -65,7 +64,7 @@ public class FacebookShare extends BaseActivity{
 	    if (savedInstanceState != null) {
             String name = savedInstanceState.getString(PENDING_ACTION_BUNDLE_KEY);
             if(name != null){
-            	pendingAction = PendingAction.valueOf(name);
+            	pendingAction = PendingAction.POST_STATUS_UPDATE;
             }
         }
 	    this.context = this;

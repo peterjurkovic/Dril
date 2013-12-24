@@ -255,16 +255,15 @@
     <string name="backup_success">Záloha proběhla úspěšně</string>
     
     <string name="restore">Obnova dat</string>
-    <string name="confirmRestore">Potvrdte obnovení dat</string>
-    <string name="confirmRestoreMsg">Jste si jisti, že chcete obnovit data? Všechny uložené data v této aplikaci se pŕepíšou/odstraní.</string>
+    <string name="confirmRestore">Potvrďte obnovení dat</string>
+    <string name="confirmRestoreMsg">Jste si jisti, že chcete obnovit data? Všechna uložená data v této aplikaci se přepíší/odstraní.</string>
     <string name="restoreSelectFile">Vyberte soubor, který chcete obnovit</string>
-    <string name="restoreAlert">Upozornění: Všechny Vaše data uložená v této aplikaci, budou nenávratne smazána!</string>
+    <string name="restoreAlert">Upozornění: Všechna Vaše data uložená v této aplikaci, budou nenávratne smazána!</string>
     <string name="error_notExists">Vybraný soubor neexistuje</string>
 	<string name="error_invalid_filename">Neplatný název souboru</string>
 	<string name="error_invalid_version">Zálohovaný soubor byl vytvořen v novější verzi aplikace</string>
 	<string name="error_access_write">Aplikace nemá oprávnění zapisovat do paměti zařízení</string>
 	
 	<string name="backupRestoreH1">Záloha a obnovení dat</string>
-	<string name="backupRestoreDescr">
-Aplikace poskytuje možnost zálohovat, resp. obnovit uložená data. Zálohovaný soubor je možné přenést do dalšího zařízení a následné ho v něm jednoduše obnovit. UPOZORNĚNÍ: Prosím, neměňte název vygenerovaného souboru. Formát názvu musí být zachován: yyyyMdd_d.dril \n\n Pro více informací klikněte</string>
+	<string name="backupRestoreDescr">Aplikace poskytuje možnost zálohovat, resp. obnovit uložená data. Zálohovaný soubor je možné přenést do dalšího zařízení a následné ho v něm jednoduše obnovit. UPOZORNĚNÍ: Prosím, neměňte název vygenerovaného souboru. Formát názvu musí být zachován: yyyyMdd_d.dril \n\n Pro více informací klikněte</string>
 </resources>
