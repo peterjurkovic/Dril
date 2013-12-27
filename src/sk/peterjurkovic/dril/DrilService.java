@@ -157,21 +157,29 @@ public class DrilService {
 	
 	
 	private void selectHardestWord() throws DrilUnexpectedFinishedException{
-		List<WordWithPosition> wordPositionList = cloneList();
+		final List<WordWithPosition> wordPositionList = cloneList();
 		Collections.sort(wordPositionList, WordWithPosition.Comparators.LAST_RATE);
-		int i = 1;
-		int position = 0;
-		do{
-			position = wordPositionList.get(wordPositionList.size() - i).getPositin();
-			i++;
-		}while(isInHistory(position));
 		
+		if(wordPositionList.size() == 0){
+			selectAppropriatePosition(seletRandomPositions());
+			return;
+		}
+		
+		for(int i = wordPositionList.size() -1 ; i > -1; i--){
+			WordWithPosition withPosition = wordPositionList.get(i);
+			int pos = withPosition.getPositin();
+			if(!isInHistory(pos)){
+				this.position = pos;
+				return;
+			}
+		}
+		
+	
 		if(position >= this.activatedWords.size()){
 			throw new DrilUnexpectedFinishedException("Position \"" + position + "\" is out of range in selectHardestWord");
 		}
 		
-		this.position = position;
-		
+		this.position = 0;
 	}
 	
 	
@@ -179,7 +187,7 @@ public class DrilService {
 	private List<WordWithPosition> cloneList(){
 		List<WordWithPosition> wordPositionList = new ArrayList<WordWithPosition>();
 		for(int pos = 0; pos < activatedWords.size(); pos++ ){
-			if(activatedWords.get(pos).getHit() > 1){
+			if(activatedWords.get(pos).getHit() > 0){
 				WordWithPosition wp = new WordWithPosition();
 				wp.setPositin(pos);
 				wp.setWord(activatedWords.get(pos));

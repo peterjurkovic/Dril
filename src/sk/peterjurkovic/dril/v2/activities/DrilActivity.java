@@ -326,7 +326,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
    
     
     
-    private void speakWords(WordToPronauceDto wordDto) {
+    private void speakWords(final WordToPronauceDto wordDto) {
     	if(wordDto == null || StringUtils.isBlank(wordDto.getValue())){
     		Toast.makeText(this, R.string.nothing_to_speeach, Toast.LENGTH_LONG).show();
     	}

@@ -266,4 +266,6 @@
 	
 	<string name="backupRestoreH1">Záloha a obnovení dat</string>
 	<string name="backupRestoreDescr">Aplikace poskytuje možnost zálohovat, resp. obnovit uložená data. Zálohovaný soubor je možné přenést do dalšího zařízení a následné ho v něm jednoduše obnovit. UPOZORNĚNÍ: Prosím, neměňte název vygenerovaného souboru. Formát názvu musí být zachován: yyyyMdd_d.dril \n\n Pro více informací klikněte</string>
+	
+	<string name="cursor_closed">Nepodařilo se načíst data, zkuste to prosím znovu</string>
 </resources>

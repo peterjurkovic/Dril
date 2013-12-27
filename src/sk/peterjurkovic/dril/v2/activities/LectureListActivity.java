@@ -421,6 +421,11 @@ public class LectureListActivity extends ActionBarListActivity {
 		@Override
         protected void onPostExecute(Cursor cursor){
 			if(cursor != null){
+				if(cursor.isClosed()){
+					Toast.makeText(getApplicationContext(), R.string.cursor_closed, Toast.LENGTH_LONG).show();
+					showList(0);
+					return;
+				}
 				int countOfLectures = cursor.getCount();
 				lectureAdapter = new LectureAdapter(context, cursor, 0);
 				setListAdapter(lectureAdapter);

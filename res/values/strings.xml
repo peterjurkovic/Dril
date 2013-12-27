@@ -272,4 +272,5 @@
 	<string name="backupRestoreDescr">The application provides the ability to backup and restore data. NOTE: Please do not change the generated file name. The format has always to be: yyyyMdd_d.dril \n\n Click here for more information</string>
 	
 	<string name="moreInfor">More infro here</string>
+	<string name="cursor_closed">Unable to load data, please try again</string>
 </resources>
