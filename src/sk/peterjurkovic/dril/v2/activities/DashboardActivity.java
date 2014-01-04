@@ -5,6 +5,7 @@ import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
 import sk.peterjurkovic.dril.updater.CheckForUpdate;
 import sk.peterjurkovic.dril.updater.UpdateSaver;
+import sk.peterjurkovic.dril.utils.AppRater;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -83,6 +84,8 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	        if(bookDbAdapter.getBooksCount() == 0){
 	        	downloadBooks();
 	        }
+	        
+	        AppRater.app_launched(this);
 	}
 	
 	
