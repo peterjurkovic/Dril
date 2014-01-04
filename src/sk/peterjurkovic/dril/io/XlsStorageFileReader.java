@@ -8,6 +8,7 @@ import java.util.List;
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
+import jxl.WorkbookSettings;
 import jxl.read.biff.BiffException;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.StringUtils;
@@ -50,7 +51,9 @@ public class XlsStorageFileReader extends CsvStorageFileReader implements Storag
 		try {
 			File xlsFile = new File(fileLocation);
 			if(xlsFile.isFile()){
-				return Workbook.getWorkbook(xlsFile);
+				 WorkbookSettings workbookSettings = new WorkbookSettings();
+				 workbookSettings.setEncoding( "Cp1252" );
+				return Workbook.getWorkbook(xlsFile, workbookSettings);
 			}
 		} catch (BiffException e) {
 			 Log.e(e);
