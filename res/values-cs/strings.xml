@@ -268,4 +268,10 @@
 	<string name="backupRestoreDescr">Aplikace poskytuje možnost zálohovat, resp. obnovit uložená data. Zálohovaný soubor je možné přenést do dalšího zařízení a následné ho v něm jednoduše obnovit. UPOZORNĚNÍ: Prosím, neměňte název vygenerovaného souboru. Formát názvu musí být zachován: yyyyMdd_d.dril \n\n Pro více informací klikněte</string>
 	
 	<string name="cursor_closed">Nepodařilo se načíst data, zkuste to prosím znovu</string>
+	
+	<string name="rate_text">Pokud se Vám aplikace líbí a rádi ji používáte, věnujte, prosím, chvilku času na ohodnocení aplikace. Vaše hodnocení přispěje k dalšímu vývoji a zlepšení aplikace. Děkuji za podporu.</string>
+	<string name="rate_title">Hodnocení aplikace</string>
+	<string name="rate_now">Ohodnotit</string>
+	<string name="rate_later">Připomenout později</string>
+	<string name="rate_never">Ne, děkuji</string>
 </resources>
