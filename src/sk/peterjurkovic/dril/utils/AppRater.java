@@ -11,8 +11,8 @@ import android.net.Uri;
 
 public class AppRater {
 	
-	    private final static int DAYS_UNTIL_PROMPT = 8;
-	    private final static int LAUNCHES_UNTIL_PROMPT = 30;
+	    private final static int DAYS_UNTIL_PROMPT = 7;
+	    private final static int LAUNCHES_UNTIL_PROMPT = 35;
 	    
 	    public static void app_launched(Context mContext) {
 	        SharedPreferences prefs = mContext.getSharedPreferences("apprater", 0);
@@ -35,21 +35,17 @@ public class AppRater {
 	        if (launch_count >= LAUNCHES_UNTIL_PROMPT) {
 	            if (System.currentTimeMillis() >= date_firstLaunch + 
 	                    (DAYS_UNTIL_PROMPT * 24 * 60 * 60 * 1000)) {
-	            	//showRateDialog(mContext, editor);
+	            	showRateDialog(mContext, editor);
 	            }
 	        }
-	        showRateDialog(mContext, editor);
 	        editor.commit();
 	    }   
 	    
 	    public static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
-	    	final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+	    	AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 	    	builder.setTitle(R.string.rate_title);
 	    	builder.setMessage(R.string.rate_text);
-	    	
-
-	       
-	         builder.setPositiveButton(R.string.rate_now,  new DialogInterface.OnClickListener() {
+	    	builder.setPositiveButton(R.string.rate_now,  new DialogInterface.OnClickListener() {
 	            public void onClick(DialogInterface dialog, int id){
             	 if (editor != null) {
 	                    editor.putBoolean("dontshowagain", true);
