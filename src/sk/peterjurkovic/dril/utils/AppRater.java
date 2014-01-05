@@ -1,23 +1,18 @@
 package sk.peterjurkovic.dril.utils;
 
-import android.app.Dialog;
+
+import sk.peterjurkovic.dril.R;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class AppRater {
 	
-	 private final static String APP_TITLE = "Dril";
-	 private final static String APP_PNAME = "sk.peterjurkovic.dril";
-	    
-	    private final static int DAYS_UNTIL_PROMPT = 3;
-	    private final static int LAUNCHES_UNTIL_PROMPT = 7;
+	    private final static int DAYS_UNTIL_PROMPT = 8;
+	    private final static int LAUNCHES_UNTIL_PROMPT = 30;
 	    
 	    public static void app_launched(Context mContext) {
 	        SharedPreferences prefs = mContext.getSharedPreferences("apprater", 0);
@@ -48,52 +43,52 @@ public class AppRater {
 	    }   
 	    
 	    public static void showRateDialog(final Context mContext, final SharedPreferences.Editor editor) {
-	        final Dialog dialog = new Dialog(mContext);
-	        dialog.setTitle("Rate " + APP_TITLE);
+	    	final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+	    	builder.setTitle(R.string.rate_title);
+	    	builder.setMessage(R.string.rate_text);
+	    	
 
-	        LinearLayout ll = new LinearLayout(mContext);
-	        ll.setOrientation(LinearLayout.VERTICAL);
-	        
-	        TextView tv = new TextView(mContext);
-	        tv.setText("If you enjoy using " + APP_TITLE + ", please take a moment to rate it. Thanks for your support!");
-	        tv.setWidth(240);
-	        tv.setPadding(4, 0, 4, 10);
-	        ll.addView(tv);
-	        
-	        Button b1 = new Button(mContext);
-	        b1.setText("Rate " + APP_TITLE);
-	        b1.setOnClickListener(new OnClickListener() {
-	            public void onClick(View v) {
-	                mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + APP_PNAME)));
-	                dialog.dismiss();
-	            }
-	        });        
-	        ll.addView(b1);
-
-	        Button b2 = new Button(mContext);
-	        b2.setText("Remind me later");
-	        b2.setOnClickListener(new OnClickListener() {
-	            public void onClick(View v) {
-	                dialog.dismiss();
-	            }
-	        });
-	        ll.addView(b2);
-
-	        Button b3 = new Button(mContext);
-	        b3.setText("No, thanks");
-	        b3.setOnClickListener(new OnClickListener() {
-	            public void onClick(View v) {
-	                if (editor != null) {
+	       
+	         builder.setPositiveButton(R.string.rate_now,  new DialogInterface.OnClickListener() {
+	            public void onClick(DialogInterface dialog, int id){
+            	 if (editor != null) {
 	                    editor.putBoolean("dontshowagain", true);
 	                    editor.commit();
 	                }
+            	 	GoogleAnalyticsUtils.logAction(mContext,
+	            			GoogleAnalyticsUtils.CATEGORY_UI_ACTION, 
+	            			GoogleAnalyticsUtils.ACTION_BUTTON_PRESS, "rate_now", 1l);
+            	 			
+            	 	mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + mContext.getPackageName())));
 	                dialog.dismiss();
 	            }
-	        });
-	        ll.addView(b3);
-
-	        dialog.setContentView(ll);        
-	        dialog.show();        
+	       });
+	        builder.setNeutralButton(R.string.rate_later, new DialogInterface.OnClickListener() {
+	            public void onClick(DialogInterface dialog, int id) {
+	            	GoogleAnalyticsUtils.logAction(mContext,
+	            			GoogleAnalyticsUtils.CATEGORY_UI_ACTION, 
+	            			GoogleAnalyticsUtils.ACTION_BUTTON_PRESS, "rate_later", 0l);
+	                dialog.dismiss();
+	            }
+	       }); 
+	        
+	       builder.setNegativeButton(R.string.rate_never, new DialogInterface.OnClickListener() {
+	            public void onClick(DialogInterface dialog, int id) 
+	            {
+            	 if (editor != null) {
+	                    editor.putBoolean("dontshowagain", true);
+	                    GoogleAnalyticsUtils.logAction(mContext,
+		            			GoogleAnalyticsUtils.CATEGORY_UI_ACTION, 
+		            			GoogleAnalyticsUtils.ACTION_BUTTON_PRESS, "rate_never", -1l);
+	                    editor.commit();
+	             }
+            	 dialog.dismiss();
+	            }
+	       }); 
+	        
+	        
+	       AlertDialog alert = builder.create();
+	       alert.show();
 	    }
 
 	    

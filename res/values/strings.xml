@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" >
 
     <string name="app_name">Dril</string>
-    <string name="app_name_long">English effectively</string>
+    <string name="app_name_long">Dril - English effectively</string>
     <string name="dashboard">Dashboard</string>
     <string name="btn_start">Start dril</string>
     <string name="btn_book">Textbooks</string>
@@ -273,4 +273,10 @@
 	
 	<string name="moreInfor">More infro here</string>
 	<string name="cursor_closed">Unable to load data, please try again</string>
+	
+	<string name="rate_text">If you like this application, please take a moment to rate it. Thanks for your support!</string>
+	<string name="rate_title">Rate this application</string>
+	<string name="rate_now">Rate now</string>
+	<string name="rate_later">Remind me later</string>
+	<string name="rate_never">No, thanks</string>
 </resources>
