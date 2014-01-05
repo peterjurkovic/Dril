@@ -441,7 +441,11 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     
     private void setEnglishTTSLocale(){
 		if(tts != null){
-			tts.setLanguage(Locale.ENGLISH);
+			if(Constants.APP_VARIANT.equals("en")){
+				tts.setLanguage(Locale.ENGLISH);
+			}else{
+				tts.setLanguage(Locale.GERMAN);
+			}
 		}
     }
     

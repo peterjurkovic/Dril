@@ -25,15 +25,21 @@ public class JSONReciever {
 		
 		public static final int LANG_EN_INDEX = 1;
 		
-		private  String checkServiceURL = Constants.API_URL+ "?lang="+
-					LANG_EN_INDEX+"&act="+ FOR_CHECK_ACTION+"&ver=";
-		private  String updateServiceURL = Constants.API_URL+ "?lang="+
-					LANG_EN_INDEX+"&act="+FOR_UPDATE_ACTION+"&ver=";
+		private  String checkServiceURL = buildUrl() + FOR_CHECK_ACTION+"&ver=";
+		private  String updateServiceURL = buildUrl() + FOR_UPDATE_ACTION+"&ver=";
 		
 		private  String ownWordsServiceUrl = Constants.API_URL+ "?importId=";
 		
 		private String importId = null;
 	    
+		private final static String buildUrl(){
+			if(Constants.APP_VARIANT.equals("en")){
+				return Constants.API_URL+ "?lang=1&act=";
+			}else{
+				return Constants.API_URL+ "?lang=2&act=";
+			}
+		}
+		
 	    public JSONReciever(String importId) {
 	    	this.importId = importId;
 	    }
