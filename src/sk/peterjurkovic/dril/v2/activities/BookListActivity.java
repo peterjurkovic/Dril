@@ -176,7 +176,6 @@ public class BookListActivity extends ActionBarListActivity {
 	 		break;
 	 		default:
 	 			String msg = "requestCode: " + requestCode + " is not implemented in onActivityResult";
-	 			logException(msg, true);
 	 			throw new Error(msg);
 	 	} 
         super.onActivityResult(requestCode, resultCode, data);

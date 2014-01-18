@@ -1,5 +1,7 @@
 package sk.peterjurkovic.dril.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import android.content.Context;
 
 import com.google.analytics.tracking.android.EasyTracker;
@@ -29,6 +31,15 @@ public class GoogleAnalyticsUtils {
 				      .build()
 			 );
 		 }
+	}
+	
+	public static void logException(final String message, final boolean fatal, final Context context){
+		if(context != null && StringUtils.isNoneBlank(message)){
+			EasyTracker.getInstance(context).send(
+					MapBuilder.createException(message, fatal)
+					.build()
+		    );
+		}
 	}
 	
 	

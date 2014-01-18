@@ -4,6 +4,8 @@ package sk.peterjurkovic.dril.v2.activities;
 import java.lang.reflect.Field;
 
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.exceptions.AnalyticsExceptionParser;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,9 +19,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.google.analytics.tracking.android.ExceptionReporter;
 import com.google.analytics.tracking.android.Log;
-import com.google.analytics.tracking.android.MapBuilder;
-import com.google.analytics.tracking.android.StandardExceptionParser;
 
 /**
  * 
@@ -33,6 +34,11 @@ public class BaseActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Thread.UncaughtExceptionHandler uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
+	    if (uncaughtExceptionHandler instanceof ExceptionReporter) {
+	      ExceptionReporter exceptionReporter = (ExceptionReporter) uncaughtExceptionHandler;
+	      exceptionReporter.setExceptionParser(new AnalyticsExceptionParser());
+	    }
 		try {
 	        ViewConfiguration config = ViewConfiguration.get(this);
 	        Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
@@ -41,6 +47,7 @@ public class BaseActivity extends ActionBarActivity {
 	            menuKeyField.setBoolean(config, false);
 	        }
 	    } catch (Exception e) {
+	    	GoogleAnalyticsUtils.logException(e, this);
 	    	Log.e(e);
 	    }
 	}
@@ -146,22 +153,6 @@ public class BaseActivity extends ActionBarActivity {
 	    EasyTracker.getInstance(this).activityStop(this); 
 	  }
 	  
-	public void logException(final String description, final boolean fatal) {
-		EasyTracker.getInstance(this).send(
-				MapBuilder.createException(description, fatal)
-				.build()
-	    );
-	}
 	
-	
-	public void logException(final Exception e){
-		 EasyTracker easyTracker = EasyTracker.getInstance(this);
-		  easyTracker.send(MapBuilder
-			      .createException(new StandardExceptionParser(this, null)             
-			      .getDescription(Thread.currentThread().getName(),  e),  false)                                              
-			      .build()
-			    );
-
-	}
 
 }

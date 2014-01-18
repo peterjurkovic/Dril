@@ -6,6 +6,7 @@ package sk.peterjurkovic.dril.v2.activities;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.v2.adapters.LectureAdapter;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -89,7 +90,7 @@ public class LectureListActivity extends ActionBarListActivity {
 			    ((TextView)findViewById(R.id.lectureListLabel)).setText( getBookName(bookId) );
 			    updateList();
 	        }else {
-	        	logException("BOOK ID is not set", false);
+	        	GoogleAnalyticsUtils.logException("BOOK ID is not set", false, this);
 			}    
 		 
 	      

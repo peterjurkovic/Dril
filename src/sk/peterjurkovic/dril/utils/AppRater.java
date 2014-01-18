@@ -11,8 +11,8 @@ import android.net.Uri;
 
 public class AppRater {
 	
-	    private final static int DAYS_UNTIL_PROMPT = 7;
-	    private final static int LAUNCHES_UNTIL_PROMPT = 35;
+	    private final static int DAYS_UNTIL_PROMPT = 10;
+	    private final static int LAUNCHES_UNTIL_PROMPT = 40;
 	    
 	    public static void app_launched(Context mContext) {
 	        SharedPreferences prefs = mContext.getSharedPreferences("apprater", 0);

@@ -138,7 +138,7 @@ public class ImportFileActivity extends BaseActivity {
 			LectureDBAdapter lectureDbAdapter = new LectureDBAdapter(this);
 			lectureId = lectureDbAdapter.insertLecture(bookId, lectureName);
 		} catch (Exception e) {
-			logException(e.getMessage(), false);
+			GoogleAnalyticsUtils.logException(e, this);
 		} 
 	}
 	  
@@ -151,8 +151,8 @@ public class ImportFileActivity extends BaseActivity {
 				LectureDBAdapter lectureDbAdapter = new LectureDBAdapter(context);
 				lectureDbAdapter.deleteLecture(id);
 			} catch (Exception e) {
-				logException(e.getMessage(), false);
-			} 
+				GoogleAnalyticsUtils.logException(e, context);
+			}
 		}  
 	  
 	  @Override

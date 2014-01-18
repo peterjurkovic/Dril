@@ -192,7 +192,7 @@ public class ImportWebActivity extends BaseActivity {
 			lectureId = lectureDbAdapter.insertLecture(bookId, lectureName);
 			Log.i("Created lectureId: " + lectureId);
 		} catch (Exception e) {
-			logException(e.getMessage(), false);
+			GoogleAnalyticsUtils.logException(e, this);
 		} 
 	}
 	  
@@ -206,6 +206,7 @@ public class ImportWebActivity extends BaseActivity {
 				lectureDbAdapter.deleteLecture(id);
 			} catch (Exception e) {
 				Log.e(e);
+				GoogleAnalyticsUtils.logException(e, context);
 			} 
 		}  
 	  
