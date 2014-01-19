@@ -1,19 +1,18 @@
 package sk.peterjurkovic.dril.io;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.analytics.tracking.android.Log;
 
 import sk.peterjurkovic.dril.csv.CSVReader;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import android.content.Context;
+
+import com.google.analytics.tracking.android.Log;
 
 /**
  * 
@@ -45,22 +44,22 @@ public class CsvStorageFileReader implements StorageFileReader {
 				reader = new CSVReader( new FileReader( file ) );
 			    String[] nextLine;
 			    while ((nextLine = reader.readNext()) != null) {
-			    	
 			        if(nextLine.length == 2){
 			        	words.add(new Word(nextLine[0], nextLine[1], lectureId));
 			        }
-			    	
 			    } 
 			}
 		}catch (Exception e) {
-			 Log.e(e);
+			logException(e); 
+			Log.e(e);
 		}finally{
 			try {
 				if(reader != null){
 					reader.close();
 				}
 			} catch (IOException e) {
-				 Log.e(e);
+				logException(e);
+				Log.e(e);
 			}
 		}
 		  return words;

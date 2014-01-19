@@ -265,5 +265,18 @@ public class StringUtils {
 		return (answer.trim().length() > (hit + 1));
 	}
 	
+	public static boolean hasExcention(final String fileName, final String ext){
+		if(StringUtils.isBlank(fileName) || fileName.length() < 4){
+			return false;
+		}
+		int dotIndex = fileName.lastIndexOf(".");
+		if(dotIndex == -1 || dotIndex >=  fileName.length()){
+			return false;
+		}
+		dotIndex++;
+		String fileExt = fileName.substring(dotIndex, fileName.length());
+		return fileExt.equals(ext);
+	}
+	
 	
 }

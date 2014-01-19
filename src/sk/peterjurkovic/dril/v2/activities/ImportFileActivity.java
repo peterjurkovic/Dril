@@ -173,12 +173,11 @@ public class ImportFileActivity extends BaseActivity {
 	  }
 	  
 	  
-	  private boolean isFileValid(final String filePath){
-		  final String extension = MimeTypeMap.getFileExtensionFromUrl(filePath);
+	  private boolean isFileValid(String filePath){
 		  if(isCsvImport){
-			  return extension.equals("csv");
+			  return StringUtils.hasExcention(filePath, "csv");
 		  }
-		  return extension.equals("xls");
+		  return StringUtils.hasExcention(filePath, "xls");
 	  }
 	  
 	
