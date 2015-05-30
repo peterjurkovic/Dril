@@ -47,6 +47,8 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	        
 	        Button btn_info = (Button) findViewById(R.id.btn_info);
 	        
+	        Button login = (Button) findViewById(R.id.login);
+	        
 	       
 	        
 	        startDrilButton.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +82,14 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	            	startActivity(i);
 		        }
 		    });
+	        
+	        login.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(context, LoginActivity.class);
+	            	startActivity(i);
+				}
+			});
 	        
 	        if(bookDbAdapter.getBooksCount() == 0){
 	        	downloadBooks();

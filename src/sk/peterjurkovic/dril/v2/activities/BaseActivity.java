@@ -12,7 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +28,7 @@ import com.google.analytics.tracking.android.Log;
  * @date Oct 24, 2013
  *
  */
-public class BaseActivity extends ActionBarActivity {
+public class BaseActivity extends AppCompatActivity {
 
 	
 	@Override
@@ -73,6 +73,10 @@ public class BaseActivity extends ActionBarActivity {
         startActivity(launchBrowser);
 	}
 	
+	
+	public void onLoginClick(){
+		
+	}
 	
 	
 	protected void goToParentActivity(){

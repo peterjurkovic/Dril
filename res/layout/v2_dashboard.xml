@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <TextView style="@style/separator" 	/>
-   
+    
     
    <RelativeLayout 
       android:layout_width="wrap_content"
@@ -57,22 +57,19 @@
 			        />
 		</LinearLayout>
 		
-		<TextView
+	
+		
+		<Button
+		    android:layout_centerHorizontal="true"
+		    android:layout_below="@id/secondRow"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_below="@id/secondRow"
-		    android:layout_centerHorizontal="true"
-		    android:layout_marginTop="15dp"
-		    android:autoLink="web"
-		    android:gravity="center"
-		    android:onClick="goToHomePage"
-		    android:paddingBottom="10dp"
-		    android:paddingTop="10dp"
-		    android:text="@string/drilapp_ow"
-		    android:textColor="#a9a9a9"
-		    android:textColorHint="#333"
-		    android:textColorLink="#333"
-		    android:textSize="15sp" />
+		    android:background="@color/action_bar"
+		    android:textColor="@color/white"
+		    android:layout_marginTop="20dp"
+        	android:id="@+id/login"
+        	android:text="@string/login"
+        />
 
 </RelativeLayout>
 		

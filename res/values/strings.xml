@@ -85,9 +85,7 @@
     <string name="email">email</string>
     <string name="send_email">Send email to author</string>
     <string name="activated">Activated</string>
-    
-    <string name="no_data_available">There are no data available</string>
-    
+      
     <string name="table_book_count">Count of textbooks:</string>
     <string name="table_lecture_count">Count of lessons:</string>
     <string name="table_word_count">Count of cards:</string>
@@ -279,4 +277,11 @@
 	<string name="rate_now">Rate now</string>
 	<string name="rate_later">Remind me later</string>
 	<string name="rate_never">No, thanks</string>
+	
+	<string name="login">Login</string>
+	<string name="password">Password</string>
+	<string name="login_details">Enter your login details</string>
+	<string name="create_account">Create an account</string>
+	
+
 </resources>
