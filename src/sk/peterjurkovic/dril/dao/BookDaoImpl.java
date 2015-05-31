@@ -31,8 +31,6 @@ public class BookDaoImpl implements BookDao {
 			Book book = new Book();
 			book.setId(id);
 			book.setName(cursor.getString( cursor.getColumnIndex(BookDBAdapter.BOOK_NAME) ));
-			book.setAuthor(cursor.getString( cursor.getColumnIndex(BookDBAdapter.AUTHOR_COLL) ));
-
 			int bid =  cursor.getInt( cursor.getColumnIndex(BookDBAdapter.QUESTION_LANG_COLL) );
 			if(bid != 0){
 				book.setQuestionLang(Language.getById(bid));

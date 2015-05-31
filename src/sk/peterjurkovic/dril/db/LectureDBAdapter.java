@@ -23,9 +23,7 @@ public class LectureDBAdapter extends DBAdapter {
 		public static final String[] columns = { 
 				LECTURE_ID, 
 				LECTURE_NAME, 
-				FK_BOOK_ID, 
-				CHANGED_COLL, 
-				CREATED_COLL	
+				FK_BOOK_ID
 			};
 
 		
@@ -33,9 +31,7 @@ public class LectureDBAdapter extends DBAdapter {
 										"CREATE TABLE "+ TABLE_LECTURE + " (" + 
 											LECTURE_ID + " INTEGER PRIMARY KEY ," + 
 											LECTURE_NAME + " TEXT," + 
-											FK_BOOK_ID +" INTEGER, " +
-											CHANGED_COLL +" INTEGER DEFAULT (0), " + 
-											CREATED_COLL +" INTEGER DEFAULT (0) " + 
+											FK_BOOK_ID +" INTEGER " +
 										");";
 		
 
@@ -116,7 +112,7 @@ public class LectureDBAdapter extends DBAdapter {
 	    	Cursor cursor = db.query(
 	    				BookDBAdapter.TABLE_BOOK, 
 	    				new String[] { BookDBAdapter.BOOK_NAME  }, 
-	    				BookDBAdapter.BOOK_ID + "= ?", 
+	    				ID + "= ?", 
 	    				new String[] { String.valueOf(id) }, 
 	    				null, 
 	    				null, 

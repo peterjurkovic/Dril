@@ -11,119 +11,35 @@ import sk.peterjurkovic.dril.utils.ConversionUtils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import com.google.analytics.tracking.android.Log;
 
-public class DBAdapter{
+public class DBAdapter extends DatabaseHelper{
 	
 	public static final String CREATED_COLL = "created";
 	
 	public static final String CHANGED_COLL = "changed";
 	
-	public static final int DATABASE_VERSION = 3;
-	
-	public static final String DATABASE_NAME = "dril";
-	
 	public static final String TAG = "DBAdapter";
-    
-	private DatabaseHelper openHelper;
-	
-	protected SQLiteDatabase cdb;
-	
-	private Context context;
-    /**
-     * Constructor
-     * @param context
-     */
+    	
+
+
     public DBAdapter(Context context){
-        openHelper = new DatabaseHelper(context);
-        this.context = context;
+        super(context);
     }
     
    
-	 private static class DatabaseHelper extends SQLiteOpenHelper {
-		   
-		    private final Context myContext;
-		    
-	        DatabaseHelper(Context context) {
-	            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-	            myContext = context;
-	           
-	        }
-	       
-	        
-	        @Override
-	        public void onCreate(SQLiteDatabase db) {
-	        	 createTables(db);
-	        }
-
-	        @Override
-	        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {               
-	        	if (newVersion > oldVersion){          
-	        		try {              
-	        		db.beginTransaction();
-	        		switch(oldVersion){
-		        		case 2:
-		        			db.execSQL("ALTER TABLE book ADD COLUMN author TEXT");
-		        			db.execSQL("ALTER TABLE book ADD COLUMN answer_lang_fk INTEGER NOT NULL DEFAULT (0)");
-		        			db.execSQL("ALTER TABLE book ADD COLUMN question_lang_fk INTEGER NOT NULL DEFAULT (0)");
-		        			db.execSQL("ALTER TABLE book ADD COLUMN changed INTEGER DEFAULT (0)");
-		        			db.execSQL("ALTER TABLE book ADD COLUMN created INTEGER DEFAULT (0)");
-		        			db.execSQL("ALTER TABLE book ADD COLUMN sync INTEGER NOT NULL DEFAULT (0)");
-		        			
-		        			db.execSQL("ALTER TABLE lecture ADD COLUMN changed INTEGER DEFAULT (0)");
-		        			db.execSQL("ALTER TABLE lecture ADD COLUMN created INTEGER DEFAULT (0)");
-		        			
-		        			db.execSQL("ALTER TABLE word ADD COLUMN changed INTEGER DEFAULT (0)");
-		        			db.execSQL("ALTER TABLE word ADD COLUMN favorite INTEGER DEFAULT (0)");
-		        			db.execSQL("ALTER TABLE word ADD COLUMN created INTEGER DEFAULT (0)");
-		        			db.execSQL("ALTER TABLE word ADD COLUMN avg_rate REAL NOT NULL DEFAULT (0)");
-		        			
-		        			db.execSQL("DROP TABLE IF EXISTS statistic");
-		        			db.execSQL(StatisticDbAdapter.TABLE_STATISTIC_CREATE);
-		        		break;
-		        	}
-	        		db.setTransactionSuccessful();
-	        		} catch (SQLException e) {
-	        			 Log.e(e);
-	        		}finally {
-                        db.endTransaction();
-                    }
-	        	}
-	        }
-	                  
-	        private void createTables(SQLiteDatabase db){
-	        	 db.beginTransaction();
-	        	 db.execSQL(BookDBAdapter.TABLE_BOOK_CEREATE);
-	        	 db.execSQL(LectureDBAdapter.TABLE_LECTURE_CREATE);
-	        	 db.execSQL(WordDBAdapter.TABLE_WORD_CREATE);
-	        	 db.execSQL(StatisticDbAdapter.TABLE_STATISTIC_CREATE);
-	        	 db.setTransactionSuccessful();
-	        	 db.endTransaction();
-	        }
-	 } 
+	 
 	 
 	public SQLiteDatabase openReadableDatabase(){
-		return openHelper.getReadableDatabase();
+		return getReadableDatabase();
 	}
 	
 	public SQLiteDatabase openWriteableDatabase(){
-		return openHelper.getWritableDatabase();
+		return getWritableDatabase();
 	}
 	
-	
-	public void close(){
-		if(cdb != null){
-			cdb.close();
-		}
-		if(openHelper != null){
-			openHelper.close();
-		}
-	}
 	
 	
 	
@@ -166,7 +82,6 @@ public class DBAdapter{
 			downloader.onProgressChange(books.size(), i);
 			ContentValues cv = new ContentValues();
 			cv.put(BookDBAdapter.BOOK_NAME, book.getName());
-	        cv.put(BookDBAdapter.VERSION, book.getVersion());
 	        cv.put(BookDBAdapter.SYNC_COLL, ConversionUtils.booleanToInt(book.isSync()));
 	        if(book.getQuestionLang() != null){
 	        	cv.put(BookDBAdapter.QUESTION_LANG_COLL, book.getQuestionLang().getId());
@@ -200,15 +115,6 @@ public class DBAdapter{
 	}
 	
 	
-	
-	public long getLastVersionOfTextbooks(){
-		SQLiteDatabase db = openReadableDatabase();
-    	long version = DatabaseUtils.longForQuery(db, 
-    					"SELECT IFNULL(max("+BookDBAdapter.VERSION+"),0) FROM " + 
-    					BookDBAdapter.TABLE_BOOK, null);
-    	db.close();
-    	return version;
-	}
 	
 	
 }

@@ -33,15 +33,14 @@ public class WordDaoImpl implements WordDao {
 	    	while(!cursor.isAfterLast()) {
 	    		wordList.add(
 	    	    	new Word( 
-	    				 cursor.getLong(cursor.getColumnIndex(WordDBAdapter.WORD_ID )), 
+	    				 cursor.getLong(cursor.getColumnIndex(WordDBAdapter.ID )), 
 	    				 cursor.getString(cursor.getColumnIndex( WordDBAdapter.QUESTION )), 
 	    				 cursor.getString(cursor.getColumnIndex( WordDBAdapter.ANSWER )), 
 	    				 cursor.getInt(cursor.getColumnIndex( WordDBAdapter.HIT )), 
 	    				 cursor.getInt(cursor.getColumnIndex( WordDBAdapter.LAST_RATE )),
 	    				 ConversionUtils.intToBoolean(cursor.getInt(cursor.getColumnIndex( WordDBAdapter.ACTIVE ))),
 	    				 cursor.getInt(cursor.getColumnIndex( BookDBAdapter.QUESTION_LANG_COLL )), 
-	    				 cursor.getInt(cursor.getColumnIndex(BookDBAdapter.ANSWER_LANG_COLL )),
-	    				 ConversionUtils.intToBoolean(cursor.getInt(cursor.getColumnIndex(WordDBAdapter.FAVORITE)))
+	    				 cursor.getInt(cursor.getColumnIndex(BookDBAdapter.ANSWER_LANG_COLL ))
 	    			)); 
 	    	     cursor.moveToNext();
 	    	}

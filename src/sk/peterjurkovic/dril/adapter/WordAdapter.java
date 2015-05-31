@@ -50,7 +50,7 @@ public class WordAdapter extends CursorAdapter{
 	public void bindView(View oldView, Context ctx, Cursor c) {
 		ViewHolder holder = (ViewHolder) oldView.getTag();
 		RowData data = new RowData();
-		data.id = c.getLong(c.getColumnIndex(WordDBAdapter.WORD_ID));
+		data.id = c.getLong(c.getColumnIndex(WordDBAdapter.ID));
 		data.isActive = c.getInt(holder.isActiveIndex);
 		data.position = c.getPosition();
 		holder.checkBoxView.setChecked(mCheckedState.get(data.position));

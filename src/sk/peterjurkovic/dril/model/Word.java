@@ -27,8 +27,6 @@ public class Word implements Comparable<Word>{
 	
 	private int answerLangId;
 	
-	private boolean favorite;
-	
 	public Word(String question, String answare){
 		this.question = question;
 		this.answare = answare;
@@ -40,7 +38,7 @@ public class Word implements Comparable<Word>{
 		this.lectureId = lectureId;
 	}
 	
-	public Word(long id, String question, String answare, int hit, int rate,boolean active, int qLang, int aLang, boolean isFavorite) {
+	public Word(long id, String question, String answare, int hit, int rate,boolean active, int qLang, int aLang) {
 		super();
 		this.id = id;
 		this.question = question;
@@ -50,7 +48,6 @@ public class Word implements Comparable<Word>{
 		this.active = active;
 		this.questionLangId = qLang;
 		this.answerLangId = aLang;
-		this.favorite = isFavorite;
 	}
 
 	
@@ -211,16 +208,6 @@ public class Word implements Comparable<Word>{
 		return 0;
 	}
 	
-	public boolean isFavorite() {
-		return favorite;
-	}
-
-	public void setFavorite(boolean favorite) {
-		this.favorite = favorite;
-	}
-
-
-
 	public static class Comparators {
 
         public static Comparator<Word> HITS = new Comparator<Word>() {

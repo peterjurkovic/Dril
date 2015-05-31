@@ -19,42 +19,35 @@ public class WordDBAdapter extends DBAdapter {
 	
 	public static final int STATUS_ACTIVE = 1;
 	public static final int STATUS_DEACTIVE = 0;
+	
 	public static final String TABLE_WORD = "word";
-	public static final String WORD_ID = "_id";
 	public static final String QUESTION = "question";
 	public static final String ANSWER = "answer";
 	public static final String ACTIVE = "active";
 	public static final String FK_LECTURE_ID = "lecture_id";
 	public static final String LAST_RATE = "rate";
 	public static final String AVG_RATE = "avg_rate";
-	public static final String FAVORITE = "favorite";
 	public static final String HIT = "hit";
 	public static final String TABLE_WORD_CREATE = "CREATE TABLE "+ TABLE_WORD + " ( "+ 
-														WORD_ID + " INTEGER PRIMARY KEY, "+ 
+														ID + " INTEGER PRIMARY KEY, "+ 
 														QUESTION +" TEXT, "+ 
 														ANSWER +" TEXT, " + 
 														ACTIVE + " INTEGER NOT NULL DEFAULT (0), "+ 
 														FK_LECTURE_ID  + " INTEGER," +
 														LAST_RATE  + " INTEGER NOT NULL DEFAULT (0)," +
 														HIT  + " INTEGER NOT NULL  DEFAULT (0), " +
-														CHANGED_COLL +" INTEGER DEFAULT (0), " + 
-														CREATED_COLL +" INTEGER DEFAULT (0), " +
-														FAVORITE +" INTEGER DEFAULT (0), " +
 														AVG_RATE  + " REAL NOT NULL DEFAULT (0) " +
 													");";
 	
 	public static final String[] columns = { 
-				WORD_ID, 
+				ID, 
 				QUESTION, 
 				ANSWER, 
 				ACTIVE, 
 				FK_LECTURE_ID, 
 				LAST_RATE, 
 				HIT, 
-				CHANGED_COLL,
-				CREATED_COLL,
-				FAVORITE,
-				AVG_RATE
+				AVG_RATE,
 			};
 	
 	
@@ -109,7 +102,7 @@ public class WordDBAdapter extends DBAdapter {
     public boolean deleteWord(final long id) {
         SQLiteDatabase db = openWriteableDatabase();
         String[] args = { String.valueOf(id)};
-        long deletedCount = db.delete(TABLE_WORD, WORD_ID+ "=?", args);
+        long deletedCount = db.delete(TABLE_WORD, ID+ "=?", args);
         db.close();
         return deletedCount > 0;
     }
@@ -126,7 +119,7 @@ public class WordDBAdapter extends DBAdapter {
     public Cursor getWord(final long wordId) {
     	SQLiteDatabase db = openReadableDatabase();
     	String[] selectionArgs = { String.valueOf(wordId) };
-    	Cursor result = db.query(TABLE_WORD, columns, WORD_ID + "= ?", 
+    	Cursor result = db.query(TABLE_WORD, columns, ID + "= ?", 
     												selectionArgs, null, null, null);
     	//Log.d(TAG, "getWord(), count of selected: " + result.getCount());
     	return result;
@@ -140,7 +133,7 @@ public class WordDBAdapter extends DBAdapter {
         values.put(QUESTION, question);
         values.put(ANSWER, answer);
         
-        int rowsUpdated = db.update(TABLE_WORD, values,WORD_ID + "=" + wordId, null);
+        int rowsUpdated = db.update(TABLE_WORD, values,ID + "=" + wordId, null);
         db.close();
         return rowsUpdated > 0;
     }
@@ -179,7 +172,7 @@ public class WordDBAdapter extends DBAdapter {
         SQLiteDatabase db = openWriteableDatabase();
         ContentValues values = new ContentValues();
         values.put(ACTIVE, newStatusVal);
-        int rowsUpdated = db.update(TABLE_WORD, values,WORD_ID + "=" + wordId, null);
+        int rowsUpdated = db.update(TABLE_WORD, values,ID + "=" + wordId, null);
         db.close();
         return rowsUpdated > 0;
     }
@@ -191,7 +184,7 @@ public class WordDBAdapter extends DBAdapter {
     	SQLiteDatabase db = openWriteableDatabase();
     	db.beginTransaction();
     	for (Long id : ids) {
-    	    db.execSQL("DELETE FROM " + WordDBAdapter.TABLE_WORD + " WHERE " + WordDBAdapter.WORD_ID + "=" + id + ";");
+    	    db.execSQL("DELETE FROM " + WordDBAdapter.TABLE_WORD + " WHERE " + WordDBAdapter.ID + "=" + id + ";");
     	}
     	db.setTransactionSuccessful();
     	db.endTransaction();
@@ -208,7 +201,7 @@ public class WordDBAdapter extends DBAdapter {
     	for (Long id : ids) {
     	    db.execSQL("UPDATE " + WordDBAdapter.TABLE_WORD + " SET " 
     	    			+ WordDBAdapter.ACTIVE +"=" + newStatusVal +"  WHERE " 
-    	    			+ WordDBAdapter.WORD_ID + "=" + id + ";");
+    	    			+ WordDBAdapter.ID + "=" + id + ";");
     	}
     	db.setTransactionSuccessful();
     	db.endTransaction();
@@ -271,7 +264,7 @@ public class WordDBAdapter extends DBAdapter {
     			LAST_RATE+"="+word.getRate()+", " +
     			AVG_RATE+"="+word.getAvgRate()+", " +
 				ACTIVE + "=" + ConversionUtils.booleanToInt(word.isActive()) + " "+
-		"WHERE " + WORD_ID + "=" + word.getId() + ";";
+		"WHERE " + ID + "=" + word.getId() + ";";
     }
     
     
@@ -295,8 +288,8 @@ public class WordDBAdapter extends DBAdapter {
     	SQLiteDatabase db = openWriteableDatabase();
     	db.beginTransaction();
     	for(int i=0; i < countOfWordsToActivate; i++){
-    		db.execSQL("UPDATE "+TABLE_WORD+" SET "+ACTIVE+"=1 WHERE "+WORD_ID+
-    					"=(SELECT "+WORD_ID +" "+ "FROM "+TABLE_WORD+" WHERE "+
+    		db.execSQL("UPDATE "+TABLE_WORD+" SET "+ACTIVE+"=1 WHERE "+ID+
+    					"=(SELECT "+ID +" "+ "FROM "+TABLE_WORD+" WHERE "+
     					ACTIVE+"=0 AND "+FK_LECTURE_ID+"="+lectureid+
     					" ORDER BY RANDOM() LIMIT 1)");
     	}

@@ -12,46 +12,37 @@ public class BookDBAdapter extends DBAdapter {
 	// Def. of table book
 	public static final String TABLE_BOOK = "book";
 	
-	public static final String BOOK_ID = "_id";
+
 	public static final String BOOK_NAME = "book_name";
 	public static final String LECTURES_COUNT = "lecture_count";
-	public static final String VERSION = "version";
+	//public static final String VERSION = "version";
 	public static final String WORD_COUNT = "word_count";
 	public static final String ACTIVE_WORD_COUNT = "active_word_count";
 	public static final String BOOK_COUNT = "book_count";
 	public static final String AVG_RATE = "avg_rate";
-	public static final String FINISHED = "rate_1";
-	public static final String AUTHOR_COLL = "author";
+	//public static final String FINISHED = "rate_1";
+	//public static final String AUTHOR_COLL = "author";
 	public static final String ANSWER_LANG_COLL = "answer_lang_fk";
 	public static final String QUESTION_LANG_COLL = "question_lang_fk";
 	public static final String SYNC_COLL = "sync";
 	
 	public static final String[] columns = { 	
-												BOOK_ID, 
+												ID, 
 												BOOK_NAME, 
-												VERSION, 
 												ANSWER_LANG_COLL, 
 												QUESTION_LANG_COLL,
-												AUTHOR_COLL,
-												CREATED_COLL, 
-												CHANGED_COLL,
 												SYNC_COLL
 											};
 	
 	public static final String TABLE_BOOK_CEREATE = 
 								"CREATE TABLE "+ TABLE_BOOK + " (" + 
-										BOOK_ID +" INTEGER PRIMARY KEY," + 
+										ID +" INTEGER PRIMARY KEY," + 
 										BOOK_NAME + " TEXT," +
-										VERSION +" INTEGER NOT NULL DEFAULT (0), " +
-										AUTHOR_COLL + " TEXT, " + 
 										ANSWER_LANG_COLL +" INTEGER NOT NULL DEFAULT (0), " + 
-										QUESTION_LANG_COLL +" INTEGER NOT NULL DEFAULT (0), " + 
-										CHANGED_COLL +" INTEGER DEFAULT (0), " + 
-										CREATED_COLL +" INTEGER DEFAULT (0), " +
-										SYNC_COLL +" INTEGER NOT NULL DEFAULT (1) " +
+										QUESTION_LANG_COLL +" INTEGER NOT NULL DEFAULT (0) " + 
 								");";
 	
-	public static final String TABLE_BOOK_VIEW = "view_book";
+	//public static final String TABLE_BOOK_VIEW = "view_book";
 	
 	
 	public static final String  TAG = "BookDBAdapter";
@@ -80,7 +71,7 @@ public class BookDBAdapter extends DBAdapter {
     public Cursor getBook(long id) {
     	SQLiteDatabase db = openReadableDatabase();
     	String[] selectionArgs = { String.valueOf(id) };
-    	Cursor result = db.query(TABLE_BOOK, columns, BOOK_ID + "= ?", selectionArgs, null, null, null);
+    	Cursor result = db.query(TABLE_BOOK, columns, ID + "= ?", selectionArgs, null, null, null);
     	return result;
     }
     
@@ -90,7 +81,7 @@ public class BookDBAdapter extends DBAdapter {
     public Cursor getBooks() {
         SQLiteDatabase db = openReadableDatabase();
         Cursor result = db.rawQuery("SELECT "+
-				"b._id, b.book_name, b.version, " +
+				"b._id, b.book_name, " +
 				    "(SELECT COUNT(*) " +
 				        "FROM word w " +
 				        "JOIN lecture l ON l._id = w.lecture_id " +
@@ -115,7 +106,7 @@ public class BookDBAdapter extends DBAdapter {
         SQLiteDatabase db = openWriteableDatabase();
         String[] selectionArgs = { String.valueOf(id)};
         db.beginTransaction();
-        int deletedCount = db.delete(TABLE_BOOK, BOOK_ID+"=?", selectionArgs);
+        int deletedCount = db.delete(TABLE_BOOK, ID+"=?", selectionArgs);
         
         if(deletedCount > 0){
         	Cursor cursor = getLecturesIdByBookId(id);
@@ -165,10 +156,10 @@ public class BookDBAdapter extends DBAdapter {
     
     
     public boolean updateBook(long bookId, String bookName) {
-        cdb = openWriteableDatabase();
+        SQLiteDatabase cdb = openWriteableDatabase();
         ContentValues values = new ContentValues();
         values.put(BOOK_NAME, bookName);
-        int rowsUpdated = cdb.update(TABLE_BOOK, values,  BOOK_ID + "=" + bookId, null);
+        int rowsUpdated = cdb.update(TABLE_BOOK, values,  ID + "=" + bookId, null);
         return rowsUpdated > 0;
     }
     
@@ -177,9 +168,9 @@ public class BookDBAdapter extends DBAdapter {
         if(book == null){
         	return false;
         }
-    	cdb = openWriteableDatabase();
+        SQLiteDatabase cdb = openWriteableDatabase();
         ContentValues values = bindBookParams(book);
-        int rowsUpdated = cdb.update(TABLE_BOOK, values,  BOOK_ID + "=" + book.getId(), null);
+        int rowsUpdated = cdb.update(TABLE_BOOK, values,  ID + "=" + book.getId(), null);
         return rowsUpdated > 0;
     }
     
@@ -187,14 +178,12 @@ public class BookDBAdapter extends DBAdapter {
     private ContentValues bindBookParams(final Book book){
     	 ContentValues values = new ContentValues();
     	 values.put(BOOK_NAME, book.getName());
-    	 values.put(AUTHOR_COLL, book.getAuthor());
          if(book.getQuestionLang() != null){
          	values.put(QUESTION_LANG_COLL, book.getQuestionLang().getId());
          }
          if(book.getAnswerLang() != null){
          	values.put(ANSWER_LANG_COLL, book.getAnswerLang().getId());
          }
-         values.put(CHANGED_COLL, System.currentTimeMillis());
     	 return values;
     }
  

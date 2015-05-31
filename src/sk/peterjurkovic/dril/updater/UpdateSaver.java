@@ -4,19 +4,18 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import com.google.analytics.tracking.android.Log;
-
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.DBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
 import sk.peterjurkovic.dril.listener.OnProgressChangeListener;
 import sk.peterjurkovic.dril.model.Book;
-import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+
+import com.google.analytics.tracking.android.Log;
 
 public class UpdateSaver extends AsyncTask<String, Integer, Integer> 
 									implements OnProgressChangeListener{
@@ -65,8 +64,8 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer>
 	
 		try {
 			DBAdapter db = new DBAdapter(context);
-			long lastVer = db.getLastVersionOfTextbooks();
-			JSONReciever jsonReciever = new JSONReciever( lastVer );
+			//long lastVer = db.getLastVersionOfTextbooks();
+			JSONReciever jsonReciever = new JSONReciever( 3 );
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = jsonReciever.getJSONData( JSONReciever.FOR_UPDATE_ACTION );
 

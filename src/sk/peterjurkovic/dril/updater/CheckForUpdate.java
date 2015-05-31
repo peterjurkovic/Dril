@@ -1,16 +1,14 @@
 package sk.peterjurkovic.dril.updater;
 
-import com.google.analytics.tracking.android.Log;
-
 import sk.peterjurkovic.dril.R;
-import sk.peterjurkovic.dril.db.DBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
-import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+
+import com.google.analytics.tracking.android.Log;
 
 /**
  * Check for new available book in remote server, Do it in background using AsyncTask
@@ -59,9 +57,9 @@ public class CheckForUpdate extends AsyncTask<String, Integer, Integer> {
 			return STATE_NO_INTERNET_CONN;
 		}
 		try {
-			DBAdapter db = new DBAdapter(context);
-			long lastVer = db.getLastVersionOfTextbooks();
-			JSONReciever jsonReciever = new JSONReciever( lastVer );
+			//DBAdapter db = new DBAdapter(context);
+			//long lastVer = db.getLastVersionOfTextbooks();
+			JSONReciever jsonReciever = new JSONReciever( 3 );
 			JSONParser jsonParser = new JSONParser();
 			return jsonParser.getCountOfNewBooks( 
 					jsonReciever.getJSONData( JSONReciever.FOR_CHECK_ACTION )
