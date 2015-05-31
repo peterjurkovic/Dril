@@ -283,5 +283,10 @@
 	<string name="login_details">Enter your login details</string>
 	<string name="create_account">Create an account</string>
 	
+	<string name="err_credentials">Please enter the credentials</string>
+	<string name="err_http_401">Bad login or password</string>
+	<string name="err_internet_conn">Check your internet connection</string>
+	
+	
 
 </resources>

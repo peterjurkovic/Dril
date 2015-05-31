@@ -1,16 +1,16 @@
 package sk.peterjurkovic.dril.v2.activities;
 
-import java.util.HashMap;
-import java.util.Map;
 
+import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import sk.peterjurkovic.dril.AppController;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.SessionManager;
-import sk.peterjurkovic.dril.utils.DeviceUtils;
-import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
+import sk.peterjurkovic.dril.sync.GsonRequest;
+import sk.peterjurkovic.dril.sync.GsonRequest.RequestBuilder;
+import sk.peterjurkovic.dril.sync.requests.LoginResponse;
 import sk.peterjurkovic.dril.v2.constants.Api;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,12 +21,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 
-public class LoginActivity extends BaseActivity{
+public class LoginActivity extends NetworkActivity{
 	// LogCat tag
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Button btnLogin;
@@ -60,11 +61,15 @@ public class LoginActivity extends BaseActivity{
             startActivity(intent);
             finish();
         }
- 
+        
         // Login button Click Event
         btnLogin.setOnClickListener(new View.OnClickListener() {
  
             public void onClick(View view) {
+            	if(!isOnline()){
+            		Toast.makeText(getApplicationContext(),R.string.err_internet_conn, Toast.LENGTH_LONG).show();
+            		return;
+            	}
                 String login = loginField.getText().toString();
                 String password = passwordField.getText().toString();
 
@@ -72,9 +77,7 @@ public class LoginActivity extends BaseActivity{
                     login(login, password);
                 } else {
                     // Prompt user to enter credentials
-                    Toast.makeText(getApplicationContext(),
-                            "Please enter the credentials!", Toast.LENGTH_LONG)
-                            .show();
+                    Toast.makeText(getApplicationContext(),R.string.err_credentials, Toast.LENGTH_LONG).show();
                 }
             }
  
@@ -95,83 +98,79 @@ public class LoginActivity extends BaseActivity{
     /**
      * function to verify login details in mysql db
      * */
-    private void login(final String email, final String password) {
+    private void login(final String username, final String password) {
         // Tag used to cancel the request
         String tag_string_req = "req_login";
  
         pDialog.setMessage("Logging in ...");
+        
+        final JSONObject jsonRequest = new JSONObject();
+        try {
+             jsonRequest.put("username", username);
+             jsonRequest.put("password", password);
+             jsonRequest.put("type", "dril");
+		} catch (JSONException e1) {
+			
+		}
+        
+        Log.d(TAG, jsonRequest.toString());
         showDialog();
- 
-        StringRequest strReq = new StringRequest(Method.POST, Api.LOGIN, new Response.Listener<String>() {
- 
+        GsonRequest<LoginResponse> req =
+        		new RequestBuilder<LoginResponse>()
+        		.data(jsonRequest)
+        		.method(Method.PUT)
+        		.url(Api.LOGIN)
+        		.successListener(new Response.Listener<LoginResponse>() {
+
                     @Override
-                    public void onResponse(String response) {
+                    public void onResponse(LoginResponse response) {
                         Log.d(TAG, "Login Response: " + response.toString());
                         hideDialog();
- 
-                        try {
-                            JSONObject jObj = new JSONObject(response);
-                            boolean error = jObj.getBoolean("error");
- 
-                            // Check for error node in json
-                            if (!error) {
-                                // user successfully logged in
-                                // Create login session
-                                session.setLogin(true);
- 
-                                // Launch main activity
-                                Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                // Error in login. Get the error message
-                                String errorMsg = jObj.getString("error_msg");
-                                Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            // JSON error
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                            GoogleAnalyticsUtils.logException(e, getApplicationContext());
+
+                        if(response.isSuccessfull()){
+                        	
+                        }else{
+                        	Toast.makeText(getApplicationContext(),"Login res error: " , Toast.LENGTH_LONG).show();
                         }
- 
+
                     }
-                }, new Response.ErrorListener() {
- 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "Login Error: " + error.getMessage());
-                        Toast.makeText(getApplicationContext(),
-                                error.getMessage(), Toast.LENGTH_LONG).show();
-                        hideDialog();
-                    }
-                }) {
- 
-            @Override
-            protected Map<String, String> getParams() {
-                
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("type", "android");
-                params.put("meta", DeviceUtils.getDeviceInfo());
-                params.put("email", email);
-                params.put("password", password);
-                return params;
-                
-            }
- 
-        };
- 
+                    
+                    
+                 })
+                 .errorListener(new Response.ErrorListener() {
+            	 
+			                @Override
+			                public void onErrorResponse(VolleyError error) {
+			                	hideDialog();
+			                	NetworkResponse networkResponse = error.networkResponse;
+			                	if(networkResponse != null && networkResponse.statusCode == HttpStatus.SC_UNAUTHORIZED){
+			                		Toast.makeText(getApplicationContext(),R.string.err_http_401, Toast.LENGTH_LONG).show();
+			                	}
+			                    Log.e(TAG, "Login Error: " + error.getMessage());
+			                    
+			                    
+			                }
+            }).build();
+        
+
+        
+        req.setRetryPolicy(new DefaultRetryPolicy(10000, 
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, 
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        
         // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        AppController.getInstance().addToRequestQueue(req, tag_string_req);
     }
  
     private void showDialog() {
-        if (!pDialog.isShowing())
+        if (!pDialog.isShowing()){
             pDialog.show();
+        }   
     }
  
     private void hideDialog() {
-        if (pDialog.isShowing())
+        if (pDialog.isShowing()){
             pDialog.dismiss();
+        }
     }
 }

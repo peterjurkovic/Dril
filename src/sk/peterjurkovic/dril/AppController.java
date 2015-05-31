@@ -2,6 +2,7 @@ package sk.peterjurkovic.dril;
 
 import android.app.Application;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,6 +20,7 @@ public class AppController extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        Log.e(TAG, "Applicatoin onCreate..");
     }
  
     public static synchronized AppController getInstance() {
