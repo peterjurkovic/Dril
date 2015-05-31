@@ -1,6 +1,7 @@
 package sk.peterjurkovic.dril.updater;
 
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -57,9 +58,9 @@ public class CheckForUpdate extends AsyncTask<String, Integer, Integer> {
 			return STATE_NO_INTERNET_CONN;
 		}
 		try {
-			//DBAdapter db = new DBAdapter(context);
-			//long lastVer = db.getLastVersionOfTextbooks();
-			JSONReciever jsonReciever = new JSONReciever( 3 );
+			BookDBAdapter db = new BookDBAdapter(context);
+			long bookc = db.getBooksCount();
+			JSONReciever jsonReciever = new JSONReciever( bookc == 0 ? 0 : 3 );
 			JSONParser jsonParser = new JSONParser();
 			return jsonParser.getCountOfNewBooks( 
 					jsonReciever.getJSONData( JSONReciever.FOR_CHECK_ACTION )

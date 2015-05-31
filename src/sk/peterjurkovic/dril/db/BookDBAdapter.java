@@ -24,14 +24,12 @@ public class BookDBAdapter extends DBAdapter {
 	//public static final String AUTHOR_COLL = "author";
 	public static final String ANSWER_LANG_COLL = "answer_lang_fk";
 	public static final String QUESTION_LANG_COLL = "question_lang_fk";
-	public static final String SYNC_COLL = "sync";
-	
+
 	public static final String[] columns = { 	
 												ID, 
 												BOOK_NAME, 
 												ANSWER_LANG_COLL, 
-												QUESTION_LANG_COLL,
-												SYNC_COLL
+												QUESTION_LANG_COLL
 											};
 	
 	public static final String TABLE_BOOK_CEREATE = 

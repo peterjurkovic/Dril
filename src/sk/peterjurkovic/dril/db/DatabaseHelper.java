@@ -78,6 +78,7 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
 	        			db.execSQL("INSERT INTO book SELECT _id, book_name, answer_lang_fk, question_lang_fk,null,(datetime('now')),1 FROM tmp;");
 	        			db.execSQL("DROP TABLE tmp;");
 	        			addIndexes(db);      			
+	        			addSyncManagementTables(db);
 	        			db.setTransactionSuccessful();
 	        			Log.i("Update finished.");
 	        		break;
@@ -103,6 +104,7 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
 		createSyncTable(db, WordDBAdapter.TABLE_WORD_CREATE);
 		db.execSQL(StatisticDbAdapter.TABLE_STATISTIC_CREATE);
 		addIndexes(db);
+		addSyncManagementTables(db);
 		db.setTransactionSuccessful();
 		db.endTransaction();
      }

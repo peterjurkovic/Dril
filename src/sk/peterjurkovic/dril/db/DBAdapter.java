@@ -7,7 +7,6 @@ import sk.peterjurkovic.dril.listener.OnProgressChangeListener;
 import sk.peterjurkovic.dril.model.Book;
 import sk.peterjurkovic.dril.model.Lecture;
 import sk.peterjurkovic.dril.model.Word;
-import sk.peterjurkovic.dril.utils.ConversionUtils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -82,7 +81,6 @@ public class DBAdapter extends DatabaseHelper{
 			downloader.onProgressChange(books.size(), i);
 			ContentValues cv = new ContentValues();
 			cv.put(BookDBAdapter.BOOK_NAME, book.getName());
-	        cv.put(BookDBAdapter.SYNC_COLL, ConversionUtils.booleanToInt(book.isSync()));
 	        if(book.getQuestionLang() != null){
 	        	cv.put(BookDBAdapter.QUESTION_LANG_COLL, book.getQuestionLang().getId());
 	        }

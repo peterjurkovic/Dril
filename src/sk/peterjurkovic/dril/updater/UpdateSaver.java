@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.db.DBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
 import sk.peterjurkovic.dril.listener.OnProgressChangeListener;
@@ -63,9 +64,9 @@ public class UpdateSaver extends AsyncTask<String, Integer, Integer>
 			return STATE_NO_INTERNET_CONN;
 	
 		try {
-			DBAdapter db = new DBAdapter(context);
-			//long lastVer = db.getLastVersionOfTextbooks();
-			JSONReciever jsonReciever = new JSONReciever( 3 );
+			BookDBAdapter db = new BookDBAdapter(context);
+			long bookc = db.getBooksCount();
+			JSONReciever jsonReciever = new JSONReciever( bookc == 0 ? 0 : 3 );
 			JSONParser jsonParser = new JSONParser();
 			JSONObject jsonObject = jsonReciever.getJSONData( JSONReciever.FOR_UPDATE_ACTION );
 
