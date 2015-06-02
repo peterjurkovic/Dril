@@ -91,8 +91,6 @@ public class WordDBAdapter extends DBAdapter {
         values.put(ANSWER, answer);
         values.put(FK_LECTURE_ID, lectureId);
         values.put(ACTIVE, 0);
-        values.put(CHANGED_COLL, System.currentTimeMillis());
-        values.put(CREATED_COLL, System.currentTimeMillis());
         long id = db.insert( TABLE_WORD , null, values);
         db.close();
         return id;
@@ -250,7 +248,7 @@ public class WordDBAdapter extends DBAdapter {
     	return  "UPDATE `"+ StatisticDbAdapter.TABLE_STATISTIC + "` " +
     			 	"SET `"+ StatisticDbAdapter.HITS +"`="+ statistics.getHits() + ", "+ 
     			 	"`"+StatisticDbAdapter.LEARNED_CARDS +"`="+ statistics.getLearnedCards() + ", "+
-    			 	"`"+DBAdapter.CHANGED_COLL +"`="+ System.currentTimeMillis() + ", "+
+    			 	"`"+StatisticDbAdapter.CHANGED_COLL +"`="+ System.currentTimeMillis() + ", "+
     			 	"`"+StatisticDbAdapter.AVG_RATE_SESSION +"`="+ statistics.getAvgSessionRate() + ", "+
     			 	"`"+StatisticDbAdapter.SUM_OR_RATING +"`="+ statistics.getSumOfRate() + ", "+
     			 	"`"+StatisticDbAdapter.AVG_RATE_GLOBAL +"`="+ statistics.getAvgGlobalRate() + 	

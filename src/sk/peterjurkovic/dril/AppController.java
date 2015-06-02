@@ -1,12 +1,12 @@
 package sk.peterjurkovic.dril;
 
+import sk.peterjurkovic.dril.sync.DrilVollay;
 import android.app.Application;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 
 public class AppController extends Application {
 	
@@ -29,7 +29,7 @@ public class AppController extends Application {
  
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
-            mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+            mRequestQueue = DrilVollay.newRequestQueue(getApplicationContext());
         }
  
         return mRequestQueue;

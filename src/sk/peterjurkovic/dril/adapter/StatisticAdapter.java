@@ -2,7 +2,6 @@ package sk.peterjurkovic.dril.adapter;
 
 
 import sk.peterjurkovic.dril.R;
-import sk.peterjurkovic.dril.db.DBAdapter;
 import sk.peterjurkovic.dril.db.StatisticDbAdapter;
 import sk.peterjurkovic.dril.utils.ConversionUtils;
 import android.content.Context;
@@ -44,7 +43,7 @@ public class StatisticAdapter extends CursorAdapter {
          }
 		 this.c.moveToPosition(position);
 		 			 	
-		 	holder.createdIndex = c.getColumnIndex( DBAdapter.CREATED_COLL );
+		 	holder.createdIndex = c.getColumnIndex( StatisticDbAdapter.CREATED_COLL );
 			holder.learnedCardsIndex = c.getColumnIndex(StatisticDbAdapter.LEARNED_CARDS);
 			holder.sumOrRatingIndex = c.getColumnIndex(StatisticDbAdapter.SUM_OR_RATING);
 			holder.hits = c.getColumnIndex(StatisticDbAdapter.HITS);

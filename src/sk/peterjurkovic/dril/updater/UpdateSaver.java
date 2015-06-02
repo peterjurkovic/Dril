@@ -6,7 +6,6 @@ import org.json.JSONObject;
 
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.BookDBAdapter;
-import sk.peterjurkovic.dril.db.DBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
 import sk.peterjurkovic.dril.listener.OnProgressChangeListener;
 import sk.peterjurkovic.dril.model.Book;

@@ -1,11 +1,15 @@
 package sk.peterjurkovic.dril.db;
 
+import sk.peterjurkovic.dril.utils.DeviceUtils;
+
 import com.google.analytics.tracking.android.Log;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.preference.PreferenceManager;
 
 public abstract class DatabaseHelper extends SQLiteOpenHelper {
 	
@@ -15,22 +19,34 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
 		WordDBAdapter.TABLE_WORD
 	};	
 	
+	public static final String DEVICE_ID = "deviceId";
+	public static final String SERVER_LAST_SYNC = "server_lastsync";
+	public static final String CLIENT_LAST_SYNC = "client_lastsync";
+	
+	public final static String INIT_TIME = "1970-01-01 00:00:00";
+	
 	public static final int DATABASE_VERSION = 4;
 	public static final String DATABASE_NAME = "dril";
 	
 	public static final String ID = "_id";
 	public static final String SERVER_ID = "sid";
 	public static final String LAST_CHANGED = "last_changed";
-	public static final String SYNCED = "synced";
+	
+
+	public static final String TAG = "DBAdapter";
+	
+	protected final Context context;
 	
      DatabaseHelper(Context context) {
-         super(context, DATABASE_NAME, null, DATABASE_VERSION);        
+         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+         this.context = context;
      }
     
      
      @Override
      public void onCreate(SQLiteDatabase db) {
      	 createTables(db);
+     	 initSyncSettings();
      }
 
      @Override
@@ -81,6 +97,7 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
 	        			addSyncManagementTables(db);
 	        			db.setTransactionSuccessful();
 	        			Log.i("Update finished.");
+	        			initSyncSettings();
 	        		break;
 	        	}
      		
@@ -126,7 +143,6 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
  		String modCreateSQL = createSQL.substring(0, posA) + 
  				"," + SERVER_ID + " INTEGER DEFAULT NULL," +
  				LAST_CHANGED + " TIMESTAMP DEFAULT (datetime('now'))," +
- 				SYNCED+ " INTEGER NOT NULL DEFAULT 0," +
  				"UNIQUE(" + SERVER_ID + ")" +	
  				")";
  		
@@ -135,7 +151,7 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
  		db.execSQL("CREATE TRIGGER _sync_delete_" + tableName + " " +
  			     "AFTER DELETE ON " + tableName + " " +
  			     "FOR EACH ROW WHEN OLD."+ SERVER_ID + " IS NOT NULL BEGIN " +
- 			     "INSERT INTO _deleted_rows(tableName," + SERVER_ID + ") " +
+ 			     "INSERT INTO deleted_rows(tableName," + SERVER_ID + ") " +
  			     "VALUES('" + tableName + "',OLD." + SERVER_ID + "); " +
  			     "END;");		
  		
@@ -145,14 +161,28 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
  	 * Adds synchronization tables
  	 */
  	protected void addSyncManagementTables(SQLiteDatabase db) {
- 		db.execSQL("CREATE TABLE _deleted_rows( " +
+ 		db.execSQL("CREATE TABLE deleted_rows( " +
  				"tableName VARCHAR(100) NOT NULL," +
  				SERVER_ID + " INTEGER NOT NULL," +
- 				"deleted TIMESTAMP NOT NULL DEFAULT (datetime('now'))," +
- 				SYNCED + " INTEGER NOT NULL DEFAULT 0" +				
+ 				"deleted TIMESTAMP NOT NULL DEFAULT (datetime('now'))" +			
  				")");
  	}	
  	
- 
+ 	
+
+ 	protected void initSyncSettings() {
+		Log.i("Init sync settings");
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+		int deviceID = preferences.getInt(DEVICE_ID, 0);
+		
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putString(SERVER_LAST_SYNC, INIT_TIME);
+		editor.putString(CLIENT_LAST_SYNC, INIT_TIME);
+		if (deviceID == 0) {
+			editor.putString(DEVICE_ID, DeviceUtils.getUniquePsuedoID());
+		}
+		editor.commit();
+	}
+	
 
 }

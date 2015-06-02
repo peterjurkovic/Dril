@@ -1,9 +1,10 @@
 package sk.peterjurkovic.dril.sync.requests;
 
-public class BaseRequest {
+public class SyncDeleted {
 	
 	private int id;
-	private int sid;
+	private String type;
+	
 	
 	public int getId() {
 		return id;
@@ -11,11 +12,12 @@ public class BaseRequest {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getSid() {
-		return sid;
+	
+	public String getType() {
+		return type;
 	}
-	public void setSid(int sid) {
-		this.sid = sid;
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	

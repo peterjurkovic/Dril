@@ -11,7 +11,6 @@ import sk.peterjurkovic.dril.model.Book;
 import sk.peterjurkovic.dril.model.Language;
 import sk.peterjurkovic.dril.model.Lecture;
 import sk.peterjurkovic.dril.model.Word;
-import sk.peterjurkovic.dril.utils.ConversionUtils;
 
 import com.google.analytics.tracking.android.Log;
 
@@ -22,8 +21,6 @@ public class JSONParser {
 	public static final String TAG_NAME = "name";
 	public static final String TAG_BOOK_LANG_QUESTION = "lang_question";
 	public static final String TAG_BOOK_LANG_ANSWER = "lang_answer";
-	public static final String TAG_BOOK_SYNC = "sync";
-	public static final String TAG_VERSION = "version";
 	public static final String TAG_LECTURES = "lectures";
 	public static final String TAG_LECTURE_NAME = "lecture_name";
 	public static final String TAG_WORDS = "words";
@@ -70,8 +67,6 @@ public class JSONParser {
        		JSONObject b = bookArray.getJSONObject(i);
        		Book book = new Book();
        		book.setName( b.getString( TAG_NAME ));
-       		book.setVersion( b.getInt( TAG_VERSION ));
-       		book.setSync( ConversionUtils.intToBoolean( b.getInt( TAG_BOOK_SYNC )));
        		book.setQuestionLang( Language.getById( b.getInt( TAG_BOOK_LANG_QUESTION )));
        		book.setAnswerLang(Language.getById( b.getInt( TAG_BOOK_LANG_ANSWER)));
        		book.setLectures( parseLecturesFromJSONArray( b.getJSONArray(TAG_LECTURES) ));

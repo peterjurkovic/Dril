@@ -24,6 +24,8 @@ public class BookDBAdapter extends DBAdapter {
 	//public static final String AUTHOR_COLL = "author";
 	public static final String ANSWER_LANG_COLL = "answer_lang_fk";
 	public static final String QUESTION_LANG_COLL = "question_lang_fk";
+	public static final String SYNC = "sync";
+	public static final String SHARED = "shared";
 
 	public static final String[] columns = { 	
 												ID, 
@@ -37,12 +39,11 @@ public class BookDBAdapter extends DBAdapter {
 										ID +" INTEGER PRIMARY KEY," + 
 										BOOK_NAME + " TEXT," +
 										ANSWER_LANG_COLL +" INTEGER NOT NULL DEFAULT (0), " + 
-										QUESTION_LANG_COLL +" INTEGER NOT NULL DEFAULT (0) " + 
+										QUESTION_LANG_COLL +" INTEGER NOT NULL DEFAULT (0), " + 
+										SHARED +" INTEGER NOT NULL DEFAULT (1), " + 
+										SYNC +" INTEGER NOT NULL DEFAULT (0) " + 
 								");";
-	
-	//public static final String TABLE_BOOK_VIEW = "view_book";
-	
-	
+
 	public static final String  TAG = "BookDBAdapter";
 	
     /**
@@ -145,7 +146,6 @@ public class BookDBAdapter extends DBAdapter {
         }
     	SQLiteDatabase db = openWriteableDatabase();
         ContentValues values = bindBookParams(book);
-        values.put(CREATED_COLL, System.currentTimeMillis());
         long id = db.insert( TABLE_BOOK , null, values);
         db.close();
         return id;

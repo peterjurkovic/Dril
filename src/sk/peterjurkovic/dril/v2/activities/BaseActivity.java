@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.exceptions.AnalyticsExceptionParser;
+import sk.peterjurkovic.dril.sync.SyncManager;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Intent;
@@ -130,6 +131,10 @@ public class BaseActivity extends AppCompatActivity {
 				intent = new Intent(getApplicationContext(), DrilActivity.class);
 	    		startActivity(intent);
 		        return true;
+			case R.id.sync :
+				SyncManager manager = new SyncManager();
+				manager.peformSync(getApplicationContext());
+				return true;
 	    }
 	    
 	    return super.onOptionsItemSelected(item);

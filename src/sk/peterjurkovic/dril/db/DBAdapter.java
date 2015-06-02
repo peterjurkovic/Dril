@@ -15,15 +15,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.google.analytics.tracking.android.Log;
 
 public class DBAdapter extends DatabaseHelper{
-	
-	public static final String CREATED_COLL = "created";
-	
-	public static final String CHANGED_COLL = "changed";
-	
-	public static final String TAG = "DBAdapter";
-    	
 
-
+	
     public DBAdapter(Context context){
         super(context);
     }

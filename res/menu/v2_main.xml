@@ -1,5 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" 
       xmlns:dril="http://schemas.android.com/apk/res-auto" >
+    <item
+		android:id="@+id/sync"
+		android:orderInCategory="5"
+		android:icon="@drawable/ic_cached_white_36dp"
+		android:showAsAction="ifRoom"
+		style="@android:style/Widget.ActionButton"
+		android:title="Sync"/>
     
 	<item 
         android:id="@+id/startDril"

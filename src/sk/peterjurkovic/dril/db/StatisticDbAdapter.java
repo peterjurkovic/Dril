@@ -26,6 +26,10 @@ public class StatisticDbAdapter extends DBAdapter{
 	
 	public static final String SUM_OR_RATING = "sum_of_rating";
 	
+	public static final String CREATED_COLL = "created";
+	
+	public static final String CHANGED_COLL = "changed";
+	
 	
 	public static final String TABLE_STATISTIC_CREATE = 
 		"CREATE TABLE "+ TABLE_STATISTIC + " (" + 

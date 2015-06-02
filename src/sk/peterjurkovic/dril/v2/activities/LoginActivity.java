@@ -1,16 +1,14 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 
-import org.apache.http.HttpStatus;
+import java.net.HttpURLConnection;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import sk.peterjurkovic.dril.AppController;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.SessionManager;
-import sk.peterjurkovic.dril.sync.GsonRequest;
-import sk.peterjurkovic.dril.sync.GsonRequest.RequestBuilder;
-import sk.peterjurkovic.dril.sync.requests.LoginResponse;
 import sk.peterjurkovic.dril.v2.constants.Api;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -26,6 +24,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 public class LoginActivity extends NetworkActivity{
 	// LogCat tag
@@ -115,42 +114,43 @@ public class LoginActivity extends NetworkActivity{
         
         Log.d(TAG, jsonRequest.toString());
         showDialog();
-        GsonRequest<LoginResponse> req =
-        		new RequestBuilder<LoginResponse>()
-        		.data(jsonRequest)
-        		.method(Method.PUT)
-        		.url(Api.LOGIN)
-        		.successListener(new Response.Listener<LoginResponse>() {
+        JsonObjectRequest req = new JsonObjectRequest(Method.PUT, Api.LOGIN, jsonRequest,
+        		new Response.Listener<JSONObject>() {
 
                     @Override
-                    public void onResponse(LoginResponse response) {
+                    public void onResponse(JSONObject response) {
                         Log.d(TAG, "Login Response: " + response.toString());
                         hideDialog();
 
-                        if(response.isSuccessfull()){
-                        	
-                        }else{
-                        	Toast.makeText(getApplicationContext(),"Login res error: " , Toast.LENGTH_LONG).show();
-                        }
+                        try {
+							if(response.get("error") == null){
+								
+							}else{
+								Toast.makeText(getApplicationContext(),"Login res error: " , Toast.LENGTH_LONG).show();
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 
                     }
                     
                     
-                 })
-                 .errorListener(new Response.ErrorListener() {
+                 },
+                 new Response.ErrorListener() {
             	 
 			                @Override
 			                public void onErrorResponse(VolleyError error) {
 			                	hideDialog();
 			                	NetworkResponse networkResponse = error.networkResponse;
-			                	if(networkResponse != null && networkResponse.statusCode == HttpStatus.SC_UNAUTHORIZED){
+			                	if(networkResponse != null && networkResponse.statusCode == HttpURLConnection.HTTP_UNAUTHORIZED){
 			                		Toast.makeText(getApplicationContext(),R.string.err_http_401, Toast.LENGTH_LONG).show();
 			                	}
 			                    Log.e(TAG, "Login Error: " + error.getMessage());
 			                    
 			                    
 			                }
-            }).build();
+            });
         
 
         
