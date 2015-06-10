@@ -24,6 +24,7 @@ public class BookDBAdapter extends DBAdapter {
 	//public static final String AUTHOR_COLL = "author";
 	public static final String ANSWER_LANG_COLL = "answer_lang_fk";
 	public static final String QUESTION_LANG_COLL = "question_lang_fk";
+	public static final String LEVEL = "level";
 	public static final String SYNC = "sync";
 	public static final String SHARED = "shared";
 
@@ -31,7 +32,9 @@ public class BookDBAdapter extends DBAdapter {
 												ID, 
 												BOOK_NAME, 
 												ANSWER_LANG_COLL, 
-												QUESTION_LANG_COLL
+												QUESTION_LANG_COLL,
+												SHARED,
+												LEVEL
 											};
 	
 	public static final String TABLE_BOOK_CEREATE = 
@@ -41,6 +44,7 @@ public class BookDBAdapter extends DBAdapter {
 										ANSWER_LANG_COLL +" INTEGER NOT NULL DEFAULT (0), " + 
 										QUESTION_LANG_COLL +" INTEGER NOT NULL DEFAULT (0), " + 
 										SHARED +" INTEGER NOT NULL DEFAULT (1), " + 
+										LEVEL +" INTEGER, " +
 										SYNC +" INTEGER NOT NULL DEFAULT (0) " + 
 								");";
 

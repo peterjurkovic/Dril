@@ -9,10 +9,15 @@ import org.json.JSONObject;
 import sk.peterjurkovic.dril.AppController;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.SessionManager;
+import sk.peterjurkovic.dril.db.DatabaseHelper;
+import sk.peterjurkovic.dril.utils.DeviceUtils;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.v2.constants.Api;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -102,14 +107,15 @@ public class LoginActivity extends NetworkActivity{
         String tag_string_req = "req_login";
  
         pDialog.setMessage("Logging in ...");
-        
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final JSONObject jsonRequest = new JSONObject();
         try {
              jsonRequest.put("username", username);
              jsonRequest.put("password", password);
-             jsonRequest.put("type", "dril");
+             jsonRequest.put("deviceId", preferences.getString(DatabaseHelper.DEVICE_ID, ""));
+             jsonRequest.put("deviceName", DeviceUtils.getDeviceInfo());
 		} catch (JSONException e1) {
-			
+			GoogleAnalyticsUtils.logException(e1, getApplicationContext());
 		}
         
         Log.d(TAG, jsonRequest.toString());
@@ -129,8 +135,7 @@ public class LoginActivity extends NetworkActivity{
 								Toast.makeText(getApplicationContext(),"Login res error: " , Toast.LENGTH_LONG).show();
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							GoogleAnalyticsUtils.logException(e, getApplicationContext());
 						}
 
                     }
@@ -139,17 +144,17 @@ public class LoginActivity extends NetworkActivity{
                  },
                  new Response.ErrorListener() {
             	 
-			                @Override
-			                public void onErrorResponse(VolleyError error) {
-			                	hideDialog();
-			                	NetworkResponse networkResponse = error.networkResponse;
-			                	if(networkResponse != null && networkResponse.statusCode == HttpURLConnection.HTTP_UNAUTHORIZED){
-			                		Toast.makeText(getApplicationContext(),R.string.err_http_401, Toast.LENGTH_LONG).show();
-			                	}
-			                    Log.e(TAG, "Login Error: " + error.getMessage());
-			                    
-			                    
-			                }
+	                @Override
+	                public void onErrorResponse(VolleyError error) {
+	                	hideDialog();
+	                	NetworkResponse networkResponse = error.networkResponse;
+	                	if(networkResponse != null && networkResponse.statusCode == HttpURLConnection.HTTP_UNAUTHORIZED){
+	                		Toast.makeText(getApplicationContext(),R.string.err_http_401, Toast.LENGTH_LONG).show();
+	                	}else{
+	                		Log.e(TAG, "Login Error: " + error.getMessage());
+		                    GoogleAnalyticsUtils.logException(error.getMessage(), false, getApplicationContext());
+	                	}			                    
+	                }
             });
         
 

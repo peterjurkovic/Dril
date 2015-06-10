@@ -40,7 +40,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 private JSONArray getWords(final SQLiteDatabase db, String lastSync) throws JSONException{
 		
 		final String query = 
-				"SELECT w._id, w.sid, w.question, w.answer, w.active, w.rate, w.avg_rate, w.hit "+ 
+				"SELECT w._id, w.sid, w.question, w.answer, w.active, w.rate, w.avg_rate, w.hit, w.lecture_id "+ 
 				"FROM word w " +
 				"INNER JOIN lecture l ON  l._id = w.lecture_id "+
 				"INNER JOIN book b ON b._id = l.book_id "+
@@ -58,6 +58,7 @@ private JSONArray getWords(final SQLiteDatabase db, String lastSync) throws JSON
 			word.put("lastRating", cursor.getInt(5));
 			word.put("avgRating", cursor.getInt(6));
 			word.put("hits", cursor.getInt(7));
+			word.put("lectureId", cursor.getInt(8));
 			list.put(word);
 		    cursor.moveToNext();
 		}
@@ -90,7 +91,7 @@ private JSONArray getWords(final SQLiteDatabase db, String lastSync) throws JSON
 	private JSONArray getBooks(final SQLiteDatabase db, String lastSync) throws JSONException{
 			
 			final String query = 
-					"SELECT b._id, b.sid, b.book_name, b.shared "+ 
+					"SELECT b._id, b.sid, b.book_name, b.shared, b.level, b.answer_lang_fk, b.question_lang_fk "+ 
 					"FROM book b " +
 					"WHERE b.sync = 1 AND b.last_changed >= '" + lastSync + "';";
 			final Cursor cursor = db.rawQuery(query, null);
@@ -102,6 +103,9 @@ private JSONArray getWords(final SQLiteDatabase db, String lastSync) throws JSON
 				word.put("sid", cursor.getInt(1));
 				word.put("bookName", cursor.getString(2));
 				word.put("shared", cursor.getInt(3));
+				word.put("level", cursor.getInt(4));
+				word.put("questionLang", cursor.getInt(5));
+				word.put("answerLang", cursor.getInt(6));
 				list.put(word);
 			    cursor.moveToNext();
 			}
