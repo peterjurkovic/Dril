@@ -115,7 +115,7 @@ public class BookDBAdapter extends DBAdapter {
         	Cursor cursor = getLecturesIdByBookId(id);
         	if(cursor.getCount() > 0){ 
         		cursor.moveToFirst();
-        		int index = cursor.getColumnIndex( LectureDBAdapter.LECTURE_ID);
+        		int index = cursor.getColumnIndex( LectureDBAdapter.ID);
         		
         		do {
         			 db.execSQL("DELETE FROM " + WordDBAdapter.TABLE_WORD + " WHERE "+ 

@@ -19,8 +19,8 @@ import com.google.analytics.tracking.android.Log;
 
 public class DrilRestore extends AsyncTask<Void, Void, BackupRestoreDto>{
 	
-	private Context context;
-	private String filepath;
+	private final Context context;
+	private final String filepath;
 	
 	public DrilRestore(Context context, final String filepath){
 		this.context = context;

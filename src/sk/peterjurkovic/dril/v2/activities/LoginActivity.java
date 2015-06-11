@@ -10,6 +10,8 @@ import sk.peterjurkovic.dril.AppController;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.SessionManager;
 import sk.peterjurkovic.dril.db.DatabaseHelper;
+import sk.peterjurkovic.dril.db.SyncDbAdapter;
+import sk.peterjurkovic.dril.sync.LoginManager;
 import sk.peterjurkovic.dril.utils.DeviceUtils;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.v2.constants.Api;
@@ -126,17 +128,13 @@ public class LoginActivity extends NetworkActivity{
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "Login Response: " + response.toString());
-                        hideDialog();
-
-                        try {
-							if(response.get("error") == null){
-								
-							}else{
-								Toast.makeText(getApplicationContext(),"Login res error: " , Toast.LENGTH_LONG).show();
-							}
-						} catch (JSONException e) {
-							GoogleAnalyticsUtils.logException(e, getApplicationContext());
-						}
+                 
+                       
+							
+							SyncDbAdapter dbAdapter = new SyncDbAdapter(getApplicationContext());
+							dbAdapter.processLogin(response);
+							hideDialog();
+						
 
                     }
                     

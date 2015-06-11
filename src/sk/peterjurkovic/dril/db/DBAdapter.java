@@ -38,7 +38,7 @@ public class DBAdapter extends DatabaseHelper{
 	public Cursor getLecturesIdByBookId(long id){
 	   SQLiteDatabase db = openReadableDatabase();
 	   String[] selectionArgs = { String.valueOf(id)};
-	   Cursor result = db.rawQuery("SELECT "+ LectureDBAdapter.LECTURE_ID +" FROM "+ 
+	   Cursor result = db.rawQuery("SELECT "+ LectureDBAdapter.ID +" FROM "+ 
 			   LectureDBAdapter.TABLE_LECTURE + " " +
 	           "WHERE " + LectureDBAdapter.FK_BOOK_ID + "=? " , selectionArgs);
 	   return result;

@@ -142,7 +142,7 @@ public class WordDBAdapter extends DBAdapter {
     	Cursor cursor = db.query(
     				LectureDBAdapter.TABLE_LECTURE, 
     				new String[] { LectureDBAdapter.LECTURE_NAME  }, 
-    				LectureDBAdapter.LECTURE_ID + "= ?", 
+    				LectureDBAdapter.ID + "= ?", 
     				new String[] { String.valueOf(id) }, 
     				null, 
     				null, 
