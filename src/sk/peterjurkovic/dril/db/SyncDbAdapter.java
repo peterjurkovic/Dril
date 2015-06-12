@@ -92,7 +92,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 		JSONArray bookList = response.getJSONArray("bookList");
 		for(int i = 0; i < bookList.length(); i++){
 			final JSONObject book = bookList.getJSONObject(i);
-			final int sid = book.getInt("sid");
+			final int sid = book.getInt("id");
 			final String where = SERVER_ID + "=" + sid;
 			ContentValues params = new ContentValues();
 			params.put(ID, sid);
@@ -116,7 +116,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 		final JSONArray lectureList = response.getJSONArray("lectureList");
 		for(int i = 0; i < lectureList.length(); i++){
 			final JSONObject lecture = lectureList.getJSONObject(i);
-			final int sid = lecture.getInt("sid");
+			final int sid = lecture.getInt("id");
 			final String where = SERVER_ID + "=" + sid;
 			ContentValues params = new ContentValues();
 			params.put(ID, sid);
@@ -133,7 +133,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 	}
 	
 	private String getCurrentTime(final SQLiteDatabase db){
-		Cursor c = db.rawQuery("select datetime(timestamp, 'localtime')", null);
+		Cursor c = db.rawQuery("SELECT datetime('now','localtime')", null);
 		c.moveToFirst();
 		return c.getString(0);
 	}
@@ -142,7 +142,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 		final JSONArray wordList = response.getJSONArray("wordList");
 		for(int i = 0, count = wordList.length(); i < count; i++){
 			final JSONObject word = wordList.getJSONObject(i);
-			final int sid = word.getInt("sid");
+			final int sid = word.getInt("id");
 			final String where = SERVER_ID + "=" + sid;
 			ContentValues params = new ContentValues();
 			params.put(ID, sid);
@@ -152,7 +152,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 			params.put(WordDBAdapter.ANSWER, word.getString("answer"));
 			params.put(WordDBAdapter.ACTIVE, word.getInt("active"));
 			params.put(WordDBAdapter.HIT, word.getInt("hits"));
-			params.put(WordDBAdapter.AVG_RATE, word.getDouble("avg_rating"));
+			params.put(WordDBAdapter.AVG_RATE, word.getDouble("avgRating"));
 			params.put(WordDBAdapter.FK_LECTURE_ID, word.getInt("lectureId"));
 			params.put(WordDBAdapter.LAST_RATE, word.getInt("lastRate"));
 			params.put(LAST_CHANGED, lastSync);
