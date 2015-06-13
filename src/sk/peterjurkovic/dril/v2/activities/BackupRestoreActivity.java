@@ -7,7 +7,6 @@ import sk.peterjurkovic.dril.io.DrilRestore;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -30,9 +29,7 @@ public class BackupRestoreActivity extends BaseActivity {
 
 	
 	private boolean isBackupAction;
-	private Button processBtn;
-	private Context context;
-	
+	private Button processBtn;	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

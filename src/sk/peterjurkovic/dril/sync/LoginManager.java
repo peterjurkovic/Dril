@@ -2,10 +2,14 @@ package sk.peterjurkovic.dril.sync;
 
 import org.json.JSONObject;
 
+import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.SyncDbAdapter;
+import sk.peterjurkovic.dril.v2.activities.DashboardActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 public class LoginManager extends AsyncTask<JSONObject, Void, Boolean>{
 
@@ -19,7 +23,7 @@ public class LoginManager extends AsyncTask<JSONObject, Void, Boolean>{
 	
 	@Override
 	protected void onPreExecute() {
-		pDialog.setMessage("Importing data..");
+		pDialog.setMessage(context.getString(R.string.importing_data));
 		super.onPreExecute();
 	}
 	
@@ -31,9 +35,18 @@ public class LoginManager extends AsyncTask<JSONObject, Void, Boolean>{
 	
 	
 	@Override
-	protected void onPostExecute(Boolean result) {
-		pDialog.hide();
-		super.onPostExecute(result);
+	protected void onPostExecute(Boolean isSuccessfullyLoggedIn) {
+		super.onPostExecute(isSuccessfullyLoggedIn);
+		pDialog.dismiss();
+		if(isSuccessfullyLoggedIn){
+			Toast.makeText(context, R.string.login_success, Toast.LENGTH_LONG).show();
+			Intent i = new Intent(context, DashboardActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			context.startActivity(i);
+		}else{
+			Toast.makeText(context, R.string.login_failed, Toast.LENGTH_LONG).show();
+		}
+		
 	}
 
 }

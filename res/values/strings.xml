@@ -290,9 +290,17 @@
 	<string name="rate_never">No, thanks</string>
 	
 	<string name="login">Login</string>
+	<string name="logout">Logout</string>
+	<string name="sync">Sync</string>
 	<string name="password">Password</string>
 	<string name="login_details">Enter your login details</string>
 	<string name="create_account">Create an account</string>
+	
+	<string name="logging_in">Logging in &#8230;</string>
+	<string name="importing_data">Importing data &#8230;</string>
+	<string name="login_success">You have been successfully logged in</string>
+	<string name="logout_success">You have been successfully logged out</string>
+	<string name="login_failed">Login failed, check you internet connection</string>
 	
 	<string name="err_credentials">Please enter the credentials</string>
 	<string name="err_http_401">Bad login or password</string>
@@ -305,6 +313,9 @@
 	<string name="upper_intermediate">Upper-Intermediate</string>
 	<string name="advanced">Advanced</string>
 	<string name="proficient">Proficient</string>
+	<string name="sync_failed">Sync failed, try it again later</string>
+	<string name="syncing">Syncing&#8230;</string>
+	<string name="synced">Synced</string>
 	
 
 </resources>

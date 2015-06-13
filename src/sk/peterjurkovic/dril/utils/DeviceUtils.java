@@ -2,6 +2,9 @@ package sk.peterjurkovic.dril.utils;
 
 import java.util.UUID;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 
 
@@ -56,6 +59,16 @@ public class DeviceUtils {
         // Finally, combine the values we have found by using the UUID class to create a unique identifier
         return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
     }
-
+    
+    
+    public static final boolean isDeviceOnline(final Context context){
+    	 ConnectivityManager cm =
+    	            (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
    
 }

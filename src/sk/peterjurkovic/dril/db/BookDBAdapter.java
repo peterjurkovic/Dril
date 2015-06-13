@@ -79,23 +79,28 @@ public class BookDBAdapter extends DBAdapter {
     
     
     public Cursor getBooks() {
-        SQLiteDatabase db = openReadableDatabase();
-        Cursor result = db.rawQuery("SELECT "+
-				"b._id, b.book_name, " +
-				    "(SELECT COUNT(*) " +
-				        "FROM word w " +
-				        "JOIN lecture l ON l._id = w.lecture_id " +
-				        "WHERE l.book_id = b._id " +
-				        "AND w.active = 1) AS active_word_count, " +
-				    "(SELECT COUNT(*) " +
-				        "FROM word w " +
-				        "JOIN lecture l ON  w.lecture_id = l._id " +
-				        "WHERE l.book_id = b._id) AS word_count, " +
-				    "(SELECT COUNT(*) " +
-				        "FROM lecture l " +
-				        "WHERE l.book_id = b._id) AS lecture_count " +
-				"FROM book b", null );
-		return result;
+    	r.lock();
+    	SQLiteDatabase db = openReadableDatabase();
+        try{
+            Cursor result = db.rawQuery("SELECT "+
+    				"b._id, b.book_name, " +
+    				    "(SELECT COUNT(*) " +
+    				        "FROM word w " +
+    				        "JOIN lecture l ON l._id = w.lecture_id " +
+    				        "WHERE l.book_id = b._id " +
+    				        "AND w.active = 1) AS active_word_count, " +
+    				    "(SELECT COUNT(*) " +
+    				        "FROM word w " +
+    				        "JOIN lecture l ON  w.lecture_id = l._id " +
+    				        "WHERE l.book_id = b._id) AS word_count, " +
+    				    "(SELECT COUNT(*) " +
+    				        "FROM lecture l " +
+    				        "WHERE l.book_id = b._id) AS lecture_count " +
+    				"FROM book b", null );
+    		return result;
+        }finally{
+        	r.unlock();
+        }
 }
     	 
     

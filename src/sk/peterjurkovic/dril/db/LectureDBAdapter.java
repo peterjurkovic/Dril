@@ -48,20 +48,25 @@ public class LectureDBAdapter extends DBAdapter {
 	    
 	    
 	    public Cursor getLecturesByBookId(long bookId) {
+	    	r.lock();
 	    	SQLiteDatabase db = openReadableDatabase();
-	    	String q = "SELECT " +
-	    					"(SELECT COUNT(*) FROM "+ WordDBAdapter.TABLE_WORD +" w " +
-	    					"WHERE  w." +  WordDBAdapter.FK_LECTURE_ID  + "=l."+ ID +" ) AS "+ WORDS_IN_LECTURE +
-	    					",(SELECT COUNT(*) FROM "+ WordDBAdapter.TABLE_WORD +" w " +
-	    					"WHERE  w." +  WordDBAdapter.FK_LECTURE_ID  + "=l."+ ID + 
-	    					" AND w." + WordDBAdapter.ACTIVE + "=1 ) AS "+ ACTIVE_WORDS_IN_LECTURE +
-	    					", l." + ID + ",l." + LECTURE_NAME +
-	    				" FROM "+ TABLE_LECTURE +" l " +
-	    				"WHERE " + 	FK_BOOK_ID  + "=" + bookId +
-	    				" ORDER BY l." + LECTURE_NAME;
-	    
-	    	Cursor result =  db.rawQuery(q, null );
-	    	return result;
+	    	try{
+		    	String q = "SELECT " +
+		    					"(SELECT COUNT(*) FROM "+ WordDBAdapter.TABLE_WORD +" w " +
+		    					"WHERE  w." +  WordDBAdapter.FK_LECTURE_ID  + "=l."+ ID +" ) AS "+ WORDS_IN_LECTURE +
+		    					",(SELECT COUNT(*) FROM "+ WordDBAdapter.TABLE_WORD +" w " +
+		    					"WHERE  w." +  WordDBAdapter.FK_LECTURE_ID  + "=l."+ ID + 
+		    					" AND w." + WordDBAdapter.ACTIVE + "=1 ) AS "+ ACTIVE_WORDS_IN_LECTURE +
+		    					", l." + ID + ",l." + LECTURE_NAME +
+		    				" FROM "+ TABLE_LECTURE +" l " +
+		    				"WHERE " + 	FK_BOOK_ID  + "=" + bookId +
+		    				" ORDER BY l." + LECTURE_NAME;
+		    
+		    	Cursor result =  db.rawQuery(q, null );
+		    	return result;
+	    	}finally{
+	    		r.unlock();
+	    	}
 	    }
 	   
 	    

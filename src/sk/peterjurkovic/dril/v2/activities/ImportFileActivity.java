@@ -21,7 +21,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -54,7 +53,6 @@ public class ImportFileActivity extends BaseActivity {
 	
 	private TextView label = null;
 	private EditText input = null;
-	private Context context;
 	private StorageFileReader storageFileReader;
 	
 

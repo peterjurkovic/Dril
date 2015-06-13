@@ -27,9 +27,6 @@ import android.widget.Button;
 public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	
 	private BookDBAdapter bookDbAdapter = null;
-	private Context context;
-
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,18 +80,22 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 		        }
 		    });
 	        
-	        login.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent i = new Intent(context, LoginActivity.class);
-	            	startActivity(i);
-				}
-			});
+	      
 	        
 	        if(bookDbAdapter.getBooksCount() == 0){
 	        	downloadBooks();
 	        }
-	        
+	        if(session.isLoggedIn()){
+	        	login.setVisibility(View.GONE);
+	        }else{
+	        	login.setOnClickListener(new View.OnClickListener() {
+	  				@Override
+	  				public void onClick(View v) {
+	  					Intent i = new Intent(context, LoginActivity.class);
+	  	            	startActivity(i);
+	  				}
+	  			});
+	        }
 	        AppRater.app_launched(this);
 	}
 	

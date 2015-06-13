@@ -1,15 +1,17 @@
 package sk.peterjurkovic.dril.db;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 import sk.peterjurkovic.dril.utils.DeviceUtils;
-
-import com.google.analytics.tracking.android.Log;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.preference.PreferenceManager;
+
+import com.google.analytics.tracking.android.Log;
 
 public abstract class DatabaseHelper extends SQLiteOpenHelper {
 	
@@ -32,6 +34,9 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String SERVER_ID = "sid";
 	public static final String LAST_CHANGED = "last_changed";
 	
+	protected final static ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
+	protected final static Lock r = rwl.readLock();
+	protected final static Lock w = rwl.writeLock();
 
 	public static final String TAG = "DBAdapter";
 	

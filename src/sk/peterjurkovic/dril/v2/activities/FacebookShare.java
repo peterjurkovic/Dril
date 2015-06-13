@@ -3,7 +3,6 @@ package sk.peterjurkovic.dril.v2.activities;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +35,6 @@ public class FacebookShare extends BaseActivity{
 	private PendingAction pendingAction = PendingAction.NONE;
 	private Button sharOnFacebookBtn;
 	private Button activateNewWordsBtn;
-	private Context context;
 	private TextView label;
 	private int learnedCards = 1;
 	

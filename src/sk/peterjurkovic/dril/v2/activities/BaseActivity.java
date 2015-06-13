@@ -4,10 +4,13 @@ package sk.peterjurkovic.dril.v2.activities;
 import java.lang.reflect.Field;
 
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.SessionManager;
 import sk.peterjurkovic.dril.exceptions.AnalyticsExceptionParser;
+import sk.peterjurkovic.dril.sync.LogoutManager;
 import sk.peterjurkovic.dril.sync.SyncManager;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,27 +33,31 @@ import com.google.analytics.tracking.android.Log;
  *
  */
 public class BaseActivity extends AppCompatActivity {
-
+	
+	protected SessionManager session;
+	protected Context context;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		context = this;
 		Thread.UncaughtExceptionHandler uncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler();
 	    if (uncaughtExceptionHandler instanceof ExceptionReporter) {
 	      ExceptionReporter exceptionReporter = (ExceptionReporter) uncaughtExceptionHandler;
 	      exceptionReporter.setExceptionParser(new AnalyticsExceptionParser());
 	    }
 		try {
-	        ViewConfiguration config = ViewConfiguration.get(this);
+	        ViewConfiguration config = ViewConfiguration.get(context);
 	        Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
 	        if(menuKeyField != null) {
 	            menuKeyField.setAccessible(true);
 	            menuKeyField.setBoolean(config, false);
 	        }
 	    } catch (Exception e) {
-	    	GoogleAnalyticsUtils.logException(e, this);
+	    	GoogleAnalyticsUtils.logException(e, context);
 	    	Log.e(e);
 	    }
+		session = new SessionManager(context);
 	}
 	
 	
@@ -88,7 +95,8 @@ public class BaseActivity extends AppCompatActivity {
              .startActivities();
          }else {
              if(upIntent == null){
-            	 upIntent = new Intent(this, DashboardActivity.class);
+            	 upIntent = new Intent(context, DashboardActivity.class);
+            	 finish();
              }
         	 upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
              NavUtils.navigateUpTo(this, upIntent);
@@ -117,23 +125,25 @@ public class BaseActivity extends AppCompatActivity {
 			    }
 			    return true;
 		    case R.id.settings:
-				intent = new Intent(getApplicationContext(), PreferencesActivity.class);
+				intent = new Intent(context, PreferencesActivity.class);
 				if(this.getClass().getName().equals(DrilActivity.class.getName())){
 					intent.putExtra(DrilActivity.DRIL_ID, true);
 				}
 	    		startActivity(intent);
 		        return true;
 		    case R.id.feedback:
-		    	Intent i = new Intent(this, FeedbackActivity.class);
+		    	Intent i = new Intent(context, FeedbackActivity.class);
         		startActivity(i);
 		        return true;
 			case R.id.startDril:
-				intent = new Intent(getApplicationContext(), DrilActivity.class);
+				intent = new Intent(context, DrilActivity.class);
 	    		startActivity(intent);
 		        return true;
 			case R.id.sync :
-				SyncManager manager = new SyncManager();
-				manager.peformSync(getApplicationContext());
+				new SyncManager(context).execute();
+				return true;
+			case R.id.logout :
+				new LogoutManager(context).execute();
 				return true;
 	    }
 	    
@@ -144,8 +154,13 @@ public class BaseActivity extends AppCompatActivity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.v2_main, menu);
+		if(session.isLoggedIn()){
+			
+		}else{
+			menu.removeItem(R.id.sync);
+			menu.removeItem(R.id.logout);
+		}
 		return super.onCreateOptionsMenu(menu);
 	}
 	

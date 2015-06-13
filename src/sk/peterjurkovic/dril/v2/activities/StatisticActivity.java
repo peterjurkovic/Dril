@@ -4,7 +4,6 @@ import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.fragments.GeneralStatisticsFragment;
 import sk.peterjurkovic.dril.fragments.ProblematicWordsListFragment;
 import sk.peterjurkovic.dril.fragments.StatisticsListFragment;
-import sk.peterjurkovic.dril.fragments.WordListFragment;
 import sk.peterjurkovic.dril.listener.OnDeleteSelectedWordsListener;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnWordClickListener;

@@ -19,4 +19,14 @@ public enum Level {
 		this.id = id;
 		this.resource = resource;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public int getResource() {
+		return resource;
+	}
+	
+	
 }

@@ -27,7 +27,14 @@ public class SessionManager {
     public SessionManager(Context context) {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        
+    }
+    
+    public void logout(){
+    	final Editor editor = pref.edit();
+    	editor.remove(KEY_USER_ID);
+    	editor.remove(KEY_LOGIN);
+    	editor.remove(KEY_TOKEN);
+    	editor.commit();
     }
  
     public void setCredentials(JSONObject response) throws JSONException {

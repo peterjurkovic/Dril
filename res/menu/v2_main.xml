@@ -6,7 +6,7 @@
 		android:icon="@drawable/ic_cached_white_36dp"
 		android:showAsAction="ifRoom"
 		style="@android:style/Widget.ActionButton"
-		android:title="Sync"/>
+		android:title="@string/sync"/>
     
 	<item 
         android:id="@+id/startDril"
@@ -29,5 +29,10 @@
        	dril:showAsAction="collapseActionView"
         android:icon="@drawable/ic_action_about"
         android:title="@string/nav_feedback"/>
-
+	
+    <item
+		android:id="@+id/logout"
+		android:orderInCategory="150"
+		android:showAsAction="never"
+		android:title="@string/logout" />
 </menu>
