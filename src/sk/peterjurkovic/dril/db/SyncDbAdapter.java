@@ -4,16 +4,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.analytics.tracking.android.Log;
-
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.preference.PreferenceManager;
+
+import com.google.analytics.tracking.android.Log;
 
 public class SyncDbAdapter extends DatabaseHelper {
 		
@@ -23,11 +23,13 @@ public class SyncDbAdapter extends DatabaseHelper {
 	
 	
 	public boolean processLogin(final JSONObject response){
+		long start = System.currentTimeMillis();
 		final SQLiteDatabase db = getWritableDatabase();
 		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 		final String currentTime = getCurrentTime(db);
 		db.beginTransaction();
 		try {
+			removeAll(db);
 			syncBooks(db, response, currentTime, false);
 			syncLectures(db, response, currentTime , false);
 			syncWords(db, response, currentTime , false);
@@ -35,6 +37,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 			editor.putString(SERVER_LAST_SYNC, response.getString("serverLastSync"));
 			editor.putString(CLIENT_LAST_SYNC, currentTime);
 			editor.commit();
+			
 			db.setTransactionSuccessful();
 		} catch (Exception e) {
 			GoogleAnalyticsUtils.logException(e, context);
@@ -42,8 +45,17 @@ public class SyncDbAdapter extends DatabaseHelper {
 			return false;
 		}finally{
 			db.endTransaction();
-		}
+			long end = System.currentTimeMillis() - start;
+			Log.i("Login took: " + end);
+		} 
 		return true;
+	}
+	
+	public void removeAll(SQLiteDatabase db){
+		db.execSQL("DELETE FROM word");
+		db.execSQL("DELETE FROM lecture;");
+		db.execSQL("DELETE FROM book;");
+		db.execSQL("DELETE FROM deleted_rows;");
 	}
 	
 	public void sync(final JSONObject response){
@@ -90,46 +102,75 @@ public class SyncDbAdapter extends DatabaseHelper {
 	
 	private void syncBooks(final SQLiteDatabase db, final JSONObject response, final String lastSync, boolean isLogin) throws JSONException{
 		JSONArray bookList = response.getJSONArray("bookList");
-		for(int i = 0; i < bookList.length(); i++){
-			final JSONObject book = bookList.getJSONObject(i);
-			final int sid = book.getInt("id");
-			final String where = SERVER_ID + "=" + sid;
-			ContentValues params = new ContentValues();
-			params.put(ID, sid);
-			params.put(SERVER_ID, sid);
-			params.put(BookDBAdapter.SYNC, 1);
-			params.put(BookDBAdapter.BOOK_NAME, book.getString("bookName"));
-			params.put(BookDBAdapter.ANSWER_LANG_COLL, book.getInt("questionLang"));
-			params.put(BookDBAdapter.QUESTION_LANG_COLL, book.getInt("answerLang"));
-			params.put(BookDBAdapter.SHARED, book.getInt("shared"));
-			params.put(BookDBAdapter.LEVEL, book.getInt("level"));
-			params.put(LAST_CHANGED, lastSync);
-			if(isLogin || DatabaseUtils.queryNumEntries(db, BookDBAdapter.TABLE_BOOK, where) == 0){
-				db.insert(BookDBAdapter.TABLE_BOOK, null, params);
-			}else{
-				db.update(BookDBAdapter.TABLE_BOOK, params, where, null);
+		final int count = bookList.length();
+		
+		if(count > 0){
+			final SQLiteStatement insertStmt = 
+					db.compileStatement("INSERT INTO book (_id, book_name, answer_lang_fk, question_lang_fk, level, sync, shared, last_changed, sid) VALUES (?,?,?,?,?,?,?,?,?) ");
+			final SQLiteStatement updateStmt = 
+					db.compileStatement("UPDATE book SET _id=?, book_name=?, answer_lang_fk=?, question_lang_fk=?, level=?, sync=?, shared=?, last_changed=? WHERE sid=?");
+			
+			for(int i = 0; i < bookList.length(); i++){
+				final JSONObject book = bookList.getJSONObject(i);
+				int id = book.getInt("id");
+				if(isLogin || DatabaseUtils.queryNumEntries(db, BookDBAdapter.TABLE_BOOK, SERVER_ID + "=" + id) == 0){
+					syncBookExecuteStatement(insertStmt, true, book, lastSync);
+				}else{
+					syncBookExecuteStatement(updateStmt, false, book, lastSync);
+				}
 			}
 		}
 	}
 	
+	private void syncBookExecuteStatement(SQLiteStatement stmt, boolean isInsert, JSONObject book, String lastSync) throws JSONException{
+		stmt.bindLong(1, book.getInt("id"));
+		stmt.bindString(2, book.getString("bookName"));
+		stmt.bindLong(3, book.getInt("questionLang"));
+		stmt.bindLong(4, book.getInt("answerLang"));
+		stmt.bindLong(5, book.getInt("level"));
+		stmt.bindLong(6, 1);
+		stmt.bindLong(7, book.getInt("shared"));
+		stmt.bindString(8, lastSync);
+		stmt.bindLong(9, book.getInt("id"));
+		if(isInsert){
+			stmt.executeInsert();
+		}else{
+			stmt.execute();
+		}
+		stmt.clearBindings();
+	}
+	
 	private void syncLectures(final SQLiteDatabase db, final JSONObject response, final String lastSync, boolean isLogin) throws JSONException{
 		final JSONArray lectureList = response.getJSONArray("lectureList");
-		for(int i = 0; i < lectureList.length(); i++){
-			final JSONObject lecture = lectureList.getJSONObject(i);
-			final int sid = lecture.getInt("id");
-			final String where = SERVER_ID + "=" + sid;
-			ContentValues params = new ContentValues();
-			params.put(ID, sid);
-			params.put(SERVER_ID, sid);
-			params.put(LectureDBAdapter.LECTURE_NAME, lecture.getString("lectureName"));
-			params.put(LectureDBAdapter.FK_BOOK_ID, lecture.getInt("bookId"));
-			params.put(LAST_CHANGED, lastSync);
-			if(isLogin || DatabaseUtils.queryNumEntries(db, LectureDBAdapter.TABLE_LECTURE, where) == 0){
-				db.insert(LectureDBAdapter.TABLE_LECTURE, null, params);
-			}else{
-				db.update(LectureDBAdapter.TABLE_LECTURE, params, where, null);
+		final int count = lectureList.length();
+		if(count > 0){
+			final SQLiteStatement insertStmt = db.compileStatement("INSERT INTO lecture (_id,lecture_name, book_id, last_changed, sid) VALUES (?,?,?,?,?)");
+			final SQLiteStatement updateStmt = db.compileStatement("UPDATE lecture SET _id=?,lecture_name=?, book_id=?, last_changed=?, sid=?");
+			
+			for(int i = 0; i < count; i++){
+				final JSONObject lecture = lectureList.getJSONObject(i);
+				final int sid = lecture.getInt("id");
+				if(isLogin || DatabaseUtils.queryNumEntries(db, LectureDBAdapter.TABLE_LECTURE, SERVER_ID + "=" + sid) == 0){
+					syncLectureExecuteStmt(insertStmt, true, lecture, lastSync);
+				}else{
+					syncLectureExecuteStmt(updateStmt, false, lecture, lastSync);
+				}
 			}
 		}
+	}
+	
+	private void syncLectureExecuteStmt(SQLiteStatement stmt, boolean isInsert, JSONObject lecture, String lastSync) throws JSONException{
+		stmt.bindLong(1, lecture.getInt("id"));
+		stmt.bindString(2, lecture.getString("lectureName"));
+		stmt.bindLong(3, lecture.getInt("bookId"));
+		stmt.bindString(4, lastSync);
+		stmt.bindLong(5, lecture.getInt("id"));
+		if(isInsert){
+			stmt.executeInsert();
+		}else{
+			stmt.execute();
+		}
+		stmt.clearBindings();
 	}
 	
 	private String getCurrentTime(final SQLiteDatabase db){
@@ -140,29 +181,42 @@ public class SyncDbAdapter extends DatabaseHelper {
 	
 	private void syncWords(final SQLiteDatabase db, final JSONObject response, final String lastSync, boolean isLogin) throws JSONException{
 		final JSONArray wordList = response.getJSONArray("wordList");
-		for(int i = 0, count = wordList.length(); i < count; i++){
-			final JSONObject word = wordList.getJSONObject(i);
-			final int sid = word.getInt("id");
-			final String where = SERVER_ID + "=" + sid;
-			ContentValues params = new ContentValues();
-			params.put(ID, sid);
-			params.put(SERVER_ID, sid);
-			params.put(WordDBAdapter.QUESTION, word.getString("question"));
-			params.put(WordDBAdapter.ANSWER, word.getString("answer"));
-			params.put(WordDBAdapter.ANSWER, word.getString("answer"));
-			params.put(WordDBAdapter.ACTIVE, word.getInt("active"));
-			params.put(WordDBAdapter.HIT, word.getInt("hits"));
-			params.put(WordDBAdapter.AVG_RATE, word.getDouble("avgRating"));
-			params.put(WordDBAdapter.FK_LECTURE_ID, word.getInt("lectureId"));
-			params.put(WordDBAdapter.LAST_RATE, word.getInt("lastRate"));
-			params.put(LAST_CHANGED, lastSync);
-			if(isLogin || DatabaseUtils.queryNumEntries(db, LectureDBAdapter.TABLE_LECTURE, where) == 0){
-				db.insert(WordDBAdapter.TABLE_WORD, null, params);
-			}else{
-				db.update(WordDBAdapter.TABLE_WORD, params, where, null);
+		final int count  = wordList.length();
+		if(count > 0){
+			SQLiteStatement insertStmt = db.compileStatement("INSERT INTO word (_id, question, answer, active, lecture_id, rate, avg_rate, hit, last_changed, sid) VALUES (?,?,?,?,?,?,?,?,?,?)");
+			SQLiteStatement updateStmt = db.compileStatement("UPDATE word SET _id=?, question=?, answer=?, active=?, lecture_id=?, rate=?, avg_rate=?, hit=?, last_changed=?, sid=?");
+			
+			for(int i = 0; i < count; i++){
+				final JSONObject word = wordList.getJSONObject(i);
+			
+				if(isLogin || DatabaseUtils.queryNumEntries(db, LectureDBAdapter.TABLE_LECTURE, SERVER_ID + "=" + word.getInt("id")) == 0){
+					syncWordExecuteStatement(insertStmt, true, word, lastSync);
+				}else{
+					syncWordExecuteStatement(updateStmt, false, word, lastSync);
+				}
 			}
 		}
 	}
+	
+	private void syncWordExecuteStatement(SQLiteStatement stmt, boolean isInsert, JSONObject word, String lastSync) throws JSONException{
+		stmt.bindLong(1, word.getInt("id"));
+		stmt.bindString(2, word.getString("question"));
+		stmt.bindString(3, word.getString("answer"));
+		stmt.bindLong(4, word.getInt("active"));
+		stmt.bindLong(5, word.getInt("lectureId"));
+		stmt.bindLong(6, word.getInt("lastRate"));
+		stmt.bindDouble(7, word.getDouble("avgRating"));
+		stmt.bindLong(8, word.getInt("hits"));
+		stmt.bindString(9, lastSync);
+		stmt.bindLong(10, word.getInt("id"));
+		if(isInsert){
+			stmt.executeInsert();
+		}else{
+			stmt.execute();
+		}
+		stmt.clearBindings();
+	}
+	
 	
 	public JSONObject getSyncRequest() throws JSONException{
 		

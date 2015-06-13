@@ -1,5 +1,9 @@
 package sk.peterjurkovic.dril;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import sk.peterjurkovic.dril.model.Language;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -8,39 +12,57 @@ import android.util.Log;
 public class SessionManager {
 
 	 // LogCat tag
-    private static String TAG = SessionManager.class.getSimpleName();
- 
-    // Shared Preferences
-    SharedPreferences pref;
- 
-    Editor editor;
-    Context _context;
- 
-    // Shared pref mode
-    int PRIVATE_MODE = 0;
- 
-    // Shared preferences file name
-    private static final String PREF_NAME = "AndroidHiveLogin";
+    private static final String TAG = SessionManager.class.getSimpleName();
+    private final SharedPreferences pref;
+    private final Context _context;
+    private final String PREF_NAME = "credentials";   
      
-    private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
+
+    private static final String KEY_USER_ID = "_uid_";
+    private static final String KEY_LOGIN = "_login_";
+    private static final String KEY_LOCALE_ID = "_localeId_";
+    private static final String KEY_TARGET_LOCALE_ID = "_targetLocaleId_";
+    private static final String KEY_TOKEN = "_token_";
  
     public SessionManager(Context context) {
         this._context = context;
-        pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
-        editor = pref.edit();
+        pref = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        
     }
  
-    public void setLogin(boolean isLoggedIn) {
- 
-        editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
- 
-        // commit changes
+    public void setCredentials(JSONObject response) throws JSONException {
+    	final JSONObject user = response.getJSONObject("user");
+    	final Editor editor = pref.edit();
+    	editor.putInt(KEY_USER_ID, user.getInt("id"));
+    	editor.putString(KEY_LOGIN, user.getString("login"));
+    	editor.putString(KEY_TOKEN, response.getString("token"));
+    	editor.putInt(KEY_LOCALE_ID, isNull(user, "localeId") ?  Language.ENGLISH.getId() : user.getInt("localeId"));
+    	editor.putInt(KEY_TARGET_LOCALE_ID, isNull(user, "targetLocaleId") ?  Language.ENGLISH.getId() : user.getInt("targetLocaleId"));
         editor.commit();
- 
-        Log.d(TAG, "User login session modified!");
+        Log.d(TAG, "User login session modified.");
+    }
+    
+    private boolean isNull(JSONObject obj, String key){
+    	return obj.has(key) && !obj.isNull(key);
+    }
+    
+    public int getTargetLocaleId(){
+    	return pref.getInt(KEY_TARGET_LOCALE_ID, Language.ENGLISH.getId());
+    }
+    
+    public int getLocaleId(){
+    	return pref.getInt(KEY_LOCALE_ID,  Language.ENGLISH.getId());
+    }
+    
+    public int getUserId(){
+    	return pref.getInt(KEY_USER_ID, -1);
+    }
+    
+    public String getToken(){
+    	return pref.getString(KEY_TOKEN, null);
     }
      
     public boolean isLoggedIn(){
-        return pref.getBoolean(KEY_IS_LOGGEDIN, false);
+        return getToken() != null;
     }
 }	

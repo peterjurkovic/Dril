@@ -184,6 +184,17 @@
 	<string name="label_lang_en">English</string>
 	<string name="label_lang_cs">Czech</string>
 	<string name="label_lang_sv">Swedish</string>
+	<string name="label_lang_fi">Finnish</string>
+	<string name="label_lang_eo">Esperanto</string>
+	<string name="label_lang_da">Danish</string>
+	<string name="label_lang_el">Greek</string>
+	<string name="label_lang_hr">Croatian</string>
+	<string name="label_lang_it">Italian</string>
+	<string name="label_lang_nl">Dutch</string>
+	<string name="label_lang_pl">Polish</string>
+	<string name="label_lang_sl">Slovenian</string>
+	<string name="label_lang_pt">Portuguese</string>
+	
 	
 	<string name="pref_label_test">What should be shown</string>
 	<string name="pref_label_test_descr">Question, answer or random</string>
@@ -287,6 +298,13 @@
 	<string name="err_http_401">Bad login or password</string>
 	<string name="err_internet_conn">Check your internet connection</string>
 	
+	<string name="starter">Starter / Beginner</string>
+	<string name="elementary">Elementary</string>
+	<string name="pre_intermediate">Pre-Intermediate</string>
+	<string name="intermediate">Intermediate</string>
+	<string name="upper_intermediate">Upper-Intermediate</string>
+	<string name="advanced">Advanced</string>
+	<string name="proficient">Proficient</string>
 	
 
 </resources>

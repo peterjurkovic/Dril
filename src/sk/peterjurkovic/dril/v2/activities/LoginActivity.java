@@ -127,15 +127,7 @@ public class LoginActivity extends NetworkActivity{
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, "Login Response: " + response.toString());
-                 
-                       
-							
-							SyncDbAdapter dbAdapter = new SyncDbAdapter(getApplicationContext());
-							dbAdapter.processLogin(response);
-							hideDialog();
-						
-
+						new LoginManager(getApplicationContext(), pDialog).execute(response);
                     }
                     
                     

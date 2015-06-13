@@ -24,6 +24,16 @@
         <item>@string/label_lang_sk</item>
         <item>@string/label_lang_cs</item>
         <item>@string/label_lang_sv</item>
+        <item>@string/label_lang_fi</item>
+        <item>@string/label_lang_eo</item>
+        <item>@string/label_lang_da</item>
+        <item>@string/label_lang_el</item>
+        <item>@string/label_lang_hr</item>
+        <item>@string/label_lang_it</item>
+        <item>@string/label_lang_nl</item>
+        <item>@string/label_lang_pl</item>
+        <item>@string/label_lang_sl</item>
+        <item>@string/label_lang_pt</item>
     </string-array>
     
     <string-array name="list_languages_ids">
@@ -34,5 +44,15 @@
         <item>5</item>
         <item>6</item>
         <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
     </string-array>
 </resources>

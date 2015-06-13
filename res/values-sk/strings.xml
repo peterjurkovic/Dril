@@ -185,6 +185,17 @@
 	<string name="label_lang_en">Angličtina</string>
 	<string name="label_lang_cs">Čeština</string>
 	<string name="label_lang_sv">Švédština</string>
+	<string name="label_lang_fi">Fínština</string>
+	<string name="label_lang_eo">Esperanto</string>
+	<string name="label_lang_da">Dánština</string>
+	<string name="label_lang_el">Gréčtina</string>
+	<string name="label_lang_hr">Chorvátština</string>
+	<string name="label_lang_it">Taliančina</string>
+	<string name="label_lang_nl">Holandčina</string>
+	<string name="label_lang_pl">Polština</string>
+	<string name="label_lang_sl">Slovinčina</string>
+	<string name="label_lang_pt">Portugalčina</string>
+	
 	
 	<string name="pref_label_test">Čo by malo byť zobrazené</string>
 	<string name="pref_label_test_descr">Otázka, odpoveď alebo náhodne</string>
@@ -223,8 +234,6 @@
     <string name="leardned_cards">Pč. naučených</string>
     <string name="date">Dátum</string>
     <string name="avg_rate">Avg. hodn.</string>
-    
-    <string name="no_data_available">Dáta nie sú dostupné</string>
     
     <string name="stats_sessions">Relácie</string>
     <string name="header_stats_sessions">Jednotlivé štatistiky</string>
@@ -275,4 +284,14 @@
 	<string name="rate_now">Ohodnotiť</string>
 	<string name="rate_later">Pripomenúť neskôr</string>
 	<string name="rate_never">Nie, ďakujem</string>
+	
+	
+	<string name="starter">Úplný začiatočník</string>
+	<string name="elementary">Začiatočník</string>
+	<string name="pre_intermediate">Mierne pokročilý</string>
+	<string name="intermediate">Stredne pokročilý I.</string>
+	<string name="upper_intermediate">Stredne pokročilý II.</string>
+	<string name="advanced">Pokročilý</string>
+	<string name="proficient">Proficient</string>
+	
 </resources>

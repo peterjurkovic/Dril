@@ -15,13 +15,10 @@ public class BookDBAdapter extends DBAdapter {
 
 	public static final String BOOK_NAME = "book_name";
 	public static final String LECTURES_COUNT = "lecture_count";
-	//public static final String VERSION = "version";
 	public static final String WORD_COUNT = "word_count";
 	public static final String ACTIVE_WORD_COUNT = "active_word_count";
 	public static final String BOOK_COUNT = "book_count";
 	public static final String AVG_RATE = "avg_rate";
-	//public static final String FINISHED = "rate_1";
-	//public static final String AUTHOR_COLL = "author";
 	public static final String ANSWER_LANG_COLL = "answer_lang_fk";
 	public static final String QUESTION_LANG_COLL = "question_lang_fk";
 	public static final String LEVEL = "level";
