@@ -136,24 +136,24 @@ public class SyncDbAdapter extends DatabaseHelper {
 	}
 	
 	private void syncDeleted(final SQLiteDatabase db, final JSONObject response, final String lastSync, final String currentTime) throws JSONException{
-		StringBuilder sql = new StringBuilder();
-		sql.append("DELETE FROM word WHERE _id IN (SELECT w._id FROM word w " +
+		db.execSQL("DELETE FROM word WHERE _id IN (SELECT w._id FROM word w " +
 				"INNER JOIN lecture l ON l._id = w.lecture_id " +
 				"INNER JOIN book b ON b._id = l.book_id " +
 				"WHERE b.sync = 1 AND w.sid IS NULL AND w.last_changed >= '"+lastSync+"' AND w.last_changed < '"+currentTime+"');");
-		sql.append("DELETE FROM lecture WHERE _id IN "+  
+		db.execSQL("DELETE FROM lecture WHERE _id IN "+  
 				   "(SELECT l._id FROM lecture l "+
 				   "INNER JOIN book b ON b._id = l.book_id "+
 				   "WHERE b.sync = 1 AND l.sid = NULL AND l.last_changed >= '"+lastSync+"' AND l.last_changed < '"+currentTime+"');");
-		sql.append("DELETE FROM book WHERE sync=1 AND sid IS NULL AND last_changed >= '"+lastSync+"' AND last_changed < '"+currentTime+"';");
-		JSONArray deletedList = response.getJSONArray("deletedList");
+		
+		db.execSQL("DELETE FROM book WHERE sync=1 AND sid IS NULL AND last_changed >= '"+lastSync+"' AND last_changed < '"+currentTime+"';");
+		final JSONArray deletedList = response.getJSONArray("deletedList");
 		final int count = deletedList.length();
 		for(int i = 0; i < count; i++){
-			String tableName = deletedList.getJSONObject(i).getString("table");
-			long sid = deletedList.getJSONObject(i).getLong("id");
-			sql.append("DELETE FROM ").append(tableName).append(" WHERE sid=").append(sid).append(";");
+			final String tableName = deletedList.getJSONObject(i).getString("table");
+			final long sid = deletedList.getJSONObject(i).getLong("id");
+			db.execSQL("DELETE FROM "+tableName +" WHERE sid=" + sid +";");
 		}
-		db.execSQL(sql.toString());
+		db.execSQL("DELETE FROM deleted_rows;");
 	}
 	
 	private void syncBooks(final SQLiteDatabase db, final JSONObject response, final String lastSync, boolean isLogin) throws JSONException{
@@ -245,7 +245,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 			for(int i = 0; i < count; i++){
 				final JSONObject word = wordList.getJSONObject(i);
 				final int sid = word.getInt("id");
-				if(isLogin || DatabaseUtils.queryNumEntries(db, LectureDBAdapter.TABLE_LECTURE, SERVER_ID + "=" + sid) == 0){
+				if(isLogin || DatabaseUtils.queryNumEntries(db, WordDBAdapter.TABLE_WORD, SERVER_ID + "=" + sid) == 0){
 					syncWordExecuteStatement(insertStmt, true, word, lastSync);
 				}else{
 					syncWordExecuteStatement(updateStmt, false, word, lastSync);
@@ -352,16 +352,16 @@ public class SyncDbAdapter extends DatabaseHelper {
 		}
 	
 	private JSONArray getDeleted(final SQLiteDatabase db, String lastSync) throws JSONException{
-		
+		// WHERE deleted > '" + lastSync + "';
 		final String query = 
-				"SELECT sid, tableName FROM deleted_rows WHERE deleted > '" + lastSync + "';";
+				"SELECT sid, tableName FROM deleted_rows";
 		final Cursor cursor = db.rawQuery(query, null);
 		final JSONArray list = new JSONArray();
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			JSONObject row = new JSONObject();
 			row.put("sid", cursor.getInt(0));
-			row.put("tableName", cursor.getString(2));
+			row.put("tableName", cursor.getString(1));
 			list.put(row);
 		    cursor.moveToNext();
 		}

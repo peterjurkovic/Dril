@@ -325,11 +325,12 @@
 	   <item name="android:layout_gravity">center_vertical</item>   
    </style>
    
-   <style name="v2Spinner" parent="@android:style/Widget.TextView.SpinnerItem">
+   <style name="v2Spinner" parent="android:style/Widget.Holo.Light.Spinner">
        <item name="android:layout_width">match_parent</item>
 	   <item name="android:layout_height">wrap_content</item>
 	   <item name="android:textStyle">bold</item>
-	   <item name="android:padding">8dp</item>       
+	   <item name="android:layout_marginRight">4dp</item>
+      <item name="android:layout_marginLeft">4dp</item> 
    </style>
    
    <style name="v2drilAlert">

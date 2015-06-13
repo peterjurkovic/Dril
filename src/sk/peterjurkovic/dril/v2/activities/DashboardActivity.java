@@ -3,6 +3,7 @@ package sk.peterjurkovic.dril.v2.activities;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.listener.AsyncLIstener;
+import sk.peterjurkovic.dril.sync.SyncManager;
 import sk.peterjurkovic.dril.updater.CheckForUpdate;
 import sk.peterjurkovic.dril.updater.UpdateSaver;
 import sk.peterjurkovic.dril.utils.AppRater;
@@ -97,6 +98,7 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	  			});
 	        }
 	        AppRater.app_launched(this);
+	        new SyncManager(context).execute();
 	}
 	
 	

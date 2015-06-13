@@ -11,6 +11,7 @@ import sk.peterjurkovic.dril.listener.OnDeleteSelectedWordsListener;
 import sk.peterjurkovic.dril.listener.OnEditWordClickedListener;
 import sk.peterjurkovic.dril.listener.OnEditWordListener;
 import sk.peterjurkovic.dril.listener.OnWordClickListener;
+import sk.peterjurkovic.dril.sync.OnSuccessSyncListener;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -32,7 +33,7 @@ import com.google.analytics.tracking.android.Log;
 
 public class WordActivity extends BaseActivity implements OnAddWordListener,
 		OnEditWordClickedListener, OnEditWordListener,  OnWordClickListener,
-		OnDeleteSelectedWordsListener{
+		OnDeleteSelectedWordsListener, OnSuccessSyncListener{
 
 	public static final int REQUEST_ADD_WORD = 0;
 	public static final int REQUEST_EDIT_WORD = 1;
@@ -390,5 +391,10 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		super.onRestoreInstanceState(savedInstanceState);
 		lectureId =  savedInstanceState.getLong(LECTURE_ID_EXTRA);
 		lectureName = savedInstanceState.getString(LECTURE_NAME_EXTRA);
+	}
+
+	@Override
+	public void onSuccessSync() {
+		getWordListFragment().updateList();
 	}
 }

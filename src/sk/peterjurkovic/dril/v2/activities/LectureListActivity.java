@@ -6,6 +6,7 @@ package sk.peterjurkovic.dril.v2.activities;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
+import sk.peterjurkovic.dril.sync.OnSuccessSyncListener;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.v2.adapters.LectureAdapter;
 import android.app.AlertDialog;
@@ -36,7 +37,7 @@ import com.google.analytics.tracking.android.Log;
  * @date Oct 24, 2013
  *
  */
-public class LectureListActivity extends ActionBarListActivity {
+public class LectureListActivity extends ActionBarListActivity implements OnSuccessSyncListener {
 
 	public static final String EXTRA_BOOK_ID = "bookId";
 	
@@ -484,5 +485,10 @@ public class LectureListActivity extends ActionBarListActivity {
 		protected void onRestoreInstanceState(Bundle savedInstanceState) {
 			super.onRestoreInstanceState(savedInstanceState);
 			bookId = savedInstanceState.getLong(EXTRA_BOOK_ID);
+		}
+
+		@Override
+		public void onSuccessSync() {
+			updateList();
 		}
 }

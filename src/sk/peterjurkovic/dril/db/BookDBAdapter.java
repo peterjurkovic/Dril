@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 public class BookDBAdapter extends DBAdapter {
 	
@@ -174,6 +175,7 @@ public class BookDBAdapter extends DBAdapter {
         }
         SQLiteDatabase cdb = openWriteableDatabase();
         ContentValues values = bindBookParams(book);
+        //SQLiteStatement stmt = cdb.compileStatement("UPDATE book SET book_name = ?, ")
         int rowsUpdated = cdb.update(TABLE_BOOK, values,  ID + "=" + book.getId(), null);
         return rowsUpdated > 0;
     }
@@ -188,6 +190,7 @@ public class BookDBAdapter extends DBAdapter {
          if(book.getAnswerLang() != null){
          	values.put(ANSWER_LANG_COLL, book.getAnswerLang().getId());
          }
+         
     	 return values;
     }
  

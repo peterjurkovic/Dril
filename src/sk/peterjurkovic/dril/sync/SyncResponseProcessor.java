@@ -28,6 +28,9 @@ public class SyncResponseProcessor extends AsyncTask<JSONObject, Void, Boolean> 
 	protected void onPostExecute(Boolean isSuccessfull) {
 		if(isSuccessfull){
 			Toast.makeText(context,R.string.synced, Toast.LENGTH_SHORT).show();
+			if(context instanceof OnSuccessSyncListener){
+				((OnSuccessSyncListener)context).onSuccessSync();
+			}
 		}else{
 			Toast.makeText(context,R.string.sync_failed, Toast.LENGTH_LONG).show();
 		}

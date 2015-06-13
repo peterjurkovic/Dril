@@ -317,5 +317,6 @@
 	<string name="syncing">Syncing&#8230;</string>
 	<string name="synced">Synced</string>
 	
-
+	<string name="level">Level</string>
+	
 </resources>

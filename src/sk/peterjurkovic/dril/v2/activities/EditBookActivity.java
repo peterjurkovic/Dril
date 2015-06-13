@@ -6,6 +6,7 @@ import sk.peterjurkovic.dril.dao.BookDaoImpl;
 import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.model.Book;
 import sk.peterjurkovic.dril.model.Language;
+import sk.peterjurkovic.dril.model.Level;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,8 @@ public class EditBookActivity extends BaseActivity {
 	private BookDao bookDao;
 	private Spinner questionSpinner;
 	private Spinner answerSpinner;
+	private Spinner levelSpinner;
+
 	private EditText bookNameInput;
 
     @Override
@@ -45,6 +48,8 @@ public class EditBookActivity extends BaseActivity {
         
         questionSpinner = (Spinner) findViewById(R.id.langQuestion);
         answerSpinner = (Spinner) findViewById(R.id.langAnswer);
+        levelSpinner = (Spinner) findViewById(R.id.bookLevelEdit);
+    	
         bookNameInput =  (EditText) findViewById(R.id.editBookName);
         
         submit.setOnClickListener(new View.OnClickListener() {
@@ -78,16 +83,15 @@ public class EditBookActivity extends BaseActivity {
         };
         Book book = bookDao.getById(bookId);
         if(book != null){
-        	onSaveEditedBook();
         	book.setName(bookName);
         	Language langQuestion = (Language)questionSpinner.getSelectedItem();
         	Language langAnswer = (Language)answerSpinner.getSelectedItem();
-        	if(langQuestion.equals(langAnswer)){
+        	if(langQuestion == langAnswer){
         		Toast.makeText(this, R.string.error_same_languages, Toast.LENGTH_LONG).show();
-        		return;
         	}
         	book.setQuestionLang(langQuestion);
         	book.setAnswerLang(langAnswer);
+        	book.setLevel((Level) levelSpinner.getSelectedItem());
         	bookDao.update(book);
         	onSaveEditedBook();
         }else{
@@ -126,6 +130,11 @@ public class EditBookActivity extends BaseActivity {
 		if(book.getAnswerLang() != null){
 			answerSpinner.setSelection(book.getAnswerLang().getId() - 1);
 		}
+		levelSpinner.setAdapter( levelAdapter() );
+		if(book.getLevel() != null){
+			levelSpinner.setSelection(book.getLevel().getId() - 1);
+		}
+		
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -143,6 +152,13 @@ public class EditBookActivity extends BaseActivity {
 		adapter.setDropDownViewResource(R.layout.v2_spinner_dropdown);	
 		return adapter;
 	}
+
 	
+	private ArrayAdapter<Level> levelAdapter(){
+		ArrayAdapter<Level> adapter =  new ArrayAdapter<Level>(this,  R.layout.v2_spinner,  Level.getAll());
+		adapter.setDropDownViewResource(R.layout.v2_spinner_dropdown);	
+		return adapter;
+	}
+
 
 }

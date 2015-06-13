@@ -1,5 +1,8 @@
 package sk.peterjurkovic.dril.model;
 
+import java.util.Arrays;
+import java.util.List;
+
 import sk.peterjurkovic.dril.R;
 
 public enum Level {
@@ -27,6 +30,20 @@ public enum Level {
 	public int getResource() {
 		return resource;
 	}
+	
+	public static Level getById(final int id){
+		for(Level level : values()){
+			if(id == level.getId()){
+				return level;
+			}
+		}
+		return null;
+	}
+	
+	public static List<Level> getAll(){
+		return Arrays.asList(values());
+	}
+	
 	
 	
 }

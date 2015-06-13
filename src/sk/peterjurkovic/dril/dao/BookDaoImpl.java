@@ -2,12 +2,13 @@ package sk.peterjurkovic.dril.dao;
 
 import java.util.List;
 
-import com.google.analytics.tracking.android.Log;
-
 import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.model.Book;
 import sk.peterjurkovic.dril.model.Language;
+import sk.peterjurkovic.dril.model.Level;
 import android.database.Cursor;
+
+import com.google.analytics.tracking.android.Log;
 
 public class BookDaoImpl implements BookDao {
 	
@@ -28,7 +29,7 @@ public class BookDaoImpl implements BookDao {
 		Cursor cursor =  bookDBAdapter.getBook(id);
 		if(cursor != null && !cursor.isClosed()){
 			cursor.moveToFirst();
-			Book book = new Book();
+			final Book book = new Book();
 			book.setId(id);
 			book.setName(cursor.getString( cursor.getColumnIndex(BookDBAdapter.BOOK_NAME) ));
 			int bid =  cursor.getInt( cursor.getColumnIndex(BookDBAdapter.QUESTION_LANG_COLL) );
@@ -40,6 +41,8 @@ public class BookDaoImpl implements BookDao {
 			if(bid != 0){
 				book.setAnswerLang(Language.getById(bid));
 			}
+			book.setLevel(Level.getById(cursor.getInt(cursor.getColumnIndex(BookDBAdapter.LEVEL))));
+			book.setShared(cursor.getInt(cursor.getColumnIndex(BookDBAdapter.SHARED)) == 1);
 			return book;
 		}
 		}catch(Exception e){

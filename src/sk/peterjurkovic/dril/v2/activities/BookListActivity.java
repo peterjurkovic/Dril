@@ -3,6 +3,7 @@ package sk.peterjurkovic.dril.v2.activities;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.BookDBAdapter;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
+import sk.peterjurkovic.dril.sync.OnSuccessSyncListener;
 import sk.peterjurkovic.dril.v2.adapters.BookAdapter;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -33,7 +34,7 @@ import com.google.analytics.tracking.android.MapBuilder;
  * @date Oct 24, 2013
  * @version 2.0
  */
-public class BookListActivity extends ActionBarListActivity {
+public class BookListActivity extends ActionBarListActivity implements OnSuccessSyncListener{
 	
 	public static final String TAG = "BookListActivity";
 	
@@ -310,6 +311,11 @@ public class BookListActivity extends ActionBarListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.v2_book_list_menu, menu);
 		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public void onSuccessSync() {
+		updateList();
 	}
 	
 }

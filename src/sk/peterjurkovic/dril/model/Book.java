@@ -7,6 +7,8 @@ public class Book extends AbstractEntity{
 	private List<Lecture> lectures;
 	private Language answerLang;
 	private Language questionLang;
+	private Level level;
+	private boolean shared;
 
 	public List<Lecture> getLectures() {
 		return lectures;
@@ -26,7 +28,16 @@ public class Book extends AbstractEntity{
 	public void setQuestionLang(Language questionLang) {
 		this.questionLang = questionLang;
 	}
-	
-	
-	
+	public Level getLevel() {
+		return level;
+	}
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+	public boolean isShared() {
+		return shared;
+	}
+	public void setShared(boolean shared) {
+		this.shared = shared;
+	}
 }
