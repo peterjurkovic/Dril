@@ -23,6 +23,7 @@ public class SessionManager {
     private static final String KEY_LOCALE_ID = "_localeId_";
     private static final String KEY_TARGET_LOCALE_ID = "_targetLocaleId_";
     private static final String KEY_TOKEN = "_token_";
+    private static final String KEY_WORD_LIMIT = "_wordLimit_";
  
     public SessionManager(Context context) {
         this._context = context;
@@ -34,6 +35,7 @@ public class SessionManager {
     	editor.remove(KEY_USER_ID);
     	editor.remove(KEY_LOGIN);
     	editor.remove(KEY_TOKEN);
+    	editor.remove(KEY_WORD_LIMIT);
     	editor.commit();
     }
  
@@ -45,6 +47,7 @@ public class SessionManager {
     	editor.putString(KEY_TOKEN, response.getString("token"));
     	editor.putInt(KEY_LOCALE_ID, isNull(user, "localeId") ?  Language.ENGLISH.getId() : user.getInt("localeId"));
     	editor.putInt(KEY_TARGET_LOCALE_ID, isNull(user, "targetLocaleId") ?  Language.ENGLISH.getId() : user.getInt("targetLocaleId"));
+    	editor.putInt(KEY_WORD_LIMIT, user.getInt("wordLimit"));
         editor.commit();
         Log.d(TAG, "User login session modified.");
     }
@@ -67,6 +70,10 @@ public class SessionManager {
     
     public String getToken(){
     	return pref.getString(KEY_TOKEN, null);
+    }
+    
+    public int getWordLimit(){
+    	return pref.getInt(KEY_WORD_LIMIT, 2000);
     }
      
     public boolean isLoggedIn(){

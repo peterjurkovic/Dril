@@ -143,7 +143,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 		db.execSQL("DELETE FROM lecture WHERE _id IN "+  
 				   "(SELECT l._id FROM lecture l "+
 				   "INNER JOIN book b ON b._id = l.book_id "+
-				   "WHERE b.sync = 1 AND l.sid = NULL AND l.last_changed >= '"+lastSync+"' AND l.last_changed < '"+currentTime+"');");
+				   "WHERE b.sync = 1 AND l.sid IS NULL AND l.last_changed >= '"+lastSync+"' AND l.last_changed < '"+currentTime+"');");
 		
 		db.execSQL("DELETE FROM book WHERE sync=1 AND sid IS NULL AND last_changed >= '"+lastSync+"' AND last_changed < '"+currentTime+"';");
 		final JSONArray deletedList = response.getJSONArray("deletedList");
@@ -354,7 +354,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 	private JSONArray getDeleted(final SQLiteDatabase db, String lastSync) throws JSONException{
 		// WHERE deleted > '" + lastSync + "';
 		final String query = 
-				"SELECT sid, tableName FROM deleted_rows";
+				"SELECT sid, tableName FROM deleted_rows ORDER BY tableName DESC";
 		final Cursor cursor = db.rawQuery(query, null);
 		final JSONArray list = new JSONArray();
 		cursor.moveToFirst();

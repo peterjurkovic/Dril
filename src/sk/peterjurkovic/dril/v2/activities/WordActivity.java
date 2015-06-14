@@ -38,12 +38,14 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 	public static final int REQUEST_ADD_WORD = 0;
 	public static final int REQUEST_EDIT_WORD = 1;
 
+	public static final String BOOK_ID_EXTRA = "book_id";
 	public static final String LECTURE_ID_EXTRA = "fk_lecture_id";
 	public static final String LECTURE_NAME_EXTRA = "fk_lecture_name";
 	
 	private boolean dualPane = false;
 	public static final String TAG = "WordActivity";
 	private long lectureId = -1;
+	private long bookId = -1;
 	private String lectureName;
 
 
@@ -56,8 +58,10 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		if(savedInstanceState != null){
 			lectureId = savedInstanceState.getLong(LECTURE_ID_EXTRA);
 			lectureName = savedInstanceState.getString(LECTURE_NAME_EXTRA);
+			bookId = savedInstanceState.getLong(BOOK_ID_EXTRA);
 		}else{
 			lectureId = getIntent().getLongExtra(LECTURE_ID_EXTRA, -1);
+			bookId = getIntent().getLongExtra(BOOK_ID_EXTRA, 0);
 			if (lectureId == -1) {
 				GoogleAnalyticsUtils.logException("Lecture ID is not set.", false, this);
 				throw new Error("Lecture ID is not set.");
@@ -172,6 +176,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		if (dualPane) {
 			Bundle data = new Bundle();
 			data.putString(AddWordActivity.EXTRA_LECTURE_NAME, lectureName);
+			data.putLong(AddWordActivity.EXTRA_BOOK_ID, bookId);
 			Fragment f = new AddWordFragment();
 			f.setArguments(data);
 			FragmentTransaction ft = getSupportFragmentManager()
@@ -182,6 +187,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		} else {
 			Intent i = new Intent(this, AddWordActivity.class);
 			i.putExtra(AddWordActivity.EXTRA_LECTURE_NAME, lectureName);
+			i.putExtra(AddWordActivity.EXTRA_BOOK_ID, bookId);
 			startActivityForResult(i, REQUEST_ADD_WORD);
 		}
 	}
@@ -192,6 +198,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 			Bundle data = new Bundle();
 			data.putLong(EditWordActivity.EXTRA_WORD_ID, wordId);
 			Fragment f = new EditWordFragment();
+			data.putLong(BOOK_ID_EXTRA, bookId);
 			f.setArguments(data);
 			FragmentTransaction ft = getSupportFragmentManager()
 					.beginTransaction();
@@ -201,6 +208,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		} else {
 			Intent i = new Intent(this, EditWordActivity.class);
 			i.putExtra(EditWordActivity.EXTRA_WORD_ID, wordId);
+			i.putExtra(BOOK_ID_EXTRA, bookId);
 			startActivityForResult(i, REQUEST_EDIT_WORD);
 		}
 
@@ -234,7 +242,10 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 	public long getLectureId() {
 		return lectureId;
 	}
-
+	
+	public long getBookId(){
+		return bookId;
+	}
 
 	public WordListFragment getWordListFragment() {
 		return ((WordListFragment) getSupportFragmentManager()
@@ -384,6 +395,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		super.onSaveInstanceState(outState);
 		outState.putLong(LECTURE_ID_EXTRA, lectureId);
 		outState.putString(LECTURE_NAME_EXTRA, lectureName);
+		outState.putLong(BOOK_ID_EXTRA, bookId);
 	}
 	
 	@Override
@@ -391,6 +403,7 @@ public class WordActivity extends BaseActivity implements OnAddWordListener,
 		super.onRestoreInstanceState(savedInstanceState);
 		lectureId =  savedInstanceState.getLong(LECTURE_ID_EXTRA);
 		lectureName = savedInstanceState.getString(LECTURE_NAME_EXTRA);
+		bookId = savedInstanceState.getLong(BOOK_ID_EXTRA);
 	}
 
 	@Override

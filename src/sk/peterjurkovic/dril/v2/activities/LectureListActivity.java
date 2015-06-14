@@ -248,6 +248,7 @@ public class LectureListActivity extends ActionBarListActivity implements OnSucc
 	public void startWordActivity(long lectureId){
 		Intent i = new Intent(this,  WordActivity.class);
 		i.putExtra( WordActivity.LECTURE_ID_EXTRA, lectureId);
+		i.putExtra( WordActivity.BOOK_ID_EXTRA, bookId);
 		startActivity(i);
 	}
 	

@@ -98,7 +98,9 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	  			});
 	        }
 	        AppRater.app_launched(this);
-	        new SyncManager(context).execute();
+	        if(session.isLoggedIn()){
+	        	new SyncManager(context).execute();
+	        }
 	}
 	
 	

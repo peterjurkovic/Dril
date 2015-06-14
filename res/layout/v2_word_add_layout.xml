@@ -39,11 +39,8 @@
 	    <EditText
 	        android:id="@+id/addQestion"
 	        style="@style/editTextMulti"
-	        android:hint="@string/question"
 	        android:layout_below="@id/labelQuestion" />
-	    
-	    
-	    
+	    	    
 	      <TextView
 	        style="@style/boxLabel"
 	        android:text="@string/answer"
@@ -54,7 +51,6 @@
 	
 	    <EditText
 	        android:id="@+id/addAnswer"
-	        android:hint="@string/answer"
 	        style="@style/editTextMulti"
 	        android:layout_below="@id/labelAnswer" />
 	    

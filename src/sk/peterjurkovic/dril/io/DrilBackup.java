@@ -24,9 +24,7 @@ import com.google.analytics.tracking.android.Log;
 
 public class DrilBackup extends AsyncTask<Void, Void, BackupRestoreDto>{
 	
-	private Context context;
-	
-	
+	private final Context context;
 	
 	public DrilBackup(Context context){
 		this.context = context;
@@ -49,9 +47,9 @@ public class DrilBackup extends AsyncTask<Void, Void, BackupRestoreDto>{
 			uriWrapp.setText((String)state.getData());
 			uriWrapp.setVisibility(View.VISIBLE);
 			mActivity.findViewById(R.id.backupFileLocationLabel).setVisibility(View.VISIBLE);
-			Toast.makeText(context, context.getString(R.string.backup_success), Toast.LENGTH_LONG).show();;
+			Toast.makeText(context, context.getString(R.string.backup_success), Toast.LENGTH_LONG).show();
 		}else{
-			Toast.makeText(context, context.getString((Integer)state.getData()), Toast.LENGTH_LONG).show();;
+			Toast.makeText(context, context.getString((Integer)state.getData()), Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -89,8 +87,8 @@ public class DrilBackup extends AsyncTask<Void, Void, BackupRestoreDto>{
 		            	backupDB.delete();
 		            }
 		            
-		            FileChannel src = new FileInputStream(currentDB).getChannel();
-		            FileChannel dst = new FileOutputStream(backupDB).getChannel();
+		            final FileChannel src = new FileInputStream(currentDB).getChannel();
+		            final FileChannel dst = new FileOutputStream(backupDB).getChannel();
 		            dst.transferFrom(src, 0, src.size());
 		            if(src != null){
 		            	 src.close();
@@ -117,6 +115,7 @@ public class DrilBackup extends AsyncTask<Void, Void, BackupRestoreDto>{
 		        }
 		} catch (Exception e) {
 			 Log.e(e);
+			 GoogleAnalyticsUtils.logException(e, context);
 		}
 		return new BackupRestoreDto();
 	}

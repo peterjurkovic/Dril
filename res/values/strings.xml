@@ -317,6 +317,8 @@
 	<string name="syncing">Syncing&#8230;</string>
 	<string name="synced">Synced</string>
 	
+	<string name="questionIn">Question in </string>
+	<string name="answerIn">Answer in </string>
 	<string name="level">Level</string>
 	<string name="shareLabel">Share this textbook</string>
 	<string name="err_book_notfound">The textbook was not found. Does book stil exist?</string>

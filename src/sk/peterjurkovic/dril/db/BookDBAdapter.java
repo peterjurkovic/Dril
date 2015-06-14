@@ -155,7 +155,7 @@ public class BookDBAdapter extends DBAdapter {
         	}
          	SQLiteStatement stmt = db.compileStatement(
          	"INSERT INTO book (book_name, question_lang_fk, answer_lang_fk, "+
-         	"level, shared) VALUES (?,?,?,?,?)");
+         	"level, shared, sync) VALUES (?,?,?,?,?,1)");
          	prepareBaseStatement(stmt, book);
          	return stmt.executeInsert();
          }finally{

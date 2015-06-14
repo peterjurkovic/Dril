@@ -44,9 +44,7 @@ public class BackupRestoreActivity extends BaseActivity {
 			((TextView)findViewById(R.id.restoreAlert)).setVisibility(View.VISIBLE);
 			processBtn.setText(R.string.restoreSelectFile);
 		}
-		
-		context = this;
-		
+	
 		processBtn.setOnClickListener(new View.OnClickListener() {	
 			@Override
 			public void onClick(View v) {

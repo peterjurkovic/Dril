@@ -21,8 +21,11 @@ public static final String EXTRA_QUESTION = "question";
 	public static final String EXTRA_ANSWER = "answer";
 	
 	public static final String EXTRA_LECTURE_NAME = "lecturen_name";
+	public static final String EXTRA_BOOK_ID = "bookId";
 	
 	private String wordLabel;
+	private long bookId;
+	
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,8 @@ public static final String EXTRA_QUESTION = "question";
                 
         wordLabel =  getString(R.string.word_add_label) + " " 
         		+ getIntent().getStringExtra(EXTRA_LECTURE_NAME);
+        
+        bookId = getIntent().getLongExtra(EXTRA_BOOK_ID, 0);
         TextView header =  (TextView)findViewById(R.id.wordAddLabel);
         header.setText(wordLabel);
         
@@ -43,6 +48,20 @@ public static final String EXTRA_QUESTION = "question";
         });
     }
 
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		wordLabel = savedInstanceState.getString(EXTRA_LECTURE_NAME);
+		bookId = savedInstanceState.getLong(EXTRA_BOOK_ID);
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString(EXTRA_LECTURE_NAME, wordLabel);
+		outState.putLong(EXTRA_BOOK_ID, bookId);
+	}
 
 
 	@Override
@@ -57,6 +76,10 @@ public static final String EXTRA_QUESTION = "question";
 	
 	public String getWordLabel(){
 		return wordLabel;
+	}
+	
+	public long getBookId(){
+		return bookId;
 	}
 	
 }
