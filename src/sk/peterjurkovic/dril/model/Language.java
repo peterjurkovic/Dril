@@ -1,5 +1,6 @@
 package sk.peterjurkovic.dril.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -9,7 +10,7 @@ import android.util.SparseArray;
 
 
 
-public enum Language {
+public enum Language implements SpinnerState{
 	
 	ENGLISH(1, R.string.label_lang_en, Locale.UK),
 	GERMAN(2, R.string.label_lang_de, Locale.GERMAN),
@@ -65,6 +66,14 @@ public enum Language {
 	
 	public static List<Language> getAll(){
 		return Arrays.asList(values());
+	}
+	
+	public static List<SpinnerState> getAllStates(){
+		List<SpinnerState> list = new ArrayList<SpinnerState>();
+		for(Language l : values()){
+			list.add(l);
+		}
+		return list;
 	}
 
 	public static Language getById(int id) {

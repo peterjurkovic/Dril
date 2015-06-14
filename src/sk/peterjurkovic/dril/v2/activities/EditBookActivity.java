@@ -1,22 +1,16 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 import sk.peterjurkovic.dril.R;
-import sk.peterjurkovic.dril.dao.BookDao;
-import sk.peterjurkovic.dril.dao.BookDaoImpl;
-import sk.peterjurkovic.dril.db.BookDBAdapter;
+import sk.peterjurkovic.dril.dto.State;
 import sk.peterjurkovic.dril.model.Book;
-import sk.peterjurkovic.dril.model.Language;
-import sk.peterjurkovic.dril.model.Level;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 /**
  * 
@@ -24,16 +18,11 @@ import android.widget.Toast;
  * @date Nov 3, 2013
  *
  */
-public class EditBookActivity extends BaseActivity {
+public class EditBookActivity extends BaseBookActivity {
 	
 	private long bookId;
 	public static final String EXTRA_BOOK_ID = "book_id";
-	private BookDao bookDao;
-	private Spinner questionSpinner;
-	private Spinner answerSpinner;
-	private Spinner levelSpinner;
 
-	private EditText bookNameInput;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +30,6 @@ public class EditBookActivity extends BaseActivity {
         
         bookId = getIntent().getLongExtra(EXTRA_BOOK_ID, -1);
         setContentView(R.layout.v2_book_edit_layout);
-        bookDao = new BookDaoImpl(new BookDBAdapter( this ));
         
         Button submit = (Button)findViewById(R.id.submitEdit);
         Button cancel = (Button)findViewById(R.id.cancelEdit);
@@ -49,62 +37,52 @@ public class EditBookActivity extends BaseActivity {
         questionSpinner = (Spinner) findViewById(R.id.langQuestion);
         answerSpinner = (Spinner) findViewById(R.id.langAnswer);
         levelSpinner = (Spinner) findViewById(R.id.bookLevelEdit);
+        shareCheckbox = (CheckBox) findViewById(R.id.bookShareEdit);
     	
         bookNameInput =  (EditText) findViewById(R.id.editBookName);
         
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
 			public void onClick(View v) {
-            	onSubmitEditBookClicked();
+            	onSubmitClicked();
             }
         });
         
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
 			public void onClick(View v) {
-            	onCancelEditBookClicked();
+            	onCancelClicked();
             	
             }
         });
         loadBookData();
     }
     
-    
-    private void onCancelEditBookClicked() {
-		finish();
-	}
-    
-   
-    
-    public void onSubmitEditBookClicked(){
-        String bookName = bookNameInput.getText().toString();
-        if(bookName.length() == 0) {
-        	return;
-        };
-        Book book = bookDao.getById(bookId);
-        if(book != null){
-        	book.setName(bookName);
-        	Language langQuestion = (Language)questionSpinner.getSelectedItem();
-        	Language langAnswer = (Language)answerSpinner.getSelectedItem();
-        	if(langQuestion == langAnswer){
-        		Toast.makeText(this, R.string.error_same_languages, Toast.LENGTH_LONG).show();
-        	}
-        	book.setQuestionLang(langQuestion);
-        	book.setAnswerLang(langAnswer);
-        	book.setLevel((Level) levelSpinner.getSelectedItem());
-        	bookDao.update(book);
-        	onSaveEditedBook();
-        }else{
-        	Log.e("EDITBOOK", "Book with ID: " + bookId + " was not found");
-        }
-    }
 
-	public void onSaveEditedBook() {
-		Intent result = new Intent();
-		setResult(RESULT_OK, result);
-		finish();
+
+	@Override
+	protected void onSubmitClicked() {
+		 Book book = bookDao.getById(bookId);
+		 if(book == null){
+			 showMessage( R.string.err_book_notfound );
+			 onCancelClicked();
+			 return;
+		 }
+		 
+		 book = prepareBoook(book);
+		 if(book == null){
+			 return;
+		 }
+		 
+		 try{
+     		bookDao.update(book);
+     		onSuccess();
+     	}catch(IllegalArgumentException e){
+     		showMessage(R.string.err_book_exists );
+     	}
 	}
-	
+  
+   
 	public long getBookId(){
 		return bookId;
 	}
@@ -112,16 +90,17 @@ public class EditBookActivity extends BaseActivity {
 	public void loadBookData(){		
 		Book book = bookDao.getById(bookId);
 		if(book != null){
-			putBookData( book );
+			prepareFormFor( book );
 		}else{
-			Toast.makeText(this, R.string.error_no_data, Toast.LENGTH_LONG).show();
+			showMessage(R.string.err_book_notfound);
+			finish();
 		}
 	}
 	
 	
-	public void putBookData(final Book book){
+	public void prepareFormFor(final Book book){
 		bookNameInput.setText(book.getName());	
-		ArrayAdapter<Language> adapter = languageAdapter();
+		ArrayAdapter<State> adapter = languageAdapter();
 		questionSpinner.setAdapter(adapter);
 		answerSpinner.setAdapter(adapter);
 		if(book.getQuestionLang() != null){
@@ -131,6 +110,7 @@ public class EditBookActivity extends BaseActivity {
 			answerSpinner.setSelection(book.getAnswerLang().getId() - 1);
 		}
 		levelSpinner.setAdapter( levelAdapter() );
+		shareCheckbox.setChecked(book.isShared());
 		if(book.getLevel() != null){
 			levelSpinner.setSelection(book.getLevel().getId() - 1);
 		}
@@ -145,20 +125,7 @@ public class EditBookActivity extends BaseActivity {
 	    }
 	    return super.onOptionsItemSelected(item);
 	}
-	
-	
-	private ArrayAdapter<Language> languageAdapter(){
-		ArrayAdapter<Language> adapter =  new ArrayAdapter<Language>(this,  R.layout.v2_spinner,  Language.getAll() );
-		adapter.setDropDownViewResource(R.layout.v2_spinner_dropdown);	
-		return adapter;
-	}
 
 	
-	private ArrayAdapter<Level> levelAdapter(){
-		ArrayAdapter<Level> adapter =  new ArrayAdapter<Level>(this,  R.layout.v2_spinner,  Level.getAll());
-		adapter.setDropDownViewResource(R.layout.v2_spinner_dropdown);	
-		return adapter;
-	}
-
-
+	
 }

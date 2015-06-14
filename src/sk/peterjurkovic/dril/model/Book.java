@@ -1,3 +1,4 @@
+
 package sk.peterjurkovic.dril.model;
 
 import java.util.List;
@@ -40,4 +41,13 @@ public class Book extends AbstractEntity{
 	public void setShared(boolean shared) {
 		this.shared = shared;
 	}
+	@Override
+	public String toString() {
+		return "Book [lectures=" + lectures + ", answerLang=" + answerLang
+				+ ", questionLang=" + questionLang + ", level=" + level
+				+ ", shared=" + shared + ", getId()=" + getId()
+				+ ", getName()=" + getName() + "]";
+	}
+	
+	
 }

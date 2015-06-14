@@ -1,7 +1,6 @@
 package sk.peterjurkovic.dril.db;
 
 import sk.peterjurkovic.dril.model.Book;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -43,7 +42,7 @@ public class BookDBAdapter extends DBAdapter {
 										QUESTION_LANG_COLL +" INTEGER NOT NULL DEFAULT (0), " + 
 										SHARED +" INTEGER NOT NULL DEFAULT (1), " + 
 										LEVEL +" INTEGER, " +
-										SYNC +" INTEGER NOT NULL DEFAULT (0) " + 
+										SYNC +" INTEGER NOT NULL DEFAULT (1) " + 
 								");";
 
 	public static final String  TAG = "BookDBAdapter";
@@ -135,63 +134,66 @@ public class BookDBAdapter extends DBAdapter {
         return deletedCount > 0;
     }
     
-    
-    
-    
-    public long insertBook(String bookName) {
-        SQLiteDatabase db = openWriteableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(BOOK_NAME, bookName);
-        long id = db.insert( TABLE_BOOK , null, values);
-        db.close();
-        return id;
-    }
-    
-    public long createBook(final Book book) {
-        if(book == null){
-        	return 0;
-        }
-    	SQLiteDatabase db = openWriteableDatabase();
-        ContentValues values = bindBookParams(book);
-        long id = db.insert( TABLE_BOOK , null, values);
-        db.close();
-        return id;
+    public boolean isBookNameUnique(final SQLiteDatabase db, final Book book){
+    	String where = "book_name='" + book.getName()+"'";
+    	if(book.getId() != null){
+    		where += " AND " + ID + " <> " + book.getId();
+    	}
+    	return DatabaseUtils.queryNumEntries(db, TABLE_BOOK, where) == 0;
     }
 
     
-    
-    public boolean updateBook(long bookId, String bookName) {
-        SQLiteDatabase cdb = openWriteableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(BOOK_NAME, bookName);
-        int rowsUpdated = cdb.update(TABLE_BOOK, values,  ID + "=" + bookId, null);
-        return rowsUpdated > 0;
+    public long createBook(final Book book) {
+    	 if(book == null){
+         	throw new IllegalArgumentException("The book can not be null");
+         }
+         w.lock();
+         SQLiteDatabase db = openWriteableDatabase();
+         try{
+        	if(!isBookNameUnique(db, book)){
+        		throw new IllegalArgumentException();
+        	}
+         	SQLiteStatement stmt = db.compileStatement(
+         	"INSERT INTO book (book_name, question_lang_fk, answer_lang_fk, "+
+         	"level, shared) VALUES (?,?,?,?,?)");
+         	prepareBaseStatement(stmt, book);
+         	return stmt.executeInsert();
+         }finally{
+         	db.close();
+         	w.unlock();
+         	
+         }
     }
-    
+
     
     public boolean updateBook(final Book book) {
         if(book == null){
-        	return false;
+        	throw new IllegalArgumentException("The book can not be null");
         }
-        SQLiteDatabase cdb = openWriteableDatabase();
-        ContentValues values = bindBookParams(book);
-        //SQLiteStatement stmt = cdb.compileStatement("UPDATE book SET book_name = ?, ")
-        int rowsUpdated = cdb.update(TABLE_BOOK, values,  ID + "=" + book.getId(), null);
-        return rowsUpdated > 0;
+        w.lock();
+        SQLiteDatabase db = openWriteableDatabase();
+        try{
+        	if(!isBookNameUnique(db, book)){
+        		throw new IllegalArgumentException();
+        	}
+        	SQLiteStatement stmt = db.compileStatement(
+        	"UPDATE book SET book_name = ?, question_lang_fk=?, answer_lang_fk=?, "+
+        	" level=?, shared=?, last_changed=datetime('now') WHERE _id =? ");
+        	prepareBaseStatement(stmt, book);
+        	stmt.bindLong(6, book.getId());
+        	stmt.execute();
+        	return true;
+        }finally{
+        	db.close();
+        	w.unlock();
+        }
     }
     
-    
-    private ContentValues bindBookParams(final Book book){
-    	 ContentValues values = new ContentValues();
-    	 values.put(BOOK_NAME, book.getName());
-         if(book.getQuestionLang() != null){
-         	values.put(QUESTION_LANG_COLL, book.getQuestionLang().getId());
-         }
-         if(book.getAnswerLang() != null){
-         	values.put(ANSWER_LANG_COLL, book.getAnswerLang().getId());
-         }
-         
-    	 return values;
+    public void prepareBaseStatement(SQLiteStatement stmt, Book book){
+    	stmt.bindString(1, book.getName());
+    	stmt.bindLong(2, book.getQuestionLang().getId());
+    	stmt.bindLong(3, book.getAnswerLang().getId());
+    	stmt.bindLong(4, book.getLevel().getId());
+    	stmt.bindLong(5, book.isShared() ? 1 : 0);
     }
- 
 }

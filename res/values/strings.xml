@@ -318,5 +318,9 @@
 	<string name="synced">Synced</string>
 	
 	<string name="level">Level</string>
+	<string name="shareLabel">Share this textbook</string>
+	<string name="err_book_notfound">The textbook was not found. Does book stil exist?</string>
+	<string name="err_book_name">The length of name has to be at least 8 characters.</string>
+	<string name="err_book_exists">The textbook with given name already exists, choose different name</string>
 	
 </resources>
