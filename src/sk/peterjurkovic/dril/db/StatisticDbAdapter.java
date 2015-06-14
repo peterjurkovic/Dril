@@ -156,15 +156,21 @@ public class StatisticDbAdapter extends DBAdapter{
     }
     
     public long createStatistics(Statistics statistics){
-    	if(statistics == null || statistics.getId() != 0){
+    	if(statistics == null || statistics.getId() == null){
     		return 0;
     	}
-    	SQLiteDatabase db = openWriteableDatabase();
-    	ContentValues values = bindBookParams(statistics);
-        long id = db.insert(TABLE_STATISTIC, null, values);
-        statistics.setId(id);
-        db.close();
-        return id;
+    	w.lock();
+    	final SQLiteDatabase db = openWriteableDatabase();
+    	try{
+    		ContentValues values = bindBookParams(statistics);
+    		long id = db.insert(TABLE_STATISTIC, null, values);
+    		statistics.setId(id);
+    		return id;
+    	}finally{
+    		db.close();
+    		w.unlock();
+    	}
+        
     }
     
     public Statistics getById(final long id) {

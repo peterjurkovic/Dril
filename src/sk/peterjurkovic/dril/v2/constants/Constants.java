@@ -19,7 +19,8 @@ public class Constants {
 	public static final int DELAY_BEFORE_PRONUNCIATION = 1500;
 	
 	/* Preferencies keys */
-	public static final String PREF_TEST_VALUE_KEY = "list_dril_test_values";
+	public static final String PREF_CATEG_DRIL = "_dril_";
+	public static final String PREF_DRIL_STRATEGY = "list_dril_test_values";
 	public static final String PREF_AUTOPLAY_PRONAUCE_KEY = "pref_dril_autoplay";
 	public static final String PREF_TARGET_LANG_KEY = "pref_target_lang";
 	public static final String PREF_WRITE_ANSWER_KEY = "pref_input_answer";

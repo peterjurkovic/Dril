@@ -166,9 +166,6 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.checkUpdateMenu :
-				checkForUpdate();
-			return true;
 			case R.id.backup :
 				startActivityBackupRestore(Boolean.TRUE);
 			return true;
@@ -217,12 +214,7 @@ public class DashboardActivity extends BaseActivity implements  AsyncLIstener{
 		return context;
 	}
 	
-	
-	private void checkForUpdate(){
-		 CheckForUpdate chfu = new CheckForUpdate( context );
-         chfu.execute(); 
-	}
-	
+		
 	
 	private void downloadBooks(){
 		UpdateSaver updater = new UpdateSaver( context );

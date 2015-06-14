@@ -125,7 +125,7 @@ public class BaseActivity extends AppCompatActivity {
 			    }
 			    return true;
 		    case R.id.settings:
-				intent = new Intent(context, PreferencesActivity.class);
+				intent = new Intent(context, DrilPreferenceActivity.class);
 				if(this.getClass().getName().equals(DrilActivity.class.getName())){
 					intent.putExtra(DrilActivity.DRIL_ID, true);
 				}

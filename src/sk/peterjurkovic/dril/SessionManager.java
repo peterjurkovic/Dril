@@ -15,15 +15,17 @@ public class SessionManager {
     private static final String TAG = SessionManager.class.getSimpleName();
     private final SharedPreferences pref;
     private final Context _context;
-    private final String PREF_NAME = "credentials";   
+    public static final String PREF_NAME = "credentials";   
      
 
-    private static final String KEY_USER_ID = "_uid_";
-    private static final String KEY_LOGIN = "_login_";
-    private static final String KEY_LOCALE_ID = "_localeId_";
-    private static final String KEY_TARGET_LOCALE_ID = "_targetLocaleId_";
-    private static final String KEY_TOKEN = "_token_";
-    private static final String KEY_WORD_LIMIT = "_wordLimit_";
+    public static final String KEY_USER_ID = "_uid_";
+    public static final String KEY_LOGIN = "_login_";
+    public static final String KEY_LOCALE_ID = "_localeId_";
+    public static final String KEY_TARGET_LOCALE_ID = "_targetLocaleId_";
+    public static final String KEY_FIRST_NAME = "_firstName_";
+    public static final String KEY_LAST_NAME = "_lastName_";
+    public static final String KEY_TOKEN = "_token_";
+    public static final String KEY_WORD_LIMIT = "_wordLimit_";
  
     public SessionManager(Context context) {
         this._context = context;
@@ -44,6 +46,8 @@ public class SessionManager {
     	final Editor editor = pref.edit();
     	editor.putInt(KEY_USER_ID, user.getInt("id"));
     	editor.putString(KEY_LOGIN, user.getString("login"));
+    	editor.putString(KEY_FIRST_NAME, user.getString("firstName"));
+    	editor.putString(KEY_LAST_NAME, user.getString("lastName"));
     	editor.putString(KEY_TOKEN, response.getString("token"));
     	editor.putInt(KEY_LOCALE_ID, isNull(user, "localeId") ?  Language.ENGLISH.getId() : user.getInt("localeId"));
     	editor.putInt(KEY_TARGET_LOCALE_ID, isNull(user, "targetLocaleId") ?  Language.ENGLISH.getId() : user.getInt("targetLocaleId"));

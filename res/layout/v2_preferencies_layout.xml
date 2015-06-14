@@ -9,6 +9,6 @@
         android:id="@+id/PreferenciesFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        class="sk.peterjurkovic.dril.fragments.DrilPreferenceFragment" />
+        class="sk.peterjurkovic.dril.fragments.NewDrilPreferenceFragment" />
 	
 </RelativeLayout>

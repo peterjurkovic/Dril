@@ -37,7 +37,16 @@
 	        android:layout_below="@id/labelAnswer" />
 	    
 	     <LinearLayout
-		     android:layout_below="@+id/editAnswer"
+      		android:id="@+id/addWordTip"
+      		android:layout_below="@id/editAnswer" 
+	  		style="@style/infoWrapper" >
+	    	<TextView 
+      			style="@style/infoTextDescr"
+       			android:text="@string/wordTip" />
+	    </LinearLayout>
+	    
+	     <LinearLayout
+		     android:layout_below="@+id/addWordTip"
 			 android:layout_height="wrap_content"
 			 android:layout_width="fill_parent"
 			 android:orientation="horizontal"

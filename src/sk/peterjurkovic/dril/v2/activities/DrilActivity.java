@@ -11,6 +11,7 @@ import sk.peterjurkovic.dril.dao.StatisticsDaoImpl;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.dto.WordToPronauceDto;
 import sk.peterjurkovic.dril.exceptions.DrilUnexpectedFinishedException;
+import sk.peterjurkovic.dril.model.DrilStrategy;
 import sk.peterjurkovic.dril.model.Statistics;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
@@ -75,8 +76,8 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
 	private TextView userAnserBox;
 	private TextView userAnserBoxResult;
 	private TextView helpMe;
-	private boolean writeAnswer = false;
-	SharedPreferences preferences;
+	private boolean writeAnswer = true;
+	private SharedPreferences preferences;
 	
 
 	
@@ -157,7 +158,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	setListeners();
     	preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     	drilService = new DrilService(new WordDBAdapter(this));
-    	writeAnswer = preferences.getBoolean(Constants.PREF_WRITE_ANSWER_KEY, false);
+    	writeAnswer = writeAnswer();
         if(!drilService.hasNext()){
         	showNoCardsAlert();
         }else{
@@ -175,10 +176,6 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	try{
 	    	Word currentWord = drilService.getNext();
 	    	setWordIntoViews(currentWord);
-	    	boolean autoplayPronunciation =  preferences.getBoolean(Constants.PREF_AUTOPLAY_PRONAUCE_KEY, false);
-	    	if(autoplayPronunciation){
-	    		playPronunciationInNewThread(Constants.DELAY_BEFORE_PRONUNCIATION);
-	    	}
     	}catch(DrilUnexpectedFinishedException e){
     		Log.e(e);
     	}
@@ -188,10 +185,10 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	if(word == null){
     		return;
     	}
-    	String shouldBeShown = preferences.getString(Constants.PREF_TEST_VALUE_KEY, "question");
-    	if(shouldBeShown.equals("question")){
+    	final DrilStrategy strategy = getStrategy();
+    	if(strategy == DrilStrategy.QUESTION){
     		setVisibleQuestion(word);
-    	}else if(shouldBeShown.equals("answer")){
+    	}else if(strategy == DrilStrategy.ANSWER){
     		setVisibleAnswer(word);
     	}else{
     		long timestamp = System.currentTimeMillis();
@@ -202,8 +199,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     		}
     	}
     	
-    	 drilheaderInfo.setText( 
-	        		getString(R.string.activated_words, 
+    	 drilheaderInfo.setText( getString(R.string.activated_words, 
 						drilService.getCountOfWords(), 
 						word.getHit(),
 						word.getLastRate()
@@ -364,11 +360,9 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
                tts = new TextToSpeech(this, this);
             }
             else {
-            	if(!preferences.getBoolean(Constants.PREF_DISABLE_TTS_NOTIFi, false)){
-	                Intent installIntent = new Intent();
-	                installIntent.setAction( TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
-	                startActivity(installIntent);
-            	}
+	            Intent installIntent = new Intent();
+	            installIntent.setAction( TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+	            startActivity(installIntent);
             }
         }
     	super.onActivityResult(requestCode, resultCode, data);
@@ -469,7 +463,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
 	                WordToPronauceDto wordDto = getQuestionToPronauce();
 	            	if(wordDto != null && wordDto.getLanguage() != null){
 	            		 sleep(delay);
-	            		int targetLang = Integer.valueOf(preferences.getString(Constants.PREF_TARGET_LANG_KEY, "1"));
+	            		int targetLang = session.getTargetLocaleId();
 	            		if(targetLang == wordDto.getLanguage().getId()){
 	            			wordDto.setShowFailureToast(false);
 	            			speakWords(wordDto);
@@ -521,7 +515,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     
     @Override
     protected void onResume() {
-    	writeAnswer = preferences.getBoolean(Constants.PREF_WRITE_ANSWER_KEY, false);
+    	writeAnswer = writeAnswer();
     	if(answer.getVisibility() != View.VISIBLE){
     		if(writeAnswer){
     			showInputField();
@@ -549,6 +543,9 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
          		);
     }
     
+    private boolean writeAnswer(){
+    	 return preferences.getBoolean(Constants.PREF_WRITE_ANSWER_KEY, true);
+    }
     
     private void onHelpMeClicked(){
     	String text =  StringUtils.getDrilHelpMessage(getAnserToPronauce().getValue(), helpClickedCounter);
@@ -558,8 +555,13 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	}
     }
     
+    private DrilStrategy getStrategy(){
+    	final String strategy = preferences.getString(Constants.PREF_DRIL_STRATEGY, DrilStrategy.QUESTION.toString());
+    	return DrilStrategy.getStragegy(strategy);
+    }
+    
     private void initStatistics(){
-    	StatisticsDao statisticsDao = new StatisticsDaoImpl(this);
+    	StatisticsDao statisticsDao = new StatisticsDaoImpl(context);
     	drilService.setStatistics(statisticsDao.getSessionStatisticsOrCreateNew());
     }
 }

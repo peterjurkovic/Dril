@@ -129,7 +129,7 @@
     <string name="import_id_not_found">Not found. Is your import ID correct?</string>
     <string name="import_id_invalid">Invalid import ID.</string>
     <string name="import_info_head">Import your own words</string>
-    <string name="import_info_desc">Did you know that you can import your own words ? It is possible two ways:\n\n- via csv file, stored in your mobile device\n- remotely, via www.drilapp.com \n\nHow? long click on given lesson, click on \"Import words\"</string>
+    <string name="import_info_desc">Visit a new WebDril avaiable on web.drilapp.com</string>
     
     <!-- INFO  -->
     <string name="about_app">About</string>
@@ -196,8 +196,9 @@
 	<string name="label_lang_pt">Portuguese</string>
 	
 	
-	<string name="pref_label_test">What should be shown</string>
-	<string name="pref_label_test_descr">Question, answer or random</string>
+	<string name="pref_label_test">Strategy</string>
+	<string name="pref_label_test_descr">Swap question and answer</string>
+	<string name="pref_label_test_descr_dialog">What should be tested</string>
 	<string name="pref_label_test_question">Question</string>
 	<string name="pref_label_test_answer">Answer</string>
 	<string name="pref_label_test_rand">Random</string>
@@ -324,5 +325,5 @@
 	<string name="err_book_notfound">The textbook was not found. Does book stil exist?</string>
 	<string name="err_book_name">The length of name has to be at least 8 characters.</string>
 	<string name="err_book_exists">The textbook with given name already exists, choose different name</string>
-	
+	<string name="wordTip">TIP: If you do not want pronauce some parts of text wrap given text into squere brackets or between slashes.\n E.g.: car [noun] /kɑːr/</string>
 </resources>
