@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import sk.peterjurkovic.dril.AppController;
 import sk.peterjurkovic.dril.R;
-import sk.peterjurkovic.dril.SessionManager;
 import sk.peterjurkovic.dril.db.DatabaseHelper;
 import sk.peterjurkovic.dril.sync.LoginManager;
 import sk.peterjurkovic.dril.utils.DeviceUtils;
@@ -40,7 +39,7 @@ public class LoginActivity extends BaseActivity{
     private EditText loginField;
     private EditText passwordField;
     private ProgressDialog pDialog;
-    private SessionManager session;
+
  
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,8 +56,6 @@ public class LoginActivity extends BaseActivity{
         pDialog = new ProgressDialog(context);
         pDialog.setCancelable(false);
  
-        // Session manager
-        session = new SessionManager(getApplicationContext());
  
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
@@ -93,9 +90,9 @@ public class LoginActivity extends BaseActivity{
         btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
  
             public void onClick(View view) {
-                //Intent i = new Intent(getApplicationContext(),RegisterActivity.class);
-                //startActivity(i);
-                //finish();
+                Intent i = new Intent(context,RegistrationActivity.class);
+                startActivity(i);
+                finish();
             }
         });
  

@@ -71,8 +71,13 @@
          <activity android:name=".v2.activities.BackupRestoreActivity"
         		  android:parentActivityName=".v2.activities.DashboardActivity" />
          
-          <activity android:name=".v2.activities.LoginActivity"
+         <activity android:name=".v2.activities.LoginActivity"
         		  android:parentActivityName=".v2.activities.DashboardActivity" />
+         
+         <activity android:name=".v2.activities.RegistrationActivity"
+        		  android:parentActivityName=".v2.activities.LoginActivity" />
+          
+          
          
         <activity android:name=".v2.activities.DrilPreferenceActivity"
             	  android:parentActivityName=".v2.activities.DashboardActivity" />    

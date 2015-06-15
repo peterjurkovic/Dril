@@ -5,6 +5,7 @@ import sk.peterjurkovic.dril.utils.ConversionUtils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
 public class StatisticDbAdapter extends DBAdapter{
@@ -193,6 +194,17 @@ public class StatisticDbAdapter extends DBAdapter{
 	   	values.put(AVG_RATE_SESSION, statistics.getAvgSessionRate());
 	   	values.put(SUM_OR_RATING, statistics.getSumOfRate());
    	 return values;
+   }
+    
+   public long getCountOfStoredWords(){
+	   final SQLiteDatabase db = getReadableDatabase();
+	   r.lock();
+	   try{
+		   return DatabaseUtils.queryNumEntries(db, WordDBAdapter.TABLE_WORD);
+	   }finally{
+		   r.unlock();
+		   db.close();
+	   }
    }
     
     public Cursor getAllStatistics() {

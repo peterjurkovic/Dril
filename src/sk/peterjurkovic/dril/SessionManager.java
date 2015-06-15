@@ -16,7 +16,8 @@ public class SessionManager {
     private final SharedPreferences pref;
     private final Context _context;
     public static final String PREF_NAME = "credentials";   
-     
+    public static final int DEFAULT_WORD_LIMIT = 2000;
+    public static final int UNLIMITED = -1;
 
     public static final String KEY_USER_ID = "_uid_";
     public static final String KEY_LOGIN = "_login_";
@@ -77,7 +78,7 @@ public class SessionManager {
     }
     
     public int getWordLimit(){
-    	return pref.getInt(KEY_WORD_LIMIT, 2000);
+    	return pref.getInt(KEY_WORD_LIMIT, DEFAULT_WORD_LIMIT);
     }
      
     public boolean isLoggedIn(){

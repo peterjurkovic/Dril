@@ -166,15 +166,7 @@
     
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="skip_button_label">Přeskočit</string>
-	
-    <string name="label_pref_head">Nastavení</string>
-    <string name="pref_target_lang">Cílový jazyk</string>
-    <string name="pref_target_lang_descr">Vyberte jazyk, který chcete procvičovat</string>
-    
-    <string name="pref_label_autoplay_head">Výslovnost slov</string>
-    <string name="pref_label_autoplayT2S">Automatické přehrání výslovnosti</string>
-    <string name="pref_label_autoplay_descr">Když je dané slovo v cílovem jazyku</string>
-    
+	   
 	<string name="label_lang_sk">Slovenčina</string>
 	<string name="label_lang_de">Nemčina</string>
 	<string name="label_lang_fr">Francouzština</string>
@@ -193,21 +185,19 @@
 	<string name="label_lang_sl">Slovinština</string>
 	<string name="label_lang_pt">Portugalština</string>
 	
-	<string name="pref_label_test">Dotazované pole</string>
-	<string name="pref_label_test_descr">Otázka, odpověď, náhodně</string>
+	<string name="pref_label_test">Zkoušení</string>
+	<string name="pref_label_test_descr">Prohodit otázky a odpovědi</string>
+	<string name="pref_label_test_descr_dialog">Co má být zkoušeno</string>
 	<string name="pref_label_test_question">Otázka</string>
 	<string name="pref_label_test_answer">Odpověď</string>
 	<string name="pref_label_test_rand">Náhodne</string>
 	
-	<string name="pref_input_answer">Vpisovat odpověď</string>
-	<string name="pref_input_answer_descr">Bude zjišťována podobnost s odpovědí</string>
+	<string name="pref_input_answer">Zadávat odpovědi</string>
+	<string name="pref_input_answer_descr">Zobrazit pole pro odpověď</string>
 	
-	<string name="pref_show_helper">Zobrazit našeptávač</string>
-	<string name="pref_show_helper_descr">Zobrazí se ikona nápovědy</string>
-	
-	<string name="pref_disable_tts_notifi">Nezobrazovat upozornení</string>
-	<string name="pref_disable_tts_notifi_descr">Nezobrazovat upozornení o chybějících datech k TTS</string>
-	
+	<string name="pref_show_helper">Našeptávač</string>
+	<string name="pref_show_helper_descr">Skrýt/zobrazit našeptávač</string>
+		
 	<string name="lang_question">Jazyk otázky</string>
 	<string name="lang_answer">Jazyk odpovědi</string>
 	<string name="error_same_languages">Vybrané jazyky jsou stejné</string>

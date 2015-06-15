@@ -4,6 +4,7 @@ import java.util.List;
 
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.SessionManager;
+import sk.peterjurkovic.dril.db.StatisticDbAdapter;
 import sk.peterjurkovic.dril.model.DrilStrategy;
 import sk.peterjurkovic.dril.model.Language;
 import sk.peterjurkovic.dril.preferencies.PreferenceFragment;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
+import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 
@@ -36,6 +38,7 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
         	 root.addPreference(dialogBasedPrefCat);
         	 dialogBasedPrefCat.setTitle("Account");
         	 dialogBasedPrefCat.setKey(SessionManager.PREF_NAME);
+        	 dialogBasedPrefCat.addPreference(createLimitPref());
         	 dialogBasedPrefCat.addPreference( createFirstNamePref() );
         	 dialogBasedPrefCat.addPreference( createLastNamePref() );
         	 addLangsPref(dialogBasedPrefCat);
@@ -50,6 +53,31 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
          drilCategory.addPreference( createShowHelperPref() );
          setPreferenceScreen(root);
      }
+	 
+	 private Preference createLimitPref(){
+		 final String prefKey = SessionManager.KEY_WORD_LIMIT + "text";	
+		 String value = "";
+		 int wordLimit = 
+				 getPreferenceManager()
+				 	.getSharedPreferences()
+				 	.getInt(SessionManager.KEY_WORD_LIMIT, SessionManager.DEFAULT_WORD_LIMIT);
+		if(wordLimit == SessionManager.UNLIMITED){
+			value = context.getString(R.string.unlimited);
+		}else{
+			value = String.valueOf(wordLimit);
+		}
+		 final long wordCount = new StatisticDbAdapter(context).getCountOfStoredWords();
+		 Preference pref = new Preference(context);
+		
+		 pref.setEnabled(true);
+		 pref.setSelectable(false);
+		 pref.setTitle(context.getString(R.string.pref_word_limit, value));
+		 pref.setSummary(context.getString(R.string.pref_word_limit_descr, wordCount));
+		 pref.setKey(prefKey);
+		 pref.setDefaultValue(SessionManager.DEFAULT_WORD_LIMIT + "");
+	
+		return pref;
+	 }
 	 
 	 
 	 private ListPreference createQuestionOrAnswerPref(){
@@ -93,8 +121,8 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
 	 
 	 private EditTextPreference createFirstNamePref(){
 		 EditTextPreference pref = new EditTextPreference(context);
-		 pref.setTitle("Your first name");
-		 pref.setDialogTitle("Your first name");
+		 pref.setTitle(R.string.pref_first_name);
+		 pref.setDialogTitle(R.string.pref_first_name);
 		 pref.setDefaultValue("");
 		 pref.getEditText().setText("");
 		 pref.setKey(SessionManager.KEY_FIRST_NAME);
@@ -103,8 +131,8 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
 	 
 	 private EditTextPreference createLastNamePref(){
 		 EditTextPreference pref = new EditTextPreference(context);
-		 pref.setTitle("Your last name");
-		 pref.setDialogTitle("Your last name");
+		 pref.setTitle(R.string.pref_last_name);
+		 pref.setDialogTitle(R.string.pref_last_name);
 		 pref.setDefaultValue("");
 		 pref.getEditText().setText("");
 		 pref.setKey(SessionManager.KEY_LAST_NAME);
@@ -129,8 +157,8 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
 		questionLangPref.setEntryValues(entryValues);
 		questionLangPref.setDefaultValue(Language.ENGLISH.getId()+"");
 		questionLangPref.setKey(SessionManager.KEY_LOCALE_ID);
-		questionLangPref.setTitle("Your language");
-		questionLangPref.setSummary("Your native language");
+		questionLangPref.setTitle(R.string.pref_locale);
+		questionLangPref.setSummary(R.string.pref_locale_desc);
 		categ.addPreference(questionLangPref);
 		
 		ListPreference anserLangPref = new ListPreference(context);
@@ -138,8 +166,8 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
 		anserLangPref.setEntryValues(entryValues);
 		anserLangPref.setDefaultValue(Language.ENGLISH.getId()+"");
 		anserLangPref.setKey(SessionManager.KEY_TARGET_LOCALE_ID);
-		anserLangPref.setTitle("Your target language");
-		anserLangPref.setSummary("Which want you to learn");
+		anserLangPref.setTitle(R.string.pref_target_locale);
+		anserLangPref.setSummary(R.string.pref_target_locale_desc);
 		categ.addPreference(anserLangPref);
 		
 		return null;

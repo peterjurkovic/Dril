@@ -169,14 +169,6 @@
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="skip_button_label">Skip</string>
 	
-    <string name="label_pref_head">Dril settings</string>
-    <string name="pref_target_lang">Target language</string>
-    <string name="pref_target_lang_descr">Select the language you want to learn</string>
-    
-    <string name="pref_label_autoplay_head">Words pronunciation</string>
-    <string name="pref_label_autoplayT2S">Autoplay pronunciation</string>
-    <string name="pref_label_autoplay_descr">Automatically plays pronunciation of the word when is shown and is in target language</string>
-    
 	<string name="label_lang_sk">Slovak</string>
 	<string name="label_lang_de">German</string>
 	<string name="label_lang_fr">French</string>
@@ -207,10 +199,17 @@
 	<string name="pref_input_answer_descr">Will determine the question similarity</string>
 	
 	<string name="pref_show_helper">Show whisperer</string>
-	<string name="pref_show_helper_descr">Will shown help icon in dril</string>
+	<string name="pref_show_helper_descr">on the dril sreen</string>
 	
-	<string name="pref_disable_tts_notifi">Disable notification</string>
-	<string name="pref_disable_tts_notifi_descr">Disable notification of missing Text-2-speech data</string>
+	<string name="pref_first_name">Your first name</string>
+	<string name="pref_last_name">Your last name</string>
+	<string name="pref_locale">Your language</string>
+	<string name="pref_locale_desc">Your native language</string>
+	<string name="pref_target_locale">Your target language</string>
+	<string name="pref_target_locale_desc">What you want to learn</string>
+	<string name="pref_word_limit">Max no. of stored words: %1$s</string>
+	<string name="pref_word_limit_descr">You currently have stored: %1$d</string>
+		
 	
 	<string name="lang_question">Language of question</string>
 	<string name="lang_answer">Language of answer</string>
@@ -326,4 +325,12 @@
 	<string name="err_book_name">The length of name has to be at least 8 characters.</string>
 	<string name="err_book_exists">The textbook with given name already exists, choose different name</string>
 	<string name="wordTip">TIP: If you do not want pronauce some parts of text wrap given text into squere brackets or between slashes.\n E.g.: car [noun] /kɑːr/</string>
+	<string name="unlimited">Unlimited</string>
+	
+	<!--  registration -->
+	<string name="signup">Sign up</string>
+	<string name="signup_desc">and sync your card with web.drilapp.com</string>
+	<string name="signup_email">Your e-mail address</string>
+	<string name="signup_confirm_pass">Confirm password</string>
+	
 </resources>
