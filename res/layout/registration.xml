@@ -49,7 +49,8 @@
 	            android:padding="10dp"
 	            android:singleLine="true"
 	            android:textColor="@color/text_color"
-	            android:textColorHint="@color/text_color_hit" />
+	            android:textColorHint="@color/text_color_hit"
+	            android:nextFocusDown="@+id/email_field" />
 	        
 	        <EditText
 	            android:id="@+id/email_field"
@@ -62,7 +63,9 @@
 	            android:padding="10dp"
 	            android:singleLine="true"
 	            android:textColor="@color/text_color"
-	            android:textColorHint="@color/text_color_hit" />
+	            android:textColorHint="@color/text_color_hit"
+	            android:nextFocusDown="@+id/password_field" />
+	        
 	 
 	        <EditText
 	            android:id="@+id/password_field"
@@ -75,7 +78,8 @@
 	            android:padding="10dp"
 	            android:singleLine="true"
 	            android:textColor="@color/text_color"
-	            android:textColorHint="@color/text_color_hit" />
+	            android:textColorHint="@color/text_color_hit"
+	            android:nextFocusDown="@+id/confirm_password_field" />
 	 
 	        <EditText
 	            android:id="@+id/confirm_password_field"
@@ -97,7 +101,8 @@
 	            android:gravity="center_horizontal"
 	            android:textSize="12sp"
 	            android:textColor="@color/white"
-	            android:layout_marginBottom="5dp" />
+	            android:layout_marginBottom="5dp"
+	            android:nextFocusDown="@+id/locale_field" />
 	        
 	         <LinearLayout
 	          android:layout_width="fill_parent"
@@ -110,6 +115,8 @@
 		            android:layout_height="wrap_content"
 		 		    android:spinnerMode="dialog"
 		 		    style="@style/whiteSpinner" 
+		 		    android:nextFocusDown="@+id/target_locale_field"
+		 		    
 	 		    />
 	        </LinearLayout>
 	        
@@ -134,6 +141,7 @@
 	            android:layout_height="wrap_content"
 	 		    android:spinnerMode="dialog"
 	 		    style="@style/whiteSpinner" 
+	 		    android:nextFocusDown="@+id/first_name_field"
 	 		    />
 	          
 	      </LinearLayout>
@@ -149,7 +157,8 @@
 	            android:padding="10dp"
 	            android:singleLine="true"
 	            android:textColor="@color/text_color"
-	            android:textColorHint="@color/text_color_hit" />
+	            android:textColorHint="@color/text_color_hit"
+	            android:nextFocusDown="@+id/last_name_field" />
 		     
 		      <EditText
 	            android:id="@+id/last_name_field"
@@ -162,7 +171,8 @@
 	            android:padding="10dp"
 	            android:singleLine="true"
 	            android:textColor="@color/text_color"
-	            android:textColorHint="@color/text_color_hit" />
+	            android:textColorHint="@color/text_color_hit" 
+	            android:nextFocusDown="@+id/register" />
 	 		
 	        <!-- Login Button -->
 	 

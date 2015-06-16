@@ -296,6 +296,7 @@
 	<string name="login_details">Enter your login details</string>
 	<string name="create_account">Create an account</string>
 	
+	<string name="creating_account">Creating accout &#8230;</string>
 	<string name="logging_in">Logging in &#8230;</string>
 	<string name="importing_data">Importing data &#8230;</string>
 	<string name="login_success">You have been successfully logged in</string>
@@ -333,4 +334,11 @@
 	<string name="signup_email">Your e-mail address</string>
 	<string name="signup_confirm_pass">Confirm password</string>
 	
+	<string name="err_login">Login has to have at least 5 characters</string>
+	<string name="err_email">Invalid e-mail address</string>
+	<string name="err_pass">Password has to have at least 6 characters</string>
+	<string name="err_confir_pass">Confirmation password does not match password</string>
+	<string name="err_first_name">Invalid first name</string>
+	<string name="err_last_name">Invalid last name</string>
+	<string name="err_account_create">Something went wrong, try it again later</string>
 </resources>

@@ -278,5 +278,5 @@ public class StringUtils {
 		return fileExt.equals(ext);
 	}
 	
-	
+
 }
