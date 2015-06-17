@@ -32,7 +32,7 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
          
                   
          final PreferenceScreen root =  getPreferenceManager().createPreferenceScreen(context);
-         if(session.isLoggedIn()){
+         if(session.isUserLoggedIn()){
         	  
         	 final PreferenceCategory dialogBasedPrefCat = new PreferenceCategory(context);
         	 root.addPreference(dialogBasedPrefCat);
@@ -58,10 +58,7 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
 	 private Preference createLimitPref(){
 		 final String prefKey = SessionManager.KEY_WORD_LIMIT + "text";	
 		 String value = "";
-		 int wordLimit = 
-				 getPreferenceManager()
-				 	.getSharedPreferences()
-				 	.getInt(SessionManager.KEY_WORD_LIMIT, SessionManager.DEFAULT_WORD_LIMIT);
+		 int wordLimit = session.getWordLimit();
 		if(wordLimit == SessionManager.UNLIMITED){
 			value = context.getString(R.string.unlimited);
 		}else{

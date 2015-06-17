@@ -4,15 +4,13 @@ import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.regex.Pattern;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.android.volley.NetworkResponse;
-import com.android.volley.toolbox.HttpHeaderParser;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.android.volley.NetworkResponse;
+import com.android.volley.toolbox.HttpHeaderParser;
 
 /**
  * 

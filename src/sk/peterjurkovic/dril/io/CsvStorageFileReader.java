@@ -22,7 +22,7 @@ import com.google.analytics.tracking.android.Log;
  */
 public class CsvStorageFileReader implements StorageFileReader {
 
-	private Context context;
+	private final Context context;
 	
 	public CsvStorageFileReader(Context context){
 		this.context = context;

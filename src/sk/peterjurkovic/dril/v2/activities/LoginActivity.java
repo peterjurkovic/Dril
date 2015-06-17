@@ -59,7 +59,7 @@ public class LoginActivity extends BaseActivity{
  
  
         // Check if user is already logged in or not
-        if (session.isLoggedIn()) {
+        if (session.isUserLoggedIn()) {
             // User is already logged in. Take him to main activity
             Intent intent = new Intent(context, DashboardActivity.class);
             startActivity(intent);

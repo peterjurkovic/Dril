@@ -155,7 +155,7 @@ public class BaseActivity extends AppCompatActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.v2_main, menu);
-		if(session.isLoggedIn()){
+		if(session.isUserLoggedIn()){
 			
 		}else{
 			menu.removeItem(R.id.sync);

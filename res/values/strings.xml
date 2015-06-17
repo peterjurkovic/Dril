@@ -345,5 +345,6 @@
 	<string name="err_account_create">Something went wrong, try it again later</string>
 	
 	<string name="err_lecture_uniqe">Lecture with given name already exists in this textbook.</string>
+	<string name="err_word_limit">Registered users are eligible to store max %d words.</string>
 	
 </resources>

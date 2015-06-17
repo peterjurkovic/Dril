@@ -86,7 +86,7 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 	        if(bookDbAdapter.getBooksCount() == 0){
 	        	downloadBooks();
 	        }
-	        if(session.isLoggedIn()){
+	        if(session.isUserLoggedIn()){
 	        	login.setVisibility(View.GONE);
 	        }else{
 	        	login.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +99,7 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 	  			});
 	        }
 	        AppRater.app_launched(this);
-	        if(session.isLoggedIn()){
+	        if(session.isUserLoggedIn()){
 	        	new SyncManager(context).execute();
 	        }
 	}

@@ -2,12 +2,16 @@ package sk.peterjurkovic.dril.fragments;
 
 
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.SessionManager;
 import sk.peterjurkovic.dril.dao.BookDao;
 import sk.peterjurkovic.dril.dao.BookDaoImpl;
+import sk.peterjurkovic.dril.db.StatisticDbAdapter;
 import sk.peterjurkovic.dril.listener.OnAddWordListener;
 import sk.peterjurkovic.dril.model.Book;
+import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.activities.AddWordActivity;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.analytics.tracking.android.Log;
 
@@ -102,7 +107,19 @@ public class AddWordFragment extends Fragment {
         View root = getView();
         String question = ((EditText)root.findViewById(R.id.addQestion)).getText().toString();
         String answer = ((EditText)root.findViewById(R.id.addAnswer)).getText().toString();
-        if(question.length() == 0 || answer.length() == 0) return;
+        if(StringUtils.isBlank(question) || StringUtils.isBlank(answer)){
+        	return;
+        }
+        final Context context = getActivity();
+        SessionManager sessionManage = new SessionManager(context);
+        if(sessionManage.isUserLoggedIn() && !sessionManage.isUserUnlimited()){
+        	final StatisticDbAdapter db = new StatisticDbAdapter(context);
+        	final long count = db.getCountOfStoredWords();
+        	if(count + 1 > sessionManage.getWordLimit()){
+        		Toast.makeText(context, context.getString(R.string.err_word_limit, sessionManage.getWordLimit()), Toast.LENGTH_LONG).show();
+        		return;
+        	}
+        }
         onAddWordListener.saveNewWord(question, answer);
     }
     

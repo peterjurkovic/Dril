@@ -54,7 +54,7 @@ public class SessionManager {
     	editor.putInt(KEY_TARGET_LOCALE_ID, isNull(user, "targetLocaleId") ?  Language.ENGLISH.getId() : user.getInt("targetLocaleId"));
     	editor.putInt(KEY_WORD_LIMIT, user.getInt("wordLimit"));
         editor.commit();
-        Log.d(TAG, "User login session modified.");
+        Log.d(TAG, "User login session modified. " );
     }
     
     private boolean isNull(JSONObject obj, String key){
@@ -80,8 +80,12 @@ public class SessionManager {
     public int getWordLimit(){
     	return pref.getInt(KEY_WORD_LIMIT, DEFAULT_WORD_LIMIT);
     }
+    
+    public boolean isUserUnlimited(){
+    	return getWordLimit() == UNLIMITED;
+    }
      
-    public boolean isLoggedIn(){
+    public boolean isUserLoggedIn(){
         return getToken() != null;
     }
 }	
