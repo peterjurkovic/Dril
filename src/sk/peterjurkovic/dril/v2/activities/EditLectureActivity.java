@@ -23,16 +23,19 @@ import com.google.analytics.tracking.android.Log;
 public class EditLectureActivity extends BaseActivity {
 	
 	private long lectureId;
+	private long bookId;
 	
 	public static final String EXTRA_LECTURE_NAME = "lecture_name";
 	
 	public static final String EXTRA_LECTURE_ID = "lecture_id";
+	public static final String EXTRA_BOOK_ID_FK = "fk_book_id";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         lectureId = getIntent().getLongExtra( EXTRA_LECTURE_ID , -1);
+        bookId = getIntent().getLongExtra(EXTRA_BOOK_ID_FK , -1);
         setContentView(R.layout.v2_lecture_edit_layout);
         
         loadLectureData();
@@ -61,7 +64,14 @@ public class EditLectureActivity extends BaseActivity {
 	 public void onSubmitEditLectureClicked(){
         String lectureName = ((EditText)findViewById(R.id.editLectureName))
         													.getText().toString();
-        if(lectureName.length() == 0) return;
+        if(lectureName.length() == 0){
+        	return;
+        }
+        final LectureDBAdapter db = new LectureDBAdapter(context);
+	    if(!db.isLectureNameUniqe(bookId, lectureName, lectureId)){
+	    	Toast.makeText(context, R.string.err_lecture_uniqe, Toast.LENGTH_LONG).show();
+	    	return;
+	    }
         onSaveEditedBook(lectureId , lectureName);
 	 }
 	 

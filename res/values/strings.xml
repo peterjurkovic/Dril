@@ -294,7 +294,7 @@
 	<string name="sync">Sync</string>
 	<string name="password">Password</string>
 	<string name="login_details">Enter your login details</string>
-	<string name="create_account">Create an account</string>
+	<string name="create_account">Create account</string>
 	
 	<string name="creating_account">Creating accout &#8230;</string>
 	<string name="logging_in">Logging in &#8230;</string>
@@ -333,6 +333,8 @@
 	<string name="signup_desc">and sync your card with web.drilapp.com</string>
 	<string name="signup_email">Your e-mail address</string>
 	<string name="signup_confirm_pass">Confirm password</string>
+	<string name="signup_success">Your account has been successfully created. Please check your inbox "%s" and activate your account.</string>
+	
 	
 	<string name="err_login">Login has to have at least 5 characters</string>
 	<string name="err_email">Invalid e-mail address</string>
@@ -341,4 +343,7 @@
 	<string name="err_first_name">Invalid first name</string>
 	<string name="err_last_name">Invalid last name</string>
 	<string name="err_account_create">Something went wrong, try it again later</string>
+	
+	<string name="err_lecture_uniqe">Lecture with given name already exists in this textbook.</string>
+	
 </resources>

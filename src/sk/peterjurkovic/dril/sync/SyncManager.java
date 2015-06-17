@@ -1,12 +1,15 @@
 package sk.peterjurkovic.dril.sync;
 
 import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import sk.peterjurkovic.dril.AppController;
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.SessionManager;
 import sk.peterjurkovic.dril.db.SyncDbAdapter;
 import sk.peterjurkovic.dril.utils.DeviceUtils;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
@@ -16,6 +19,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request.Method;
@@ -64,7 +68,8 @@ public class SyncManager extends AsyncTask<Void, Void, JSONObject>{
 				return;
 			}
 			JsonObjectRequest req = new JsonObjectRequest(Method.POST, Api.SYNC, request,
-					new Response.Listener<JSONObject>() {
+			
+				new Response.Listener<JSONObject>() {
 				
 				        @Override
 				        public void onResponse(JSONObject response) {
@@ -85,7 +90,17 @@ public class SyncManager extends AsyncTask<Void, Void, JSONObject>{
 		            
 		            
 		            }
-		        });
+		        }){
+				
+				@Override
+				public Map<String, String> getHeaders() throws AuthFailureError {
+					final SessionManager session = new SessionManager(context);
+					final String token = session.getToken();
+					final Map<String, String> headers = new HashMap<String, String>(1);
+					headers.put("Authorization", "Bearer " + token);
+					return headers;
+				}				
+			};
 				
 				req.setRetryPolicy(new DefaultRetryPolicy(8000, 
 		                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, 

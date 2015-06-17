@@ -197,6 +197,7 @@ public class LectureListActivity extends ActionBarListActivity implements OnSucc
 	public void onEditLectureClicked(long lectureId) {
 		Intent i = new Intent(this,  EditLectureActivity.class);
 		i.putExtra(EditLectureActivity.EXTRA_LECTURE_ID, lectureId);
+		i.putExtra(EditLectureActivity.EXTRA_BOOK_ID_FK, bookId);
 		startActivityForResult(i, REQUEST_EDIT_LECTURE);
 	}
 	
@@ -356,6 +357,7 @@ public class LectureListActivity extends ActionBarListActivity implements OnSucc
 	
 	private void startAddLectureActivity(){
 		Intent i = new Intent(this, AddLectureActivity.class);
+		i.putExtra(AddLectureActivity.EXTRA_BOOK_ID_FK, bookId);
 	    startActivityForResult(i, REQUEST_ADD_LECTURE);
 	}
 	

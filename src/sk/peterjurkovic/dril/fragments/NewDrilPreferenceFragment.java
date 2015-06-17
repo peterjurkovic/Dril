@@ -54,6 +54,7 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
          setPreferenceScreen(root);
      }
 	 
+	 
 	 private Preference createLimitPref(){
 		 final String prefKey = SessionManager.KEY_WORD_LIMIT + "text";	
 		 String value = "";

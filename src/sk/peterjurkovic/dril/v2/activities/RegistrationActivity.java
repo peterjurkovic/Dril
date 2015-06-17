@@ -2,7 +2,6 @@ package sk.peterjurkovic.dril.v2.activities;
 
 import static sk.peterjurkovic.dril.utils.StringUtils.isBlank;
 
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +17,7 @@ import sk.peterjurkovic.dril.model.Language;
 import sk.peterjurkovic.dril.model.SpinnerState;
 import sk.peterjurkovic.dril.utils.DeviceUtils;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
+import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.utils.validation.EmailValidator;
 import sk.peterjurkovic.dril.v2.constants.Api;
 import android.app.ProgressDialog;
@@ -29,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -36,14 +37,12 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
 
 public class RegistrationActivity extends BaseActivity {
 	
 	private final static String TAG = RegistrationActivity.class.getSimpleName();
-	private final static String ENCODING = "utf-8";
+	
 	
 	
 	private EditText loginField;
@@ -57,7 +56,7 @@ public class RegistrationActivity extends BaseActivity {
 	
 	private Button createAccount;
 	private Button login;
-	
+	private String email;
 	private ProgressDialog pDialog;
 	
 	@Override
@@ -116,7 +115,7 @@ public class RegistrationActivity extends BaseActivity {
 			showMessage(R.string.err_login);	
 			return;
 		}
-		String email = emailField.getText().toString();
+		email = emailField.getText().toString();
 		if(isBlank(email) || !EmailValidator.getInstance().isValid(email)){
 			showMessage(R.string.err_email);
 			return;
@@ -167,10 +166,12 @@ public class RegistrationActivity extends BaseActivity {
 		
 		showDialog();
         JsonObjectRequest req = new JsonObjectRequest(Method.POST, Api.REGISTRATION, json,
+        	
         		new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                     	hideDialog();
+                		showSuccessMessage();
                     }
 
                  },
@@ -181,17 +182,11 @@ public class RegistrationActivity extends BaseActivity {
 	                	hideDialog();
 	                	NetworkResponse res = error.networkResponse;
 	                	if(res !=null && res.statusCode == HttpURLConnection.HTTP_BAD_REQUEST){
-	                		try {
-								JSONObject jsonRes = new JSONObject(new String(res.data, HttpHeaderParser.parseCharset(res.headers, ENCODING)));
-								if(jsonRes.has("error")){
-									JSONObject jsonError = jsonRes.getJSONObject("error");
-									String errorMessage = jsonError.getString("message");
-									Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
-									return;
-								}
-							} catch (Exception e) {
-								GoogleAnalyticsUtils.logException(e, context);
-							}
+	                		String message = StringUtils.extractError(res, context);
+	                		if(message != null){
+	                			Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+	                			return;
+	                		}
 	                	}
 	                	Toast.makeText(context, R.string.err_account_create, Toast.LENGTH_LONG).show();	                    
 	                }
@@ -223,16 +218,22 @@ public class RegistrationActivity extends BaseActivity {
 		return adapter;
 	}
 	
+	public void showSuccessMessage(){
+		TextView v = (TextView) findViewById(R.id.regMsg);
+		v.setText(context.getString(R.string.signup_success, email));
+		v.setVisibility(View.VISIBLE);
+		findViewById(R.id.regForm).setVisibility(View.GONE);
+	}
 	
-	 private void showDialog() {
-	        if (!pDialog.isShowing()){
-	            pDialog.show();
-	        }   
-	    }
+	private void showDialog() {
+	    if (!pDialog.isShowing()){
+	        pDialog.show();
+	    }   
+	}
 	 
-	    private void hideDialog() {
-	        if (pDialog.isShowing()){
-	            pDialog.dismiss();
-	        }
+	private void hideDialog() {
+	    if (pDialog.isShowing()){
+	        pDialog.dismiss();
 	    }
+	}
 }

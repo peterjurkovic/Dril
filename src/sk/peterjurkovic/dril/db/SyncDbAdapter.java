@@ -143,7 +143,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 		db.execSQL("DELETE FROM lecture WHERE _id IN "+  
 				   "(SELECT l._id FROM lecture l "+
 				   "INNER JOIN book b ON b._id = l.book_id "+
-				   "WHERE b.sync = 1 AND l.sid IS NULL AND l.last_changed >= '"+lastSync+"' AND l.last_changed < '"+currentTime+"');");
+				   "WHERE l.sid IS NULL AND l.last_changed >= '"+lastSync+"' AND l.last_changed < '"+currentTime+"');");
 		
 		db.execSQL("DELETE FROM book WHERE sync=1 AND sid IS NULL AND last_changed >= '"+lastSync+"' AND last_changed < '"+currentTime+"';");
 		final JSONArray deletedList = response.getJSONArray("deletedList");
@@ -283,7 +283,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 				"FROM word w " +
 				"INNER JOIN lecture l ON  l._id = w.lecture_id "+
 				"INNER JOIN book b ON b._id = l.book_id "+
-				"WHERE b.sync = 1 AND w.last_changed > '" + lastSync + "';";
+				"WHERE w.last_changed > '" + lastSync + "';";
 		final Cursor cursor = db.rawQuery(query, null);
 		JSONArray list = new JSONArray();
 		cursor.moveToFirst();
@@ -311,7 +311,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 				"SELECT l._id, l.sid, l.lecture_name, l.book_id "+ 
 				"FROM lecture l " +
 				"INNER JOIN book b ON b._id = l.book_id "+
-				"WHERE b.sync = 1 AND l.last_changed > '" + lastSync + "';";
+				"WHERE l.last_changed > '" + lastSync + "';";
 		final Cursor cursor = db.rawQuery(query, null);
 		JSONArray list = new JSONArray();
 		cursor.moveToFirst();
@@ -332,7 +332,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 			final String query = 
 					"SELECT b._id, b.sid, b.book_name, b.shared, b.level, b.answer_lang_fk, b.question_lang_fk "+ 
 					"FROM book b " +
-					"WHERE b.sync = 1 AND b.last_changed > '" + lastSync + "';";
+					"WHERE b.last_changed > '" + lastSync + "';";
 			final Cursor cursor = db.rawQuery(query, null);
 			JSONArray list = new JSONArray();
 			cursor.moveToFirst();

@@ -94,6 +94,7 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 	  				public void onClick(View v) {
 	  					Intent i = new Intent(context, LoginActivity.class);
 	  	            	startActivity(i);
+	  	            	finish();
 	  				}
 	  			});
 	        }

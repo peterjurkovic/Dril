@@ -12,6 +12,7 @@ import sk.peterjurkovic.dril.db.DatabaseHelper;
 import sk.peterjurkovic.dril.sync.LoginManager;
 import sk.peterjurkovic.dril.utils.DeviceUtils;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
+import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Api;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -132,14 +133,21 @@ public class LoginActivity extends BaseActivity{
 	                @Override
 	                public void onErrorResponse(VolleyError error) {
 	                	hideDialog();
-	                	NetworkResponse networkResponse = error.networkResponse;
-	                	if(networkResponse != null && networkResponse.statusCode == HttpURLConnection.HTTP_UNAUTHORIZED){
+	                	NetworkResponse res = error.networkResponse;
+	                	if(res != null && res.statusCode == HttpURLConnection.HTTP_UNAUTHORIZED){
 	                		Toast.makeText(getApplicationContext(),R.string.err_http_401, Toast.LENGTH_LONG).show();
-	                	}else{
-	                		Log.e(TAG, "Login Error: " + error.getMessage());
-		                    GoogleAnalyticsUtils.logException(error.getMessage(), false, getApplicationContext());
-		                    Toast.makeText(getApplicationContext(),R.string.login_failed, Toast.LENGTH_LONG).show();
-	                	}			                    
+	                		return;
+	                	}else if(res != null && res.statusCode == HttpURLConnection.HTTP_BAD_REQUEST){
+	                		String message = StringUtils.extractError(res, context);
+	                		if(message != null){
+	                			Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+	                			return;
+	                		}
+	                	}
+                		Log.e(TAG, "Login Error: " + error.getMessage());
+	                    GoogleAnalyticsUtils.logException(error.getMessage(), false, getApplicationContext());
+	                    Toast.makeText(getApplicationContext(),R.string.login_failed, Toast.LENGTH_LONG).show();
+	                				                    
 	                }
             });
         

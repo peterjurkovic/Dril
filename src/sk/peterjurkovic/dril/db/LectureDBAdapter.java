@@ -3,6 +3,7 @@ package sk.peterjurkovic.dril.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
 public class LectureDBAdapter extends DBAdapter {
@@ -93,7 +94,22 @@ public class LectureDBAdapter extends DBAdapter {
 	        db.close();
 	        return deletedCount > 0;
 	    }
-
+	    
+	    
+	    public boolean isLectureNameUniqe(long bookId, String lectureName, Long lectureId){
+	    	r.lock();
+	    	SQLiteDatabase db = getReadableDatabase();
+	    	try{
+	    		String where = LECTURE_NAME +"=" + lectureName+ " AND " + FK_BOOK_ID + "=" + bookId;
+	    		if(lectureId != null){
+	    			where += " AND "+ ID + "<>" + lectureId; 
+	    		}
+	    		return DatabaseUtils.queryNumEntries(db, TABLE_LECTURE, where) == 0;
+	    	}finally{
+	    		db.close();
+	    		r.unlock();
+	    	}
+	    }
 	    
 	    
 	    public long insertLecture(long bookId, String lectureName) {

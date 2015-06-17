@@ -2,12 +2,14 @@ package sk.peterjurkovic.dril.v2.activities;
 
 
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.db.LectureDBAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 /**
@@ -20,7 +22,7 @@ public class AddLectureActivity extends BaseActivity {
 	
 	public static final String EXTRA_LECTURE_NAME = "lecture_name";
 	public static final String EXTRA_BOOK_ID_FK = "fk_book_id";
-	
+	private long bookId;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class AddLectureActivity extends BaseActivity {
         
         Button submit = (Button)findViewById(R.id.submitAddLecture);
         Button cancel = (Button)findViewById(R.id.cancelAddLecture);
+        
+        bookId = getIntent().getLongExtra(EXTRA_BOOK_ID_FK, 0);
         
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +70,14 @@ public class AddLectureActivity extends BaseActivity {
 	
 	public void onSubmitAddClicked(){
 	    String lectureName = ((EditText)findViewById(R.id.addLectureName)).getText().toString();
-	    if(lectureName.length() == 0) return;
+	    if(lectureName.length() == 0) {
+	    	return;
+	    }
+	    final LectureDBAdapter db = new LectureDBAdapter(context);
+	    if(!db.isLectureNameUniqe(bookId, lectureName, null)){
+	    	Toast.makeText(context, R.string.err_lecture_uniqe, Toast.LENGTH_LONG).show();
+	    	return;
+	    }
 	    onAddLecture(lectureName);
 	}
 	

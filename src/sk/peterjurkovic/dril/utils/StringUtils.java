@@ -4,7 +4,15 @@ import java.text.Normalizer;
 import java.text.Normalizer.Form;
 import java.util.regex.Pattern;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.android.volley.NetworkResponse;
+import com.android.volley.toolbox.HttpHeaderParser;
+
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * 
@@ -14,6 +22,7 @@ import android.util.Log;
  */
 public class StringUtils {
 	
+	private final static String ENCODING = "utf-8";	
 	private final static Pattern pattern = Pattern.compile("(\\(n\\)|\\(v\\)|\\(adj\\)|\\(s\\)|\\(conj\\)|\\|-|\\*|\\/)");
 	
 	public static String toSeoUrl(String string) {
@@ -278,5 +287,17 @@ public class StringUtils {
 		return fileExt.equals(ext);
 	}
 	
-
+	
+	public static String extractError(NetworkResponse response, Context context){
+		try {
+			JSONObject jsonRes = new JSONObject(new String(response.data, HttpHeaderParser.parseCharset(response.headers, ENCODING)));
+			if(jsonRes.has("error")){
+				JSONObject jsonError = jsonRes.getJSONObject("error");
+				return jsonError.getString("message");
+			}
+		} catch (Exception e) {
+			GoogleAnalyticsUtils.logException(e, context);
+		}
+		return null;
+	}
 }
