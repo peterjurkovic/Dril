@@ -5,7 +5,7 @@ import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.SessionManager;
 import sk.peterjurkovic.dril.dao.BookDao;
 import sk.peterjurkovic.dril.dao.BookDaoImpl;
-import sk.peterjurkovic.dril.db.StatisticDbAdapter;
+import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.listener.OnAddWordListener;
 import sk.peterjurkovic.dril.model.Book;
 import sk.peterjurkovic.dril.utils.StringUtils;
@@ -113,7 +113,7 @@ public class AddWordFragment extends Fragment {
         final Context context = getActivity();
         SessionManager sessionManage = new SessionManager(context);
         if(sessionManage.isUserLoggedIn() && !sessionManage.isUserUnlimited()){
-        	final StatisticDbAdapter db = new StatisticDbAdapter(context);
+        	final WordDBAdapter db = new WordDBAdapter(context);
         	final long count = db.getCountOfStoredWords();
         	if(count + 1 > sessionManage.getWordLimit()){
         		Toast.makeText(context, context.getString(R.string.err_word_limit, sessionManage.getWordLimit()), Toast.LENGTH_LONG).show();

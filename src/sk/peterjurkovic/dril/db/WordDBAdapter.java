@@ -281,6 +281,16 @@ public class WordDBAdapter extends DBAdapter {
 		statistics.incrementHit(word.getRate());
     }
     
+    public long getCountOfStoredWords(){
+ 	   final SQLiteDatabase db = getReadableDatabase();
+ 	   r.lock();
+ 	   try{
+ 		   return DatabaseUtils.queryNumEntries(db, WordDBAdapter.TABLE_WORD);
+ 	   }finally{
+ 		   r.unlock();
+ 		   db.close();
+ 	   }
+    }
     
     public void activateWordRandomly(long lectureid, int countOfWordsToActivate){
     	SQLiteDatabase db = openWriteableDatabase();

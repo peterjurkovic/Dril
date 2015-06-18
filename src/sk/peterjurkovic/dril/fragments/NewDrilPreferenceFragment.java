@@ -4,7 +4,7 @@ import java.util.List;
 
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.SessionManager;
-import sk.peterjurkovic.dril.db.StatisticDbAdapter;
+import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.model.DrilStrategy;
 import sk.peterjurkovic.dril.model.Language;
 import sk.peterjurkovic.dril.preferencies.PreferenceFragment;
@@ -64,7 +64,7 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
 		}else{
 			value = String.valueOf(wordLimit);
 		}
-		 final long wordCount = new StatisticDbAdapter(context).getCountOfStoredWords();
+		 final long wordCount = new WordDBAdapter(context).getCountOfStoredWords();
 		 Preference pref = new Preference(context);
 		
 		 pref.setEnabled(true);

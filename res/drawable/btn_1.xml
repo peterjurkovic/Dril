@@ -21,7 +21,9 @@
     </item>
     <item>
            <layer-list>
+             
                <item> 
+                  
 			        <shape>
 			            <gradient
 			                android:startColor="#44cb27"
@@ -32,11 +34,19 @@
 			                android:color="#24a108" />
 			            <corners
 			                android:radius="4dp" />
-			           	
+			        	   	
 			            
 			        </shape>
+			        
 			    </item>		    
-			  	
+			  	  <item
+			  	      android:left="8dp">
+                    <bitmap 
+			            android:src="@drawable/rate1"
+					    android:gravity="center_vertical|left"
+					    
+			            />
+               </item>
     	</layer-list>
 	</item>
 </selector>

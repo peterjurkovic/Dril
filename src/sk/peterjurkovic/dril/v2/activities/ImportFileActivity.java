@@ -181,8 +181,11 @@ public class ImportFileActivity extends BaseActivity {
 	
 	  
 	  private class ImportData extends AsyncTask<Void, Void, Integer>{
-			  
-		
+		  
+		  private final static int ERR_EXCEEDED_WORD_LIMIT = -2;
+		  private final static int ERR_EMPTY_FILE = 0;
+		  private final static int ERR_DB = -1;
+		  
 			  private ProgressDialog dialog;
 			  private String filePath;
 			  private Context context;
@@ -212,16 +215,22 @@ public class ImportFileActivity extends BaseActivity {
 					words = storageFileReader.readFile(filePath, lectureId);
 					if(words == null || words.size() == 0){
 						removeCreatedLecture(lectureId, context);
-						return 0;
+						return ERR_EMPTY_FILE;
 					}
 					WordDBAdapter wordDBAdapter = null;
 					try{
 						wordDBAdapter = new WordDBAdapter(context);
+						if(session.isUserLoggedIn() && !session.isUserUnlimited()){
+							long count = wordDBAdapter.getCountOfStoredWords();
+							if(words.size() + count > session.getWordLimit()){
+								return ERR_EXCEEDED_WORD_LIMIT;
+							}
+						}
 						wordDBAdapter.saveWordList(words);
 					}catch(Exception e){
 						removeCreatedLecture(lectureId, context);
 						Log.e(e);
-						return -1;
+						return ERR_DB;
 					}finally{
 						if(wordDBAdapter != null){
 							wordDBAdapter.close();
@@ -234,16 +243,18 @@ public class ImportFileActivity extends BaseActivity {
 				}
 				
 				@Override
-					protected void onPostExecute(Integer result) {
-						String resultMessage;
-						if(result < 1){
+					protected void onPostExecute(final Integer status) {
+						String resultMessage = "";
+						if(status == ERR_EXCEEDED_WORD_LIMIT){
+							resultMessage = getResources().getString( R.string.err_word_limit, session.getWordLimit());
+						}else if(status == ERR_EMPTY_FILE || status == ERR_DB){
 							resultMessage = getResources().getString( R.string.import_failed);
 						}else{
-							resultMessage = getResources().getString( R.string.import_success, result);
+							resultMessage = getResources().getString( R.string.import_success, status);
 						}
-						logResult(result);
+						logResult(status);
 						dialog.dismiss();
-						showResultDialog(resultMessage, result);
+						showResultDialog(resultMessage, status);
 					}
 			}
 	  

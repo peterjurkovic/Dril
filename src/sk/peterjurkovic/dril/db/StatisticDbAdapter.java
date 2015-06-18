@@ -196,16 +196,7 @@ public class StatisticDbAdapter extends DBAdapter{
    	 return values;
    }
     
-   public long getCountOfStoredWords(){
-	   final SQLiteDatabase db = getReadableDatabase();
-	   r.lock();
-	   try{
-		   return DatabaseUtils.queryNumEntries(db, WordDBAdapter.TABLE_WORD);
-	   }finally{
-		   r.unlock();
-		   db.close();
-	   }
-   }
+   
     
     public Cursor getAllStatistics() {
     	SQLiteDatabase db = openReadableDatabase();

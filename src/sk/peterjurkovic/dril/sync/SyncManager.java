@@ -32,22 +32,28 @@ public class SyncManager extends AsyncTask<Void, Void, JSONObject>{
 	private final static String TAG = SyncManager.class.getSimpleName();
 	
 	private final Context context;
-	private final SyncDbAdapter dbAdapter; 
+	private final SyncDbAdapter dbAdapter;
+	private final boolean showNotifications;
 
 	public SyncManager(final Context context){
+		this(context, true);
+	}
+	
+	public SyncManager(final Context context, final boolean showNotification){
 		this.context = context;
 		this.dbAdapter = new SyncDbAdapter(context);
+		this.showNotifications = showNotification;
 	}
 	
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
 		if(!DeviceUtils.isDeviceOnline(context)){
-    		Toast.makeText(context,R.string.err_internet_conn, Toast.LENGTH_LONG).show();
+			showNotification(R.string.err_internet_conn);
     		cancel(true);
     		return;
     	}
-		Toast.makeText(context,R.string.syncing, Toast.LENGTH_SHORT).show();
+		showNotification(R.string.syncing);
 	}	
 
 	@Override
@@ -64,7 +70,7 @@ public class SyncManager extends AsyncTask<Void, Void, JSONObject>{
 	@Override
 	protected void onPostExecute(JSONObject request) {
 			if(request == null){
-				Toast.makeText(context,R.string.sync_failed, Toast.LENGTH_LONG).show();
+				showNotification(R.string.sync_failed);
 				return;
 			}
 			JsonObjectRequest req = new JsonObjectRequest(Method.POST, Api.SYNC, request,
@@ -74,17 +80,18 @@ public class SyncManager extends AsyncTask<Void, Void, JSONObject>{
 				        @Override
 				        public void onResponse(JSONObject response) {
 				            Log.d(TAG, "Sync Response: " + response.toString());
-				            new SyncResponseProcessor(context, dbAdapter).execute(response);
+				            new SyncResponseProcessor(context, dbAdapter, showNotifications).execute(response);
 				        }
 				 },
+				 
 				 new Response.ErrorListener() {
 		            @Override
 		            public void onErrorResponse(VolleyError error) {
 		            	NetworkResponse networkResponse = error.networkResponse;
 		            	if(networkResponse != null && networkResponse.statusCode == HttpURLConnection.HTTP_UNAUTHORIZED){
-		            		Toast.makeText(context,R.string.err_http_401, Toast.LENGTH_LONG).show();
+		            		showNotification(R.string.err_http_401);
 		            	}else{
-		            		Toast.makeText(context,R.string.sync_failed, Toast.LENGTH_LONG).show();
+		            		showNotification(R.string.sync_failed);
 		            	}
 		                Log.e(TAG, "Login Error: " + error.getMessage());
 		            
@@ -106,5 +113,11 @@ public class SyncManager extends AsyncTask<Void, Void, JSONObject>{
 		                DefaultRetryPolicy.DEFAULT_MAX_RETRIES, 
 		                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 				AppController.getInstance().addToRequestQueue(req, TAG);
+	}
+	
+	private void showNotification(int resource){
+		if(showNotifications){
+			Toast.makeText(context, resource, Toast.LENGTH_LONG).show();
+		}
 	}
 }

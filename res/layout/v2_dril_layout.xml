@@ -89,15 +89,7 @@
 		            android:tag="1"
 		            android:text="@string/btn_1"
 		             />
-		
-		        <Button
-		            android:id="@+id/btn_2"
-		            style="@style/rateBtn"
-		            android:tag="2"
-		            android:background="@drawable/btn_2"
-		            android:text="@string/btn_2"
-		            />
-		
+
 		        <Button
 		            android:id="@+id/btn_3"
 		            style="@style/rateBtn"
@@ -105,13 +97,7 @@
 		            android:tag="3"
 		            android:text="@string/btn_3" />
 		
-		        <Button
-		            android:id="@+id/btn_4"
-		            style="@style/rateBtn"
-		            android:tag="4"
-		            android:background="@drawable/btn_4"
-		            android:text="@string/btn_4"/>
-		
+
 		        <Button
 		            android:id="@+id/btn_5"
 		            style="@style/rateBtn"
@@ -179,6 +165,7 @@
 		 	     android:height="100dp"
 		 	     android:text="@string/showAnswerBtn"
 		 	     android:textColor="#EfEFEF"
+		 	     android:visibility="gone"
 		 	     android:textSize="18sp" />
 		  
 		 	  <TextView 

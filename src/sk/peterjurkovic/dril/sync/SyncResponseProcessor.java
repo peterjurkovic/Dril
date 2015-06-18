@@ -12,10 +12,12 @@ public class SyncResponseProcessor extends AsyncTask<JSONObject, Void, Boolean> 
 
 	private final SyncDbAdapter dbAdapter;
 	private final Context context;
+	private final boolean showNotifications;
 	
-	public SyncResponseProcessor(final Context context, SyncDbAdapter dbAdapter){
+	public SyncResponseProcessor(final Context context, final SyncDbAdapter dbAdapter, boolean shotNotification){
 		this.context = context;
 		this.dbAdapter = dbAdapter;
+		this.showNotifications = shotNotification;
 	}
 	
 	
@@ -27,12 +29,16 @@ public class SyncResponseProcessor extends AsyncTask<JSONObject, Void, Boolean> 
 	@Override
 	protected void onPostExecute(Boolean isSuccessfull) {
 		if(isSuccessfull){
-			Toast.makeText(context,R.string.synced, Toast.LENGTH_SHORT).show();
+			if(showNotifications){
+				Toast.makeText(context,R.string.synced, Toast.LENGTH_SHORT).show();
+			}
 			if(context instanceof OnSuccessSyncListener){
 				((OnSuccessSyncListener)context).onSuccessSync();
 			}
 		}else{
-			Toast.makeText(context,R.string.sync_failed, Toast.LENGTH_LONG).show();
+			if(showNotifications){
+				Toast.makeText(context,R.string.sync_failed, Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 

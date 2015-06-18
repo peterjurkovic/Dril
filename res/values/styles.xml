@@ -44,15 +44,17 @@
 	   <item name="android:layout_height">wrap_content</item>
    </style>
    
-   <style name="rateBtn">
+   <style name="rateBtn" >
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_width">0dp</item>
     <item name="android:layout_weight">1</item>
     <item name="android:layout_margin">1dp</item>
-   	<item name="android:textSize">22sp</item>
-   	<item name="android:gravity">center</item>
+   	<item name="android:textSize">12sp</item>
+   	<item name="android:gravity">right</item>
 	<item name="android:paddingTop">18dp</item>
-	<item name="android:paddingBottom">18dp</item> 
+	<item name="android:paddingLeft">10dp</item>
+	<item name="android:paddingBottom">18dp</item>
+	<item name="android:paddingRight">10dp</item>
 	<item name="android:textColor">@color/rate_button_text_color</item>
 	<item name="android:onClick">processRate</item>
    </style>

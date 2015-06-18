@@ -100,7 +100,7 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 	        }
 	        AppRater.app_launched(this);
 	        if(session.isUserLoggedIn()){
-	        	new SyncManager(context).execute();
+	        	new SyncManager(context, false).execute();
 	        }
 	}
 	

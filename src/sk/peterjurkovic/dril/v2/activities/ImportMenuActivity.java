@@ -44,14 +44,18 @@ public class ImportMenuActivity extends BaseActivity {
 	         }
 	         });
 	             
-	         LinearLayout importViaIdBtn = (LinearLayout)findViewById(R.id.importViaId);     
-	         importViaIdBtn.setOnClickListener(new View.OnClickListener() {
-	         @Override
-			public void onClick(View v) {
-                 Intent i = new Intent(ImportMenuActivity.this, ImportWebActivity.class);
-                 startImportActivity(i);
+	         LinearLayout importViaIdBtn = (LinearLayout)findViewById(R.id.importViaId);   
+	         if(!session.isUserLoggedIn()){
+		         importViaIdBtn.setOnClickListener(new View.OnClickListener() {
+			         @Override
+					public void onClick(View v) {
+		                 Intent i = new Intent(ImportMenuActivity.this, ImportWebActivity.class);
+		                 startImportActivity(i);
+			         }
+		         });
+	         }else{
+	        	 importViaIdBtn.setVisibility(View.GONE);
 	         }
-	         });
 	         	         
 	         LinearLayout importViaXlsBtn = (LinearLayout)findViewById(R.id.importViaXls);
 	         importViaXlsBtn.setOnClickListener(new View.OnClickListener() {

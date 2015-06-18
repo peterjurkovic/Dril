@@ -100,7 +100,7 @@ public class LectureDBAdapter extends DBAdapter {
 	    	r.lock();
 	    	SQLiteDatabase db = getReadableDatabase();
 	    	try{
-	    		String where = LECTURE_NAME +"=" + lectureName+ " AND " + FK_BOOK_ID + "=" + bookId;
+	    		String where = LECTURE_NAME +"='" + lectureName+ "' AND " + FK_BOOK_ID + "=" + bookId;
 	    		if(lectureId != null){
 	    			where += " AND "+ ID + "<>" + lectureId; 
 	    		}
