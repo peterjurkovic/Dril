@@ -17,6 +17,7 @@ import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Constants;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -78,7 +79,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
 	private TextView helpMe;
 	private boolean writeAnswer = true;
 	private SharedPreferences preferences;
-	
+	private Word currentWord = null; 
 
 	
     @Override
@@ -174,7 +175,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	helpClickedCounter = 0;
     	hideAnswer();
     	try{
-	    	Word currentWord = drilService.getNext();
+	    	currentWord = drilService.getNext();
 	    	setWordIntoViews(currentWord);
     	}catch(DrilUnexpectedFinishedException e){
     		Log.e(e);
@@ -260,7 +261,26 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	startActivity(shareIntent);
     }
     
-    
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.v2_dril, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.editWord :
+				if(currentWord != null && currentWord.getId() != 0){
+					Intent intet = new Intent(context, EditWordActivity.class);
+					intet.putExtra(EditWordActivity.EXTRA_WORD_ID, currentWord.getId());
+					intet.putExtra(EditWordActivity.EXTRA_DRIL_ACTION, true);
+					startActivity(intet);
+				}
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
    
     
     public void showAnswer(){
@@ -347,9 +367,15 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	
     }
     
-    private void speek(final String word){
+    @SuppressWarnings("deprecation")
+	@SuppressLint("NewApi")
+	private void speek(final String word){
     	if(tts != null ){
-    		tts.speak(StringUtils.removeSpecialCharacters(word), TextToSpeech.QUEUE_FLUSH, null);
+    		if(android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.KITKAT_WATCH ){
+    			tts.speak(StringUtils.removeSpecialCharacters(word), TextToSpeech.QUEUE_FLUSH, null, word);
+    		}else{
+    			tts.speak(StringUtils.removeSpecialCharacters(word), TextToSpeech.QUEUE_FLUSH, null);
+    		}
     	}
     }
     
@@ -505,7 +531,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-    	MenuItem menuItem = menu.findItem(R.id.settings);
+    	MenuItem menuItem = menu.findItem(R.id.editWord);
     	menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     	menuItem = menu.findItem(R.id.startDril);
     	menuItem.setVisible(Boolean.FALSE);

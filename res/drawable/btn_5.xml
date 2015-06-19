@@ -19,7 +19,14 @@
 			                android:right="7dp"
 			                android:bottom="7dp" />
 			        </shape>
-			    </item>		    
+			    </item>		
+			    
+               <item  android:left="5dp"> 
+                    <bitmap 
+			            android:src="@drawable/rate5"
+					    android:gravity="center_vertical|left"
+					/>
+               </item>	
 			  	
     	</layer-list>
     </item>

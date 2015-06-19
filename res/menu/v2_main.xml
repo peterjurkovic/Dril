@@ -4,7 +4,7 @@
 		android:id="@+id/sync"
 		android:orderInCategory="5"
 		android:icon="@drawable/ic_cached_white_36dp"
-		android:showAsAction="ifRoom"
+		android:showAsAction="collapseActionView"
 		style="@android:style/Widget.ActionButton"
 		android:title="@string/sync"/>
     

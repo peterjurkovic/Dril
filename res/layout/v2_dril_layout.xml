@@ -165,7 +165,6 @@
 		 	     android:height="100dp"
 		 	     android:text="@string/showAnswerBtn"
 		 	     android:textColor="#EfEFEF"
-		 	     android:visibility="gone"
 		 	     android:textSize="18sp" />
 		  
 		 	  <TextView 

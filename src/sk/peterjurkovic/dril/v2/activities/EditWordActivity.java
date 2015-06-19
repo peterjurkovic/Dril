@@ -11,6 +11,8 @@ public class EditWordActivity extends BaseActivity implements OnEditWordListener
 	
 	public static final String EXTRA_QUESTION = "question";
 	
+	public static final String EXTRA_DRIL_ACTION = "fromDril";
+	
 	public static final String EXTRA_ANSWER = "answer";
 	
 	public static final String EXTRA_LECTURE_NAME = "lecturen_name";
@@ -19,11 +21,15 @@ public class EditWordActivity extends BaseActivity implements OnEditWordListener
 	
 	private long wordId; 
 	
+	private boolean isFromDril = false;
+	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         wordId = getIntent().getLongExtra(EXTRA_WORD_ID, -1);
+        
+        isFromDril = getIntent().getBooleanExtra(EXTRA_DRIL_ACTION, false);
         
         setContentView(R.layout.v2_word_edit_activity_layout);
         
@@ -41,11 +47,15 @@ public class EditWordActivity extends BaseActivity implements OnEditWordListener
 	
 	@Override
 	public void saveEditedWord(long wordId, String question, String answer) {
-		Intent result = new Intent();
-		result.putExtra(EXTRA_QUESTION, question);
-		result.putExtra(EXTRA_ANSWER, answer);
-		result.putExtra(EXTRA_WORD_ID, wordId);
-		setResult(RESULT_OK, result);
+		if(isFromDril){
+			
+		}else{
+			Intent result = new Intent();
+			result.putExtra(EXTRA_QUESTION, question);
+			result.putExtra(EXTRA_ANSWER, answer);
+			result.putExtra(EXTRA_WORD_ID, wordId);
+			setResult(RESULT_OK, result);
+		}
 		finish();
 	}
 

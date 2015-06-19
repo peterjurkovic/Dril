@@ -21,7 +21,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 public class StringUtils {
 	
 	private final static String ENCODING = "utf-8";	
-	private final static Pattern pattern = Pattern.compile("(\\(n\\)|\\(v\\)|\\(adj\\)|\\(s\\)|\\(conj\\)|\\|-|\\*|\\/)");
+	private final static Pattern pattern = Pattern.compile("(\\[|\\/)[^\\]]*?(\\]|\\/)");
 	
 	public static String toSeoUrl(String string) {
 		if(StringUtils.isBlank(string)){
@@ -48,14 +48,14 @@ public class StringUtils {
 		return true;
 	}
 	
-	
+
 	
 	public static String removeSpecialCharacters(String value){
 		if(StringUtils.isBlank(value)){
 			return "";
 		}
 		
-		return pattern.matcher(value).replaceAll(" ");
+		return pattern.matcher(value).replaceAll("");
 		
 	}
 	

@@ -121,11 +121,16 @@ public class DrilService {
 	private Set<Integer> seletRandomPositions(){
 		Set<Integer> randWords = new HashSet<Integer>();	
 		int size = activatedWords.size() - 1;
+		int i = 0;
 		do{
+			if(i > 15){
+				break;
+			}
 			int pos = NumberUtils.randInt(0, size);
 			if(!isInHistory(pos)){
 				randWords.add(pos);
 			}
+			i++;
 		}while(randWords.size() < 3);
 		return randWords;
 	}

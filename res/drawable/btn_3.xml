@@ -15,7 +15,15 @@
 			                android:radius="4dp" />
 			             <padding  android:top="8dp" android:bottom="8dp" />
 			        </shape>
-			    </item>		    
+			    </item>
+			    <item
+			  	      android:left="8dp">
+                    <bitmap 
+			            android:src="@drawable/rate3"
+					    android:gravity="center_vertical|left"
+					    
+			            />
+               </item>				    
 			  	
     	</layer-list>
     </item>
