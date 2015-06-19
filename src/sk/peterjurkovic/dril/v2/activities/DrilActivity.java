@@ -56,6 +56,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
 	
 	public static final String TAG = "DRIL";
 	public static final int DATA_CHECK_CODE = 0;
+	public static final int EDIT_WORD_CODE = 1;
 	public static final String STATISTIC_ID_KEY = "statisticId";
 	
 	private int helpClickedCounter = 0;
@@ -208,10 +209,20 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     	 layout.startAnimation(slideLeftIn);
     }
     
+    private void updateAnswerQuestin(Word word){
+    	if(((String)question.getTag()).equals(QUESTION_TAG)){
+    		question.setText( word.getQuestion() );
+    		answer.setText( word.getAnsware() );
+    	}else{
+    		question.setText( word.getAnsware() );
+    		answer.setText( word.getQuestion() );
+    	}
+    }
+    
     private void setVisibleQuestion(Word word){
     	question.setText( word.getQuestion() );
     	question.setTag(QUESTION_TAG);
-        answer.setText( word.getAnsware() );
+    	answer.setText( word.getAnsware()  );
         answer.setTag(ANSWER_TAG);
     }
     
@@ -275,12 +286,14 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
 					Intent intet = new Intent(context, EditWordActivity.class);
 					intet.putExtra(EditWordActivity.EXTRA_WORD_ID, currentWord.getId());
 					intet.putExtra(EditWordActivity.EXTRA_DRIL_ACTION, true);
-					startActivity(intet);
+					startActivityForResult(intet, EDIT_WORD_CODE);
 				}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
    
     
     public void showAnswer(){
@@ -390,6 +403,12 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
 	            installIntent.setAction( TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
 	            startActivity(installIntent);
             }
+        }else if(requestCode == EDIT_WORD_CODE){
+        	final String question = data.getStringExtra(EditWordActivity.EXTRA_QUESTION);
+        	final String answer = data.getStringExtra(EditWordActivity.EXTRA_ANSWER);
+        	currentWord.setQuestion(question);
+        	currentWord.setAnsware(answer);
+        	updateAnswerQuestin(currentWord);
         }
     	super.onActivityResult(requestCode, resultCode, data);
     }

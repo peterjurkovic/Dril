@@ -12,6 +12,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import com.google.analytics.tracking.android.Log;
 
@@ -107,11 +108,17 @@ public class WordDBAdapter extends DBAdapter {
  
     
     public void deactiveAll(){
-    	  SQLiteDatabase db = openWriteableDatabase();
-          ContentValues values = new ContentValues();
-          values.put(ACTIVE, 0);
-          db.update(TABLE_WORD, values, null , null);
-          db.close();
+          SQLiteDatabase db = openWriteableDatabase();
+          w.lock();
+          try{
+  	        SQLiteStatement stmt = db.compileStatement(
+  	        		"UPDATE word SET "+ACTIVE+"=0, "+LAST_CHANGED+"= datetime('now') "+
+  	        		"WHERE ACTIVE=0");	
+  	        stmt.execute();
+          }finally{
+          	w.unlock();
+          	db.close();
+          }
     }
     
     public Cursor getWord(final long wordId) {
@@ -126,14 +133,20 @@ public class WordDBAdapter extends DBAdapter {
     
     public boolean updateWord(long wordId, String question, String answer) {
         SQLiteDatabase db = openWriteableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(QUESTION, question);
-        values.put(ANSWER, answer);
-        
-        int rowsUpdated = db.update(TABLE_WORD, values,ID + "=" + wordId, null);
-        db.close();
-        return rowsUpdated > 0;
+        w.lock();
+        try{
+	        SQLiteStatement stmt = db.compileStatement(
+	        		"UPDATE word SET "+QUESTION+"=?, "+ANSWER+"=?,"+LAST_CHANGED+"= datetime('now') "+
+	        		"WHERE " + ID + "=" + "?");	
+	        stmt.bindString(1, question);
+	        stmt.bindString(2, answer);
+	        stmt.bindLong(3,  wordId);
+	        stmt.execute();
+        }finally{
+        	w.unlock();
+        	db.close();
+        }
+        return true;
     }
     
     
@@ -258,6 +271,7 @@ public class WordDBAdapter extends DBAdapter {
     private String createUpdateRatedWordQuery(final Word word){
     	return  "UPDATE " + TABLE_WORD + " " +
     			"SET "+ 
+    			LAST_CHANGED +"=datetime('now')"+
     			HIT +"="+ HIT +"+1, "+ 
     			LAST_RATE+"="+word.getRate()+", " +
     			AVG_RATE+"="+word.getAvgRate()+", " +

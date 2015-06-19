@@ -47,13 +47,14 @@ public class EditWordActivity extends BaseActivity implements OnEditWordListener
 	
 	@Override
 	public void saveEditedWord(long wordId, String question, String answer) {
+		
+		Intent result = new Intent();
+		result.putExtra(EXTRA_QUESTION, question);
+		result.putExtra(EXTRA_ANSWER, answer);
+		result.putExtra(EXTRA_WORD_ID, wordId);
 		if(isFromDril){
-			
+			setResult(DrilActivity.EDIT_WORD_CODE, result);
 		}else{
-			Intent result = new Intent();
-			result.putExtra(EXTRA_QUESTION, question);
-			result.putExtra(EXTRA_ANSWER, answer);
-			result.putExtra(EXTRA_WORD_ID, wordId);
 			setResult(RESULT_OK, result);
 		}
 		finish();
