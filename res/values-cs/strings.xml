@@ -10,11 +10,9 @@
     <string name="btn_info">Pomocník</string>
     <string name="question">Otázka:</string>
     <string name="answer">Odpověď:</string>
-    <string name="btn_1">1</string>
-    <string name="btn_2">2</string>
-    <string name="btn_3">3</string>
-    <string name="btn_4">4</string>
-    <string name="btn_5">5</string>
+    <string name="btn_1">Vím</string>
+    <string name="btn_3">Ještě ne</string>
+    <string name="btn_5">Nevím</string>
     <string name="showAnswerBtn">Zobraziť odpověď</string>
     <string name="zero_cards_alert">Neexistují žádné aktivní kartičky</string>
     <string name="book_add">Vytvořit učebnici</string>
@@ -32,7 +30,7 @@
     <string name="successfully_added">Úspěšně přidáno</string>
 
     
-    <string name="lecture_count">lekcí: %1$d / kartiček: %2$d / aktivních k.: %3$d</string>
+    <string name="lecture_count">lekcí: %1$d / kartiček: %2$d / aktivních: %3$d</string>
     <string name="word_count">Počet kartiček v lekci: %1$d, z toho aktivovaných: %2$d</string>
     <string name="book_edit_head">Upravit učebnici</string>
     
@@ -71,7 +69,7 @@
 	<string name="wordAction">Kartičku:</string>
 	<string name="activated_words">Kartiček: %1$d / Zobrazená: %2$dx / Poslední hod.: %3$s</string>
 	<string name="dril_finished">Drillování bylo dokončeno! Počet naučených slovíček: %1$d</string>
-	<string name="pronauce_question">Vysloviť otázku</string>
+	<string name="pronauce_question">Vyslovit otázku</string>
 	<string name="pronauce_answer">Vyslovit odpověď</string>
 	<string name="speach_failed">Není možne vyslovit požadovaný výraz</string>
 	<string name="nothing_to_speeach">Výslovnost nenalezena</string>
@@ -119,7 +117,7 @@
     <string name="import_via_csv_descr">Import prostřednictvím Excel-souboru</string>
     <string name="import_via_xls">Importovat z Excelu</string>
     <string name="import_via_xls_descr">Vyberete XLS soubor z paměti zařízení</string>
-   	<string name="import_id">Import prostřednictvím drilapp.com</string>
+   	<string name="import_id">Import prostřednictvím web.drilapp.com</string>
     <string name="import_id_put">Vložte Vaš import ID:</string>
     <string name="import_submit">Stáhnout a uložit</string>
     <string name="id_head">Co je ID pro import?</string>
@@ -197,6 +195,15 @@
 	
 	<string name="pref_show_helper">Našeptávač</string>
 	<string name="pref_show_helper_descr">Skrýt/zobrazit našeptávač</string>
+	
+	<string name="pref_first_name">Vaše jméno</string>
+	<string name="pref_last_name">Vaše příjmení</string>
+	<string name="pref_locale">Váš jazyk</string>
+	<string name="pref_locale_desc">Váš rodný jazyk</string>
+	<string name="pref_target_locale">Váš cílový jazyk</string>
+	<string name="pref_target_locale_desc">Který se chcete učit</string>
+	<string name="pref_word_limit">Maximální povolený počet slovíček: %1$s</string>
+	<string name="pref_word_limit_descr">Momentálně máte evidovaných: %1$d</string>
 		
 	<string name="lang_question">Jazyk otázky</string>
 	<string name="lang_answer">Jazyk odpovědi</string>
@@ -273,6 +280,25 @@
 	<string name="rate_later">Připomenout později</string>
 	<string name="rate_never">Ne, děkuji</string>
 	
+	<string name="login">Přihlásit</string>
+	<string name="username">Přihlašovací jméno</string>
+	<string name="logout">Odhlásit</string>
+	<string name="sync">Synchronizace</string>
+	<string name="password">Heslo</string>
+	<string name="login_details">Zadejte Vaše přihlašovací údaje</string>
+	<string name="create_account">Vytvořit účet</string>
+	
+	<string name="creating_account">Vytváří se účet&#8230;</string>
+	<string name="logging_in">Probíhá přihlašování&#8230;</string>
+	<string name="importing_data">Importují se data&#8230;</string>
+	<string name="login_success">Byli jste úspěšně přihlášen</string>
+	<string name="logout_success">Byl jste úspěšně odhlášen</string>
+	<string name="login_failed">Přihlášení se nepodařilo, zkontrolujte připojení k internetu</string>
+	
+	<string name="err_credentials">Zadejte přihlašovací údaje</string>
+	<string name="err_http_401">Chybné přihlašovací jméno nebo heslo</string>
+	<string name="err_internet_conn">Zkontrolujte připojení k internetu</string>
+	
 	<string name="starter">Úplný začátečník</string>
 	<string name="elementary">Začátečník</string>
 	<string name="pre_intermediate">Mírně pokročilý</string>
@@ -280,4 +306,40 @@
 	<string name="upper_intermediate">Středně pokročilý II.</string>
 	<string name="advanced">Pokročilý</string>
 	<string name="proficient">Proficient</string>
+	
+	<string name="sync_failed">Synchronizace se nezdařila, zkuste to znovu později</string>
+	<string name="syncing">Syncing&#8230;</string>
+	<string name="synced">Synchronizováno</string>
+	
+	<string name="questionIn">Otázka v </string>
+	<string name="answerIn">Odpověď </string>
+	<string name="level">Úroveň</string>
+	<string name="shareLabel">Publikovat učebnici</string>
+	<string name="err_book_notfound">Učebnice se nenašla</string>
+	<string name="err_book_name">Název učebnice musí mít alespoň 8 znaků</string>
+	<string name="err_book_exists">Učebnice se zadaným názvem se ve Vašem drilu již nachází</string>
+	<string name="wordTip">TIP: Text, který se nachází v hranatých závorkách, nebo se nachází mezi lomítky, nebude vyslovován.\nE.g.: car [noun] /kɑːr/</string>
+	<string name="unlimited">Neomezené</string>
+	
+	<!--  registration -->
+	<string name="signup">Registrovat</string>
+	<string name="signup_desc">a synchronizovat kartičky s portálem web.drilapp.com</string>
+	<string name="signup_email">Váš e-mail</string>
+	<string name="signup_confirm_pass">Potvrzení hesla</string>
+	<string name="signup_success">Váš účet byl úspěšně vytvořen. Na Vaši e-mailovou adresu "%s" byl odeslán odkaz, jehož prostřednictvím si aktivujete účet.</string>
+	
+	
+	<string name="err_login">Přihlašovací jméno musí mít min. 5 znaků</string>
+	<string name="err_email">Neplatná e-mailová adresa</string>
+	<string name="err_pass">Heslo musí mít min. 5 znaků</string>
+	<string name="err_confir_pass">Zadané hesla se nezohdujú</string>
+	<string name="err_first_name">Neplatné jméno</string>
+	<string name="err_last_name">Neplatné příjmení</string>
+	<string name="err_account_create">Nastala neočekávaná chyba, operaci opakujte později</string>
+	
+	<string name="err_lecture_uniqe">Lekce se zadaným názvem se již v učebnici nachází</string>
+	<string name="err_word_limit">Váš účet je obmedzený na %d slovíčok</string>
+	
+	<string name="alert_login">Upozornění</string>
+	<string name="alert_login_descr">Skutečně se chcete přihlásit a přepsat stávající slovíčka?</string>
 </resources>

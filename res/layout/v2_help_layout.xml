@@ -59,17 +59,7 @@
         		android:text="@string/ibtn1" />
 	    </TableRow>
 	    
-	     <TableRow android:layout_marginBottom="10dp" >
-	        <Button
-	            style="@style/v2infoBtn"
-	            android:background="@drawable/btn_2" 
-	            android:text="@string/btn_2" />
-	        
-        	<TextView 
-        	    style="@style/infoBtnLable"
-        		android:text="@string/ibtn2" />
-	    </TableRow>
-	    
+	 	    
 	     <TableRow android:layout_marginBottom="10dp" >
 	         <Button
 	            style="@style/v2infoBtn"
@@ -80,18 +70,7 @@
         	    style="@style/infoBtnLable"
         		android:text="@string/ibtn3" />
 	    </TableRow>
-	    
-	     <TableRow android:layout_marginBottom="10dp" >
-	         <Button
-	            style="@style/v2infoBtn"
-	            android:background="@drawable/btn_4" 
-	            android:text="@string/btn_4" />
-	        
-        	<TextView 
-        	    style="@style/infoBtnLable"
-        		android:text="@string/ibtn4" />
-	    </TableRow>
-	    
+	    	    
 	      <TableRow>
 	         <Button
 	            style="@style/v2infoBtn"

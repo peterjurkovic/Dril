@@ -7,6 +7,7 @@ import sk.peterjurkovic.dril.SessionManager;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.model.DrilStrategy;
 import sk.peterjurkovic.dril.model.Language;
+import sk.peterjurkovic.dril.preferencies.IntListPreference;
 import sk.peterjurkovic.dril.preferencies.PreferenceFragment;
 import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
 public class NewDrilPreferenceFragment extends PreferenceFragment{
@@ -30,12 +32,17 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
          context = getActivity();
          session = new SessionManager(context);
          
-                  
-         final PreferenceScreen root =  getPreferenceManager().createPreferenceScreen(context);
+         PreferenceManager manager =  getPreferenceManager();
+         manager.setSharedPreferencesMode(Context.MODE_PRIVATE);
+         manager.setSharedPreferencesName(SessionManager.PREF_NAME);
+         
+         final PreferenceScreen root =  manager.createPreferenceScreen(context);
          if(session.isUserLoggedIn()){
         	  
         	 final PreferenceCategory dialogBasedPrefCat = new PreferenceCategory(context);
+        	 
         	 root.addPreference(dialogBasedPrefCat);
+        	 dialogBasedPrefCat.setPersistent(true);
         	 dialogBasedPrefCat.setTitle("Account");
         	 dialogBasedPrefCat.setKey(SessionManager.PREF_NAME);
         	 dialogBasedPrefCat.addPreference(createLimitPref());
@@ -73,7 +80,6 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
 		 pref.setSummary(context.getString(R.string.pref_word_limit_descr, wordCount));
 		 pref.setKey(prefKey);
 		 pref.setDefaultValue(SessionManager.DEFAULT_WORD_LIMIT + "");
-	
 		return pref;
 	 }
 	 
@@ -139,35 +145,33 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
 	 
 	 
 	 
-	 private ListPreference addLangsPref(PreferenceCategory categ){
-		 List<Language> langList = Language.getAll();
-		 CharSequence[] entries = new CharSequence[langList.size()];
-		 CharSequence[] entryValues = new CharSequence[langList.size()];
+	 private void addLangsPref(final PreferenceCategory categ){
+		 final List<Language> langList = Language.getAll();
+		 final String[] entries = new String[langList.size()];
+		 final String[] entryValues = new String[langList.size()];
 		 for(int i = 0; i < langList.size(); i++){
 			  entries[i] = context.getString(langList.get(i).getResource());
 			  entryValues[i] =  String.valueOf(langList.get(i).getId());
 			 
 		 }
-		  
-		 
-		ListPreference questionLangPref = new ListPreference(context);
+
+		
+		final IntListPreference questionLangPref = new IntListPreference(context);
 		questionLangPref.setEntries(entries);
 		questionLangPref.setEntryValues(entryValues);
-		questionLangPref.setDefaultValue(Language.ENGLISH.getId()+"");
 		questionLangPref.setKey(SessionManager.KEY_LOCALE_ID);
 		questionLangPref.setTitle(R.string.pref_locale);
 		questionLangPref.setSummary(R.string.pref_locale_desc);
+		questionLangPref.setPersistent(true);
 		categ.addPreference(questionLangPref);
+	
+		final IntListPreference answerLangPref = new IntListPreference(context);
+		answerLangPref.setEntries(entries);
+		answerLangPref.setEntryValues(entryValues);
+		answerLangPref.setKey(SessionManager.KEY_TARGET_LOCALE_ID);
+		answerLangPref.setTitle(R.string.pref_target_locale);
+		answerLangPref.setSummary(R.string.pref_target_locale_desc);
+		categ.addPreference(answerLangPref);
 		
-		ListPreference anserLangPref = new ListPreference(context);
-		anserLangPref.setEntries(entries);
-		anserLangPref.setEntryValues(entryValues);
-		anserLangPref.setDefaultValue(Language.ENGLISH.getId()+"");
-		anserLangPref.setKey(SessionManager.KEY_TARGET_LOCALE_ID);
-		anserLangPref.setTitle(R.string.pref_target_locale);
-		anserLangPref.setSummary(R.string.pref_target_locale_desc);
-		categ.addPreference(anserLangPref);
-		
-		return null;
 	 }
 }

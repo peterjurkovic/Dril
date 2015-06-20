@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@color/white"
-            android:hint="@string/login"
+            android:hint="@string/username"
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:singleLine="true"

@@ -28,6 +28,7 @@ import android.widget.Button;
 public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 	
 	private BookDBAdapter bookDbAdapter = null;
+	private Button login;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +45,7 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 	        Button btn_stats = (Button) findViewById(R.id.btn_stats);
 	        
 	        Button btn_info = (Button) findViewById(R.id.btn_info);
-	        
-	        Button login = (Button) findViewById(R.id.login);
-	        
-	       
+	              
 	        
 	        startDrilButton.setOnClickListener(new View.OnClickListener() {
 	            @Override
@@ -81,6 +79,7 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 		        }
 		    });
 	        
+	        login = (Button) findViewById(R.id.login);
 	      
 	        
 	        if(bookDbAdapter.getBooksCount() == 0){
@@ -94,7 +93,6 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 	  				public void onClick(View v) {
 	  					Intent i = new Intent(context, LoginActivity.class);
 	  	            	startActivity(i);
-	  	            	finish();
 	  				}
 	  			});
 	        }
@@ -104,6 +102,23 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 	        }
 	}
 	
+	@Override
+	protected void onResume() {
+		if(login != null){
+		 if(session.isUserLoggedIn()){
+	        	login.setVisibility(View.GONE);
+	        }else{
+	        	login.setOnClickListener(new View.OnClickListener() {
+	  				@Override
+	  				public void onClick(View v) {
+	  					Intent i = new Intent(context, LoginActivity.class);
+	  	            	startActivity(i);
+	  				}
+	  			});
+	        }
+		} 
+		super.onResume();
+	}
 	
 	/**
 	 * Dialog, if updates are available

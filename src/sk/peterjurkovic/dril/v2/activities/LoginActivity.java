@@ -9,12 +9,15 @@ import org.json.JSONObject;
 import sk.peterjurkovic.dril.AppController;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.DatabaseHelper;
+import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.sync.LoginManager;
 import sk.peterjurkovic.dril.utils.DeviceUtils;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.constants.Api;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -78,12 +81,40 @@ public class LoginActivity extends BaseActivity{
                 String password = passwordField.getText().toString();
 
                 if (login.trim().length() > 4 && password.trim().length() > 5) {
-                    login(login, password);
+                	long words = new WordDBAdapter(context).getCountOfStoredWords();
+                	if(words > 0){
+                    	showConfiramtionDialog(login, password);
+                	}else{
+            			login(login, password);
+                	}
                 } else {
-                    // Prompt user to enter credentials
                     Toast.makeText(getApplicationContext(),R.string.err_credentials, Toast.LENGTH_LONG).show();
                 }
             }
+            
+            
+            public void showConfiramtionDialog(final String login, final String password){
+        		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        		alertDialogBuilder
+        			.setTitle(R.string.alert_login)
+        			.setMessage(getString(R.string.alert_login_descr))
+        			.setPositiveButton(R.string.yes,new DialogInterface.OnClickListener() {
+        					@Override
+        					public void onClick(DialogInterface dialog, int id) {
+        						dialog.cancel();
+        						login(login, password);
+        					}
+        			})
+        			.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+        					@Override
+                           public void onClick(DialogInterface dialog, int id) {
+        						dialog.cancel();
+                           }
+        			});
+
+        		AlertDialog alertDialog = alertDialogBuilder.create();
+        		alertDialog.show();
+        	}
  
         });
  
@@ -98,6 +129,8 @@ public class LoginActivity extends BaseActivity{
         });
  
     }
+    
+  
  
     /**
      * function to verify login details in mysql db

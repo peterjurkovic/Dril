@@ -10,10 +10,8 @@
     <string name="btn_info">Helper</string>
     <string name="question">Question:</string>
     <string name="answer">Answer:</string>
-    <string name="btn_1">Know it!</string>
-    <string name="btn_2">2</string>
+    <string name="btn_1">Knew it!</string>
     <string name="btn_3">Not yet</string>
-    <string name="btn_4">4</string>
     <string name="btn_5">Don\'t know</string>
     <string name="showAnswerBtn">Get an answer</string>
     <string name="zero_cards_alert">There are no cards activated</string>
@@ -290,6 +288,7 @@
 	<string name="rate_never">No, thanks</string>
 	
 	<string name="login">Login</string>
+	<string name="username">Login</string>
 	<string name="logout">Logout</string>
 	<string name="sync">Sync</string>
 	<string name="password">Password</string>
@@ -301,7 +300,7 @@
 	<string name="importing_data">Importing data &#8230;</string>
 	<string name="login_success">You have been successfully logged in</string>
 	<string name="logout_success">You have been successfully logged out</string>
-	<string name="login_failed">Login failed, check you internet connection</string>
+	<string name="login_failed">Login failed, check your internet connection</string>
 	
 	<string name="err_credentials">Please enter the credentials</string>
 	<string name="err_http_401">Bad login or password</string>
@@ -314,6 +313,7 @@
 	<string name="upper_intermediate">Upper-Intermediate</string>
 	<string name="advanced">Advanced</string>
 	<string name="proficient">Proficient</string>
+	
 	<string name="sync_failed">Sync failed, try it again later</string>
 	<string name="syncing">Syncing&#8230;</string>
 	<string name="synced">Synced</string>
@@ -322,7 +322,7 @@
 	<string name="answerIn">Answer in </string>
 	<string name="level">Level</string>
 	<string name="shareLabel">Share this textbook</string>
-	<string name="err_book_notfound">The textbook was not found. Does book stil exist?</string>
+	<string name="err_book_notfound">The textbook was not found. Does the book still exist?</string>
 	<string name="err_book_name">The length of name has to be at least 8 characters.</string>
 	<string name="err_book_exists">The textbook with given name already exists, choose different name</string>
 	<string name="wordTip">TIP: If you do not want pronauce some parts of text wrap given text into squere brackets or between slashes.\n E.g.: car [noun] /kɑːr/</string>
@@ -346,5 +346,8 @@
 	
 	<string name="err_lecture_uniqe">Lecture with given name already exists in this textbook.</string>
 	<string name="err_word_limit">Registered users are eligible to store max %d words.</string>
+	
+	<string name="alert_login">Alert</string>
+	<string name="alert_login_descr">Are you sure you want to login and remove all stored data?</string>
 	
 </resources>

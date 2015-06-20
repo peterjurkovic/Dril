@@ -96,10 +96,10 @@ public class BaseActivity extends AppCompatActivity {
          }else {
              if(upIntent == null){
             	 upIntent = new Intent(context, DashboardActivity.class);
-            	 finish();
              }
         	 upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
              NavUtils.navigateUpTo(this, upIntent);
+             finish();
          }
     }
 	
