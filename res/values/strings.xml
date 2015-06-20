@@ -350,4 +350,5 @@
 	<string name="alert_login">Alert</string>
 	<string name="alert_login_descr">Are you sure you want to login and remove all stored data?</string>
 	
+	<string name="save_and_continute">Save and continue &#187;</string>
 </resources>

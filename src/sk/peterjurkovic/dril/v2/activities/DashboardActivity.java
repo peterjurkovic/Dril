@@ -81,7 +81,11 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 	        
 	        login = (Button) findViewById(R.id.login);
 	      
-	        
+	        if(!session.areLanguagesSet()){
+	        	Intent i = new Intent(context,ChooseLanguageActivity.class);
+	        	startActivity(i);
+	        	return;
+	        }
 	        if(bookDbAdapter.getBooksCount() == 0){
 	        	downloadBooks();
 	        }

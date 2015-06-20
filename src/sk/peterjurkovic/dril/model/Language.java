@@ -64,6 +64,15 @@ public enum Language implements SpinnerState{
 	}
 	
 	
+	public static Language getByLocale(Locale locale){
+		for(Language lang : values()){
+			if(lang.getLocale().getLanguage().equals(locale.getLanguage())){
+				return lang;
+			}
+		}
+		return ENGLISH;
+	}
+	
 	public static List<Language> getAll(){
 		return Arrays.asList(values());
 	}

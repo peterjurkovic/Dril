@@ -78,6 +78,7 @@
         		  android:parentActivityName=".v2.activities.LoginActivity" />
           
           
+        <activity android:name=".v2.activities.ChooseLanguageActivity" />
          
         <activity android:name=".v2.activities.DrilPreferenceActivity"
             	  android:parentActivityName=".v2.activities.DashboardActivity" />    

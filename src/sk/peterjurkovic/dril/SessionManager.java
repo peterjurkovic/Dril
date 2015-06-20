@@ -27,6 +27,7 @@ public class SessionManager {
     public static final String KEY_LAST_NAME = "_lastName_";
     public static final String KEY_TOKEN = "_token_";
     public static final String KEY_WORD_LIMIT = "_wordLimit_";
+    public static final String KEY_LANGS_ARE_SET = "_areLangsSet_";
  
     public SessionManager(Context context) {
         this._context = context;
@@ -89,5 +90,17 @@ public class SessionManager {
      
     public boolean isUserLoggedIn(){
         return getToken() != null;
+    }
+    
+    public boolean areLanguagesSet(){
+    	return pref.getBoolean(KEY_LANGS_ARE_SET, false);
+    }
+    
+    public void setLanguages(int localeId, int targetLocaleId){
+    	final Editor editor = pref.edit();
+    	editor.putInt(KEY_LOCALE_ID, localeId);
+    	editor.putInt(KEY_TARGET_LOCALE_ID, targetLocaleId);
+    	editor.putBoolean(KEY_LANGS_ARE_SET, true);
+    	editor.commit();
     }
 }	
