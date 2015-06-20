@@ -3,7 +3,18 @@
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar" />
 	
 
-    
+      <style name="DashboardButton">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#515e7b</item>
+        <item name="android:background">@drawable/dashboard_btn_event</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:layout_weight">1</item>
+		<item name="android:drawablePadding">15dp</item>
+		<item name="android:paddingTop">15dp</item>
+		<item name="android:paddingBottom">15dp</item>
+		 <item name="android:textAllCaps">false</item>
+    </style>
      
    <style name="rateBtn" >
     <item name="android:layout_height">wrap_content</item>
@@ -20,5 +31,11 @@
 	<item name="android:onClick">processRate</item>
 	<item name="android:textAllCaps">false</item>
    </style>
+   
+   
+   
+    <style name="btn">
+        <item name="android:textAllCaps">false</item>
+    </style>
    
 </resources>

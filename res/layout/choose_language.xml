@@ -94,7 +94,8 @@
 	            android:layout_marginTop="20dip"
 	            android:background="@color/text_color"
 	            android:text="@string/save_and_continute"
-	            android:textColor="@color/white" />
+	            android:textColor="@color/white"
+	            style="@style/btn" />
 	 		
 	 		
 	        <!-- Link to Login Screen -->

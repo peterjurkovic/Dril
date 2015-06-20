@@ -393,7 +393,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     }
     
     @Override
-    protected void onActivityResult(final int requestCode,final int resultCode, Intent data) {
+    protected void onActivityResult(final int requestCode,final int resultCode, Intent intent) {
     	if (requestCode == DATA_CHECK_CODE) {
             if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {      
                tts = new TextToSpeech(this, this);
@@ -404,13 +404,15 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
 	            startActivity(installIntent);
             }
         }else if(requestCode == EDIT_WORD_CODE){
-        	final String question = data.getStringExtra(EditWordActivity.EXTRA_QUESTION);
-        	final String answer = data.getStringExtra(EditWordActivity.EXTRA_ANSWER);
-        	currentWord.setQuestion(question);
-        	currentWord.setAnsware(answer);
-        	updateAnswerQuestin(currentWord);
+        	if(intent != null){
+	        	final String question = intent.getStringExtra(EditWordActivity.EXTRA_QUESTION);
+	        	final String answer = intent.getStringExtra(EditWordActivity.EXTRA_ANSWER);
+	        	currentWord.setQuestion(question);
+	        	currentWord.setAnsware(answer);
+	        	updateAnswerQuestin(currentWord);
+        	}
         }
-    	super.onActivityResult(requestCode, resultCode, data);
+    	super.onActivityResult(requestCode, resultCode, intent);
     }
     
     

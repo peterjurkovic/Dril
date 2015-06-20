@@ -2,7 +2,7 @@
  
     
    
-    <style name="DashboardButton">
+    <style name="DashboardButton" parent="btn">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#515e7b</item>
         <item name="android:background">@drawable/dashboard_btn_event</item>
@@ -411,6 +411,10 @@
 	   <item name="android:layout_margin">5dp</item>
 	   <item name="android:background">@drawable/v2_erase_alert</item>
 	   <item name="android:textColor">@android:color/white</item>
+    </style>
+    
+    <style name="btn">
+        
     </style>
     
 </resources>

@@ -203,7 +203,7 @@
 	<string name="pref_last_name">Your last name</string>
 	<string name="pref_locale">Your language</string>
 	<string name="pref_locale_desc">Your native language</string>
-	<string name="pref_target_locale">Your target language</string>
+	<string name="pref_target_locale">Language which you want to learn</string>
 	<string name="pref_target_locale_desc">What you want to learn</string>
 	<string name="pref_word_limit">Max no. of stored words: %1$s</string>
 	<string name="pref_word_limit_descr">You currently have stored: %1$d</string>
@@ -351,4 +351,5 @@
 	<string name="alert_login_descr">Are you sure you want to login and remove all stored data?</string>
 	
 	<string name="save_and_continute">Save and continue &#187;</string>
+	<string name="sync_words">And sync your words with web.drilapp.com</string>
 </resources>

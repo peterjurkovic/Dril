@@ -69,6 +69,7 @@
 		    android:layout_marginTop="20dp"
         	android:id="@+id/login"
         	android:text="@string/login"
+        	style="@style/btn"
         />
 
 </RelativeLayout>

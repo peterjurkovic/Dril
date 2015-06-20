@@ -8,6 +8,8 @@ import sk.peterjurkovic.dril.SessionManager;
 import sk.peterjurkovic.dril.dto.State;
 import sk.peterjurkovic.dril.model.Language;
 import sk.peterjurkovic.dril.model.SpinnerState;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -17,21 +19,18 @@ import android.widget.Spinner;
 
 public class ChooseLanguageActivity extends AppCompatActivity{
 	
-	private final SessionManager session;
+	private SessionManager session;
 	private Spinner localeSpinner;
 	private Spinner targetLocaleSpinner;
 	private Button nextButton;
 	
-	
-	public ChooseLanguageActivity(){
-		session = new SessionManager(this);
-	}
-	
+		
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.choose_language);
-		
+		session = new SessionManager(this);
+		final Context context = this;
 		
 		localeSpinner = (Spinner) findViewById(R.id.locale_field);
 		targetLocaleSpinner = (Spinner) findViewById(R.id.target_locale_field);
@@ -40,15 +39,22 @@ public class ChooseLanguageActivity extends AppCompatActivity{
 		nextButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				State localeId = (State)localeSpinner.getSelectedItem();
+				State targetLocaleId = (State)targetLocaleSpinner.getSelectedItem();
+				session.setLanguages(localeId.getId(), targetLocaleId.getId());
+				Intent i = new Intent(context, DashboardActivity.class);
+				startActivity(i);
+				finish();		
 			}
 		});
+		
+		prepareSpinners();
 	}
 	
 	
 	
 	protected void prepareSpinners(){
-		ArrayAdapter<State> adapter = getAddpter();
+		final ArrayAdapter<State> adapter = getAddpter();
 		localeSpinner.setAdapter(adapter);
 		targetLocaleSpinner.setAdapter(adapter);
 		localeSpinner.setSelection( Language.getByLocale( getResources().getConfiguration().locale).getId() - 1 );

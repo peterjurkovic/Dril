@@ -165,7 +165,8 @@
 		 	     android:height="100dp"
 		 	     android:text="@string/showAnswerBtn"
 		 	     android:textColor="#EfEFEF"
-		 	     android:textSize="18sp" />
+		 	     style="@style/btn"
+		 	     android:textSize="17sp" />
 		  
 		 	  <TextView 
 			    android:id="@+id/helpMe"

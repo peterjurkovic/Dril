@@ -33,6 +33,12 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	    if(!session.areLanguagesSet()){
+        	Intent i = new Intent(context,ChooseLanguageActivity.class);
+        	startActivity(i);
+        	finish();
+        	return;
+        }
 		setContentView(R.layout.v2_dashboard);
 			bookDbAdapter = new BookDBAdapter(this);
 		 	
@@ -81,11 +87,7 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 	        
 	        login = (Button) findViewById(R.id.login);
 	      
-	        if(!session.areLanguagesSet()){
-	        	Intent i = new Intent(context,ChooseLanguageActivity.class);
-	        	startActivity(i);
-	        	return;
-	        }
+	   
 	        if(bookDbAdapter.getBooksCount() == 0){
 	        	downloadBooks();
 	        }
