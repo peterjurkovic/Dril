@@ -5,7 +5,6 @@ import sk.peterjurkovic.dril.utils.ConversionUtils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
 public class StatisticDbAdapter extends DBAdapter{
@@ -143,7 +142,7 @@ public class StatisticDbAdapter extends DBAdapter{
     }
     
     public boolean updateStatistics(final Statistics statistics){
-    	if(statistics == null || statistics.getId() == 0){
+    	if(statistics == null ||  statistics.getId() == null){
     		return false;
     	}
     	SQLiteDatabase db = openWriteableDatabase();
@@ -157,8 +156,8 @@ public class StatisticDbAdapter extends DBAdapter{
     }
     
     public long createStatistics(Statistics statistics){
-    	if(statistics == null || statistics.getId() == null){
-    		return 0;
+    	if(statistics == null){
+    		throw new IllegalArgumentException("Stats can not be null");
     	}
     	w.lock();
     	final SQLiteDatabase db = openWriteableDatabase();

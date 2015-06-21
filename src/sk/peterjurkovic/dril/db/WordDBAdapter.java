@@ -113,7 +113,7 @@ public class WordDBAdapter extends DBAdapter {
           try{
   	        SQLiteStatement stmt = db.compileStatement(
   	        		"UPDATE word SET "+ACTIVE+"=0, "+LAST_CHANGED+"= datetime('now') "+
-  	        		"WHERE ACTIVE=0");	
+  	        		"WHERE ACTIVE=1");	
   	        stmt.execute();
           }finally{
           	w.unlock();
@@ -248,12 +248,20 @@ public class WordDBAdapter extends DBAdapter {
 		db.close();
 	}
     
-    public synchronized void updateReatedWord(Word word, Statistics statistics){
+    public void updateReatedWord(Word word, Statistics statistics){
+    	w.lock();
     	SQLiteDatabase db = openWriteableDatabase();
-    	db.execSQL( createUpdateRatedWordQuery(word) );
-    	recomputeStatistics(db, statistics, word);
-    	db.execSQL( createUpdateStatisticsQuery(statistics) );
-    	db.close();
+    	try{
+    		db.beginTransaction();
+    		db.execSQL( createUpdateRatedWordQuery(word) );
+    		recomputeStatistics(db, statistics, word);
+    		db.execSQL( createUpdateStatisticsQuery(statistics) );
+    		db.setTransactionSuccessful();
+    	}finally{
+    		db.endTransaction();
+    		db.close();
+    		w.unlock();
+    	}
     }
     
     
@@ -271,7 +279,7 @@ public class WordDBAdapter extends DBAdapter {
     private String createUpdateRatedWordQuery(final Word word){
     	return  "UPDATE " + TABLE_WORD + " " +
     			"SET "+ 
-    			LAST_CHANGED +"=datetime('now')"+
+    			LAST_CHANGED +"=datetime('now'), "+
     			HIT +"="+ HIT +"+1, "+ 
     			LAST_RATE+"="+word.getRate()+", " +
     			AVG_RATE+"="+word.getAvgRate()+", " +

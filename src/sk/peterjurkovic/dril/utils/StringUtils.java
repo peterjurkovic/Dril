@@ -62,14 +62,13 @@ public class StringUtils {
 	
 	
 	public static int determineSimularity(String word, String inputText){
-		if(StringUtils.isBlank(inputText) || StringUtils.isBlank(word)){
+		if(isBlank(inputText) || isBlank(word)){
 			return 5;
 		}
+		word =  toSeoUrl( removeSpecialCharacters( word) );
+		inputText = toSeoUrl( removeSpecialCharacters( inputText ) );
 		
-		word = StringUtils.removeSpecialCharacters( StringUtils.toSeoUrl(word) );
-		inputText = StringUtils.removeSpecialCharacters( StringUtils.toSeoUrl( inputText ) );
-		
-		if(StringUtils.isBlank(inputText) || StringUtils.isBlank(word)){
+		if(isBlank(inputText) || isBlank(word)){
 			return 5;
 		}
 		
@@ -77,16 +76,13 @@ public class StringUtils {
 			return 1;
 		}
 		
-		
 		int max = 5;
-		
 		int result = determineSimularityForWord(word, inputText);
 		if(result < max){
 			return result;
 		}
 		String[] words = word.split(",");
-		String[] inputWords = StringUtils.removeSpecialCharacters(inputText).split(",");
-	
+		String[] inputWords = removeSpecialCharacters(inputText).split(",");
 		for(String w : words){
 			for(String iw : inputWords){
 				result = determineSimularityForWord(w, iw);

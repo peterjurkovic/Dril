@@ -13,7 +13,15 @@
 	        style="@style/v2drilAlert"
 	        android:text="@string/alert_no_cards_activated"
 	    />
-	    	
+	  <!--   
+	    <Button 
+	         android:id="@+id/btnActivate"
+			 style="@style/v2FacebookBtn"
+			 android:visibility="gone"
+	         android:text="Activate random words"
+	         android:layout_margin="10dp"
+         />
+		 -->	    	
 	 	<FrameLayout
 		    android:id="@+id/drilNav"
 	        android:layout_width="fill_parent"
@@ -61,17 +69,21 @@
 		        android:background="@drawable/v2_question_text"/>
 		
 		  
-		
-		   	<EditText 
-		   	    android:id="@+id/inputAnswer"
+			<RelativeLayout
+			    android:layout_below="@id/question"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
-			    android:hint="@string/write_your_answer"
-			    android:layout_below="@id/question"
-			    style="@style/editText"
-			    android:visibility="invisible"
-			    android:background="@drawable/input"
-			    />
+			    >
+			   	<EditText 
+			   	    android:id="@+id/inputAnswer"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:hint="@string/write_your_answer"
+				    style="@style/editText"
+				    android:visibility="invisible"
+				    android:background="@drawable/input"
+				    />
+		   	</RelativeLayout>
 		   	
 		 <!-- END QUESTION  -->	
 		   	

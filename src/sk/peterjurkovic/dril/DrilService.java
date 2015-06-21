@@ -77,7 +77,7 @@ public class DrilService {
 	
 	
 	public boolean hasNext(){
-		return activatedWords != null && activatedWords.size() > 0;
+		return activatedWords != null && !activatedWords.isEmpty();
 	}
 	
 	public Word getNext() throws DrilUnexpectedFinishedException{
@@ -190,7 +190,7 @@ public class DrilService {
 	
 	
 	private List<WordWithPosition> cloneList(){
-		List<WordWithPosition> wordPositionList = new ArrayList<WordWithPosition>();
+		List<WordWithPosition> wordPositionList = new ArrayList<WordWithPosition>(activatedWords.size());
 		for(int pos = 0; pos < activatedWords.size(); pos++ ){
 			if(activatedWords.get(pos).getHit() > 0){
 				WordWithPosition wp = new WordWithPosition();

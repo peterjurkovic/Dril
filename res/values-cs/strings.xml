@@ -342,5 +342,5 @@
 	
 	<string name="alert_login">Upozornění</string>
 	<string name="alert_login_descr">Skutečně se chcete přihlásit a přepsat stávající slovíčka?</string>
-	<string name="sync_words">A synchronizujte slovíčka s web.drilapp.com</string>
+	<string name="sync_words">A synchronizovat slovíčka s web.drilapp.com</string>
 </resources>

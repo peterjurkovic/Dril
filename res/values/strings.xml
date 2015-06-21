@@ -68,7 +68,7 @@
 	<string name="selected">Selected:</string>
 	<string name="wordAction">Card:</string>
 	<string name="activated_words">Cards: %1$d  |  viewed: %2$dx |  last rating: %3$s</string>
-	<string name="dril_finished">Great! You learned %1$d new word(s).</string>
+	<string name="dril_finished">Great! You\'ve learned %1$d new word(s).</string>
 	<string name="pronauce_question">speech question</string>
 	<string name="pronauce_answer">speech answer</string>
 	<string name="speach_failed">Could not be pronounced given expression!</string>

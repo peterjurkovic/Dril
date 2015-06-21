@@ -500,32 +500,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
          }
          
     }
-    
-    private void playPronunciationInNewThread(final int delay){
-    	Thread thread = new Thread()
-    	{
-    	    @Override
-    	    public void run() {
-    	        try {
-	                WordToPronauceDto wordDto = getQuestionToPronauce();
-	            	if(wordDto != null && wordDto.getLanguage() != null){
-	            		 sleep(delay);
-	            		int targetLang = session.getTargetLocaleId();
-	            		if(targetLang == wordDto.getLanguage().getId()){
-	            			wordDto.setShowFailureToast(false);
-	            			speakWords(wordDto);
-	            		}
-	            	}
-    	            
-    	        } catch (InterruptedException e) {
-    	            e.printStackTrace();
-    	        }
-    	    }
-    	};
-
-    	thread.start();    	
-    }
-    
+      
     
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

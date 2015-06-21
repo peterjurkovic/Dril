@@ -9,7 +9,6 @@ import sk.peterjurkovic.dril.model.Statistics;
 import sk.peterjurkovic.dril.model.Word;
 import sk.peterjurkovic.dril.utils.ConversionUtils;
 import android.database.Cursor;
-import android.util.Log;
 
 public class WordDaoImpl implements WordDao {
 	
@@ -55,15 +54,7 @@ public class WordDaoImpl implements WordDao {
 	
 	@Override
 	public void updateReatedWord(Word word, Statistics statistics) {
-		try{
-			wordDBAdapter.updateReatedWord(word, statistics);
-  	    } catch (Exception e) {
-  			Log.d( getClass().getName() , "ERROR: " + e.getMessage());
-  		} finally {
-  			if(wordDBAdapter != null){
-  				wordDBAdapter.close();
-  			}
-  		}
+		wordDBAdapter.updateReatedWord(word, statistics);
 	}
 
 }

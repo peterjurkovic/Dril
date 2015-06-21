@@ -16,9 +16,7 @@ import android.util.Log;
  */
 public class StatisticsDaoImpl implements StatisticsDao {
 		
-	private StatisticDbAdapter statisticDbAdapter;
-	
-	public StatisticsDaoImpl(){}
+	private final StatisticDbAdapter statisticDbAdapter;
 	
 	public StatisticsDaoImpl(StatisticDbAdapter statisticDbAdapter){
 		this.statisticDbAdapter = statisticDbAdapter;

@@ -76,7 +76,9 @@ public class RegistrationActivity extends BaseActivity {
 		
 		ArrayAdapter<State> adapter = languageAdapter();
 		localeSpinner.setAdapter(adapter);
+		localeSpinner.setSelection( session.getLocaleId() - 1);
 		targetLocaleSpinner.setAdapter(adapter);
+		targetLocaleSpinner.setSelection( session.getTargetLocaleId() - 1);
 		
 		createAccount = (Button) findViewById(R.id.register);
 		login = (Button) findViewById(R.id.btnBackToLogin);
