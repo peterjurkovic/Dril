@@ -32,8 +32,8 @@
                <item> 
 			        <shape>
 			            <gradient
-			                android:startColor="#FFBE0D"
-			                android:endColor="#FFBE0D" />
+			                android:startColor="@color/btn3Color"
+			                android:endColor="@color/btn3Color" />
 			            <corners
 			                android:radius="3dp" />
 			            <padding  android:top="8dp" android:bottom="8dp" />

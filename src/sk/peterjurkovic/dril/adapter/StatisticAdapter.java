@@ -78,15 +78,15 @@ public class StatisticAdapter extends CursorAdapter {
 	
 	private int getResourceByRating(final double rating){
 		if(rating < 2){
-			return R.drawable.btn_1;
+			return R.color.btn1Color;
 		}else if(rating < 3){
-			return R.drawable.btn_2;
+			return R.color.btn1Color;
 		}else if(rating < 4){
-			return R.drawable.btn_3;
+			return R.color.btn3Color;
 		}else if(rating < 4.5){
-			return R.drawable.btn_4;
+			return R.color.btn3Color;
 		}
-		return R.drawable.btn_5;
+		return R.color.btn5Color;
 	}
 	
 	

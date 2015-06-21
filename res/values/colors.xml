@@ -45,4 +45,8 @@
     
     <color name="action_bar">#202829</color>
     <color name="action_bar_pressed">#202829</color>
+    
+    <color name="btn1Color">#60B540</color>
+    <color name="btn3Color">#FFBE0D</color>
+    <color name="btn5Color">#E50000</color>
 </resources>
