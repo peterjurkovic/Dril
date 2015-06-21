@@ -27,8 +27,8 @@ public class FeedbackActivity extends BaseActivity {
 		 PackageInfo pInfo;
 		try {
 			pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-			((TextView)findViewById(R.id.version)).setText(getString(R.string.version) 
-					+ pInfo.versionName);
+			((TextView)findViewById(R.id.version)).setText( getString(R.string.version) 
+					+" "+ pInfo.versionName);
 		} catch (NameNotFoundException e) {
 			Log.e(e);
 		}

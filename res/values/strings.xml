@@ -158,8 +158,8 @@
 	<string name="ok">OK</string>
 	
 	<!-- DRIL APP v 1.5 -->
-	<string name="drilapp">www.drilapp.com</string>
-	<string name="drilapp_ow">www.drilapp.com\n your own words</string>
+	<string name="drilapp">web.drilapp.com</string>
+	<string name="drilapp_ow">web.drilapp.com\n your own words</string>
 	
 	<!-- DRIL APP v 2 -->
 	<string name="back_button_label">Back</string>
@@ -353,4 +353,6 @@
 	<string name="save_and_continute">Save and continue &#187;</string>
 	<string name="sync_words">And sync your words with web.drilapp.com</string>
 	<string name="err_data_load">Textbooks could be loaded, server is temporarily unavailable</string>
+	<string name="pref_head_account">Account</string>
+	<string name="chose_langs">Choose languages</string>
 </resources>

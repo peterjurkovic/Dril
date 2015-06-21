@@ -8,7 +8,7 @@ public class Constants {
 	// 900000 == 15min 
 	public static final int SESSION_EXPIRATION_MS = 900000; 
 	
-	public static final String DRIL_HOMEPAGE_URL = "http://www.drilapp.com";
+	public static final String DRIL_HOMEPAGE_URL = "http://web.drilapp.com";
 	public static final String PORTFOLIO_URL = "www.peterjurkovic.com";
 	public static final String FACEBOOK_URL = "https://www.facebook.com/drilAnglictinaEfektivne";
 	public static final String CONTACT_EMAIL = "info@drilapp.com";

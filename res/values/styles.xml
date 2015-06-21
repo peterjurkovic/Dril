@@ -147,7 +147,7 @@
        <item name="android:background">@drawable/speaker_xml</item>
     </style>
  
-    <style name="pageLink">
+    <style name="pageLink" parent="btn">
         <item name="android:layout_width">match_parent</item>
 	    <item name="android:layout_height">wrap_content</item>  
         <item name="android:background">@drawable/link</item>

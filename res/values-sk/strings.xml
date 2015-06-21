@@ -347,4 +347,9 @@
 	<string name="alert_login_descr">Skutočne sa chcete prihlásiť a prepísať existujúce slovíčka?</string>	
 	<string name="sync_words">A synchronizujte slovíčka s web.drilapp.com</string>
 	
+	<string name="save_and_continute">Uložiť a pokračovať &#187;</string>
+	<string name="err_data_load">Nepodarilo sa stiahnuť učebnice</string>
+	<string name="pref_head_account">Vaše konto</string>
+	<string name="chose_langs">Vyberte jazyky</string>
+	
 </resources>

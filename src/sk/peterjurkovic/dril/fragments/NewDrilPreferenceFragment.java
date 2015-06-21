@@ -43,7 +43,7 @@ public class NewDrilPreferenceFragment extends PreferenceFragment{
         	 
         	 root.addPreference(dialogBasedPrefCat);
         	 dialogBasedPrefCat.setPersistent(true);
-        	 dialogBasedPrefCat.setTitle("Account");
+        	 dialogBasedPrefCat.setTitle(R.string.pref_head_account);
         	 dialogBasedPrefCat.setKey(SessionManager.PREF_NAME);
         	 dialogBasedPrefCat.addPreference(createLimitPref());
         	 dialogBasedPrefCat.addPreference( createFirstNamePref() );

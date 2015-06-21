@@ -40,7 +40,7 @@ public class LoadDrilRequest {
 			try {
 				request.put("localeId", session.getLocaleId());
 				request.put("targetLocaleId", session.getTargetLocaleId());
-				request.put("deviceInfo", DeviceUtils.getDeviceInfo());
+				request.put("device", DeviceUtils.getDeviceInfo());
 				send(request);
 			} catch (Exception e) {
 				Log.e(e);
