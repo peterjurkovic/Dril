@@ -10,11 +10,9 @@
     <string name="btn_info">Pomocník</string>
     <string name="question">Otázka:</string>
     <string name="answer">Odpoveď:</string>
-    <string name="btn_1">1</string>
-    <string name="btn_2">2</string>
-    <string name="btn_3">3</string>
-    <string name="btn_4">4</string>
-    <string name="btn_5">5</string>
+    <string name="btn_1">Viem</string>
+    <string name="btn_3">Ešte nie</string>
+    <string name="btn_5">Neviem</string>
     <string name="showAnswerBtn">Zobraziť odpoveď</string>
     <string name="zero_cards_alert">Nie su aktivované žiadne kartičky</string>
     <string name="book_add">Pridať učebnicu</string>
