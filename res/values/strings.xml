@@ -352,4 +352,5 @@
 	
 	<string name="save_and_continute">Save and continue &#187;</string>
 	<string name="sync_words">And sync your words with web.drilapp.com</string>
+	<string name="err_data_load">Textbooks could be loaded, server is temporarily unavailable</string>
 </resources>

@@ -17,11 +17,33 @@ public class DeviceUtils {
    
     public static String getDeviceInfo(){
     	return 
-    	 "OS Version: " + OSVERSION + "(" + android.os.Build.VERSION.INCREMENTAL + ") " +
-    	 "OS API Level: " + android.os.Build.VERSION.SDK_INT +
-    	 " Device: " + android.os.Build.DEVICE +
-    	 " Model: " + android.os.Build.MODEL + " ("+ android.os.Build.PRODUCT + ")";
+    	 "[OS: " + android.os.Build.VERSION.RELEASE + "]" +
+    	 " [API: " + android.os.Build.VERSION.SDK_INT + "]" +
+    	 " [Device: " + android.os.Build.DEVICE + "]" +
+    	 " [Model: " + getDeviceName()+ "]";
     }
+    
+    public static String getDeviceName() {
+    	  String manufacturer = Build.MANUFACTURER;
+    	  String model = Build.MODEL;
+    	  if (model.startsWith(manufacturer)) {
+    	    return capitalize(model);
+    	  } else {
+    	    return capitalize(manufacturer) + " " + model;
+    	  }
+    }
+    
+    private static String capitalize(String s) {
+    	  if (s == null || s.length() == 0) {
+    	    return "";
+    	  }
+    	  char first = s.charAt(0);
+    	  if (Character.isUpperCase(first)) {
+    	    return s;
+    	  } else {
+    	    return Character.toUpperCase(first) + s.substring(1);
+    	  }
+    } 
     
     /**
      * Return pseudo unique ID

@@ -39,8 +39,6 @@ public class SessionManager {
     	editor.remove(KEY_USER_ID);
     	editor.remove(KEY_LOGIN);
     	editor.remove(KEY_TOKEN);
-    	editor.remove(KEY_LOCALE_ID);
-    	editor.remove(KEY_TARGET_LOCALE_ID);
     	editor.remove(KEY_WORD_LIMIT);
     	editor.commit();
     }

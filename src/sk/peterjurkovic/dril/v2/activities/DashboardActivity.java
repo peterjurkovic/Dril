@@ -2,10 +2,8 @@ package sk.peterjurkovic.dril.v2.activities;
 
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.BookDBAdapter;
-import sk.peterjurkovic.dril.listener.AsyncLIstener;
+import sk.peterjurkovic.dril.sync.LoadDrilRequest;
 import sk.peterjurkovic.dril.sync.SyncManager;
-import sk.peterjurkovic.dril.updater.CheckForUpdate;
-import sk.peterjurkovic.dril.updater.UpdateSaver;
 import sk.peterjurkovic.dril.utils.AppRater;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -25,9 +23,8 @@ import android.widget.Button;
  * @date Oct 24, 2013
  * @version 2.0
  */
-public class DashboardActivity extends BaseActivity implements AsyncLIstener{
-	
-	private BookDBAdapter bookDbAdapter = null;
+public class DashboardActivity extends BaseActivity{
+
 	private Button login;
 	
 	@Override
@@ -40,8 +37,7 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
         	return;
         }
 		setContentView(R.layout.v2_dashboard);
-			bookDbAdapter = new BookDBAdapter(this);
-		 	
+				
 		 	Button startDrilButton = (Button) findViewById(R.id.btn_start);
 	        
 	        context = this;
@@ -88,12 +84,14 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 	        login = (Button) findViewById(R.id.login);
 	      
 	   
-	        if(bookDbAdapter.getBooksCount() == 0){
-	        	downloadBooks();
-	        }
+	       
 	        if(session.isUserLoggedIn()){
 	        	login.setVisibility(View.GONE);
 	        }else{
+	        	final long bookCount = new BookDBAdapter(this).getBooksCount();
+	        	if(bookCount == 0){
+	 	        	new LoadDrilRequest(context, session).send();
+	 	        }
 	        	login.setOnClickListener(new View.OnClickListener() {
 	  				@Override
 	  				public void onClick(View v) {
@@ -126,36 +124,7 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 		super.onResume();
 	}
 	
-	/**
-	 * Dialog, if updates are available
-	 * 
-	 * @param response
-	 */
-	public void showDownloadDialog(Integer response){
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-		alertDialogBuilder
-			.setTitle(R.string.update_status)
-			.setMessage(R.string.update_available)
-			.setCancelable(false)
-			.setNegativeButton(R.string.no,new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog,int id) {
-							dialog.cancel();
-						}
-			})
-			.setPositiveButton(R.string.yes ,new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog,int id) {
-					dialog.cancel();
-					downloadBooks();
-				}
-			  })
-			;
-
-		AlertDialog alertDialog = alertDialogBuilder.create();
-		alertDialog.show();
-	}
-	
+		
 	
 	/**
 	 * If update is not available show dialog with close button only.
@@ -205,42 +174,11 @@ public class DashboardActivity extends BaseActivity implements AsyncLIstener{
 		startActivity(i);
 	}
 
-	@Override
-	public void onCheckResponse(Integer response) {
-		switch(response){
-		case CheckForUpdate.STATE_NO_INTERNET_CONN :
-		case CheckForUpdate.STATE_PARSING_ERROR :
-			showNoActionDialog(getResources().getString( R.string.update_failed));
-			break;
-		case CheckForUpdate.STATE_NO_UPDATE:
-			showNoActionDialog(getResources().getString( R.string.up_to_date));
-			break;
-		default:
-			showDownloadDialog(response);
-	}
-	
-	}
-
-
-	@Override
-	public void onUpdatedResponse(Integer response) {
-		if(response > 0){
-			showNoActionDialog(getResources().getString( R.string.successfully_updated, response));
-		}else{
-			onCheckResponse(response);
-		}
-	}
-
-
 	public Context getContext() {
 		return context;
 	}
 	
 		
-	
-	private void downloadBooks(){
-		UpdateSaver updater = new UpdateSaver( context );
-		updater.sendRequest();
-	}
+
 	
 }

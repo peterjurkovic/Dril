@@ -22,6 +22,26 @@ public class SyncDbAdapter extends DatabaseHelper {
 		super(context);
 	}
 	
+	public void saveData(final JSONObject response){
+		w.lock();
+		final SQLiteDatabase db = getWritableDatabase();
+		try{
+			db.beginTransaction();
+			final String currentTime = getCurrentTime(db);
+			syncBooks(db, response, currentTime, false);
+			syncLectures(db, response, currentTime , false);
+			syncWords(db, response, currentTime , false);
+			db.setTransactionSuccessful();
+		}catch(Exception e){
+			GoogleAnalyticsUtils.logException(e, context);
+			Log.e(e);
+		}finally{
+			db.endTransaction();
+			db.close();
+			w.unlock();
+		}
+	}
+	
 	public void processLogout(){
 		w.lock();
 		final SQLiteDatabase db = getWritableDatabase();
@@ -74,12 +94,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 		return true;
 	}
 	
-	public void removeAll(SQLiteDatabase db){
-		db.execSQL("DELETE FROM word");
-		db.execSQL("DELETE FROM lecture;");
-		db.execSQL("DELETE FROM book;");
-		db.execSQL("DELETE FROM deleted_rows;");
-	}
+	
 	
 	public boolean sync(final JSONObject response){
 		w.lock();
@@ -134,6 +149,12 @@ public class SyncDbAdapter extends DatabaseHelper {
 			r.unlock();
 		}
 	}
+	private void removeAll(SQLiteDatabase db){
+		db.execSQL("DELETE FROM word");
+		db.execSQL("DELETE FROM lecture;");
+		db.execSQL("DELETE FROM book;");
+		db.execSQL("DELETE FROM deleted_rows;");
+	}
 	
 	private void syncDeleted(final SQLiteDatabase db, final JSONObject response, final String lastSync, final String currentTime) throws JSONException{
 		db.execSQL("DELETE FROM word WHERE _id IN (SELECT w._id FROM word w " +
@@ -156,7 +177,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 		db.execSQL("DELETE FROM deleted_rows;");
 	}
 	
-	private void syncBooks(final SQLiteDatabase db, final JSONObject response, final String lastSync, boolean isLogin) throws JSONException{
+	private void syncBooks(final SQLiteDatabase db, final JSONObject response, final String lastSync, boolean isertOnly) throws JSONException{
 		JSONArray bookList = response.getJSONArray("bookList");
 		final int count = bookList.length();
 		
@@ -169,7 +190,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 			for(int i = 0; i < bookList.length(); i++){
 				final JSONObject book = bookList.getJSONObject(i);
 				int id = book.getInt("id");
-				if(isLogin || DatabaseUtils.queryNumEntries(db, BookDBAdapter.TABLE_BOOK, SERVER_ID + "=" + id) == 0){
+				if(isertOnly || DatabaseUtils.queryNumEntries(db, BookDBAdapter.TABLE_BOOK, SERVER_ID + "=" + id) == 0){
 					syncBookExecuteStatement(insertStmt, true, book, lastSync);
 				}else{
 					syncBookExecuteStatement(updateStmt, false, book, lastSync);

@@ -32,7 +32,7 @@ public class StatisticAdapter extends CursorAdapter {
 		 
 		 ViewHolder holder;
 		 if(convertView == null){
-        	convertView = inflater.inflate(R.layout.v2_stastistic, null);
+        	convertView = inflater.inflate(R.layout.v2_stastistic, parent);
         	holder = new ViewHolder();
 		 	holder.dateView = (TextView) convertView.findViewById(R.id.statisticsDate);
 			holder.learnedCardsView = (TextView) convertView.findViewById(R.id.statisticsLearnedCards);
