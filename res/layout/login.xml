@@ -32,7 +32,6 @@
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:singleLine="true"
-            android:text="admin"
             android:textColor="@color/text_color"
             android:textColorHint="@color/text_color_hit" />
  
@@ -47,7 +46,6 @@
             android:padding="10dp"
             android:singleLine="true"
             android:textColor="@color/text_color"
-            android:text="Liebing"
             android:textColorHint="@color/text_color_hit" />
  
         <!-- Login Button -->

@@ -304,28 +304,38 @@ public class WordDBAdapter extends DBAdapter {
     }
     
     public long getCountOfStoredWords(){
- 	   final SQLiteDatabase db = getReadableDatabase();
  	   r.lock();
+ 	   final SQLiteDatabase db = getReadableDatabase();
  	   try{
  		   return DatabaseUtils.queryNumEntries(db, WordDBAdapter.TABLE_WORD);
  	   }finally{
- 		   r.unlock();
  		   db.close();
+ 		   r.unlock();
  	   }
     }
     
-    public void activateWordRandomly(long lectureid, int countOfWordsToActivate){
+    public void activateWordRandomly(int countOfWordsToActivate){
+    	activateWordRandomly(countOfWordsToActivate, null);
+    }
+    
+    public void activateWordRandomly(final int countOfWordsToActivate, final Long lectureid){
+    	final String query = 
+		"UPDATE "+TABLE_WORD+" SET "+ACTIVE+"=1 WHERE "+ID+
+		"=(SELECT "+ID +" "+ "FROM "+TABLE_WORD+" WHERE "+
+		ACTIVE+"=0 " + (lectureid != null ? "AND "+FK_LECTURE_ID+"="+lectureid : "") +
+		" ORDER BY RANDOM() LIMIT "+countOfWordsToActivate+")";
+    	
+    	w.lock();
     	SQLiteDatabase db = openWriteableDatabase();
+    	try{
     	db.beginTransaction();
-    	for(int i=0; i < countOfWordsToActivate; i++){
-    		db.execSQL("UPDATE "+TABLE_WORD+" SET "+ACTIVE+"=1 WHERE "+ID+
-    					"=(SELECT "+ID +" "+ "FROM "+TABLE_WORD+" WHERE "+
-    					ACTIVE+"=0 AND "+FK_LECTURE_ID+"="+lectureid+
-    					" ORDER BY RANDOM() LIMIT 1)");
-    	}
+    	db.execSQL( query );
     	db.setTransactionSuccessful();
-    	db.endTransaction();
-    	db.close();
+    	}finally{
+    		db.endTransaction();
+    		db.close();
+    		w.unlock();
+    	}
     }
     
     public boolean changeWordActivity(long lectureId, int activity){

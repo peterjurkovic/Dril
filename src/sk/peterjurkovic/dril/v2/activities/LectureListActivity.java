@@ -205,7 +205,7 @@ public class LectureListActivity extends ActionBarListActivity implements OnSucc
 	public void activeRandomWords(long lectureId, int countOfwordToActivate ){
         WordDBAdapter wordDbAdapter = new WordDBAdapter(this);
  	    try{
- 	    	wordDbAdapter.activateWordRandomly(lectureId, countOfwordToActivate);
+ 	    	wordDbAdapter.activateWordRandomly(countOfwordToActivate, lectureId);
  	    } catch (Exception e) {
  	    	Log.e(e);
  		} finally {

@@ -13,15 +13,19 @@
 	        style="@style/v2drilAlert"
 	        android:text="@string/alert_no_cards_activated"
 	    />
-	  <!--   
+	  
 	    <Button 
 	         android:id="@+id/btnActivate"
-			 style="@style/v2FacebookBtn"
+			 style="@style/btn"
+			 android:layout_width="fill_parent"
+			 android:textColor="@color/white"
 			 android:visibility="gone"
-	         android:text="Activate random words"
-	         android:layout_margin="10dp"
+			 android:layout_height="wrap_content"
+			 android:background="@drawable/button_submit"
+	         android:text="Activate 10 random cards"
+	         android:layout_margin="15dp"
          />
-		 -->	    	
+	    	
 	 	<FrameLayout
 		    android:id="@+id/drilNav"
 	        android:layout_width="fill_parent"

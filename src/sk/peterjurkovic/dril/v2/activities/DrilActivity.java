@@ -81,7 +81,6 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
 	private boolean writeAnswer = true;
 	private SharedPreferences preferences;
 	private Word currentWord = null; 
-
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -234,16 +233,9 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     }
     
     public void showNoCardsAlert(){
-    	 layout.setVisibility(View.INVISIBLE);
-         TextView alertBox = ((TextView)findViewById(R.id.noCardActivatedAlert));
-         alertBox.setOnClickListener(new OnClickListener() {
-                     @Override
-                     public void onClick(View v) {
-                             Intent i = new Intent( getApplicationContext() , BookListActivity.class);
-                     startActivity(i);
-                     }
-             });
-         alertBox.setVisibility(View.VISIBLE);
+    	layout.setVisibility(View.GONE);
+        final TextView alertBox = ((TextView)findViewById(R.id.noCardActivatedAlert));
+        alertBox.setVisibility(View.VISIBLE);
     }
     
     public void processRate(View view){

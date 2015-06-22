@@ -31,6 +31,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 			syncBooks(db, response, currentTime, false);
 			syncLectures(db, response, currentTime , false);
 			syncWords(db, response, currentTime , false);
+			db.execSQL("UPDATE word SET active=1 WHERE _id=(SELECT _id FROM word ORDER BY RANDOM() LIMIT 10)");
 			db.setTransactionSuccessful();
 		}catch(Exception e){
 			GoogleAnalyticsUtils.logException(e, context);
