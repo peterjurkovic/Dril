@@ -42,7 +42,7 @@ public class StringUtils {
 	public static boolean isBlank(String value){
 		if(value == null){
 			return true;
-		}else if(value.trim().length() > 1){
+		}else if(value.trim().length() == 0){
 			return false;
 		}
 		return true;

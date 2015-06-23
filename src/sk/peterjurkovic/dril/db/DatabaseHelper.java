@@ -27,7 +27,7 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
 	
 	public final static String INIT_TIME = "1970-01-01 00:00:00";
 	
-	public static final int DATABASE_VERSION = 6;
+	public static final int DATABASE_VERSION = 4;
 	public static final String DATABASE_NAME = "dril";
 	
 	public static final String ID = "_id";
@@ -81,7 +81,7 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
 	        			db.execSQL(StatisticDbAdapter.TABLE_STATISTIC_CREATE);
 	        			db.setTransactionSuccessful();
 	        		break;
-	        		case 5:
+	        		case 3:
 	        			Log.i("Updating prev version");
 	        			db.beginTransaction();
 	        			db.execSQL("ALTER TABLE "+WordDBAdapter.TABLE_WORD+" RENAME TO tmp;");

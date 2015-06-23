@@ -252,7 +252,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 	}
 	
 	private String getCurrentTime(final SQLiteDatabase db){
-		Cursor c = db.rawQuery("SELECT datetime('now','localtime')", null);
+		Cursor c = db.rawQuery("SELECT datetime('now')", null);
 		c.moveToFirst();
 		return c.getString(0);
 	}
@@ -393,11 +393,7 @@ public class SyncDbAdapter extends DatabaseHelper {
 
 	
 	
-	public boolean isFirstSync(){
-		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-		String lastSync = preferences.getString(CLIENT_LAST_SYNC, INIT_TIME);
-		return lastSync.equals(INIT_TIME);
-	}
+
 	
 	
 
