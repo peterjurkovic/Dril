@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import sk.peterjurkovic.dril.DrilService;
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.SessionManager;
 import sk.peterjurkovic.dril.dao.StatisticsDao;
 import sk.peterjurkovic.dril.dao.StatisticsDaoImpl;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
@@ -157,7 +158,7 @@ public class DrilActivity extends BaseActivity implements OnInitListener {
     
     private void init(){
     	setListeners();
-    	preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    	preferences = context.getSharedPreferences(SessionManager.PREF_NAME, Context.MODE_PRIVATE);
     	drilService = new DrilService(new WordDBAdapter(this));
     	writeAnswer = writeAnswer();
         if(!drilService.hasNext()){

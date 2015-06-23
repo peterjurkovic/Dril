@@ -4,6 +4,7 @@ package sk.peterjurkovic.dril.fragments;
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.listener.OnEditWordListener;
+import sk.peterjurkovic.dril.utils.StringUtils;
 import sk.peterjurkovic.dril.v2.activities.EditWordActivity;
 import android.app.Activity;
 import android.database.Cursor;
@@ -75,8 +76,11 @@ public class EditWordFragment extends Fragment {
         String question = questionElement.getText().toString();
         String answer =  answerElement.getText().toString();
         
-        if(question.length() == 0 || answer.length() == 0) return;
-        editWordListener.saveEditedWord(wordId, question, answer);
+        if(StringUtils.isBlank(question) || StringUtils.isBlank(answer)){
+        	return;
+        }else{
+        	editWordListener.saveEditedWord(wordId, question, answer);
+        }
     }
 	
 	

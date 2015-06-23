@@ -1,6 +1,7 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.listener.OnEditWordListener;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,13 +47,14 @@ public class EditWordActivity extends BaseActivity implements OnEditWordListener
 	
 	
 	@Override
-	public void saveEditedWord(long wordId, String question, String answer) {
+	public void saveEditedWord(final long wordId, final String question, final String answer) {
 		
 		Intent result = new Intent();
 		result.putExtra(EXTRA_QUESTION, question);
 		result.putExtra(EXTRA_ANSWER, answer);
 		result.putExtra(EXTRA_WORD_ID, wordId);
 		if(isFromDril){
+			new WordDBAdapter(context).updateWord(wordId, question, answer);
 			setResult(DrilActivity.EDIT_WORD_CODE, result);
 		}else{
 			setResult(RESULT_OK, result);

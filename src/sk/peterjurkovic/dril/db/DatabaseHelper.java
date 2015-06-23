@@ -27,7 +27,7 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
 	
 	public final static String INIT_TIME = "1970-01-01 00:00:00";
 	
-	public static final int DATABASE_VERSION = 4;
+	public static final int DATABASE_VERSION = 6;
 	public static final String DATABASE_NAME = "dril";
 	
 	public static final String ID = "_id";
@@ -81,7 +81,7 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
 	        			db.execSQL(StatisticDbAdapter.TABLE_STATISTIC_CREATE);
 	        			db.setTransactionSuccessful();
 	        		break;
-	        		case 3:
+	        		case 5:
 	        			Log.i("Updating prev version");
 	        			db.beginTransaction();
 	        			db.execSQL("ALTER TABLE "+WordDBAdapter.TABLE_WORD+" RENAME TO tmp;");
@@ -96,7 +96,7 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
 	        			
 	        			db.execSQL("ALTER TABLE "+BookDBAdapter.TABLE_BOOK+" RENAME TO tmp;");
 	        			createSyncTable(db, BookDBAdapter.TABLE_BOOK_CEREATE);
-	        			db.execSQL("INSERT INTO book SELECT _id, book_name, answer_lang_fk, question_lang_fk, 0, level, 0, null,(datetime('now')) FROM tmp;");
+	        			db.execSQL("INSERT INTO book SELECT _id, book_name, answer_lang_fk, question_lang_fk, 0, null, 0, null,(datetime('now')) FROM tmp;");
 	        			db.execSQL("DROP TABLE tmp;");
 	        			addIndexes(db);      			
 	        			addSyncManagementTables(db);
@@ -178,12 +178,12 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
  	protected void initSyncSettings() {
 		Log.i("Init sync settings");
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-		int deviceID = preferences.getInt(DEVICE_ID, 0);
+		String deviceID = preferences.getString(DEVICE_ID, null);
 		
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putString(SERVER_LAST_SYNC, INIT_TIME);
 		editor.putString(CLIENT_LAST_SYNC, INIT_TIME);
-		if (deviceID == 0) {
+		if (deviceID == null) {
 			editor.putString(DEVICE_ID, DeviceUtils.getUniquePsuedoID());
 		}
 		editor.commit();

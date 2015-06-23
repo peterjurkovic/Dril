@@ -14,9 +14,9 @@ import android.widget.TextView;
 
 public class StatisticAdapter extends CursorAdapter {
 
-	private LayoutInflater inflater;	
-	private Cursor c;
-	private int padding;
+	private final LayoutInflater inflater;	
+	private final Cursor c;
+	private final int padding;
 	
 	
 	public StatisticAdapter(Context context, Cursor c, boolean autoRequery){
@@ -32,7 +32,7 @@ public class StatisticAdapter extends CursorAdapter {
 		 
 		 ViewHolder holder;
 		 if(convertView == null){
-        	convertView = inflater.inflate(R.layout.v2_stastistic, parent);
+        	convertView = inflater.inflate(R.layout.v2_stastistic, null);
         	holder = new ViewHolder();
 		 	holder.dateView = (TextView) convertView.findViewById(R.id.statisticsDate);
 			holder.learnedCardsView = (TextView) convertView.findViewById(R.id.statisticsLearnedCards);
