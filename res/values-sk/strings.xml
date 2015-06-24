@@ -292,7 +292,7 @@
 	<string name="logging_in">Prebieha prihlasovanie&#8230;</string>
 	<string name="importing_data">Importujú sa dáta&#8230;</string>
 	<string name="login_success">Boli ste úspešne prihlásený</string>
-	<string name="logout_success">Boli ste úspešne odhlásení</string>
+	<string name="logout_success">Boli ste úspešne odhlásený</string>
 	<string name="login_failed">Prihlásenie sa nepodarilo, skontrolujte pripojenie k internetu</string>
 	
 	<string name="err_credentials">Zadajte prihlasovacie údaje</string>
