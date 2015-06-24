@@ -40,12 +40,10 @@ public class StringUtils {
 	 * @return
 	 */
 	public static boolean isBlank(String value){
-		if(value == null){
+		if(value == null || value.trim().length() == 0){
 			return true;
-		}else if(value.trim().length() == 0){
-			return false;
 		}
-		return true;
+		return false;
 	}
 	
 
