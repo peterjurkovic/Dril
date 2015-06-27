@@ -123,7 +123,7 @@ public class DrilService {
 		int size = activatedWords.size() - 1;
 		int i = 0;
 		do{
-			if(i > 15){
+			if(i > 9){
 				break;
 			}
 			int pos = NumberUtils.randInt(0, size);

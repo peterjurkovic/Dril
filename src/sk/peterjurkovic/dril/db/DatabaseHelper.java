@@ -83,26 +83,26 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
 	        		break;
 	        		case 3:
 	        			Log.i("Updating prev version");
-	        			db.beginTransaction();
-	        			db.execSQL("ALTER TABLE "+WordDBAdapter.TABLE_WORD+" RENAME TO tmp;");
-	        			createSyncTable(db, WordDBAdapter.TABLE_WORD_CREATE);
-	        			db.execSQL("INSERT INTO word SELECT _id,question,answer,active,lecture_id,rate,hit,avg_rate,null,(datetime('now')) FROM tmp;");
-	        			db.execSQL("DROP TABLE tmp;");
-	        			
-	        			db.execSQL("ALTER TABLE "+LectureDBAdapter.TABLE_LECTURE+" RENAME TO tmp;");
-	        			createSyncTable(db, LectureDBAdapter.TABLE_LECTURE_CREATE);
-	        			db.execSQL("INSERT INTO lecture SELECT _id, lecture_name, book_id,null,(datetime('now')) FROM tmp;");
-	        			db.execSQL("DROP TABLE tmp;");
-	        			
-	        			db.execSQL("ALTER TABLE "+BookDBAdapter.TABLE_BOOK+" RENAME TO tmp;");
-	        			createSyncTable(db, BookDBAdapter.TABLE_BOOK_CEREATE);
-	        			db.execSQL("INSERT INTO book SELECT _id, book_name, answer_lang_fk, question_lang_fk, 0, null, 0, null,(datetime('now')) FROM tmp;");
-	        			db.execSQL("DROP TABLE tmp;");
-	        			addIndexes(db);      			
-	        			addSyncManagementTables(db);
-	        			db.setTransactionSuccessful();
-	        			Log.i("Update finished.");
-	        			initSyncSettings();
+        				db.beginTransaction();
+        				db.execSQL("ALTER TABLE "+WordDBAdapter.TABLE_WORD+" RENAME TO tmp;");
+        				createSyncTable(db, WordDBAdapter.TABLE_WORD_CREATE);
+        				db.execSQL("INSERT INTO word SELECT _id,question,answer,active,lecture_id,rate,hit,avg_rate,null,(datetime('now')) FROM tmp;");
+        				db.execSQL("DROP TABLE tmp;");
+        				
+        				db.execSQL("ALTER TABLE "+LectureDBAdapter.TABLE_LECTURE+" RENAME TO tmp;");
+        				createSyncTable(db, LectureDBAdapter.TABLE_LECTURE_CREATE);
+        				db.execSQL("INSERT INTO lecture SELECT _id, lecture_name, book_id,null,(datetime('now')) FROM tmp;");
+        				db.execSQL("DROP TABLE tmp;");
+        				
+        				db.execSQL("ALTER TABLE "+BookDBAdapter.TABLE_BOOK+" RENAME TO tmp;");
+        				createSyncTable(db, BookDBAdapter.TABLE_BOOK_CEREATE);
+        				db.execSQL("INSERT INTO book SELECT _id, book_name, answer_lang_fk, question_lang_fk, 0, null, 0, null,(datetime('now')) FROM tmp;");
+        				db.execSQL("DROP TABLE tmp;");
+        				addIndexes(db);      			
+        				addSyncManagementTables(db);
+        				db.setTransactionSuccessful();
+        				Log.i("Update finished.");
+        				initSyncSettings();
 	        		break;
 	        	}
      		
@@ -113,6 +113,8 @@ public abstract class DatabaseHelper extends SQLiteOpenHelper {
              }
      	}
      }
+
+
      
      private void addIndexes(SQLiteDatabase db){
     	 db.execSQL("CREATE INDEX lecture_fk_idx ON word (lecture_id);");

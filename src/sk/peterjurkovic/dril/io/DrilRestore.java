@@ -7,6 +7,7 @@ import java.nio.channels.FileChannel;
 
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.DBAdapter;
+import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.dto.BackupRestoreDto;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import android.content.Context;
@@ -63,7 +64,7 @@ public class DrilRestore extends AsyncTask<Void, Void, BackupRestoreDto>{
 			
 			final String version = filepath.substring(startIndex + 1, endIndex);
 			
-			if(!version.matches("\\d") || Integer.valueOf(version) < DBAdapter.DATABASE_VERSION){
+			if(!version.matches("\\d") || (Integer.valueOf(version) != 3 || Integer.valueOf(version) != 4)){
 				state.setData(R.string.error_invalid_version);
 				
 			}
@@ -95,6 +96,7 @@ public class DrilRestore extends AsyncTask<Void, Void, BackupRestoreDto>{
             dst.close();
 			
             databaseBackUp.delete();
+            
             state.setSuccess(true);
             GoogleAnalyticsUtils.logAction(
         			context, 
