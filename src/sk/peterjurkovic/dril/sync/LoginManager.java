@@ -4,6 +4,8 @@ import org.json.JSONObject;
 
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.SyncDbAdapter;
+import sk.peterjurkovic.dril.io.DrilBackup;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.v2.activities.DashboardActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -29,6 +31,11 @@ public class LoginManager extends AsyncTask<JSONObject, Void, Boolean>{
 	
 	@Override
 	protected Boolean doInBackground(JSONObject... response) {
+		try{
+			new DrilBackup(context).processBackup(true);
+		}catch(Exception e){
+			GoogleAnalyticsUtils.logException(e, context);
+		}
 		SyncDbAdapter dbAdapter = new SyncDbAdapter(context);
 		return dbAdapter.processLogin(response[0]);
 	}

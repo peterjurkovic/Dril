@@ -1,15 +1,12 @@
 package sk.peterjurkovic.dril.io;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.nio.channels.FileChannel;
 
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.DBAdapter;
-import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.dto.BackupRestoreDto;
 import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
+import sk.peterjurkovic.dril.v2.constants.Constants;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -28,9 +25,14 @@ public class DrilRestore extends AsyncTask<Void, Void, BackupRestoreDto>{
 		this.filepath = filepath;
 	}
 	
+	public DrilRestore(Context context){
+		this.context = context;
+		this.filepath = null;
+	}
+	
 	@Override
 	protected BackupRestoreDto doInBackground(Void... params) {
-		return processRestore();
+		return processRestore(false);
 	}
 
 	@Override
@@ -45,7 +47,7 @@ public class DrilRestore extends AsyncTask<Void, Void, BackupRestoreDto>{
 		
 	}
 	
-	private BackupRestoreDto processRestore(){
+	public BackupRestoreDto processRestore(boolean loginRestore){
 		BackupRestoreDto state = new BackupRestoreDto();
 		File data = Environment.getDataDirectory();
 		final String databasePath =  "/data/" +context.getApplicationContext().getPackageName()+ "/databases/";
@@ -53,34 +55,46 @@ public class DrilRestore extends AsyncTask<Void, Void, BackupRestoreDto>{
 		final String databasePathWithBackupName =  databasePathWithName+".backup";
 		try{
 			
-			final String ext = MimeTypeMap.getFileExtensionFromUrl(filepath);
-			final int startIndex = filepath.indexOf("_");
-			final int endIndex = filepath.indexOf(".");
+			File externalDatabaseFile = null;
+			if(loginRestore){
+				File sd = Environment.getExternalStorageDirectory();
+				if(!sd.canWrite()){
+					return state;
+				}	
+				externalDatabaseFile = new File(sd.getAbsolutePath() +File.separator+ Constants.IO_DRIL_FOLDER_NAME +File.separator+ DrilBackup.BACKUP_DB_NAME);
+				if(!externalDatabaseFile.isFile()){
+					return state;
+				}
+			}else{
 			
-			if(startIndex == -1 || endIndex == -1 || startIndex > endIndex){
-				state.setData(R.string.error_invalid_filename);
-				return state;
-			}
-			
-			final String version = filepath.substring(startIndex + 1, endIndex);
-			
-			if(!version.matches("\\d") || (Integer.valueOf(version) != 3 || Integer.valueOf(version) != 4)){
-				state.setData(R.string.error_invalid_version);
+				final String ext = MimeTypeMap.getFileExtensionFromUrl(filepath  );
+				final int startIndex = filepath.indexOf("_");
+				final int endIndex = filepath.indexOf(".");
 				
+				if(startIndex == -1 || endIndex == -1 || startIndex > endIndex){
+					state.setData(R.string.error_invalid_filename);
+					return state;
+				}
+				
+				final String version = filepath.substring(startIndex + 1, endIndex);
+				
+				if(!version.matches("\\d") || (Integer.valueOf(version) != 3 || Integer.valueOf(version) != 4)){
+					state.setData(R.string.error_invalid_version);
+					
+				}
+				
+				if(!ext.equals("dril")){
+					state.setData(R.string.error_invalid_file);
+					return state;
+				}
+				
+				externalDatabaseFile = new File(filepath);
+				
+				if(!externalDatabaseFile.exists() || !externalDatabaseFile.isFile()){
+					state.setData(R.string.error_notExists);
+					return state;
+				}
 			}
-			
-			if(!ext.equals("dril")){
-				state.setData(R.string.error_invalid_file);
-				return state;
-			}
-			
-			File externalDatabaseFile = new File(filepath);
-			
-			if(!externalDatabaseFile.exists() || !externalDatabaseFile.isFile()){
-				state.setData(R.string.error_notExists);
-				return state;
-			}
-
 			
 			File databaseFile = new File(data, databasePathWithName);
 			File databaseBackUp = new File(data, databasePathWithBackupName);
@@ -88,13 +102,7 @@ public class DrilRestore extends AsyncTask<Void, Void, BackupRestoreDto>{
 			databaseFile.renameTo(databaseBackUp);
 			
 			File newDatabaseFile = new File(data, databasePathWithName);
-			
-			FileChannel src = new FileInputStream(externalDatabaseFile).getChannel();
-            FileChannel dst = new FileOutputStream(newDatabaseFile).getChannel();
-            dst.transferFrom(src, 0, src.size());
-            src.close();
-            dst.close();
-			
+			DrilBackup.copy(externalDatabaseFile, newDatabaseFile);
             databaseBackUp.delete();
             
             state.setSuccess(true);

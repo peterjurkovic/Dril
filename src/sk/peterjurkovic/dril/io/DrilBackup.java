@@ -3,6 +3,7 @@ package sk.peterjurkovic.dril.io;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Calendar;
 
@@ -24,6 +25,7 @@ import com.google.analytics.tracking.android.Log;
 
 public class DrilBackup extends AsyncTask<Void, Void, BackupRestoreDto>{
 	
+	public final static String BACKUP_DB_NAME = "backup.dril";
 	private final Context context;
 	
 	public DrilBackup(Context context){
@@ -33,7 +35,7 @@ public class DrilBackup extends AsyncTask<Void, Void, BackupRestoreDto>{
 	
 	@Override
 	protected BackupRestoreDto doInBackground(Void... params) {
-		return processBackup();
+		return processBackup(false);
 	}
 	
 	
@@ -54,55 +56,45 @@ public class DrilBackup extends AsyncTask<Void, Void, BackupRestoreDto>{
 	}
 
 	
-	private BackupRestoreDto processBackup() {
+	public BackupRestoreDto processBackup(boolean loginBackup) {
 		    try {
-		        File sd = Environment.getExternalStorageDirectory();
+		        final String databaseFolder ="/data/"+context.getApplicationContext().getPackageName()+"/databases/";
+		    	File sd = Environment.getExternalStorageDirectory();
 		        File data = Environment.getDataDirectory();
 		        BackupRestoreDto state = new BackupRestoreDto();
 		        state.setData(R.string.error_ocurred);
 		        if (sd.canWrite()) {
 		        	
-		        	final String currentDBPath =  "/data/"+context.getApplicationContext().getPackageName()+"/databases/" + DBAdapter.DATABASE_NAME;	            
-		            
+		        	final String currentDBPath =  databaseFolder + DBAdapter.DATABASE_NAME;	            
+		        	File dataFolder = new File(sd, Constants.IO_DRIL_FOLDER_NAME);
+			        if(!dataFolder.exists()){
+			        	dataFolder.mkdir();
+			        }
 		            File currentDB = new File(data, currentDBPath);
 		            
 		            if(!currentDB.isFile()){
 		            	return state;
 		            }
 		            
-		            File drilFolder = new File(sd, Constants.IO_DRIL_FOLDER_NAME);
-		            if(!drilFolder.exists()){
-		            	drilFolder.mkdir();
-		            }
+		            String filename = null;
+		            if(loginBackup){
+		            	filename = BACKUP_DB_NAME; 
+		            	
+		            }else{
+			            Calendar calendar = Calendar.getInstance();
+			            filename = calendar.get(Calendar.YEAR) + "" +
+			            			  calendar.get(Calendar.MONTH) + "" + 
+			            			  calendar.get(Calendar.DAY_OF_MONTH) + "_" + DBAdapter.DATABASE_VERSION + ".dril";
+		            }      
 		            
-		            Calendar calendar = Calendar.getInstance();
-		            
-		            final String filename = calendar.get(Calendar.YEAR) + "" +
-		            			  calendar.get(Calendar.MONTH) + "" + 
-		            			  calendar.get(Calendar.DAY_OF_MONTH) + "_" + DBAdapter.DATABASE_VERSION + ".dril";
-
-		            File backupDB = new File(drilFolder, filename);
+		            File  backupDB = new File(dataFolder, filename);
 		            state.setData(backupDB.getAbsolutePath());
 		            if(backupDB.exists() && backupDB.isFile()){
 		            	backupDB.delete();
-		            }
+		            };
 		            
-		            final FileChannel src = new FileInputStream(currentDB).getChannel();
-		            final FileChannel dst = new FileOutputStream(backupDB).getChannel();
-		            dst.transferFrom(src, 0, src.size());
-		            if(src != null){
-		            	 src.close();
-		    		}
-		            if(dst != null){
-		            	dst.close();
-		            }
+		            copy(currentDB, backupDB);
 		            state.setSuccess(true);
-		            GoogleAnalyticsUtils.logAction(
-		        			context, 
-		        			GoogleAnalyticsUtils.CATEGORY_PROCESSING_ACTION,
-		    				GoogleAnalyticsUtils.ACTION_RESULT, 
-		    				"backup",
-		    				1l);
 		            return state;
 		        }else{
 		        	GoogleAnalyticsUtils.logAction(
@@ -118,5 +110,32 @@ public class DrilBackup extends AsyncTask<Void, Void, BackupRestoreDto>{
 			 GoogleAnalyticsUtils.logException(e, context);
 		}
 		return new BackupRestoreDto();
+	}
+	
+	public static void copy(File source, File destication) throws IOException{
+		FileInputStream inStream = null;
+		FileOutputStream outStream = null;
+		FileChannel inChannel = null;
+		FileChannel outChannel = null;
+		try{
+			inStream = new FileInputStream(source);
+			outStream = new FileOutputStream(destication);
+	    	inChannel = inStream.getChannel();
+		    outChannel = outStream.getChannel();
+		    inChannel.transferTo(0, inChannel.size(), outChannel);
+		}finally{
+			if(inStream != null){
+				  inStream.close();
+    		}
+            if(outStream != null){
+            	outStream.close();
+            }
+	        if(inChannel != null){
+	        	inChannel.close();
+	        }
+	        if(outChannel != null){
+	        	outChannel.close();
+	        }
+		}
 	}
 }

@@ -85,20 +85,21 @@ public class AddWordFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
     	super.onActivityCreated(savedInstanceState);
     	 final Activity activity = getActivity();
-    	 final long bookId = ((AddWordActivity)activity).getBookId();
-         if(bookId > 0){
- 	        final BookDao bookDao = new BookDaoImpl(getActivity());
- 	        final Book book = bookDao.getById( bookId );
- 	        if(book != null){
- 	        	final String questionLang = activity.getString(book.getQuestionLang().getResource());
- 	        	questionElement.setHint(activity.getString(R.string.questionIn) + " " + questionLang);	
- 	        	final String answerLang = activity.getString(book.getAnswerLang().getResource());
- 	        	answerElement.setHint(activity.getString(R.string.answerIn) + " " + answerLang);
- 	        }else{
- 	        	Log.w("Book was not found under ID: " + bookId);
- 	        }
- 	
-         }
+    	 if(activity != null){
+	    	 final long bookId = ((AddWordActivity)activity).getBookId();
+	         if(bookId > 0){
+	 	        final BookDao bookDao = new BookDaoImpl(getActivity());
+	 	        final Book book = bookDao.getById( bookId );
+	 	        if(book != null){
+	 	        	final String questionLang = activity.getString(book.getQuestionLang().getResource());
+	 	        	questionElement.setHint(activity.getString(R.string.questionIn) + " " + questionLang);	
+	 	        	final String answerLang = activity.getString(book.getAnswerLang().getResource());
+	 	        	answerElement.setHint(activity.getString(R.string.answerIn) + " " + answerLang);
+	 	        }else{
+	 	        	Log.w("Book was not found under ID: " + bookId);
+	 	        }
+	         }
+    	 }
     }
     
     

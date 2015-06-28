@@ -2,6 +2,8 @@ package sk.peterjurkovic.dril.sync;
 
 import sk.peterjurkovic.dril.R;
 import sk.peterjurkovic.dril.db.SyncDbAdapter;
+import sk.peterjurkovic.dril.io.DrilRestore;
+import sk.peterjurkovic.dril.utils.GoogleAnalyticsUtils;
 import sk.peterjurkovic.dril.v2.activities.LoginActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +22,11 @@ public class LogoutManager extends AsyncTask<Void, Void, Void>{
 	protected Void doInBackground(Void... params) {
 		final SyncDbAdapter manager = new SyncDbAdapter(context);
 		manager.processLogout();
+		try{
+			new DrilRestore(context).processRestore(true);
+		}catch(Exception e){
+			GoogleAnalyticsUtils.logException(e, context);
+		}
 		return null;
 	}
 	

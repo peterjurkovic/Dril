@@ -321,7 +321,7 @@ public class WordDBAdapter extends DBAdapter {
     public void activateWordRandomly(final int countOfWordsToActivate, final Long lectureid){
     	final String query = 
 		"UPDATE "+TABLE_WORD+" SET "+ACTIVE+"=1 WHERE "+ID+
-		"=(SELECT "+ID +" "+ "FROM "+TABLE_WORD+" WHERE "+
+		" IN (SELECT "+ID +" "+ "FROM "+TABLE_WORD+" WHERE "+
 		ACTIVE+"=0 " + (lectureid != null ? "AND "+FK_LECTURE_ID+"="+lectureid : "") +
 		" ORDER BY RANDOM() LIMIT "+countOfWordsToActivate+")";
     	

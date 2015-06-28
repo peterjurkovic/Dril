@@ -1,8 +1,11 @@
 package sk.peterjurkovic.dril;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -27,8 +30,8 @@ public class DrilService {
 	private int hits = 0;
 	private WordDao wordDao;
 	private Statistics statistics;
-	private List<Word> activatedWords = new ArrayList<Word>();
-	private List<Integer> history = new ArrayList<Integer>();
+	private final List<Word> activatedWords = new LinkedList<Word>();
+	private final Deque<Integer> history = new ArrayDeque<Integer>(HISTORY_SIZE);
 	
 	
 	public DrilService(WordDBAdapter wordDbAdapter){
@@ -41,7 +44,8 @@ public class DrilService {
 	
 	private void loadActivatedWords(){ 
   	    try{
-  	    	activatedWords = wordDao.getActivatedWords();
+  	    	history.clear();
+  	    	activatedWords.addAll( wordDao.getActivatedWords());
   	    } catch (Exception e) {
   	    	 Log.e(e);
   		}
@@ -119,7 +123,7 @@ public class DrilService {
     }
 	
 	private Set<Integer> seletRandomPositions(){
-		Set<Integer> randWords = new HashSet<Integer>();	
+		final Set<Integer> randWords = new HashSet<Integer>(3);	
 		int size = activatedWords.size() - 1;
 		int i = 0;
 		do{
@@ -232,14 +236,11 @@ public class DrilService {
 	}
 	
 	private void updateHistory(){
-		if(history.size() < HISTORY_SIZE){
-			history.add(position);
-		}else{
-			history.add(0, position);
-			history = history.subList(0, HISTORY_SIZE);
+		if(history.size() == HISTORY_SIZE){
+			history.removeLast();
 		}
+		history.push(position);
 	}
-	
 	
 	private boolean isInHistory(final Integer pos){
 		return history.contains(pos);
