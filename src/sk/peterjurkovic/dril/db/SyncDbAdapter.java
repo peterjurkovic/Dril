@@ -184,9 +184,9 @@ public class SyncDbAdapter extends DatabaseHelper {
 		
 		if(count > 0){
 			final SQLiteStatement insertStmt = 
-					db.compileStatement("INSERT INTO book (_id, book_name, answer_lang_fk, question_lang_fk, level, sync, shared, last_changed, sid) VALUES (?,?,?,?,?,?,?,?,?) ");
+					db.compileStatement("INSERT INTO book (_id, book_name, question_lang_fk, answer_lang_fk, level, sync, shared, last_changed, sid) VALUES (?,?,?,?,?,?,?,?,?) ");
 			final SQLiteStatement updateStmt = 
-					db.compileStatement("UPDATE book SET _id=?, book_name=?, answer_lang_fk=?, question_lang_fk=?, level=?, sync=?, shared=?, last_changed=? WHERE sid=?");
+					db.compileStatement("UPDATE book SET _id=?, book_name=?, question_lang_fk=?, answer_lang_fk=?,  level=?, sync=?, shared=?, last_changed=? WHERE sid=?");
 			
 			for(int i = 0; i < bookList.length(); i++){
 				final JSONObject book = bookList.getJSONObject(i);

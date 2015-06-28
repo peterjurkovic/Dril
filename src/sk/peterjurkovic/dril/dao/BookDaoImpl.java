@@ -37,15 +37,8 @@ public class BookDaoImpl implements BookDao {
 				final Book book = new Book();
 				book.setId(id);
 				book.setName(cursor.getString( cursor.getColumnIndex(BookDBAdapter.BOOK_NAME) ));
-				int bid =  cursor.getInt( cursor.getColumnIndex(BookDBAdapter.QUESTION_LANG_COLL) );
-				if(bid != 0){
-					book.setQuestionLang(Language.getById(bid));
-				}
-				
-				bid =  cursor.getInt( cursor.getColumnIndex(BookDBAdapter.ANSWER_LANG_COLL) );
-				if(bid != 0){
-					book.setAnswerLang(Language.getById(bid));
-				}
+				book.setQuestionLang(getLang(cursor, BookDBAdapter.QUESTION_LANG_COLL ));
+				book.setAnswerLang( getLang(cursor, BookDBAdapter.ANSWER_LANG_COLL ));
 				book.setLevel(Level.getById(cursor.getInt(cursor.getColumnIndex(BookDBAdapter.LEVEL))));
 				book.setShared(cursor.getInt(cursor.getColumnIndex(BookDBAdapter.SHARED)) == 1);
 				return book;
@@ -60,7 +53,11 @@ public class BookDaoImpl implements BookDao {
 		}
 		return null;
 	}
-
+	
+	private Language getLang(final Cursor cursor,final String column){
+		return Language.getById( cursor.getInt( cursor.getColumnIndex(column) ));
+	}
+	
 	@Override
 	public Long create(final Book book) {
 		if(bookDBAdapter == null){
