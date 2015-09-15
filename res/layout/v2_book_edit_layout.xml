@@ -1,127 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-   
+    android:layout_height="match_parent"
+    android:fillViewport="true" >
     
-	 <TextView style="@style/separator" />
-	
-    	
-    <TextView
-        android:id="@+id/boxLabel"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/boxLabel"
-        android:text="@string/book_edit_head"
- 		/>
-	
-    <EditText
-        android:id="@+id/editBookName"
-        style="@style/editText"
-        android:layout_below="@id/boxLabel"
-        android:layout_marginBottom="2dp"
-        android:background="@drawable/input"
-        android:hint="@string/title"
-        android:lines="1" />
-          
-    <TextView
-        android:id="@+id/editBookId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-		android:visibility="gone"
- 		/>
-    
-    <!-- LANG QUESTION -->
-     <TextView
-        android:id="@+id/questionLangLabel" 
-        android:layout_below="@id/editBookName"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/boxLabel"
-        android:text="@string/lang_question"
- 		/>
-     
-    <Spinner
-        android:id="@+id/langQuestion"
-        android:layout_below="@id/questionLangLabel"
-        style="@style/v2Spinner" />		
-    
-     <!-- LANG ANSWER -->
-     <TextView
-        android:id="@+id/answerLangLabel" 
-        android:layout_below="@id/langQuestion"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/boxLabel"
-        android:text="@string/lang_answer"
- 		/>
-     
-    <Spinner
-        android:id="@+id/langAnswer"
-        android:layout_below="@id/answerLangLabel"
-        style="@style/v2Spinner"
-         />		
-         
-     <TextView
-        android:id="@+id/levelLabel" 
-        android:layout_below="@id/langAnswer"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/boxLabel"
-        android:text="@string/level"
- 		/>
-     
-    <Spinner
-        android:id="@+id/bookLevelEdit"
-        android:layout_below="@id/levelLabel"
-        style="@style/v2Spinner"
-     />
-    
-    <CheckBox
-        android:id="@+id/bookShareEdit"
-        android:layout_below="@id/bookLevelEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentEnd="true"
-		android:button="@null"
-    	android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
-        android:text="@string/shareLabel"
-        android:layout_margin="10dp"
-        android:textSize="19sp" />		
-  
-    
-    <LinearLayout
-     android:layout_below="@+id/bookShareEdit"
-	 android:layout_height="wrap_content"
-	 android:layout_width="fill_parent"
-	 android:layout_marginTop="15dp"
-	 android:orientation="horizontal"
-	 android:weightSum="1.0">
-	      
-			     
-	    <Button
-	      android:id="@+id/cancelEdit"
-	      style="@style/v2Cancelbutton"
-	      android:text="@string/cancel" 
-	    />
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+	   
 	    
-	     <Button
-          android:id="@+id/submitEdit"
-		  style="@style/v2Submitbutton"     
-          android:text="@string/submit" 
-         />
+		 <TextView style="@style/separator" />
+		
+	    	
+	    <TextView
+	        android:id="@+id/boxLabel"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="2dp"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        style="@style/boxLabel"
+	        android:text="@string/book_edit_head"
+	 		/>
+		
+	    <EditText
+	        android:id="@+id/editBookName"
+	        style="@style/editText"
+	        android:layout_below="@id/boxLabel"
+	        android:layout_marginBottom="2dp"
+	        android:background="@drawable/input"
+	        android:hint="@string/title"
+	        android:lines="1" />
+	          
+	    <TextView
+	        android:id="@+id/editBookId"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+			android:visibility="gone"
+	 		/>
+	    
+	    <!-- LANG QUESTION -->
+	     <TextView
+	        android:id="@+id/questionLangLabel" 
+	        android:layout_below="@id/editBookName"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="2dp"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        style="@style/boxLabel"
+	        android:text="@string/lang_question"
+	 		/>
 	     
-	</LinearLayout>
-
-
-    
+	    <Spinner
+	        android:id="@+id/langQuestion"
+	        android:layout_below="@id/questionLangLabel"
+	        style="@style/v2Spinner" />		
+	    
+	     <!-- LANG ANSWER -->
+	     <TextView
+	        android:id="@+id/answerLangLabel" 
+	        android:layout_below="@id/langQuestion"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="2dp"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        style="@style/boxLabel"
+	        android:text="@string/lang_answer"
+	 		/>
+	     
+	    <Spinner
+	        android:id="@+id/langAnswer"
+	        android:layout_below="@id/answerLangLabel"
+	        style="@style/v2Spinner"
+	         />		
+	         
+	     <TextView
+	        android:id="@+id/levelLabel" 
+	        android:layout_below="@id/langAnswer"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="2dp"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        style="@style/boxLabel"
+	        android:text="@string/level"
+	 		/>
+	     
+	    <Spinner
+	        android:id="@+id/bookLevelEdit"
+	        android:layout_below="@id/levelLabel"
+	        style="@style/v2Spinner"
+	     />
+	    
+	    <CheckBox
+	        android:id="@+id/bookShareEdit"
+	        android:layout_below="@id/bookLevelEdit"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true"
+			android:button="@null"
+	    	android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+	        android:text="@string/shareLabel"
+	        android:layout_margin="10dp"
+	        android:textSize="19sp" />		
+	  
+	    
+	    <LinearLayout
+	     android:layout_below="@+id/bookShareEdit"
+		 android:layout_height="wrap_content"
+		 android:layout_width="fill_parent"
+		 android:layout_marginTop="15dp"
+		 android:orientation="horizontal"
+		 android:weightSum="1.0">
+		      
+				     
+		    <Button
+		      android:id="@+id/cancelEdit"
+		      style="@style/v2Cancelbutton"
+		      android:text="@string/cancel" 
+		    />
+		    
+		     <Button
+	          android:id="@+id/submitEdit"
+			  style="@style/v2Submitbutton"     
+	          android:text="@string/submit" 
+	         />
+		     
+		</LinearLayout>
 </RelativeLayout>
