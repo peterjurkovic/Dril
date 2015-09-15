@@ -355,4 +355,8 @@
 	<string name="err_data_load">Textbooks could be loaded, server is temporarily unavailable</string>
 	<string name="pref_head_account">Account</string>
 	<string name="chose_langs">Choose languages</string>
+	
+	<string name="forgotten_password">Forgotten password</string>
+	<string name="send_link">Send link</string>
+	<string name="forgotten_password_desc">You will receive an email with a link using which you will able reset your current password</string>
 </resources>

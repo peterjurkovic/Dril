@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -40,6 +41,7 @@ public class LoginActivity extends BaseActivity{
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Button btnLogin;
     private Button btnLinkToRegister;
+    private TextView forgottenPasswordButton;
     private EditText loginField;
     private EditText passwordField;
     private ProgressDialog pDialog;
@@ -55,6 +57,7 @@ public class LoginActivity extends BaseActivity{
         passwordField = (EditText) findViewById(R.id.password_field);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
+        forgottenPasswordButton = (TextView) findViewById(R.id.forgotPass);
  
         // Progress dialog
         pDialog = new ProgressDialog(context);
@@ -127,6 +130,16 @@ public class LoginActivity extends BaseActivity{
                 finish();
             }
         });
+        
+        forgottenPasswordButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(context,ForgottenPassowrdActivity.class);
+                startActivity(i);
+                finish();
+			}
+		});
  
     }
     

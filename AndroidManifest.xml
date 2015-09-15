@@ -76,6 +76,9 @@
          
          <activity android:name=".v2.activities.RegistrationActivity"
         		  android:parentActivityName=".v2.activities.LoginActivity" />
+         
+         <activity android:name=".v2.activities.ForgottenPassowrdActivity"
+        		  android:parentActivityName=".v2.activities.LoginActivity" />
           
           
         <activity android:name=".v2.activities.ChooseLanguageActivity" />
