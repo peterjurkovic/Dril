@@ -201,7 +201,7 @@
 	    	    android:layout_height="wrap_content"
 	    	    android:visibility="gone"
 	    	    android:textStyle="bold"
-	    		android:text="Your account has been successfully created. Please see your inbox $1%s and activate your account."	    
+	    		android:text="@string/signup_success"	    
 	        />
 	    	
 			 <Button
