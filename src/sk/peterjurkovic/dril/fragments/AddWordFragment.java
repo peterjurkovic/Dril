@@ -90,7 +90,7 @@ public class AddWordFragment extends Fragment {
 	         if(bookId > 0){
 	 	        final BookDao bookDao = new BookDaoImpl(getActivity());
 	 	        final Book book = bookDao.getById( bookId );
-	 	        if(book != null){
+	 	        if(book != null && book.getQuestionLang() != null && book.getAnswerLang() != null){
 	 	        	final String questionLang = activity.getString(book.getQuestionLang().getResource());
 	 	        	questionElement.setHint(activity.getString(R.string.questionIn) + " " + questionLang);	
 	 	        	final String answerLang = activity.getString(book.getAnswerLang().getResource());
