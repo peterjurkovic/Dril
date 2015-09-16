@@ -1,9 +1,11 @@
 package sk.peterjurkovic.dril.v2.activities;
 
 import sk.peterjurkovic.dril.R;
+import sk.peterjurkovic.dril.fragments.AddWordFragment;
 import sk.peterjurkovic.dril.listener.OnAddWordListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -47,8 +49,19 @@ public static final String EXTRA_QUESTION = "question";
             }
         });
     }
-
 	
+	
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		final Fragment f = getSupportFragmentManager().findFragmentById(R.id.AddWordFragment);
+		if(f != null && f instanceof AddWordFragment ){
+			((AddWordFragment)f).showOrHideClipboardButtons();
+		}
+	}
+
+		
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);

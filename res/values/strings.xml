@@ -361,4 +361,6 @@
 	<string name="email_not_found">User with given email address was not found</string>
 	<string name="forgotten_password_desc">You will receive an email with a link using which you will able reset your current password</string>
 	<string name="forgotten_password_changed">The reset password link was sent to your email "%s".</string>
+	
+	<string name="paste">Paste</string>
 </resources>

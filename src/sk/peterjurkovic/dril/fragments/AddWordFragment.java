@@ -8,21 +8,24 @@ import sk.peterjurkovic.dril.dao.BookDaoImpl;
 import sk.peterjurkovic.dril.db.WordDBAdapter;
 import sk.peterjurkovic.dril.listener.OnAddWordListener;
 import sk.peterjurkovic.dril.model.Book;
-import sk.peterjurkovic.dril.utils.StringUtils;
+import static sk.peterjurkovic.dril.utils.StringUtils.*;
 import sk.peterjurkovic.dril.v2.activities.AddWordActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.analytics.tracking.android.Log;
 
 public class AddWordFragment extends Fragment {
 	 
@@ -30,8 +33,11 @@ public class AddWordFragment extends Fragment {
 	private OnAddWordListener onAddWordListener;
 	
 	private EditText questionElement ;
-	
 	private EditText answerElement;
+	private ImageButton questionButton;
+	private ImageButton answerButton;
+	
+	
 	
 		
 	public static final String TAG = "AddNewWordFragment";
@@ -76,10 +82,51 @@ public class AddWordFragment extends Fragment {
         
         questionElement = (EditText)view.findViewById(R.id.addQestion);
         answerElement = (EditText)view.findViewById(R.id.addAnswer);
+        questionButton = (ImageButton)view.findViewById(R.id.pasteQuestion);
+        answerButton = (ImageButton)view.findViewById(R.id.pasteAnswer);
         
-   
+        
+        
+        questionElement.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+			@Override
+			public void afterTextChanged(Editable s) {
+				toggleButton(readFromClipboard(getActivity()), questionElement, questionButton);	
+			}
+		});
+        
+        
+        answerElement.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+			@Override
+			public void afterTextChanged(Editable s) {
+				toggleButton(readFromClipboard(getActivity()), answerElement, answerButton);	
+			}
+		});
+        
+        answerButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				answerElement.setText(readFromClipboard(getActivity()));
+			}
+		});
+        
+        questionButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				questionElement.setText(readFromClipboard(getActivity()));
+			}
+		});
+        showOrHideClipboardButtons();
         return view;
     }
+   
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -96,19 +143,34 @@ public class AddWordFragment extends Fragment {
 	 	        	final String answerLang = activity.getString(book.getAnswerLang().getResource());
 	 	        	answerElement.setHint(activity.getString(R.string.answerIn) + " " + answerLang);
 	 	        }else{
-	 	        	Log.w("Book was not found under ID: " + bookId);
+	 	        	Log.w("","Book was not found under ID: " + bookId);
 	 	        }
 	         }
     	 }
     }
     
     
+    public void showOrHideClipboardButtons(){
+    	String text = readFromClipboard(getActivity());
+    	toggleButton(text, questionElement, questionButton);
+    	toggleButton(text, answerElement, answerButton);
+    }
+    
+    
+    private void toggleButton(final String clipboardContent, final EditText input,final ImageButton btn){
+    	if(clipboardContent == null || !isBlank(input.getText().toString())){
+    		btn.setVisibility(View.GONE);
+    	}else{
+    		btn.setVisibility(View.VISIBLE);
+    	}
+    }
+    
     
     public void onSubmitClicked(){
         View root = getView();
         String question = ((EditText)root.findViewById(R.id.addQestion)).getText().toString();
         String answer = ((EditText)root.findViewById(R.id.addAnswer)).getText().toString();
-        if(StringUtils.isBlank(question) || StringUtils.isBlank(answer)){
+        if(isBlank(question) || isBlank(answer)){
         	return;
         }
         final Context context = getActivity();

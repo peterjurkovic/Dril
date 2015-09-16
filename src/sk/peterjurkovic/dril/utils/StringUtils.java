@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 
 import org.json.JSONObject;
 
+import android.content.ClipDescription;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.util.Log;
 
@@ -292,4 +294,18 @@ public class StringUtils {
 		}
 		return null;
 	}
+	
+	
+	public static String readFromClipboard(final Context context) {
+	    ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+	    if (clipboard.hasPrimaryClip()) {
+	        android.content.ClipDescription description = clipboard.getPrimaryClipDescription();
+	        android.content.ClipData data = clipboard.getPrimaryClip();
+	        if (data != null && description != null && 
+	        		(description.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN) || 
+	        		 description.hasMimeType(ClipDescription.MIMETYPE_TEXT_HTML))) 
+	            return String.valueOf(data.getItemAt(0).getText());
+	    }
+	    return null;
+	}	
 }

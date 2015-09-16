@@ -355,4 +355,5 @@
 	<string name="forgotten_password_desc">Obdržíte e-mail s odkazem, pomocí které budete moci resetovat své aktuální heslo</string>
 	<string name="forgotten_password_changed">Odkaz byl zaslán na Váš email: "%s".</string>
 	
+	<string name="paste">Vlozit</string>
 </resources>

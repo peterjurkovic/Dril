@@ -355,5 +355,6 @@
 	<string name="email_not_found">Užívateľ sa zadanú emailovú adresou nebol nájdený</string>
 	<string name="forgotten_password_desc">Dostanete e-mail s odkazom, pomocou ktorého si budete môcť resetovať svoje aktuálne heslo</string>
 	<string name="forgotten_password_changed">Odkaz bol odoslaný na Váš email: "%s".</string>
-		
+	
+	<string name="paste">Vloziť</string>		
 </resources>
