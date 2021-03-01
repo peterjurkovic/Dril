@@ -1,0 +1,13 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/drilPromo" 
+      android:layout_alignParentBottom="true"
+	  style="@style/infoWrapper" >
+  
+     <TextView 
+       style="@style/infoH1"
+       android:text="@string/import_info_head"/>
+   
+    <TextView 
+       style="@style/infoTextDescr"
+       android:text="@string/import_info_desc"/>
+</LinearLayout>

@@ -1,0 +1,209 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true" >
+		    
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical" >
+			    
+	    <TextView
+	        android:id="@+id/noCardActivatedAlert"
+	        style="@style/v2drilAlert"
+	        android:text="@string/alert_no_cards_activated"
+	    />
+	  
+	    <Button 
+	         android:id="@+id/btnActivate"
+			 style="@style/btn"
+			 android:layout_width="fill_parent"
+			 android:textColor="@color/white"
+			 android:visibility="gone"
+			 android:layout_height="wrap_content"
+			 android:background="@drawable/button_submit"
+	         android:text="Activate 10 random cards"
+	         android:layout_margin="15dp"
+         />
+	    	
+	 	<FrameLayout
+		    android:id="@+id/drilNav"
+	        android:layout_width="fill_parent"
+	        android:layout_height="25dp"
+	        android:background="@color/action_border"
+	        >
+	
+	        <TextView
+	            style="@style/v2DrilLabel"
+	        	android:id="@+id/drilHeaderInfo" 
+	        	android:layout_gravity="center_vertical|center_horizontal"
+	        	android:text="@string/activated_words"/>
+	       
+	    </FrameLayout>
+		
+		<RelativeLayout 
+		     android:layout_width="match_parent"
+		     android:layout_height="match_parent"
+		     android:visibility="visible"
+		     android:orientation="vertical"
+		     android:id="@+id/dril" >
+			
+			<View
+		      android:id="@+id/shaddowDril"
+		      android:layout_width="match_parent"
+		      android:layout_height="5sp" 
+		      android:background="@drawable/drop_shaddow" />
+			
+			<TextView
+		        style="@style/boxLabel"
+		        android:id="@+id/questionLabel"
+		        android:text="@string/question" />
+			
+			
+		<!-- QUESTION  -->	
+			<ImageButton
+			    android:id="@+id/speakQuestion"
+			    style="@style/spiker"
+			    android:contentDescription="@string/pronauce_question" />
+			
+		    <TextView
+		        android:id="@+id/question"
+		        android:layout_below="@id/questionLabel"
+		        style="@style/drilBox"
+		        android:background="@drawable/v2_question_text"/>
+		
+		  
+			<RelativeLayout
+			    android:layout_below="@id/question"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    >
+			   	<EditText 
+			   	    android:id="@+id/inputAnswer"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:hint="@string/write_your_answer"
+				    style="@style/editText"
+				    android:visibility="invisible"
+				    android:background="@drawable/input"
+				    />
+		   	</RelativeLayout>
+		   	
+		 <!-- END QUESTION  -->	
+		   	
+		 <LinearLayout
+		        android:layout_width="match_parent"
+		        android:id="@+id/answerLayout"
+				android:layout_alignParentBottom="true"
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="15dp"   >
+		
+		        <Button
+		            android:id="@+id/btn_1"
+		            style="@style/rateBtn"
+		            android:background="@drawable/btn_1"
+		            android:tag="1"
+		            android:text="@string/btn_1"
+		             />
+
+		        <Button
+		            android:id="@+id/btn_3"
+		            style="@style/rateBtn"
+		            android:background="@drawable/btn_3"
+		            android:tag="3"
+		            android:text="@string/btn_3" />
+		
+
+		        <Button
+		            android:id="@+id/btn_5"
+		            style="@style/rateBtn"
+		            android:tag="5"
+		            android:background="@drawable/btn_5"
+		            android:text="@string/btn_5" />
+		    </LinearLayout>
+	  
+	  
+	  <!-- YOUR ANSER  -->	
+		 <TextView 
+		     android:id="@+id/userAnserBox"
+		     android:layout_below="@id/question"
+		     android:layout_width="match_parent"
+		     android:layout_height="wrap_content"
+		     android:background="@drawable/v2_input_answer_text"
+		     style="@style/drilBox"
+		     android:visibility="gone"
+		     android:paddingLeft="30dp"
+		 />
+		 
+		  <TextView 
+		     android:id="@+id/userAnserBoxResult"
+		     android:layout_below="@id/question"
+		     android:gravity="right"
+		     android:visibility="gone"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:background="@drawable/v2_input_answer_result"
+		     style="@style/drilBox"
+		     
+		 />
+		 
+		 
+		 
+	  <!-- ANSER  -->
+	   <TextView
+	        style="@style/boxLabel"
+	        android:id="@+id/answerLabel"
+	        android:layout_below="@id/userAnserBox"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/answer" />
+		   
+		  <ImageButton 
+			    android:id="@+id/speakAnswer"
+			    style="@style/spiker"
+			 	android:contentDescription="@string/pronauce_answer" 
+			 	android:layout_below="@id/userAnserBox"  />
+		 
+		 <TextView
+		        android:id="@+id/answer"
+		        style="@style/drilBox"
+		        android:layout_below="@id/answerLabel"
+		        android:layout_above="@id/answerLayout" 
+		        android:background="@drawable/v2_answer_text"  />
+		 
+		 	 <Button
+		 	     android:id="@+id/showAnswer"
+		 	     android:layout_width="match_parent"
+		 	     android:layout_height="wrap_content"
+		 	     android:layout_alignParentBottom="true"
+		 	     android:layout_margin="5dp"
+		 	     android:background="@drawable/v2_show_answer_button"
+		 	     android:height="100dp"
+		 	     android:text="@string/showAnswerBtn"
+		 	     android:textColor="#EfEFEF"
+		 	     style="@style/btn"
+		 	     android:textSize="17sp" />
+		  
+		 	  <TextView 
+			    android:id="@+id/helpMe"
+			    android:background="@drawable/btn_help"
+			    android:padding="5dp"
+			    android:gravity="center"
+			    android:text="@string/help"
+			    android:textSize="20sp"
+			    android:textColor="@android:color/white"
+			    android:layout_marginRight="10dp"
+			    android:layout_marginBottom="110dp"
+				android:layout_alignParentBottom="true"
+				android:layout_alignParentRight="true"
+			    android:layout_width="40dp"
+			    android:layout_height="45dp"
+				android:contentDescription="@string/pronauce_answer" 
+			 	  />
+		 	  
+		</RelativeLayout> 
+		
+		
+	</LinearLayout>
+		
+</ScrollView>

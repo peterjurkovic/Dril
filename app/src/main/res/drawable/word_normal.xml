@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true" android:drawable="@color/selected" >
+       <shape>
+         <solid android:color="#929292" />
+       </shape>
+    </item>
+    
+    <item android:state_selected="true" android:drawable="@color/selected" >
+       <shape>
+         <solid android:color="#929292" />
+       </shape>
+    </item>
+    
+     <item android:state_checked="true" android:drawable="@color/selected" >
+       <shape>
+         <solid android:color="#929292" />
+       </shape>
+    </item>
+    
+
+    <!-- NORMAL  -->   
+    <item>
+        <layer-list>
+            <item>
+		       <shape>
+		        <gradient
+		            android:angle="90"
+		            android:startColor="#DEDEDe"
+		            android:endColor="#FAFAFA"
+		            android:type="linear" />
+				</shape> 
+		    </item>
+    	</layer-list>
+    </item>
+</selector> 

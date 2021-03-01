@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "861244324409",
+    "project_id": "dril-b56ed",
+    "storage_bucket": "dril-b56ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861244324409:android:0820b651297e500b3a6be8",
+        "android_client_info": {
+          "package_name": "sk.peterjurkovic.dril"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861244324409-tcbhdnr7v25auft3bp1dltdaaosb1mii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD84GUwHl5Z9P4I1x9djfreLKG1rh_QllI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861244324409-tcbhdnr7v25auft3bp1dltdaaosb1mii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

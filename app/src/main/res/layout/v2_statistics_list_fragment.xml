@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/v2_app_background"
+    android:orientation="vertical" >
+    
+    <TextView 
+        style="@style/v2StatisticHeader" 
+        android:id="@+id/statisticSessionHeader" 
+       />
+
+    <include layout="@layout/v2_statistics_header"  />
+    
+    <ListView 
+        android:id="@id/android:list" 
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+      />
+    
+    <TextView
+        android:id="@android:id/empty"
+       	style="@style/v2drilAlert"
+        android:text="@string/no_data_available"
+       />
+
+</LinearLayout>

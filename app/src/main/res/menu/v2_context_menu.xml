@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+     <item
+        android:id="@+id/menu_active"
+        android:orderInCategory="98"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/active"
+        android:icon="@drawable/ic_action_active"/>
+    
+    <item
+        android:id="@+id/menu_deactive"
+        android:orderInCategory="99"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/deactive"
+        android:icon="@drawable/ic_action_deactive"/>
+    
+    <item
+        android:id="@+id/menu_delete"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom|withText"
+        android:title="@string/delete"
+        android:icon="@drawable/ic_action_discard"/>
+    
+</menu>

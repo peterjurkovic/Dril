@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <layer-list>
+               <item> 
+			        <shape>
+			            
+			            <gradient
+			               android:startColor="@color/selected"
+			               android:endColor="@color/selected"
+						/>
+			           <stroke
+			                android:width="5dp"
+			                android:color="#20272a" />
+			           
+			           <padding  android:top="20dp" android:bottom="20dp" android:left="15dp" />
+			            
+			        </shape>
+			    </item>		    
+			  	<item>
+			  	   
+			       <bitmap 
+					    android:src="@drawable/ic_import_csv"
+					    android:gravity="center_vertical|left"
+			       		/>
+		   		</item>
+    	</layer-list>
+    </item>
+    <item>
+           <layer-list>
+               <item> 
+			        <shape>
+			            
+			            <gradient
+			                android:startColor="@color/action_border"
+			                android:endColor="@color/action_border"
+						/>
+			           <stroke
+			                android:width="5dp"
+			                android:color="#20272a" />
+			           
+			           <padding  android:top="20dp" android:bottom="20dp" android:left="15dp" />
+			            
+			        </shape>
+			    </item>		    
+			  	<item>
+			  	   
+			       <bitmap 
+					    android:src="@drawable/ic_import_csv"
+					    android:gravity="center_vertical|left"
+			       		/>
+		   		</item>
+    	</layer-list>
+	</item>
+</selector>

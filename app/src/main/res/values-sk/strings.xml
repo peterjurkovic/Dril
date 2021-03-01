@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" >
+
+    <string name="app_name">Dril</string>
+    <string name="app_name_long">Angličtina efektívne</string>
+    <string name="dashboard">Ovládací panel</string>
+    <string name="btn_start">Spustiť dril</string>
+    <string name="btn_book">Učebnice</string>
+    <string name="btn_stats">Štatistiky</string>
+    <string name="btn_info">Pomocník</string>
+    <string name="question">Otázka:</string>
+    <string name="answer">Odpoveď:</string>
+    <string name="btn_1">Viem</string>
+    <string name="btn_3">Ešte nie</string>
+    <string name="btn_5">Neviem</string>
+    <string name="showAnswerBtn">Zobraziť odpoveď</string>
+    <string name="zero_cards_alert">Nie su aktivované žiadne kartičky</string>
+    <string name="book_add">Pridať učebnicu</string>
+    <string name="book_add_head">Pridanie vlastnej učebnice</string>
+    <string name="view">Zobraziť</string>
+    <string name="edit">Upraviť</string>
+    <string name="delete">Zmazať</string>
+    <string name="deleted">Úspešne zmazané</string>
+    <string name="book_not_deleted">Knihu sa nepodarilo zmazať.</string>
+    <string name="no_book_available">Nie su evidované žiadne knihy</string>
+    <string name="title">Vpište názov</string>
+   
+   
+    <string name="error_ocurred">Vyskytla sa neočakávaná chyba.</string>
+    <string name="successfully_added">Úspešne vložená</string>
+
+    
+    <string name="lecture_count">Počet lekcií: %1$d / kartičiek: %2$d / aktivované: %3$d</string>
+    <string name="word_count">Počet kartičiek v lekcii: %1$d, z toho aktivovaných: %2$d</string>
+    <string name="book_edit_head">Editácia učebnice</string>
+    
+    <string name="submit">Uložiť</string>
+	<string name="cancel">Zrušiť</string>
+	<string name="saved_ok">Úspešne uložené</string>
+	<string name="saved_no">Zmeny sa nepodarilo uložiť</string>
+	
+	<string name="no_lecture_available">Učebnica neobsahuje žiadne lekcie</string>
+	<string name="lecture">Lekcie</string>
+	<string name="options">Možnosti</string>
+	
+	<string name="deactive_lecture">Deaktivovať lekciu</string>
+	<string name="deactive_all">Deaktivovať všetko</string>
+	<string name="deactive">Deaktivovať</string>
+	<string name="active">Aktivovať</string>
+	<string name="active_lecture">Aktivovat lekciu</string>
+	<string name="active_all">Aktivovať všetko</string>
+	<string name="active_ten">Aktivovať 10 náhodne</string>
+	
+    <string name="lecture_add_head">Pridanie lekcie</string>
+    <string name="lecture_edit_head">Premenovať lekciu</string>
+	<string name="lecture_not_deleted">Lekciu sa nepodarilo zmazať</string>
+	
+	<string name="word_add_label">Pridanie kartičky do:</string>
+	<string name="word_added">Kartička úspešne vytvorená</string>
+	<string name="no_word_available">Lekcia neobsahuje žiadne kartičky</string>
+	<string name="word_edit_label">Editacia kartičky</string>
+	
+	<string name="word_active">Kartička je aktivovaná</string>
+	<string name="word_deactive">Kartička je deaktivovaná</string>
+	<string name="words_deactived">Kartičky boli deaktivované</string>
+	
+	<string name="error">Operáciu sa nepodarilo vykonať</string>
+	<string name="selected">Označené:</string>
+	<string name="wordAction">Kartičku:</string>
+	<string name="activated_words">Kartičiek: %1$d / Zobazená: %2$dx / Posledné hodnoteie: %3$s</string>
+	<string name="dril_finished">Super! Počet naučených slovíčok: %1$d</string>
+	<string name="pronauce_question">Vysloviť otázku</string>
+	<string name="pronauce_answer">Vysloviť odpoveď</string>
+	<string name="speach_failed">Nie je možne vysloviť požadovaný výraz</string>
+	<string name="nothing_to_speeach">Nie je čo vysloviť</string>
+	<string name="word_not_selected">Nie sú označené žiadne kartičky</string>
+	
+    <string name="menu_about">O aplikácii</string>
+    <string name="copy">Copyright &#169; 2012 Peter Jurkovič</string>
+    <string name="version">Verzia </string>
+    <string name="pageLink">www.peterjurkovic.com</string>
+    <string name="fb">Facebook page</string>
+    <string name="email">email</string>
+    <string name="send_email">Kontaktovať autora</string>
+    <string name="activated">Aktivované</string>
+    
+    <string name="no_data_available">Nie sú dostupné žiadne dáta</string>
+    
+    <string name="table_book_count">Počet učebníc:</string>
+    <string name="table_lecture_count">Počet lekcií:</string>
+    <string name="table_word_count">Počet kartičiek:</string>
+    <string name="table_book_active_count">Počet aktivovaných katičiek:</string>
+    <string name="table_avg_rate">Vaše priemerné hodnotenie:</string>
+    <string name="table_finished">Počet zvládnutých kartičiek:</string>
+    <string name="stats_fully">Všeobecné štatistiky</string>
+    <string name="stats_reset">Zmazať štatistiky</string>
+    
+    <string name="dril_avg">Priemerné hodnotenie</string>
+    <string name="error_no_data">Nepodarilo sa načítať dáta</string>
+	
+    
+	<string name="loading">Čakajte prosím, načítavam &#8230;</string>
+	
+	<!-- IMPORT v 1.4 -->
+	<string name="import_words">Importovať slovíčka</string>
+	<string name="what_is_csv">Čo to je CSV?</string>
+	<string name="csv_label">CSV je jednoduchý súborový formát určený pre výmenu tabuľkových dát. Súbor vo formátu CSV sa skladá z riadkov, v ktorých sú jednotlivé položky oddelené znakom čiarka (,). Hodnoty položiek môžu býť uzatvorené do úvodzoviek (\"), čo umožňuje, aby text položky obsahoval čiarku.</string>
+    <string name="how_it_create">Ako si ho môžem vytvoriť?</string>
+    <string name="csv_create">Každá kancelárska aplikácia má možnosť exportu do formátu CSV, napr. MS EXcel, Open Office Calc, Libre Office atd. \n\nTakže jednoducho si môžete napísať svoje slovíčka napríklad do Excelu, exportovať ich do formátu CSV a následne exportovaný súbor prekopírovať do Vašho mobilného zariadenia.</string>
+    <string name="csv_format">CSV formát pro túto aplikáciu</string>
+    <string name="csv_format_label">Tato aplikácia podporuje základný csv formát:\n\n\"slovíčko\",\"preklad\"\n\"slovíčko 2\",\"preklad\"\n\nPOZNÁMKA: nepoužíva žiadnou csv hlavičku.</string>
+    <string name="csv_choose">Vybrať csv soubor k importu</string>
+    <string name="import_status">Import status</string>
+    <string name="import_failed">Import sa nepodaril, skontrolujte formát CSV súboru.</string>
+    <string name="import_success">Úspešne importované!\nPočet nových kartiček: %1$d</string>
+    <string name="import_via_csv">Importovať CSV súbor</string>
+    <string name="import_via_csv_descr">Vyberiete CSV soúbor z pamäti zariadenia</string>
+    <string name="import_via_xls">Importovať z Excelu</string>
+    <string name="import_via_xls_descr">Vyberiete XLS soúbor z pamäti zariadenia</string>
+    <string name="import_via_id">Improt prostredníctvom drilapp.com</string>
+    <string name="import_via_id_descr">Vložíte vygenerovaný identifikátor (import ID) z drilapp.com stránky</string>
+    <string name="import_id">Import ID</string>
+    <string name="import_id_put">Vložte Vaše import ID:</string>
+    <string name="import_submit">Stiahnuť a uložiť</string>
+    <string name="id_head">Čo je to import ID?</string>
+    <string name="id_descr">Thought site www.drilapp.com you can easily write your own words. After saving you will get identifier (Import ID), which when you put here, the words will be automatically downloaded into this device. \n\nMore info at www.drilapp.com</string>
+    <string name="import_id_failed">Import sa nepodaril, skúste to znova neskôr.</string>
+    <string name="import_id_not_found">Nenašli sa žiadne slovíčka. Je Vaše import ID správane?</string>
+    <string name="import_id_invalid">Chybné import ID.</string>
+    <string name="import_info_head">Importovat vlastné slovíčka</string>
+    <string name="import_info_desc">Vedeli ste, že si môžete nahrať Vaše vlastne slovíčka? To je možné dvoma spôsobmi: \n\n-prostredníctvom CSV súbora, uloženého vo Vašom zariadení\n\n-vzdialene, prostredníctvom www.drilapp.com\n\nAko? Dlhím kliknutím na danú lekciu, následne kliknúť na položku kontextového menu \"Importovať slovíčka\"</string>
+    
+    <!-- INFO  -->
+    <string name="about_app">O aplikácii</string>
+    <string name="app_descr">Aplikácia Dril je určená na učenie anglických slovíčok a fráz. Dril je založený na metóde opakovania, čo je efektívny spôsob memorovania napr. slovíčok či iných jednotlivých informácií určených na naučenie sa naspamäť. Nie je vhodné mať aktivovaných viac ako 30 kartičiek.</string>
+    <string name="info_btn_head">Čo znamenajú jednotlivé tlačítka?</string>
+    <string name="ibtn1">1. - Vedel som to okamžite, kartička sa už v drile nezobrazí.</string>
+    <string name="ibtn2">2. - Vedel som to, ale musel som chvíľku rozmýšlať, kartička sa v drile znova zobrazí.</string>
+    <string name="ibtn3">3. - Vedel som to len približne a s chybou. Kartička bude znova zobrazená.</string>
+    <string name="ibtn4">4. - Nevedel som to, ale už som to niekde videl/počul! Kartička bude znova zobrazená.</string>
+    <string name="ibtn5">5. - Nevedel som to, vidim to prvý krát. Kartička bude znova zobrazená.</string>
+    <string name="how_its_work">Ako to funguje?</string>
+    <string name="how_its_work_descr">Ako prvé si musíte vybrať v sekcii \"Učebnice\" kartičky, ktoré by ste sa chceli naučiť. To je možné spraviť dvomi spôsobmi. Dlhým kliknutím na lekciu, následne v kontextovom menu zvoliť \"Náhodne aktivovať 10 kartičiek\", alebo si jednotlivo vybrať kartičky a aktivovať ich. </string>
+        
+	
+	<!-- UPDATE -->
+	<string name="update">Aktualizovať</string>
+	<string name="update_textbooks">Aktualizovať učebnice</string>
+	<string name="update_status">Stav aktualizácie</string>
+	<string name="up_to_date">Nie sú dostupné žiadne nové učebnice</string>
+	<string name="update_failed">Aktualizácia zlyhala, skontrolujte pripojenie k internetu.</string>
+    <string name="update_available">Sú dostupné nové učebnice! \nChcete si ich stiahnuť?</string>
+    <string name="loading_check">Kontrolujem, čakejte prosím &#8230;</string>
+    <string name="loading_down">Sťahujem, čakejte prosím &#8230;</string>
+    <string name="successfully_updated">Úspěšně aktualizované! \nPočet nových učebnic: %1$d</string>
+    <string name="yes">Áno</string>
+    <string name="no">Nie</string>
+    <string name="ok">OK</string>
+	
+	<!-- DRIL APP v 1.5 -->
+	<string name="drilapp">www.drilapp.com</string>
+	<string name="drilapp_ow">www.drilapp.com\n vlastné slovíčka</string>
+	
+	<!-- DRIL APP v 2 -->
+	<string name="back_button_label">Späť</string>
+    <string name="next_button_label">Ďalšie</string>
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="skip_button_label">Preskočiť</string>
+	
+	<string name="label_lang_sk">Slovenčina</string>
+	<string name="label_lang_de">Nemčina</string>
+	<string name="label_lang_fr">Francúzština</string>
+	<string name="label_lang_es">Španielčina</string>
+	<string name="label_lang_en">Angličtina</string>
+	<string name="label_lang_cs">Čeština</string>
+	<string name="label_lang_sv">Švédština</string>
+	<string name="label_lang_fi">Fínština</string>
+	<string name="label_lang_eo">Esperanto</string>
+	<string name="label_lang_da">Dánština</string>
+	<string name="label_lang_el">Gréčtina</string>
+	<string name="label_lang_hr">Chorvátština</string>
+	<string name="label_lang_it">Taliančina</string>
+	<string name="label_lang_nl">Holandčina</string>
+	<string name="label_lang_pl">Polština</string>
+	<string name="label_lang_sl">Slovinčina</string>
+	<string name="label_lang_pt">Portugalčina</string>
+	
+	
+	<string name="pref_label_test">Čo by malo byť zobrazené</string>
+	<string name="pref_label_test_descr">Otázka, odpoveď alebo náhodne</string>
+	<string name="pref_label_test_question">Otázka</string>
+	<string name="pref_label_test_answer">Odpoveď</string>
+	<string name="pref_label_test_rand">Náhodne</string>
+	
+	<string name="pref_input_answer">Vpisovať odpoveď</string>
+	<string name="pref_input_answer_descr">Bude zisťovaná podobnosť s odpoveďou</string>
+	
+	<string name="pref_show_helper">Zobraziť našepkávač</string>
+	<string name="pref_show_helper_descr">Zobrazí sa ikona nápovedy</string>
+	
+	<string name="pref_first_name">Vaše meno</string>
+	<string name="pref_last_name">Vaše priezvisko</string>
+	<string name="pref_locale">Váš jazyk</string>
+	<string name="pref_locale_desc">Váš rodný jazyk</string>
+	<string name="pref_target_locale">Jazyk, ktorý sa chcete učiť</string>
+	<string name="pref_target_locale_desc">Ktorý sa chcete učiť</string>
+	<string name="pref_word_limit">Maximálny povolený počet slovíčok: %1$s</string>
+	<string name="pref_word_limit_descr">Momentálne máte evidovaných: %1$d</string>
+	
+	<string name="lang_question">Jazyk otázky</string>
+	<string name="lang_answer">Jazyk odpovede</string>
+	<string name="error_same_languages">Vybrané jazyky sa zhodujú!</string>
+	<string name="error_tts_locale">Pre jazyk %1$s nie je dostupná výslovnosť</string>
+	
+	<string name="write_your_answer">Vpište odpoveď</string>
+    <string name="alert_no_cards_activated">Nemáte aktivované kartičky</string>
+    
+    <string name="nav_feedback">Spätná väzba</string>
+    <string name="nav_settings">Nastavenia</string>
+    
+    <string name="add_word">Pridať kartičku</string>
+    
+    <string name="import_xls_head">Štruktúra dokumentu</string>
+    <string name="import_xls_descr">Dokument by mal obsahovať len dva stĺpce. Prvý stĺpec by mal obsahovať otázku, druhý odpoveď. Podporovaný je len XLS formát, nie XLSX.</string>
+    <string name="error_blank_lecture_name">Prosím napíšte názov lekcie</string>
+    
+    <string name="donate">Darovať</string>
+	
+    <string name="leardned_cards">Pč. naučených</string>
+    <string name="date">Dátum</string>
+    <string name="avg_rate">Avg. hodn.</string>
+    
+    <string name="stats_sessions">Relácie</string>
+    <string name="header_stats_sessions">Jednotlivé štatistiky</string>
+    <string name="stats_problematics_words">Prob. slov.</string>
+    <string name="header_stats_problematics_words">Vaše problematické slovíčka</string>
+    <string name="stats_general">Všeobecné</string>
+    <string name="header_stats_general">Všeobecné štatistiky</string>
+    <string name="activate_next_words">Aktivovať ďalšie kartičky</string>
+    
+    <string name="cancelled">Zrušené</string>
+    <string name="permission_not_granted">Nie je možné vykonať operáciu, z dôvodu nedostatočných práv.</string>
+    <string name="success">Operácia prebehla úspešne</string>
+    <string name="share_it_on_facebook">Zdielať to na Facebooku</string>
+    <string name="facebook_caption">Efektívny spôsob rozšírenia anglickej slovnej zásoby</string>
+    <string name="facebook_share_tile">Angličtina efektívne</string>
+    
+    <string name="app_id">1422248241338902</string>
+    <string name="help">\?</string>
+    <string name="progress_importing_books">%1$s Importujú sa učebnice&#8230;</string>
+    
+    <string name="confirm_delete">Potvrdiť zmazanie</string>
+    <string name="confirm_delete_message">Ste si istý, že chcete odstrániť položku?</string>
+    <string name="confirm_delete_selected_words">Ste si istý, že chcete odstrániť kartičky?</string>
+    <string name="error_invalid_file">Vybraný súbor má chybný formát</string> 
+    
+    <!-- v 2.1 -->
+    <string name="backup">Záloha dát</string>
+    <string name="backupPath">Zálohovať dáta</string>
+    <string name="backupLocation">Umiestnenie vygenerovaného súbora:</string>
+    <string name="backup_success">Záloha prebehla úspešne</string>
+    
+    <string name="restore">Obnova dát</string>
+    <string name="confirmRestore">Ptvrdte obnovenie dát</string>
+    <string name="confirmRestoreMsg">Ste si istý, že chcete obnoviť dáta? Všteky edivované učebnice sa prepíšu/odstrania.</string>
+    <string name="restoreSelectFile">Vyberte súbor so zálohou</string>
+    <string name="restoreAlert">Upozornenie: Všetky Vaše dáta uložené v tejto aplikácii, budú nenávratne odstránené!</string>
+    <string name="error_notExists">Vybraný súbor neexistuje</string>
+	<string name="error_invalid_filename">Neplatný názov súboru</string>
+	<string name="error_invalid_version">Zálohovaný súbor bol vytvorený v novšej verzii aplikácie</string>
+	<string name="error_access_write">Aplikácia nemá oprávnenie zapisovať do pamäti zariadenia</string>
+	
+	<string name="backupRestoreH1">Záloha a obnovenie dát</string>
+	<string name="backupRestoreDescr">Aplikácia poskytuje možnosť zálohovat, resp. obnoviť uložené dáta. Zálohovaný súbor je možné preniesť do ďalšieho zariadenia a následné ho v ňom jednoducho obnoviť. UPOZORNENIE: Prosím, nemente názov vygenerovaného súbora. Formát názvu musí byť zachovaný: yyyyMdd_d.dril \n\n Kliknite pre viac informácií</string>
+	<string name="cursor_closed">Nepodarilo sa načítať dáta, operáciu zopakujte</string>
+	
+	<string name="rate_text">Ak sa Vám aplikácia páči a radi ju používate, venujte, prosím, chvíľku času na ohodnotenie aplikácie. Vaše hodnotenie prispeje k ďalšiemu vývoju a zlepšeniu aplikácie. Ďakujem za podporu.</string>
+	<string name="rate_title">Ohodnoťte túto aplikáciu</string>
+	<string name="rate_now">Ohodnotiť</string>
+	<string name="rate_later">Pripomenúť neskôr</string>
+	<string name="rate_never">Nie, ďakujem</string>
+	
+	<string name="login">Prihlásiť</string>
+	<string name="username">Prihlasovacie meno</string>
+	<string name="logout">Odhlásiť</string>
+	<string name="sync">Synchronizácia</string>
+	<string name="password">Heslo</string>
+	<string name="login_details">Zadajte Vaše prihlasovacie údaje</string>
+	<string name="create_account">Vytvoriť účet</string>
+	
+	<string name="creating_account">Vytvára sa účet&#8230;</string>
+	<string name="logging_in">Prebieha prihlasovanie&#8230;</string>
+	<string name="importing_data">Importujú sa dáta&#8230;</string>
+	<string name="login_success">Boli ste úspešne prihlásený</string>
+	<string name="logout_success">Boli ste úspešne odhlásený</string>
+	<string name="login_failed">Prihlásenie sa nepodarilo, skontrolujte pripojenie k internetu</string>
+	
+	<string name="err_credentials">Zadajte prihlasovacie údaje</string>
+	<string name="err_http_401">Chybné prihlasovacie meno alebo heslo</string>
+	<string name="err_internet_conn">Skontrolujte pripojenie k internetu</string>	
+	
+	<string name="starter">Úplný začiatočník</string>
+	<string name="elementary">Začiatočník</string>
+	<string name="pre_intermediate">Mierne pokročilý</string>
+	<string name="intermediate">Stredne pokročilý I.</string>
+	<string name="upper_intermediate">Stredne pokročilý II.</string>
+	<string name="advanced">Pokročilý</string>
+	<string name="proficient">Proficient</string>
+	
+	
+	<string name="sync_failed">Synchronizácia sa nepodarila, skúste to znova neskôr</string>
+	<string name="syncing">Syncing&#8230;</string>
+	<string name="synced">Synchronizované</string>
+	
+	<string name="questionIn">Otázka v </string>
+	<string name="answerIn">Odpoveď v </string>
+	<string name="level">Úroveň</string>
+	<string name="shareLabel">Publikovať učebnicu</string>
+	<string name="err_book_notfound">Učebnica se nenašla</string>
+	<string name="err_book_name">Názov učebnice musí mať aspoň 8 znakov</string>
+	<string name="err_book_exists">Učebnica so zadaným názvom sa vo Vašom drile už nachádza</string>
+	<string name="wordTip">TIP: Text, ktorý sa nachádza v hranatých zátvorkách, alebo sa nachádza medzi lomítkami, nebude vyslovovaný.\nE.g.: car [noun] /kɑːr/</string>
+	<string name="unlimited">Neobmedzené</string>
+	
+	<!--  registration -->
+	<string name="signup">Registrovať</string>
+	<string name="signup_desc">a synchronizovať kartičky s portálom web.drilapp.com</string>
+	<string name="signup_email">Váš e-mail</string>
+	<string name="signup_confirm_pass">Potvrdenie hesla</string>
+	<string name="signup_success">Váš účet bol úspešne vytvorený. Na Vašu e-mailovú adresu "%s" bol odoslaný odkaz, prostredníctvom ktorého si aktivujete účet.</string>
+	
+	
+	<string name="err_login">Prihlasovacie meno musí mať min. 5 znakov</string>
+	<string name="err_email">Neplatná e-mailová adresa</string>
+	<string name="err_pass">Heslo musí mať min. 5 znakov</string>
+	<string name="err_confir_pass">Zadané hesla sa nezohdujú</string>
+	<string name="err_first_name">Neplatné meno</string>
+	<string name="err_last_name">Neplatné priezvisko</string>
+	<string name="err_account_create">Nastala neočakávaná chyba, operáciu zopakujte neskôr</string>
+	
+	<string name="err_lecture_uniqe">Lekcia so zadaným názvom sa už v učebnici nachádza</string>
+	<string name="err_word_limit">Váš účet je obmedzený na %d slovíčok.</string>
+	
+	<string name="alert_login">Upozornenie</string>
+	<string name="alert_login_descr">Skutočne sa chcete prihlásiť a prepísať existujúce slovíčka?</string>	
+	<string name="sync_words">A synchronizujte slovíčka s web.drilapp.com</string>
+	
+	<string name="save_and_continute">Uložiť a pokračovať &#187;</string>
+	<string name="err_data_load">Nepodarilo sa stiahnuť učebnice</string>
+	<string name="pref_head_account">Vaše konto</string>
+	<string name="chose_langs">Vyberte jazyky</string>
+	
+	<string name="forgotten_password">Zabudnuté heslo</string>
+	<string name="send_link">Poslať odkaz</string>
+	<string name="email_not_found">Užívateľ sa zadanú emailovú adresou nebol nájdený</string>
+	<string name="forgotten_password_desc">Dostanete e-mail s odkazom, pomocou ktorého si budete môcť resetovať svoje aktuálne heslo</string>
+	<string name="forgotten_password_changed">Odkaz bol odoslaný na Váš email: "%s".</string>
+	
+	<string name="paste">Vloziť</string>		
+</resources>

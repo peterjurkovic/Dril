@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@+id/wordAddNav"
+            style="@style/v2ListLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp"
+            android:background="@color/action_border" >
+
+            <TextView
+                android:id="@+id/wordAddLabel"
+                style="@style/v2ListLabel" />
+        </FrameLayout>
+
+        <View
+            android:id="@+id/shaddowWordAdd"
+            android:layout_width="match_parent"
+            android:layout_height="5sp"
+            android:layout_below="@id/wordAddNav"
+            android:background="@drawable/drop_shaddow" />
+
+        <TextView
+            android:id="@+id/labelQuestion"
+            style="@style/boxLabel"
+            android:layout_below="@id/shaddowWordAdd"
+            android:text="@string/question" />
+
+        <EditText
+            android:id="@+id/addQestion"
+            style="@style/editTextMulti"
+            android:layout_below="@id/labelQuestion" />
+
+        <ImageButton
+            android:id="@+id/pasteQuestion"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_alignRight="@id/addQestion"
+            android:layout_below="@id/labelQuestion"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="5dp"
+            android:contentDescription="@string/paste"
+            android:src="@drawable/ic_content_copy_black_18dp" />
+
+        <TextView
+            android:id="@+id/labelAnswer"
+            style="@style/boxLabel"
+            android:layout_below="@id/addQestion"
+            android:text="@string/answer" />
+
+        <EditText
+            android:id="@+id/addAnswer"
+            style="@style/editTextMulti"
+            android:layout_below="@id/labelAnswer" />
+
+        <LinearLayout
+            android:id="@+id/addWordTip"
+            style="@style/infoWrapper"
+            android:layout_below="@id/addAnswer" >
+
+            <TextView
+                style="@style/infoTextDescr"
+                android:text="@string/wordTip" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/pasteAnswer"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_alignRight="@id/addAnswer"
+            android:layout_below="@id/labelAnswer"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="5dp"
+            android:contentDescription="@string/paste"
+            android:src="@drawable/ic_content_copy_black_18dp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addWordTip"
+            android:orientation="horizontal"
+            android:weightSum="1.0" >
+
+            <Button
+                android:id="@+id/cancelAddQuestion"
+                style="@style/v2Cancelbutton"
+                android:text="@string/cancel" />
+
+            <Button
+                android:id="@+id/submitAddQuestion"
+                style="@style/v2Submitbutton"
+                android:text="@string/submit" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

@@ -1,0 +1,38 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+      xmlns:dril="http://schemas.android.com/apk/res-auto" >
+    <item
+		android:id="@+id/sync"
+		android:orderInCategory="5"
+		android:icon="@drawable/ic_cached_white_36dp"
+		android:showAsAction="collapseActionView"
+		style="@android:style/Widget.ActionButton"
+		android:title="@string/sync"/>
+    
+	<item 
+        android:id="@+id/startDril"
+        android:orderInCategory="10"
+        dril:showAsAction="collapseActionView"
+        android:icon="@drawable/ic_action_active"
+        android:title="@string/btn_start"
+       />
+    <item 
+        android:id="@+id/settings"
+        android:orderInCategory="110"
+        dril:showAsAction="collapseActionView"
+        android:icon="@drawable/ic_action_settings"
+        android:title="@string/nav_settings"
+        />
+    
+    <item
+        android:id="@+id/feedback"
+        android:orderInCategory="111"
+       	dril:showAsAction="collapseActionView"
+        android:icon="@drawable/ic_action_about"
+        android:title="@string/nav_feedback"/>
+	
+    <item
+		android:id="@+id/logout"
+		android:orderInCategory="150"
+		android:showAsAction="never"
+		android:title="@string/logout" />
+</menu>

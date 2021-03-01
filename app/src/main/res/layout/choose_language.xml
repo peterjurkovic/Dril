@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="@color/action_border"
+  android:fillViewport="true">
+  
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:padding="10dp" >
+	 
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_gravity="center"
+	        android:orientation="vertical"
+	        android:paddingLeft="20dp"
+	        android:paddingRight="20dp" >
+	        
+	 		<TextView 
+	 		    android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/chose_langs"
+	            android:gravity="center_horizontal"
+	            android:textSize="18sp"
+	            android:textColor="@color/white"
+	            android:layout_marginTop="15dp"
+	            android:layout_marginBottom="15dp"
+	 		 />
+	 		 		
+	        <TextView 
+	 		    android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/pref_locale"
+	            android:gravity="center_horizontal"
+	            android:textSize="12sp"
+	            android:textColor="@color/white"
+	            android:layout_marginBottom="5dp"
+	            android:nextFocusDown="@+id/locale_field" />
+	        
+	         <LinearLayout
+	          android:layout_width="fill_parent"
+	          android:layout_height="wrap_content"
+	          android:background="@color/white"
+	          >
+	        	<Spinner 
+		 		    android:id="@+id/locale_field"
+		 		    android:layout_width="fill_parent"
+		            android:layout_height="wrap_content"
+		 		    android:spinnerMode="dialog"
+		 		    style="@style/whiteSpinner" 
+		 		    android:nextFocusDown="@+id/target_locale_field"
+		 		    
+	 		    />
+	        </LinearLayout>
+	        
+	        <TextView 
+	 		    android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/pref_target_locale"
+	            android:gravity="center_horizontal"
+	            android:textSize="12sp"
+	            android:textColor="@color/white"
+	            android:layout_marginTop="10dp"
+	            android:layout_marginBottom="5dp" />
+	        
+	      <LinearLayout
+	          android:layout_width="fill_parent"
+	          android:layout_height="wrap_content"
+	          android:background="@color/white"
+	          android:layout_marginBottom="8dp"
+	          >
+	           <Spinner 
+	 		    android:id="@+id/target_locale_field"
+	 		    android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	 		    android:spinnerMode="dialog"
+	 		    style="@style/whiteSpinner" 
+	 		    android:nextFocusDown="@+id/first_name_field"
+	 		    />
+	          
+	      </LinearLayout>
+		 		    
+		 
+	        <!-- Login Button -->
+	 
+	        <Button
+	            android:id="@+id/saveLangs"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="20dip"
+	            android:background="@color/text_color"
+	            android:text="@string/save_and_continute"
+	            android:textColor="@color/white"
+	            style="@style/btn" />
+	 		
+	 		
+	        <!-- Link to Login Screen -->
+	 
+	       
+	    </LinearLayout> 
+	</LinearLayout>
+</ScrollView>

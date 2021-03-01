@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/v2WordListWrapper"
+    >     
+	
+    <CheckBox
+        android:id="@+id/myCheckBox"
+        android:clickable="false"
+        style="@style/v2WordCheckbox"
+       />
+   
+    <TextView
+        android:id="@+id/adapter_question"
+        android:text="Some loong word with description"
+		style="@style/v2WordListText"
+		/>
+	
+	    
+    <TextView
+        android:id="@+id/adapter_answer"
+		style="@style/v2WordListText"
+		android:layout_alignParentTop="false"
+		android:layout_below="@id/adapter_question"
+		android:paddingTop="3dp"
+		android:paddingBottom="6dp"
+        android:text="Translation of this Some loong word with description"
+        />
+	    
+</RelativeLayout>

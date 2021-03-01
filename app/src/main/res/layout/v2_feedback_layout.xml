@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+
+    <TextView style="@style/separator" 	/>
+
+    <TextView
+        android:id="@+id/abaoutHead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:paddingTop="30dp"
+        android:text="@string/app_name_long"
+        android:textColor="@color/text_color"
+        android:textSize="18sp" />
+	
+
+		<Button
+           android:id="@+id/drilapp"
+           android:layout_below="@id/abaoutHead"
+           android:layout_marginTop="20dp"    
+           style="@style/pageLink"
+           android:autoLink="web"
+           android:onClick="goToDrilAppPage"
+           android:text="@string/drilapp" />
+    
+       <Button
+           android:id="@+id/homeWebPage"
+           android:layout_below="@id/drilapp"
+           android:layout_marginTop="15dp"    
+           style="@style/pageLink"
+           android:autoLink="web"
+           android:onClick="goWebPage"
+           android:text="@string/pageLink" />
+       
+       <Button
+           android:id="@+id/fbWebPage"
+           style="@style/pageLink"
+           android:layout_below="@id/homeWebPage"
+           android:layout_marginTop="15dp"
+           android:autoLink="web"
+           android:onClick="goToFbPage"
+           android:text="@string/fb"
+           android:textColor="@color/text_color" />
+       
+        <Button
+           android:id="@+id/donateDril"
+           style="@style/pageLink"
+           android:layout_below="@id/fbWebPage"
+           android:layout_marginTop="15dp"
+           android:autoLink="web"
+           android:onClick="donateDril"
+           android:text="@string/donate"
+           android:textColor="@color/text_color" />
+       
+       <Button
+           style="@style/pageLink"
+           android:layout_below="@id/donateDril"
+           android:layout_marginTop="15dp"
+           android:autoLink="email"
+           android:onClick="sendEmail"
+           android:text="@string/email" 
+           android:textColor="@color/text_color" />
+       
+        
+     	
+      
+    <TextView 
+        android:id="@+id/copy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/copy"
+        android:gravity="center"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        android:paddingTop="5dp"
+        android:paddingBottom="14dp"
+        />
+    
+    <TextView 
+        android:id="@+id/version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_above="@id/copy"
+        android:gravity="center"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        />
+</RelativeLayout>

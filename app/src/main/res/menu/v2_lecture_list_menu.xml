@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+      xmlns:dril="http://schemas.android.com/apk/res-auto" >
+   
+    <item 
+        android:id="@+id/menuAddLecture"
+        android:orderInCategory="97"
+        dril:showAsAction="never"
+        android:icon="@drawable/ic_action_new"
+        android:title="@string/lecture_add_head"
+    />
+    
+     <item 
+        android:id="@+id/menuImport"
+        android:orderInCategory="98"
+        dril:showAsAction="never"
+        android:title="@string/import_words"
+    />
+
+</menu>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="selected">#1AD8E4</color>
+    <color name="text_color">#333333</color>
+    <color name="text_color_label">#555555</color>
+    <color name="text_color_hit">#AAAAAA</color>
+    
+    <color name="h1">#d54b00</color>
+    <color name="import_head">#fff</color>
+    
+    <!--
+    <color name="action_bar_color">##202829</color>
+    <color name="action_bar_color_end">##202829</color>
+    <color name="action_bar_color_pressed">##202829</color>
+    -->
+    
+    <color name="action_border">#50AC55</color>
+    <color name="background_color">#e3e7e9</color>
+    <color name="sub_header_text_color">#ffffff</color>
+    <color name="buttonBgStartColor">#64CC6A</color>
+    <color name="buttonBgEndColor">#50AC55</color>
+    <color name="buttonBgPressedColor">#4F9C53</color>
+    <color name="buttonTextColor">#fff</color>
+    <color name="buttonDarkTextColor">#333333</color>
+    
+    
+    <color name="selectedItem">#9EF9FF</color>
+    <color name="selectedPressed">#1AD8E4</color>
+    <color name="rate_button_text_color">#EFEFEF</color>
+    
+    
+    <color name="youAnserStartColor">#f0f9ff</color>
+    <color name="youAnserEndColor">#cbebff</color>
+    <color name="youAnserBorder">#a1dbff</color>
+    
+    <color name="alertColor">#FF2950</color>
+    
+    <color name="lightRed">#FFD6D6</color>
+    
+    <color name="transparent">#00FFFFFF</color>
+    
+    <color name="alertStartcolor">#D60000</color>
+    <color name="alertEndcolor">#BD0000</color>
+    <color name="white">#FFFFFF</color>
+    
+    <color name="action_bar">#202829</color>
+    <color name="action_bar_pressed">#202829</color>
+    
+    <color name="btn1Color">#60B540</color>
+    <color name="btn3Color">#FFBE0D</color>
+    <color name="btn5Color">#E50000</color>
+</resources>
